@@ -7,15 +7,40 @@
 //
 
 import SwiftUI
+import Combine
 
-struct ContentView: View {
-    var body: some View {
-        Text("Hello, World!")
-    }
-}
+struct ContentView : View {
+  
+  @State var routeSelectionMode = false
+  
+  @State var selectedRoute = SelectedRoute()
+  @State var isLoading = false
+  
+  @State var vehicleLocations = VehicleLocations()
+  
+  // MARK: -
+  
+  var body: some View {
+    VStack {
+      
+      MapView(isLoading: $isLoading, vehicleLocations: $vehicleLocations)
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
+      Button(action: {
+        self.routeSelectionMode = true
+      }) {
+        BannerBarView(selectedRoute: self.$selectedRoute, isLoading: self.$isLoading)
+      }
+      .sheet(
+        isPresented: $routeSelectionMode,
+        onDismiss: {
+          GeoBusAPI(routeNumber: self.selectedRoute.routeNumber, vehicleLocations: self.$vehicleLocations, isLoading: self.$isLoading)
+            .getVehicleStatuses()
+      }) {
+        RouteSelectionView(routeSelectionMode: self.$routeSelectionMode, selectedRoute: self.$selectedRoute)
+        
+        //        CardContentsView(vehicleStore: VehicleStore(), vehicleAnotations: self.$mapAnnotations, mapWasUpdated: self.$mapWasUpdated)
+      }
     }
+    .edgesIgnoringSafeArea(.vertical)
+  }
 }
