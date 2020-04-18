@@ -8,11 +8,16 @@
 
 import SwiftUI
 
-struct BannerRouteDirectionsView: View {
+struct RouteDetailsButtonView: View {
   var body: some View {
     HStack {
-      BannerSingleRouteDirectionView()
-      BannerSingleRouteDirectionView()
+      VStack {
+        BannerSingleRouteDirectionView()
+          .accentColor(.blue)
+        BannerSingleRouteDirectionView()
+          .accentColor(.green)
+      }
+      Spacer()
     }
   }
 }

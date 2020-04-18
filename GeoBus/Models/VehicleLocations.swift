@@ -10,6 +10,5 @@ import Foundation
 import Combine
 
 class VehicleLocations: ObservableObject {
-  @Published var new: [VehicleMapAnnotation] = []
-  @Published var old: [VehicleMapAnnotation] = []
+  @Published var annotations: [VehicleMapAnnotation] = []
 }

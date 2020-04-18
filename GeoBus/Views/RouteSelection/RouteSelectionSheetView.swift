@@ -8,19 +8,19 @@
 
 import SwiftUI
 
-struct RouteSelectionView: View {
+struct RouteSelectionSheetView: View {
   
-  @Binding var routeSelectionMode: Bool
   @Binding var selectedRoute: SelectedRoute
+  @Binding var showRouteSelectionSheet: Bool
   
   var body: some View {
     NavigationView {
       Form {
         TextField("Route Number (ex. 758)", text: self.$selectedRoute.routeNumber)
-        Button(action: { self.routeSelectionMode = false }) { Text("Locate") }
+        Button(action: { self.showRouteSelectionSheet = false }) { Text("Locate") }
       }
       .navigationBarTitle("Find by Route")
-      .navigationBarItems(trailing: Button( action: { self.routeSelectionMode = false }) { Text("Done") })
+      .navigationBarItems(trailing: Button( action: { self.showRouteSelectionSheet = false }) { Text("Done") })
       .padding(.top, 30)
       
     }

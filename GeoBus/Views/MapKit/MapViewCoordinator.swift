@@ -14,20 +14,23 @@ import MapKit
  */
 class MapViewCoordinator: NSObject, MKMapViewDelegate {
   
+  var mapView: MapView
   
-  var mapViewController: MapView
-  
-  init(_ control: MapView) {
-    self.mapViewController = control
+  init(mapView: MapView) {
+    self.mapView = mapView
   }
   
-  func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView?{
-    //Custom View for Annotation
+  func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+    
+    mapView.showsUserLocation = true
+    
     let annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "customView")
+    
+    let customView = CustomMKAnnotationView(annotation: annotationView.annotation! as! VehicleMapAnnotation)
+    annotationView.image = customView.asImage()
+    
     annotationView.canShowCallout = true
-    //Your custom image icon
-    annotationView.image = UIImage(systemName: "location.circle.fill")
-    mapView.setNeedsLayout()
+    
     return annotationView
   }
 }

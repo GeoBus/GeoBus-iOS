@@ -8,39 +8,70 @@
 
 import SwiftUI
 import Combine
+import MapKit
 
 struct ContentView : View {
   
-  @State var routeSelectionMode = false
-  
   @State var selectedRoute = SelectedRoute()
-  @State var isLoading = false
-  
   @State var vehicleLocations = VehicleLocations()
+  @State var mapView = MKMapView()
+  
+  @State var isLoading = false
+  @State var isRefreshingVehicleStatuses = false
+  
+  @State var showNoVehiclesFoundAlert = false
+  @State var showRouteSelectionSheet = false
+  @State var showRouteDetailsSheet = false
+  
+  let timeBetweenRefreshes: CGFloat = 10 // seconds
+  let timer = Timer.publish(every: 10, on: .main, in: .common).autoconnect()
+  
   
   // MARK: -
   
   var body: some View {
-    VStack {
+    
+    let geoBusAPI = GeoBusAPI(
+      vehicleLocations: self.$vehicleLocations,
+      mapView: self.$mapView,
+      isLoading: self.$isLoading,
+      isRefreshingVehicleStatuses: self.$isRefreshingVehicleStatuses,
+      showNoVehiclesFoundAlert: self.$showNoVehiclesFoundAlert,
+      routeNumber: self.selectedRoute.routeNumber
+    )
+    
+    return VStack {
+      MapView(mapView: $mapView, vehicleLocations: $vehicleLocations)
+        .onReceive(timer) { input in
+          if self.isRefreshingVehicleStatuses {
+            geoBusAPI.getVehicleStatuses()
+          }
+      }
+      .alert(isPresented: self.$showNoVehiclesFoundAlert) {
+        Alert(
+          title: Text("No Buses"),
+          message: Text("There are no buses in that route right now. Maybe take a walk?"),
+          dismissButton: .default(Text("OK"))
+        )
+      }
       
-      MapView(isLoading: $isLoading, vehicleLocations: $vehicleLocations)
-
-      Button(action: {
-        self.routeSelectionMode = true
-      }) {
-        BannerBarView(selectedRoute: self.$selectedRoute, isLoading: self.$isLoading)
-      }
-      .sheet(
-        isPresented: $routeSelectionMode,
-        onDismiss: {
-          GeoBusAPI(routeNumber: self.selectedRoute.routeNumber, vehicleLocations: self.$vehicleLocations, isLoading: self.$isLoading)
-            .getVehicleStatuses()
-      }) {
-        RouteSelectionView(routeSelectionMode: self.$routeSelectionMode, selectedRoute: self.$selectedRoute)
-        
-        //        CardContentsView(vehicleStore: VehicleStore(), vehicleAnotations: self.$mapAnnotations, mapWasUpdated: self.$mapWasUpdated)
-      }
+      ActionBannerView(
+        selectedRoute: self.$selectedRoute,
+        isLoading: self.$isLoading,
+        isRefreshingVehicleStatuses: self.$isRefreshingVehicleStatuses,
+        showRouteSelectionSheet: self.$showRouteSelectionSheet,
+        showRouteDetailsSheet: self.$showRouteDetailsSheet,
+        geoBusAPI: geoBusAPI
+      )
+      
+      RefreshStatusView(interval: timeBetweenRefreshes, isRefreshingVehicleStatuses: $isRefreshingVehicleStatuses)
     }
-    .edgesIgnoringSafeArea(.vertical)
+    .edgesIgnoringSafeArea(.top)
+  }
+}
+
+struct ContentView_Previews: PreviewProvider {
+  static var previews: some View {
+    ContentView()
   }
 }
