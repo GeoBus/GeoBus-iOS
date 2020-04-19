@@ -9,18 +9,18 @@
 import SwiftUI
 import MapKit
 
-struct CustomMKAnnotationView: View {
+struct VehicleAnnotationView: View {
   
-  let annotation: VehicleMapAnnotation
+  let title: String
   
   var body: some View {
-      Text(annotation.title!.prefix(3))
-        .font(.footnote)
-        .fontWeight(.heavy)
-        .padding(.horizontal, 7)
-        .padding(.vertical, 2)
-        .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.yellow))
-        .padding(.trailing, 0)
+    Text(title.prefix(3))
+      .font(.footnote)
+      .fontWeight(.heavy)
+      .padding(.horizontal, 7)
+      .padding(.vertical, 2)
+      .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.yellow))
+      .padding(.trailing, 0)
   }
 }
 

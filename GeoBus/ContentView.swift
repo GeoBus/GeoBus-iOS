@@ -13,7 +13,7 @@ import MapKit
 struct ContentView : View {
   
   @State var selectedRoute = SelectedRoute()
-  @State var vehicleLocations = VehicleLocations()
+  @State var vehicleAnnotations: [MapAnnotation] = []
   @State var mapView = MKMapView()
   
   @State var isLoading = false
@@ -32,8 +32,7 @@ struct ContentView : View {
   var body: some View {
     
     let geoBusAPI = GeoBusAPI(
-      vehicleLocations: self.$vehicleLocations,
-      mapView: self.$mapView,
+      vehicleAnnotations: self.$vehicleAnnotations,
       isLoading: self.$isLoading,
       isRefreshingVehicleStatuses: self.$isRefreshingVehicleStatuses,
       showNoVehiclesFoundAlert: self.$showNoVehiclesFoundAlert,
@@ -41,7 +40,7 @@ struct ContentView : View {
     )
     
     return VStack {
-      MapView(mapView: $mapView, vehicleLocations: $vehicleLocations)
+      MapView(mapView: $mapView, vehicleAnnotations: $vehicleAnnotations)
         .onReceive(timer) { input in
           if self.isRefreshingVehicleStatuses {
             geoBusAPI.getVehicleStatuses()

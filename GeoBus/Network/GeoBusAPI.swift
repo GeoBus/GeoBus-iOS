@@ -13,8 +13,8 @@ import MapKit
 
 struct GeoBusAPI {
   
-  @Binding var vehicleLocations: VehicleLocations
-  @Binding var mapView: MKMapView
+  @Binding var vehicleAnnotations: [MapAnnotation]
+//  @Binding var mapView: MKMapView
   
   @Binding var isLoading: Bool
   @Binding var isRefreshingVehicleStatuses: Bool
@@ -25,8 +25,8 @@ struct GeoBusAPI {
   
   func removeAllAnnotationsFromMap() {
     OperationQueue.main.addOperation {
-      self.mapView.removeAnnotations(self.vehicleLocations.annotations)
-      self.vehicleLocations.annotations.removeAll()
+//      self.mapView.removeAnnotations(self.vehicleAnnotations)
+      self.vehicleAnnotations.removeAll()
     }
   }
   
@@ -73,12 +73,11 @@ struct GeoBusAPI {
         
         OperationQueue.main.addOperation {
           
-          self.mapView.removeAnnotations(self.vehicleLocations.annotations)
-          self.vehicleLocations.annotations.removeAll()
+          self.vehicleAnnotations.removeAll()
           
           for item in decodedData {
-            self.vehicleLocations.annotations.append(
-              VehicleMapAnnotation(
+            self.vehicleAnnotations.append(
+              MapAnnotation(
                 title: String(item.routeNumber ?? "-"),
                 subtitle: String(item.lastStopOnVoyageName ?? "-"),
                 latitude: item.lat,
@@ -87,8 +86,6 @@ struct GeoBusAPI {
             )
           }
           
-          self.mapView.addAnnotations(self.vehicleLocations.annotations)
-          self.mapView.setNeedsLayout()
           self.isLoading = false
           self.isRefreshingVehicleStatuses = true
         }

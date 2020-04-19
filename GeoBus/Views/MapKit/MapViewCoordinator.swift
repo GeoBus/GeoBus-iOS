@@ -12,25 +12,29 @@ import MapKit
 /*
  Coordinator for using UIKit inside SwiftUI.
  */
-class MapViewCoordinator: NSObject, MKMapViewDelegate {
-  
-  var mapView: MapView
-  
-  init(mapView: MapView) {
-    self.mapView = mapView
-  }
-  
-  func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-    
-    mapView.showsUserLocation = true
-    
-    let annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "customView")
-    
-    let customView = CustomMKAnnotationView(annotation: annotationView.annotation! as! VehicleMapAnnotation)
-    annotationView.image = customView.asImage()
-    
-    annotationView.canShowCallout = true
-    
-    return annotationView
-  }
-}
+//class MapViewCoordinator: NSObject, MKMapViewDelegate {
+//
+//  var mapView: MapView
+//
+//
+//  init(mapView: MapView) {
+//    self.mapView = mapView
+//  }
+//
+//
+//  func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+//
+//    let annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "customView")
+//
+//    let customView = VehicleAnnotationView(annotation: annotationView.annotation! as! MapAnnotation)
+//    annotationView.image = customView.asImage()
+//    
+//    annotationView.canShowCallout = true
+//
+//    return annotationView
+//  }
+//
+//}
+
+
+

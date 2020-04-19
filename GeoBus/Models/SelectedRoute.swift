@@ -12,7 +12,7 @@ struct SelectedRoute {
   var routeNumber: String
   
   init() {
-    self.routeNumber = ""
+    self.routeNumber = "202"
   }
   
   init(routeNumber: String) {
