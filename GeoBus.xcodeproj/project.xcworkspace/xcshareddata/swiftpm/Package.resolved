@@ -9,6 +9,15 @@
           "revision": "934954c378fbd49f3798931cd314740ff3176972",
           "version": null
         }
+      },
+      {
+        "package": "Grid",
+        "repositoryURL": "https://github.com/spacenation/swiftui-grid",
+        "state": {
+          "branch": "master",
+          "revision": "a3441f80bd01029507bc19e463e7c7208ffcf3f9",
+          "version": null
+        }
       }
     ]
   },

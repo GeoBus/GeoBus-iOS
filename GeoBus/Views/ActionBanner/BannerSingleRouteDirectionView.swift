@@ -23,9 +23,3 @@ struct BannerSingleRouteDirectionView: View {
     }
   }
 }
-
-struct BannerSingleRouteDirectionView_Previews: PreviewProvider {
-  static var previews: some View {
-    BannerSingleRouteDirectionView()
-  }
-}

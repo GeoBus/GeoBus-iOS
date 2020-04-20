@@ -10,13 +10,14 @@ import SwiftUI
 
 struct ActionBannerView: View {
   
-  @Binding var selectedRoute: SelectedRoute
+  @Binding var selectedRoute: Route
+  @Binding var availableRoutes: AvailableRoutes
   
   @Binding var isLoading: Bool
-  @Binding var isRefreshingVehicleStatuses: Bool
+  @Binding var isAutoUpdating: Bool
   
-  @Binding var showRouteSelectionSheet: Bool
-  @Binding var showRouteDetailsSheet: Bool
+  @State var presentRouteSelectionSheet: Bool = false
+  @State var presentRouteDetailsSheet: Bool = false
   
   let geoBusAPI: GeoBusAPI
   
@@ -24,32 +25,36 @@ struct ActionBannerView: View {
   var body: some View {
     HStack {
       Button(action: {
-        self.showRouteSelectionSheet = true
-        self.isRefreshingVehicleStatuses = false
+        self.presentRouteSelectionSheet = true
+        self.isAutoUpdating = false
+        self.geoBusAPI.getRoutes()
       }) {
-        RouteSelectionButtonView(selectedRoute: self.$selectedRoute,isLoading: self.$isLoading)
+        RouteSelectionButtonView(selectedRoute: self.$selectedRoute, isLoading: self.$isLoading)
       }
       .sheet(
-        isPresented: $showRouteSelectionSheet,
+        isPresented: $presentRouteSelectionSheet,
         onDismiss: {
-          self.geoBusAPI.getVehicleStatuses()
+          self.geoBusAPI.getStops()
+          self.geoBusAPI.getVehicles()
       }) {
-        RouteSelectionSheetView(selectedRoute: self.$selectedRoute, showRouteSelectionSheet: self.$showRouteSelectionSheet)
+        RouteSelectionSheetView(
+          selectedRoute: self.$selectedRoute,
+          availableRoutes: self.$availableRoutes,
+          presentRouteSelectionSheet: self.$presentRouteSelectionSheet)
       }
       
       ActionBannerDivider()
       
       Button(action: {
-        self.showRouteDetailsSheet = true
+        self.presentRouteDetailsSheet = true
         print("RouteDetailsButtonView()")
       }) {
         RouteDetailsButtonView()
-      }.sheet(
-        isPresented: $showRouteDetailsSheet,
-        onDismiss: {
-//          self.geoBusAPI.getVehicleStatuses()
-      }) {
-        RouteDetailsSheetView(selectedRoute: self.$selectedRoute, showRouteDetailsSheet: self.$showRouteDetailsSheet)
+      }
+      .sheet(
+        isPresented: $presentRouteDetailsSheet)
+      {
+        RouteDetailsSheetView(selectedRoute: self.$selectedRoute, presentRouteDetailsSheet: self.$presentRouteDetailsSheet)
       }
       
       Spacer()
@@ -57,14 +62,5 @@ struct ActionBannerView: View {
     .frame(maxHeight: 115)
     .padding(.top, -7)
     .padding(.bottom, -10)
-  }
-}
-
-
-struct DetailsView: View {
-  var body: some View {
-    VStack {
-      Text("Hello world")
-    }
   }
 }

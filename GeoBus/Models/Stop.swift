@@ -8,14 +8,11 @@
 
 import Foundation
 
-struct Vehicle: Codable, Identifiable {
+struct Stop: Codable, Identifiable {
   let id = UUID()
-  let busNumber: Int
-  let vehiclePlate: String?
-  let driverNumber: String?
-  let routeNumber: String?
+  let name: String?
+  let publicId: String?
   let lat: Double
   let lng: Double
-  let lastStopOnVoyageId: String?
-  let lastStopOnVoyageName: String?
+  let routesOnThisStop: [Route]
 }

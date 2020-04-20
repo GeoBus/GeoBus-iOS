@@ -13,40 +13,34 @@ import MapKit
 
 struct GeoBusAPI {
   
-  @Binding var vehicleAnnotations: [MapAnnotation]
-//  @Binding var mapView: MKMapView
+  @Binding var selectedRoute: Route
+  
+  @Binding var availableRoutes: AvailableRoutes
+  @Binding var annotationsStore: AnnotationsStore
   
   @Binding var isLoading: Bool
-  @Binding var isRefreshingVehicleStatuses: Bool
-  @Binding var showNoVehiclesFoundAlert: Bool
-  
-  var routeNumber: String
+  @Binding var isAutoUpdating: Bool
   
   
-  func removeAllAnnotationsFromMap() {
-    OperationQueue.main.addOperation {
-//      self.mapView.removeAnnotations(self.vehicleAnnotations)
-      self.vehicleAnnotations.removeAll()
+  private let apiEndpoint = "https://geobus-api.herokuapp.com"
+  
+  
+  
+  
+  /* * *
+   * getRoutes()
+   */
+  func getRoutes() {
+    
+    if availableRoutes.all.count > 0 {
+      return
     }
-  }
-  
-  
-  func getVehicleStatuses() {
     
-    // Do not fetch API if no route is selected
-    if routeNumber.isEmpty { return }
-    
-    self.isLoading = true
-    self.isRefreshingVehicleStatuses = false
-    
-    // Create a configuration
-    let configuration = URLSessionConfiguration.default
-    
-    // Create a session
-    let session = URLSession(configuration: configuration)
+    // Configure a session
+    let session = URLSession(configuration: URLSessionConfiguration.default)
     
     // Setup the url
-    let url = URL(string: "https://geobus-api.herokuapp.com/vehicles/" + routeNumber)!
+    let url = URL(string: apiEndpoint + "/routes/")!
     
     // Create the task
     let task = session.dataTask(with: url) { (data, response, error) in
@@ -54,30 +48,155 @@ struct GeoBusAPI {
       let httpResponse = response as? HTTPURLResponse
       
       // Check status of response
-      if httpResponse?.statusCode == 404 {
+      if httpResponse?.statusCode != 200 {
         self.isLoading = false
-        self.isRefreshingVehicleStatuses = false
-        self.showNoVehiclesFoundAlert = true
-        self.removeAllAnnotationsFromMap()
-        return
-      } else if httpResponse?.statusCode != 200 {
-        self.isLoading = false
-        self.isRefreshingVehicleStatuses = false
-        self.removeAllAnnotationsFromMap()
+        print("Error: API failed at getRoutes()")
         return
       }
       
       do {
-        let decoder = JSONDecoder()
-        let decodedData = try decoder.decode([Vehicle].self, from: data!)
+        
+        let decodedData = try JSONDecoder().decode([Route].self, from: data!)
+        
+        OperationQueue.main.addOperation {
+          for item in decodedData {
+            self.availableRoutes.all.append(item)
+          }
+        }
+        
+      } catch {
+        print("Error info: \(error)")
+      }
+    }
+    
+    task.resume()
+    
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  /* * *
+   * getStops()
+   */
+  func getStops() {
+    
+    // Do not fetch API if no route is selected
+    if selectedRoute.routeNumber.isEmpty {
+      isLoading = false
+      annotationsStore.stops.removeAll()
+      return
+    }
+    
+    isLoading = true
+    
+    // Configure a session
+    let session = URLSession(configuration: URLSessionConfiguration.default)
+    
+    // Setup the url
+    let url = URL(string: apiEndpoint + "/stops/" + selectedRoute.routeNumber)!
+    
+    // Create the task
+    let task = session.dataTask(with: url) { (data, response, error) in
+      
+      let httpResponse = response as? HTTPURLResponse
+      
+      // Check status of response
+      if httpResponse?.statusCode != 200 {
+        self.isLoading = false
+        self.annotationsStore.stops.removeAll()
+        print("Error: API failed at getStops()")
+        return
+      }
+      
+      do {
+        
+        let decodedData = try JSONDecoder().decode([Stop].self, from: data!)
         
         OperationQueue.main.addOperation {
           
-          self.vehicleAnnotations.removeAll()
+          self.annotationsStore.stops.removeAll()
           
           for item in decodedData {
-            self.vehicleAnnotations.append(
-              MapAnnotation(
+            self.annotationsStore.stops.append(
+              StopAnnotation(
+                title: String(item.name ?? "-"),
+                subtitle: String(item.publicId ?? "-"),
+                latitude: item.lat,
+                longitude: item.lng
+              )
+            )
+          }
+          
+          self.isLoading = false
+          
+        }
+        
+      } catch {
+        print("Error info: \(error)")
+      }
+    }
+    
+    task.resume()
+    
+  }
+  
+  
+  
+  
+  /* * *
+   * getVehicles()
+   */
+  func getVehicles() {
+    
+    // Do not fetch API if no route is selected
+    if selectedRoute.routeNumber.isEmpty {
+      self.isLoading = false
+      self.isAutoUpdating = false
+      self.annotationsStore.vehicles.removeAll()
+      return
+    }
+    
+    self.isLoading = true
+    self.isAutoUpdating = false
+    
+    
+    // Configure a session
+    let session = URLSession(configuration: URLSessionConfiguration.default)
+    
+    // Setup the url
+    let url = URL(string: apiEndpoint + "/vehicles/" + selectedRoute.routeNumber)!
+    
+    // Create the task
+    let task = session.dataTask(with: url) { (data, response, error) in
+      
+      let httpResponse = response as? HTTPURLResponse
+      
+      // Check status of response
+      if httpResponse?.statusCode != 200 {
+        self.isLoading = false
+        self.isAutoUpdating = false
+        self.annotationsStore.vehicles.removeAll()
+        print("Error: API failed at getVehicles()")
+        return
+      }
+      
+      do {
+        
+        let decodedData = try JSONDecoder().decode([Vehicle].self, from: data!)
+        
+        OperationQueue.main.addOperation {
+          
+          self.annotationsStore.vehicles.removeAll()
+          
+          for item in decodedData {
+            self.annotationsStore.vehicles.append(
+              VehicleAnnotation(
                 title: String(item.routeNumber ?? "-"),
                 subtitle: String(item.lastStopOnVoyageName ?? "-"),
                 latitude: item.lat,
@@ -87,8 +206,10 @@ struct GeoBusAPI {
           }
           
           self.isLoading = false
-          self.isRefreshingVehicleStatuses = true
+          self.isAutoUpdating = true
+          
         }
+        
       } catch {
         print("Error info: \(error)")
       }
@@ -97,4 +218,7 @@ struct GeoBusAPI {
     task.resume()
     
   }
+  
+  
+  
 }

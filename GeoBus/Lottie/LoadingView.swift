@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct LoadingView: View {
+  
   @Binding var play: Bool
   
   var body: some View {

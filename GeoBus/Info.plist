@@ -20,12 +20,10 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>MKDirectionsApplicationSupportedModes</key>
-	<array/>
 	<key>NSLocationUsageDescription</key>
 	<string>GeoBus needs your location to display it on the map.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>GeoBus needs your location to display it on the map.</string>
+	<string>GeoBus needs your location only to display it on the map.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

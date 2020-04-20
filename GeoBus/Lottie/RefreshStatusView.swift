@@ -11,12 +11,18 @@ import SwiftUI
 struct RefreshStatusView: View {
   
   let interval: CGFloat
-  let defaultAnimationSpeed: CGFloat = 1.01 // The default duration of the "loader-interval" animation
   
-  @Binding var isRefreshingVehicleStatuses: Bool
+  @Binding var isAutoUpdating: Bool
+  
+  private let defaultAnimationSpeed: CGFloat = 1.01 // The default duration of the "loader-interval" animation
   
   var body: some View {
-    LottieView(name: "reversed-progress-bar", loopMode: .loop, duration: (interval / defaultAnimationSpeed), play: $isRefreshingVehicleStatuses)
+    LottieView(
+      name: "reversed-progress-bar",
+      loopMode: .loop,
+      duration: (interval / defaultAnimationSpeed),
+      play: $isAutoUpdating
+    )
       .frame(height: 3)
       .background(Color.green)
   }

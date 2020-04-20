@@ -13,8 +13,11 @@ import MapKit
 
 struct MapView: UIViewRepresentable {
   
-  @Binding var mapView: MKMapView
-  @Binding var vehicleAnnotations: [MapAnnotation]
+  @Binding var selectedRoute: Route
+  @Binding var annotationsStore: AnnotationsStore
+  
+  @State var mapView = MKMapView()
+  private let locationManager = CLLocationManager()
   
   
   func makeUIView(context: UIViewRepresentableContext<MapView>) -> MKMapView {
@@ -22,12 +25,27 @@ struct MapView: UIViewRepresentable {
     mapView.mapType = MKMapType.mutedStandard
     mapView.showsUserLocation = true
     mapView.showsTraffic = true
+    
+    locationManager.requestWhenInUseAuthorization()
+    
     return mapView
   }
   
   
   func updateUIView(_ uiView: MKMapView, context: UIViewRepresentableContext<MapView>) {
-    mapView.addAnnotations(vehicleAnnotations)
+    
+    mapView.removeAnnotations(mapView.annotations)
+    
+    if !selectedRoute.routeNumber.isEmpty {
+      var annotationsToAdd: [MKAnnotation] = []
+      
+      annotationsToAdd.append(contentsOf: annotationsStore.routes)
+      annotationsToAdd.append(contentsOf: annotationsStore.stops)
+      annotationsToAdd.append(contentsOf: annotationsStore.vehicles)
+      
+      mapView.addAnnotations(annotationsToAdd)
+    }
+    
   }
   
   
@@ -50,32 +68,30 @@ struct MapView: UIViewRepresentable {
     
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-
+      
       if annotation.isKind(of: MKUserLocation.self) {
         return nil
-      } else {
-
-        let annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "customView")
+        
+      } else if annotation.isKind(of: VehicleAnnotation.self) {
+        
+        let annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "vehiclesAnnotationView")
         annotationView.image = VehicleAnnotationView(title: annotation.title!!).asImage()
         annotationView.canShowCallout = true
-
+        
         return annotationView
+        
+      } else if annotation.isKind(of: StopAnnotation.self) {
+        
+        let annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "stopsAnnotationView")
+        annotationView.image = StopAnnotationView().asImage()
+        annotationView.canShowCallout = true
+        
+        return annotationView
+        
+      } else {
+        return nil
       }
     }
-    
-//    private func mapView(_ mapView: MKMapView, viewFor annotation: MapAnnotation) -> MKAnnotationView? {
-//
-//      if annotation.isKind(of: MKUserLocation.self) {
-//        return nil
-//      } else {
-//
-//        let annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "customView")
-//        annotationView.image = VehicleAnnotationView(title: (annotation.title ?? "-") ).asImage()
-//        annotationView.canShowCallout = true
-//
-//        return annotationView
-//      }
-//    }
     
   }
 }

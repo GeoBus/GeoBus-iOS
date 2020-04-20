@@ -12,21 +12,16 @@
 		CF072319244A10D3007AFAD2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF072318244A10D3007AFAD2 /* ContentView.swift */; };
 		CF07231B244A10D4007AFAD2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CF07231A244A10D4007AFAD2 /* Assets.xcassets */; };
 		CF07231E244A10D4007AFAD2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CF07231D244A10D4007AFAD2 /* Preview Assets.xcassets */; };
-		CF072339244A1102007AFAD2 /* CardContentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF072329244A1101007AFAD2 /* CardContentsView.swift */; };
 		CF07233A244A1102007AFAD2 /* RouteSelectionButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF07232B244A1101007AFAD2 /* RouteSelectionButtonView.swift */; };
 		CF07233B244A1102007AFAD2 /* ActionBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF07232C244A1101007AFAD2 /* ActionBannerView.swift */; };
 		CF07233C244A1102007AFAD2 /* BannerSingleRouteDirectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF07232D244A1101007AFAD2 /* BannerSingleRouteDirectionView.swift */; };
 		CF07233D244A1102007AFAD2 /* RouteDetailsButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF07232E244A1101007AFAD2 /* RouteDetailsButtonView.swift */; };
 		CF07233F244A1102007AFAD2 /* RouteSelectionSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF072331244A1101007AFAD2 /* RouteSelectionSheetView.swift */; };
 		CF072340244A1102007AFAD2 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF072333244A1101007AFAD2 /* MapView.swift */; };
-		CF072341244A1102007AFAD2 /* MapViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF072334244A1101007AFAD2 /* MapViewCoordinator.swift */; };
-		CF072342244A1102007AFAD2 /* SlideOverCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF072335244A1101007AFAD2 /* SlideOverCard.swift */; };
-		CF072343244A1102007AFAD2 /* RowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF072336244A1101007AFAD2 /* RowView.swift */; };
 		CF072345244A1102007AFAD2 /* ActionBannerDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF072338244A1101007AFAD2 /* ActionBannerDivider.swift */; };
 		CF072348244A110C007AFAD2 /* GeoBusAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF072347244A110C007AFAD2 /* GeoBusAPI.swift */; };
-		CF072352244A1125007AFAD2 /* SelectedRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF07234B244A1125007AFAD2 /* SelectedRoute.swift */; };
 		CF072353244A1125007AFAD2 /* Vehicle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF07234C244A1125007AFAD2 /* Vehicle.swift */; };
-		CF072354244A1125007AFAD2 /* MapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF07234D244A1125007AFAD2 /* MapAnnotation.swift */; };
+		CF072354244A1125007AFAD2 /* VehicleAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF07234D244A1125007AFAD2 /* VehicleAnnotation.swift */; };
 		CF07235C244A112C007AFAD2 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF072358244A112C007AFAD2 /* LottieView.swift */; };
 		CF07235D244A112C007AFAD2 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF072359244A112C007AFAD2 /* LoadingView.swift */; };
 		CF07235E244A112C007AFAD2 /* circular-loader.json in Resources */ = {isa = PBXBuildFile; fileRef = CF07235B244A112C007AFAD2 /* circular-loader.json */; };
@@ -35,6 +30,22 @@
 		CF072366244A117A007AFAD2 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = CF072365244A117A007AFAD2 /* Lottie */; };
 		CF072369244A11BE007AFAD2 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF072368244A11BE007AFAD2 /* MapKit.framework */; };
 		CF0A5913244A313F002557CF /* RefreshStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0A5912244A313F002557CF /* RefreshStatusView.swift */; };
+		CF1786CA244BF247005592F3 /* RouteSelectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1786C9244BF247005592F3 /* RouteSelectionHeaderView.swift */; };
+		CF1786CC244BF4F2005592F3 /* RouteSelectionSquareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1786CB244BF4F2005592F3 /* RouteSelectionSquareView.swift */; };
+		CF1786CE244BFB93005592F3 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1786CD244BFB93005592F3 /* Route.swift */; };
+		CF1786D1244BFEBD005592F3 /* Grid in Frameworks */ = {isa = PBXBuildFile; productRef = CF1786D0244BFEBD005592F3 /* Grid */; };
+		CF5E64B1244BE9A900F9BA16 /* RouteSelectionTextFieldAndButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5E64B0244BE9A900F9BA16 /* RouteSelectionTextFieldAndButtonView.swift */; };
+		CF5E64B3244BEA5D00F9BA16 /* RouteSelectionAllRoutesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5E64B2244BEA5D00F9BA16 /* RouteSelectionAllRoutesView.swift */; };
+		CF5E64B5244BF08E00F9BA16 /* HorizontalLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5E64B4244BF08E00F9BA16 /* HorizontalLine.swift */; };
+		CF80B989244CCE7600B921F2 /* StopAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF80B988244CCE7600B921F2 /* StopAnnotation.swift */; };
+		CF80B98B244CCEF700B921F2 /* Stop.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF80B98A244CCEF700B921F2 /* Stop.swift */; };
+		CF80B98D244CD12D00B921F2 /* DrawViewAsUIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF80B98C244CD12D00B921F2 /* DrawViewAsUIImage.swift */; };
+		CF80B98F244CD6E900B921F2 /* StopAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF80B98E244CD6E900B921F2 /* StopAnnotationView.swift */; };
+		CFA22298244CDEDB00B2871C /* AnnotationsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA22297244CDEDB00B2871C /* AnnotationsStore.swift */; };
+		CFD2C22F244CED7300C1C33B /* RouteAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD2C22E244CED7300C1C33B /* RouteAnnotation.swift */; };
+		CFD2C231244CEDCD00C1C33B /* RouteAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD2C230244CEDCD00C1C33B /* RouteAnnotationView.swift */; };
+		CFD2C234244D131C00C1C33B /* AvailableRoutes.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD2C233244D131C00C1C33B /* AvailableRoutes.swift */; };
+		CFD2C236244D145000C1C33B /* Flags.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD2C235244D145000C1C33B /* Flags.swift */; };
 		CFE7295C244A3CB100ED034E /* loader-interval.json in Resources */ = {isa = PBXBuildFile; fileRef = CFE7295B244A3CB100ED034E /* loader-interval.json */; };
 		CFE7296A244A6FCB00ED034E /* reversed-progress-bar.json in Resources */ = {isa = PBXBuildFile; fileRef = CFE72969244A6FCB00ED034E /* reversed-progress-bar.json */; };
 		CFE7296C244A721400ED034E /* VehicleAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE7296B244A721400ED034E /* VehicleAnnotationView.swift */; };
@@ -49,21 +60,16 @@
 		CF07231A244A10D4007AFAD2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CF07231D244A10D4007AFAD2 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		CF072322244A10D4007AFAD2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CF072329244A1101007AFAD2 /* CardContentsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardContentsView.swift; sourceTree = "<group>"; };
 		CF07232B244A1101007AFAD2 /* RouteSelectionButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteSelectionButtonView.swift; sourceTree = "<group>"; };
 		CF07232C244A1101007AFAD2 /* ActionBannerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionBannerView.swift; sourceTree = "<group>"; };
 		CF07232D244A1101007AFAD2 /* BannerSingleRouteDirectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerSingleRouteDirectionView.swift; sourceTree = "<group>"; };
 		CF07232E244A1101007AFAD2 /* RouteDetailsButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteDetailsButtonView.swift; sourceTree = "<group>"; };
 		CF072331244A1101007AFAD2 /* RouteSelectionSheetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteSelectionSheetView.swift; sourceTree = "<group>"; };
 		CF072333244A1101007AFAD2 /* MapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
-		CF072334244A1101007AFAD2 /* MapViewCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewCoordinator.swift; sourceTree = "<group>"; };
-		CF072335244A1101007AFAD2 /* SlideOverCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideOverCard.swift; sourceTree = "<group>"; };
-		CF072336244A1101007AFAD2 /* RowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RowView.swift; sourceTree = "<group>"; };
 		CF072338244A1101007AFAD2 /* ActionBannerDivider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionBannerDivider.swift; sourceTree = "<group>"; };
 		CF072347244A110C007AFAD2 /* GeoBusAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoBusAPI.swift; sourceTree = "<group>"; };
-		CF07234B244A1125007AFAD2 /* SelectedRoute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectedRoute.swift; sourceTree = "<group>"; };
 		CF07234C244A1125007AFAD2 /* Vehicle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vehicle.swift; sourceTree = "<group>"; };
-		CF07234D244A1125007AFAD2 /* MapAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapAnnotation.swift; sourceTree = "<group>"; };
+		CF07234D244A1125007AFAD2 /* VehicleAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VehicleAnnotation.swift; sourceTree = "<group>"; };
 		CF072358244A112C007AFAD2 /* LottieView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
 		CF072359244A112C007AFAD2 /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		CF07235B244A112C007AFAD2 /* circular-loader.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "circular-loader.json"; sourceTree = "<group>"; };
@@ -71,6 +77,21 @@
 		CF072361244A1134007AFAD2 /* ForEach.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForEach.swift; sourceTree = "<group>"; };
 		CF072368244A11BE007AFAD2 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		CF0A5912244A313F002557CF /* RefreshStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshStatusView.swift; sourceTree = "<group>"; };
+		CF1786C9244BF247005592F3 /* RouteSelectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteSelectionHeaderView.swift; sourceTree = "<group>"; };
+		CF1786CB244BF4F2005592F3 /* RouteSelectionSquareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteSelectionSquareView.swift; sourceTree = "<group>"; };
+		CF1786CD244BFB93005592F3 /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
+		CF5E64B0244BE9A900F9BA16 /* RouteSelectionTextFieldAndButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteSelectionTextFieldAndButtonView.swift; sourceTree = "<group>"; };
+		CF5E64B2244BEA5D00F9BA16 /* RouteSelectionAllRoutesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteSelectionAllRoutesView.swift; sourceTree = "<group>"; };
+		CF5E64B4244BF08E00F9BA16 /* HorizontalLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalLine.swift; sourceTree = "<group>"; };
+		CF80B988244CCE7600B921F2 /* StopAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopAnnotation.swift; sourceTree = "<group>"; };
+		CF80B98A244CCEF700B921F2 /* Stop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stop.swift; sourceTree = "<group>"; };
+		CF80B98C244CD12D00B921F2 /* DrawViewAsUIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawViewAsUIImage.swift; sourceTree = "<group>"; };
+		CF80B98E244CD6E900B921F2 /* StopAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopAnnotationView.swift; sourceTree = "<group>"; };
+		CFA22297244CDEDB00B2871C /* AnnotationsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationsStore.swift; sourceTree = "<group>"; };
+		CFD2C22E244CED7300C1C33B /* RouteAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteAnnotation.swift; sourceTree = "<group>"; };
+		CFD2C230244CEDCD00C1C33B /* RouteAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteAnnotationView.swift; sourceTree = "<group>"; };
+		CFD2C233244D131C00C1C33B /* AvailableRoutes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailableRoutes.swift; sourceTree = "<group>"; };
+		CFD2C235244D145000C1C33B /* Flags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flags.swift; sourceTree = "<group>"; };
 		CFE7295B244A3CB100ED034E /* loader-interval.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "loader-interval.json"; sourceTree = "<group>"; };
 		CFE72969244A6FCB00ED034E /* reversed-progress-bar.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "reversed-progress-bar.json"; sourceTree = "<group>"; };
 		CFE7296B244A721400ED034E /* VehicleAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleAnnotationView.swift; sourceTree = "<group>"; };
@@ -83,6 +104,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CF072369244A11BE007AFAD2 /* MapKit.framework in Frameworks */,
+				CF1786D1244BFEBD005592F3 /* Grid in Frameworks */,
 				CF072366244A117A007AFAD2 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -116,6 +138,7 @@
 				CF072346244A110C007AFAD2 /* Network */,
 				CF072328244A1101007AFAD2 /* Views */,
 				CF072349244A1125007AFAD2 /* Models */,
+				CFD2C232244D125200C1C33B /* State */,
 				CF072357244A112C007AFAD2 /* Lottie */,
 				CF07235F244A1134007AFAD2 /* Extensions */,
 				CF07231A244A10D4007AFAD2 /* Assets.xcassets */,
@@ -137,12 +160,10 @@
 			isa = PBXGroup;
 			children = (
 				CF07232A244A1101007AFAD2 /* ActionBanner */,
-				CFEF73F2244B283500743857 /* RouteDetails */,
 				CF072330244A1101007AFAD2 /* RouteSelection */,
+				CFEF73F2244B283500743857 /* RouteDetails */,
 				CF072332244A1101007AFAD2 /* MapKit */,
-				CF072335244A1101007AFAD2 /* SlideOverCard.swift */,
-				CF072329244A1101007AFAD2 /* CardContentsView.swift */,
-				CF072336244A1101007AFAD2 /* RowView.swift */,
+				CF5E64B6244BF09400F9BA16 /* Common */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -162,6 +183,10 @@
 			children = (
 				CF07232B244A1101007AFAD2 /* RouteSelectionButtonView.swift */,
 				CF072331244A1101007AFAD2 /* RouteSelectionSheetView.swift */,
+				CF1786C9244BF247005592F3 /* RouteSelectionHeaderView.swift */,
+				CF5E64B0244BE9A900F9BA16 /* RouteSelectionTextFieldAndButtonView.swift */,
+				CF5E64B2244BEA5D00F9BA16 /* RouteSelectionAllRoutesView.swift */,
+				CF1786CB244BF4F2005592F3 /* RouteSelectionSquareView.swift */,
 			);
 			path = RouteSelection;
 			sourceTree = "<group>";
@@ -170,9 +195,13 @@
 			isa = PBXGroup;
 			children = (
 				CF072333244A1101007AFAD2 /* MapView.swift */,
-				CF072334244A1101007AFAD2 /* MapViewCoordinator.swift */,
-				CF07234D244A1125007AFAD2 /* MapAnnotation.swift */,
+				CFA22297244CDEDB00B2871C /* AnnotationsStore.swift */,
+				CF07234D244A1125007AFAD2 /* VehicleAnnotation.swift */,
 				CFE7296B244A721400ED034E /* VehicleAnnotationView.swift */,
+				CF80B988244CCE7600B921F2 /* StopAnnotation.swift */,
+				CF80B98E244CD6E900B921F2 /* StopAnnotationView.swift */,
+				CFD2C22E244CED7300C1C33B /* RouteAnnotation.swift */,
+				CFD2C230244CEDCD00C1C33B /* RouteAnnotationView.swift */,
 			);
 			path = MapKit;
 			sourceTree = "<group>";
@@ -188,8 +217,9 @@
 		CF072349244A1125007AFAD2 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				CF07234B244A1125007AFAD2 /* SelectedRoute.swift */,
 				CF07234C244A1125007AFAD2 /* Vehicle.swift */,
+				CF80B98A244CCEF700B921F2 /* Stop.swift */,
+				CF1786CD244BFB93005592F3 /* Route.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -220,6 +250,7 @@
 			children = (
 				CF072360244A1134007AFAD2 /* IndexedCollection.swift */,
 				CF072361244A1134007AFAD2 /* ForEach.swift */,
+				CF80B98C244CD12D00B921F2 /* DrawViewAsUIImage.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -230,6 +261,23 @@
 				CF072368244A11BE007AFAD2 /* MapKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CF5E64B6244BF09400F9BA16 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				CF5E64B4244BF08E00F9BA16 /* HorizontalLine.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		CFD2C232244D125200C1C33B /* State */ = {
+			isa = PBXGroup;
+			children = (
+				CFD2C233244D131C00C1C33B /* AvailableRoutes.swift */,
+				CFD2C235244D145000C1C33B /* Flags.swift */,
+			);
+			path = State;
 			sourceTree = "<group>";
 		};
 		CFEF73F2244B283500743857 /* RouteDetails */ = {
@@ -259,6 +307,7 @@
 			name = GeoBus;
 			packageProductDependencies = (
 				CF072365244A117A007AFAD2 /* Lottie */,
+				CF1786D0244BFEBD005592F3 /* Grid */,
 			);
 			productName = GeoBus;
 			productReference = CF072311244A10D3007AFAD2 /* GeoBus.app */;
@@ -290,6 +339,7 @@
 			mainGroup = CF072308244A10D3007AFAD2;
 			packageReferences = (
 				CF072364244A117A007AFAD2 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+				CF1786CF244BFEBD005592F3 /* XCRemoteSwiftPackageReference "swiftui-grid" */,
 			);
 			productRefGroup = CF072312244A10D3007AFAD2 /* Products */;
 			projectDirPath = "";
@@ -320,29 +370,39 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CF072342244A1102007AFAD2 /* SlideOverCard.swift in Sources */,
-				CF072339244A1102007AFAD2 /* CardContentsView.swift in Sources */,
+				CF1786CC244BF4F2005592F3 /* RouteSelectionSquareView.swift in Sources */,
 				CF072315244A10D3007AFAD2 /* AppDelegate.swift in Sources */,
+				CF5E64B5244BF08E00F9BA16 /* HorizontalLine.swift in Sources */,
 				CF072345244A1102007AFAD2 /* ActionBannerDivider.swift in Sources */,
+				CF80B98F244CD6E900B921F2 /* StopAnnotationView.swift in Sources */,
 				CF0A5913244A313F002557CF /* RefreshStatusView.swift in Sources */,
+				CF80B989244CCE7600B921F2 /* StopAnnotation.swift in Sources */,
 				CF072317244A10D3007AFAD2 /* SceneDelegate.swift in Sources */,
 				CF072340244A1102007AFAD2 /* MapView.swift in Sources */,
-				CF072354244A1125007AFAD2 /* MapAnnotation.swift in Sources */,
-				CF072341244A1102007AFAD2 /* MapViewCoordinator.swift in Sources */,
+				CF1786CE244BFB93005592F3 /* Route.swift in Sources */,
+				CF072354244A1125007AFAD2 /* VehicleAnnotation.swift in Sources */,
 				CFEF73F4244B49A400743857 /* RouteDetailsSheetView.swift in Sources */,
-				CF072352244A1125007AFAD2 /* SelectedRoute.swift in Sources */,
+				CF80B98B244CCEF700B921F2 /* Stop.swift in Sources */,
+				CFD2C234244D131C00C1C33B /* AvailableRoutes.swift in Sources */,
+				CF5E64B3244BEA5D00F9BA16 /* RouteSelectionAllRoutesView.swift in Sources */,
 				CF072353244A1125007AFAD2 /* Vehicle.swift in Sources */,
 				CF072363244A1134007AFAD2 /* ForEach.swift in Sources */,
+				CFD2C22F244CED7300C1C33B /* RouteAnnotation.swift in Sources */,
+				CF1786CA244BF247005592F3 /* RouteSelectionHeaderView.swift in Sources */,
 				CF07233A244A1102007AFAD2 /* RouteSelectionButtonView.swift in Sources */,
 				CF07233B244A1102007AFAD2 /* ActionBannerView.swift in Sources */,
-				CF072343244A1102007AFAD2 /* RowView.swift in Sources */,
+				CFD2C231244CEDCD00C1C33B /* RouteAnnotationView.swift in Sources */,
 				CF072319244A10D3007AFAD2 /* ContentView.swift in Sources */,
 				CF07233F244A1102007AFAD2 /* RouteSelectionSheetView.swift in Sources */,
 				CF07235D244A112C007AFAD2 /* LoadingView.swift in Sources */,
 				CF07233D244A1102007AFAD2 /* RouteDetailsButtonView.swift in Sources */,
+				CFA22298244CDEDB00B2871C /* AnnotationsStore.swift in Sources */,
+				CFD2C236244D145000C1C33B /* Flags.swift in Sources */,
 				CF072348244A110C007AFAD2 /* GeoBusAPI.swift in Sources */,
 				CFE7296C244A721400ED034E /* VehicleAnnotationView.swift in Sources */,
 				CF072362244A1134007AFAD2 /* IndexedCollection.swift in Sources */,
+				CF80B98D244CD12D00B921F2 /* DrawViewAsUIImage.swift in Sources */,
+				CF5E64B1244BE9A900F9BA16 /* RouteSelectionTextFieldAndButtonView.swift in Sources */,
 				CF07233C244A1102007AFAD2 /* BannerSingleRouteDirectionView.swift in Sources */,
 				CF07235C244A112C007AFAD2 /* LottieView.swift in Sources */,
 			);
@@ -537,6 +597,14 @@
 				kind = branch;
 			};
 		};
+		CF1786CF244BFEBD005592F3 /* XCRemoteSwiftPackageReference "swiftui-grid" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/spacenation/swiftui-grid";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -544,6 +612,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CF072364244A117A007AFAD2 /* XCRemoteSwiftPackageReference "lottie-ios" */;
 			productName = Lottie;
+		};
+		CF1786D0244BFEBD005592F3 /* Grid */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CF1786CF244BFEBD005592F3 /* XCRemoteSwiftPackageReference "swiftui-grid" */;
+			productName = Grid;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

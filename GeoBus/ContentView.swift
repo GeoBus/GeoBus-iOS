@@ -12,65 +12,58 @@ import MapKit
 
 struct ContentView : View {
   
-  @State var selectedRoute = SelectedRoute()
-  @State var vehicleAnnotations: [MapAnnotation] = []
-  @State var mapView = MKMapView()
+  @State var selectedRoute = Route(routeNumber: "", name: "")
+  
+  @State var availableRoutes = AvailableRoutes()
+  @State var annotationsStore = AnnotationsStore()
   
   @State var isLoading = false
-  @State var isRefreshingVehicleStatuses = false
+  @State var isAutoUpdating = false
   
-  @State var showNoVehiclesFoundAlert = false
-  @State var showRouteSelectionSheet = false
-  @State var showRouteDetailsSheet = false
+  private let timeBetweenRefreshes: CGFloat = 10 // seconds
+  private let timer = Timer.publish(every: 10, on: .main, in: .common).autoconnect()
   
-  let timeBetweenRefreshes: CGFloat = 10 // seconds
-  let timer = Timer.publish(every: 10, on: .main, in: .common).autoconnect()
-  
-  
-  // MARK: -
   
   var body: some View {
     
     let geoBusAPI = GeoBusAPI(
-      vehicleAnnotations: self.$vehicleAnnotations,
-      isLoading: self.$isLoading,
-      isRefreshingVehicleStatuses: self.$isRefreshingVehicleStatuses,
-      showNoVehiclesFoundAlert: self.$showNoVehiclesFoundAlert,
-      routeNumber: self.selectedRoute.routeNumber
+      selectedRoute: $selectedRoute,
+      availableRoutes: $availableRoutes,
+      annotationsStore: $annotationsStore,
+      isLoading: $isLoading,
+      isAutoUpdating: $isAutoUpdating
     )
     
     return VStack {
-      MapView(mapView: $mapView, vehicleAnnotations: $vehicleAnnotations)
+      MapView(
+        selectedRoute: $selectedRoute,
+        annotationsStore: $annotationsStore
+      )
         .onReceive(timer) { input in
-          if self.isRefreshingVehicleStatuses {
-            geoBusAPI.getVehicleStatuses()
+          if self.isAutoUpdating {
+            geoBusAPI.getVehicles()
           }
       }
-      .alert(isPresented: self.$showNoVehiclesFoundAlert) {
-        Alert(
-          title: Text("No Buses"),
-          message: Text("There are no buses in that route right now. Maybe take a walk?"),
-          dismissButton: .default(Text("OK"))
-        )
-      }
+      
+
       
       ActionBannerView(
-        selectedRoute: self.$selectedRoute,
-        isLoading: self.$isLoading,
-        isRefreshingVehicleStatuses: self.$isRefreshingVehicleStatuses,
-        showRouteSelectionSheet: self.$showRouteSelectionSheet,
-        showRouteDetailsSheet: self.$showRouteDetailsSheet,
+        selectedRoute: $selectedRoute,
+        availableRoutes: $availableRoutes,
+        isLoading: $isLoading,
+        isAutoUpdating: $isAutoUpdating,
         geoBusAPI: geoBusAPI
       )
+      //      .alert(isPresented: self.$showInvalidRouteAlert) {
+      //        Alert(
+      //          title: Text("Route does not exist"),
+      //          message: Text("The route '\(selectedRoute)' does not exist. Maybe fix the typo?"),
+      //          dismissButton: .default(Text("OK"))
+      //        )
+      //      }
       
-      RefreshStatusView(interval: timeBetweenRefreshes, isRefreshingVehicleStatuses: $isRefreshingVehicleStatuses)
+      RefreshStatusView(interval: timeBetweenRefreshes, isAutoUpdating: $isAutoUpdating)
     }
     .edgesIgnoringSafeArea(.top)
-  }
-}
-
-struct ContentView_Previews: PreviewProvider {
-  static var previews: some View {
-    ContentView()
   }
 }

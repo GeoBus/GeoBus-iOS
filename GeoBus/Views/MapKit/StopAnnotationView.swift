@@ -9,18 +9,11 @@
 import SwiftUI
 import MapKit
 
-struct VehicleAnnotationView: View {
-  
-  let title: String
-  
+struct StopAnnotationView: View {
   var body: some View {
-    Text(title.prefix(3))
-      .font(.footnote)
-      .fontWeight(.heavy)
-      .padding(.horizontal, 7)
-      .padding(.vertical, 2)
-      .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.yellow))
-      .padding(.trailing, 0)
+    Circle()
+      .frame(width: 8, height: 8)
+      .foregroundColor(.green)
   }
 }
 
