@@ -38,7 +38,7 @@ struct ContentView : View {
       MapView(
         selectedRoute: $selectedRoute,
         annotationsStore: $annotationsStore
-      )
+      ).edgesIgnoringSafeArea(.top)
         .onReceive(timer) { input in
           if self.isAutoUpdating {
             geoBusAPI.getVehicles()
@@ -64,6 +64,5 @@ struct ContentView : View {
       
       RefreshStatusView(interval: timeBetweenRefreshes, isAutoUpdating: $isAutoUpdating)
     }
-    .edgesIgnoringSafeArea(.top)
   }
 }

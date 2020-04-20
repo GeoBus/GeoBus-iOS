@@ -12,10 +12,7 @@ struct RouteDetailsButtonView: View {
   var body: some View {
     HStack {
       VStack {
-        BannerSingleRouteDirectionView()
-          .accentColor(.blue)
-        BannerSingleRouteDirectionView()
-          .accentColor(.green)
+        Text("Line name")
       }
       Spacer()
     }

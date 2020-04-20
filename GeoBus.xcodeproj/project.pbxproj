@@ -14,11 +14,9 @@
 		CF07231E244A10D4007AFAD2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CF07231D244A10D4007AFAD2 /* Preview Assets.xcassets */; };
 		CF07233A244A1102007AFAD2 /* RouteSelectionButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF07232B244A1101007AFAD2 /* RouteSelectionButtonView.swift */; };
 		CF07233B244A1102007AFAD2 /* ActionBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF07232C244A1101007AFAD2 /* ActionBannerView.swift */; };
-		CF07233C244A1102007AFAD2 /* BannerSingleRouteDirectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF07232D244A1101007AFAD2 /* BannerSingleRouteDirectionView.swift */; };
 		CF07233D244A1102007AFAD2 /* RouteDetailsButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF07232E244A1101007AFAD2 /* RouteDetailsButtonView.swift */; };
 		CF07233F244A1102007AFAD2 /* RouteSelectionSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF072331244A1101007AFAD2 /* RouteSelectionSheetView.swift */; };
 		CF072340244A1102007AFAD2 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF072333244A1101007AFAD2 /* MapView.swift */; };
-		CF072345244A1102007AFAD2 /* ActionBannerDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF072338244A1101007AFAD2 /* ActionBannerDivider.swift */; };
 		CF072348244A110C007AFAD2 /* GeoBusAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF072347244A110C007AFAD2 /* GeoBusAPI.swift */; };
 		CF072353244A1125007AFAD2 /* Vehicle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF07234C244A1125007AFAD2 /* Vehicle.swift */; };
 		CF072354244A1125007AFAD2 /* VehicleAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF07234D244A1125007AFAD2 /* VehicleAnnotation.swift */; };
@@ -34,6 +32,7 @@
 		CF1786CC244BF4F2005592F3 /* RouteSelectionSquareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1786CB244BF4F2005592F3 /* RouteSelectionSquareView.swift */; };
 		CF1786CE244BFB93005592F3 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1786CD244BFB93005592F3 /* Route.swift */; };
 		CF1786D1244BFEBD005592F3 /* Grid in Frameworks */ = {isa = PBXBuildFile; productRef = CF1786D0244BFEBD005592F3 /* Grid */; };
+		CF4454B1244E42FB00C87691 /* VerticalLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4454B0244E42FB00C87691 /* VerticalLine.swift */; };
 		CF5E64B1244BE9A900F9BA16 /* RouteSelectionTextFieldAndButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5E64B0244BE9A900F9BA16 /* RouteSelectionTextFieldAndButtonView.swift */; };
 		CF5E64B3244BEA5D00F9BA16 /* RouteSelectionAllRoutesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5E64B2244BEA5D00F9BA16 /* RouteSelectionAllRoutesView.swift */; };
 		CF5E64B5244BF08E00F9BA16 /* HorizontalLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5E64B4244BF08E00F9BA16 /* HorizontalLine.swift */; };
@@ -62,11 +61,9 @@
 		CF072322244A10D4007AFAD2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CF07232B244A1101007AFAD2 /* RouteSelectionButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteSelectionButtonView.swift; sourceTree = "<group>"; };
 		CF07232C244A1101007AFAD2 /* ActionBannerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionBannerView.swift; sourceTree = "<group>"; };
-		CF07232D244A1101007AFAD2 /* BannerSingleRouteDirectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerSingleRouteDirectionView.swift; sourceTree = "<group>"; };
 		CF07232E244A1101007AFAD2 /* RouteDetailsButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteDetailsButtonView.swift; sourceTree = "<group>"; };
 		CF072331244A1101007AFAD2 /* RouteSelectionSheetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteSelectionSheetView.swift; sourceTree = "<group>"; };
 		CF072333244A1101007AFAD2 /* MapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
-		CF072338244A1101007AFAD2 /* ActionBannerDivider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionBannerDivider.swift; sourceTree = "<group>"; };
 		CF072347244A110C007AFAD2 /* GeoBusAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoBusAPI.swift; sourceTree = "<group>"; };
 		CF07234C244A1125007AFAD2 /* Vehicle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vehicle.swift; sourceTree = "<group>"; };
 		CF07234D244A1125007AFAD2 /* VehicleAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VehicleAnnotation.swift; sourceTree = "<group>"; };
@@ -80,6 +77,7 @@
 		CF1786C9244BF247005592F3 /* RouteSelectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteSelectionHeaderView.swift; sourceTree = "<group>"; };
 		CF1786CB244BF4F2005592F3 /* RouteSelectionSquareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteSelectionSquareView.swift; sourceTree = "<group>"; };
 		CF1786CD244BFB93005592F3 /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
+		CF4454B0244E42FB00C87691 /* VerticalLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalLine.swift; sourceTree = "<group>"; };
 		CF5E64B0244BE9A900F9BA16 /* RouteSelectionTextFieldAndButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteSelectionTextFieldAndButtonView.swift; sourceTree = "<group>"; };
 		CF5E64B2244BEA5D00F9BA16 /* RouteSelectionAllRoutesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteSelectionAllRoutesView.swift; sourceTree = "<group>"; };
 		CF5E64B4244BF08E00F9BA16 /* HorizontalLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalLine.swift; sourceTree = "<group>"; };
@@ -172,8 +170,6 @@
 			isa = PBXGroup;
 			children = (
 				CF07232C244A1101007AFAD2 /* ActionBannerView.swift */,
-				CF072338244A1101007AFAD2 /* ActionBannerDivider.swift */,
-				CF07232D244A1101007AFAD2 /* BannerSingleRouteDirectionView.swift */,
 			);
 			path = ActionBanner;
 			sourceTree = "<group>";
@@ -266,6 +262,7 @@
 		CF5E64B6244BF09400F9BA16 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				CF4454B0244E42FB00C87691 /* VerticalLine.swift */,
 				CF5E64B4244BF08E00F9BA16 /* HorizontalLine.swift */,
 			);
 			path = Common;
@@ -373,7 +370,6 @@
 				CF1786CC244BF4F2005592F3 /* RouteSelectionSquareView.swift in Sources */,
 				CF072315244A10D3007AFAD2 /* AppDelegate.swift in Sources */,
 				CF5E64B5244BF08E00F9BA16 /* HorizontalLine.swift in Sources */,
-				CF072345244A1102007AFAD2 /* ActionBannerDivider.swift in Sources */,
 				CF80B98F244CD6E900B921F2 /* StopAnnotationView.swift in Sources */,
 				CF0A5913244A313F002557CF /* RefreshStatusView.swift in Sources */,
 				CF80B989244CCE7600B921F2 /* StopAnnotation.swift in Sources */,
@@ -402,8 +398,8 @@
 				CFE7296C244A721400ED034E /* VehicleAnnotationView.swift in Sources */,
 				CF072362244A1134007AFAD2 /* IndexedCollection.swift in Sources */,
 				CF80B98D244CD12D00B921F2 /* DrawViewAsUIImage.swift in Sources */,
+				CF4454B1244E42FB00C87691 /* VerticalLine.swift in Sources */,
 				CF5E64B1244BE9A900F9BA16 /* RouteSelectionTextFieldAndButtonView.swift in Sources */,
-				CF07233C244A1102007AFAD2 /* BannerSingleRouteDirectionView.swift in Sources */,
 				CF07235C244A112C007AFAD2 /* LottieView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -43,7 +43,7 @@ struct ActionBannerView: View {
           presentRouteSelectionSheet: self.$presentRouteSelectionSheet)
       }
       
-      ActionBannerDivider()
+      VerticalLine(thickness: 3)
       
       Button(action: {
         self.presentRouteDetailsSheet = true
