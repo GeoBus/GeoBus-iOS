@@ -8,21 +8,21 @@
 
 import SwiftUI
 
-struct RouteSelectionButtonView: View {
+struct SelectRouteButton: View {
   
   private let activeColor: Color = Color(red: 1, green: 0.85, blue: 0)
   private let disabledColor: Color = Color(red: 0.95, green: 0.95, blue: 0.95)
   
-  @Binding var selectedRoute: Route
+  @Binding var selectedRouteNumber: String
   @Binding var isLoading: Bool
   
   var body: some View {
     ZStack {
       RoundedRectangle(cornerRadius: 10)
-        .fill( (selectedRoute.routeNumber.count > 2) ? activeColor : disabledColor )
+        .fill( (selectedRouteNumber.count > 2) ? activeColor : disabledColor )
       
-      if(selectedRoute.routeNumber.count > 2) {
-        Text(selectedRoute.routeNumber.prefix(3))
+      if(selectedRouteNumber.count > 2) {
+        Text(selectedRouteNumber.prefix(3))
           .font(.title)
           .fontWeight(.heavy)
           .foregroundColor(.black)

@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct RouteDetailsButtonView: View {
+struct RouteDetailsButton: View {
   var body: some View {
     HStack {
       VStack {

@@ -9,10 +9,10 @@
 import SwiftUI
 import Grid
 
-struct RouteSelectionAllRoutesView: View {
+struct AllRoutes: View {
   
-  @Binding var selectedRoute: Route
-  @Binding var availableRoutes: AvailableRoutes
+  @Binding var selectedRouteNumber: String
+  @Binding var routesStorage: RoutesStorage
   @Binding var presentRouteSelectionSheet: Bool
   
   var body: some View {
@@ -25,12 +25,12 @@ struct RouteSelectionAllRoutesView: View {
       
       HorizontalLine(color: .white)
       
-      Grid(availableRoutes.all) { route in
+      Grid(routesStorage.all) { route in
         Button(action: {
-          self.selectedRoute = route
+          self.selectedRouteNumber = route.routeNumber
           self.presentRouteSelectionSheet = false
         }){
-          RouteSelectionSquareView(route: route)
+          RouteButton(route: route)
         }
       }
     .gridStyle(ModularGridStyle(columns: .min(70), rows: .fixed(70)))

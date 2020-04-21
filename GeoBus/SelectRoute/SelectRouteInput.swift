@@ -8,15 +8,15 @@
 
 import SwiftUI
 
-struct RouteSelectionTextFieldAndButtonView: View {
+struct SelectRouteInput: View {
   
-  @Binding var selectedRoute: Route
+  @Binding var selectedRouteNumber: String
   @Binding var presentRouteSelectionSheet: Bool
   
   var body: some View {
     VStack {
       HStack {
-        TextField("_ _ _", text: self.$selectedRoute.routeNumber)
+        TextField("_ _ _", text: self.$selectedRouteNumber)
           .font(.system(size: 40, weight: .bold, design: .default))
           .multilineTextAlignment(.center)
           .padding()
@@ -29,10 +29,10 @@ struct RouteSelectionTextFieldAndButtonView: View {
             .font(.system(size: 40, weight: .bold, design: .default))
             .foregroundColor(.white)
         }
-        .disabled(selectedRoute.routeNumber.count == 0)
+        .disabled(selectedRouteNumber.count == 0)
         .frame(maxWidth: .infinity)
         .padding()
-        .background(selectedRoute.routeNumber.count > 2 ? Color.blue : Color.gray)
+        .background(selectedRouteNumber.count > 2 ? Color.blue : Color.gray)
         .cornerRadius(10)
       }
       Text("Choose a Route Number (like 758 or 28E) to locate the buses on the map in real time.")

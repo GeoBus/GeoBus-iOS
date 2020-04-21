@@ -12,9 +12,9 @@ import SwiftUI
 import MapKit
 
 struct MapView: UIViewRepresentable {
-  
-  @Binding var selectedRoute: Route
-  @Binding var annotationsStore: AnnotationsStore
+                                                         
+  @ObservedObject var stopsStorage: StopsStorage
+  @ObservedObject var vehiclesStorage: VehiclesStorage
   
   @State var mapView = MKMapView()
   private let locationManager = CLLocationManager()
@@ -34,17 +34,12 @@ struct MapView: UIViewRepresentable {
   
   func updateUIView(_ uiView: MKMapView, context: UIViewRepresentableContext<MapView>) {
     
-    mapView.removeAnnotations(mapView.annotations)
+    var newAnnotations: [MKAnnotation] = []
+    newAnnotations.append(contentsOf: stopsStorage.annotations)
+    newAnnotations.append(contentsOf: vehiclesStorage.annotations)
     
-    if !selectedRoute.routeNumber.isEmpty {
-      var annotationsToAdd: [MKAnnotation] = []
-      
-      annotationsToAdd.append(contentsOf: annotationsStore.routes)
-      annotationsToAdd.append(contentsOf: annotationsStore.stops)
-      annotationsToAdd.append(contentsOf: annotationsStore.vehicles)
-      
-      mapView.addAnnotations(annotationsToAdd)
-    }
+    mapView.removeAnnotations(mapView.annotations)
+    mapView.addAnnotations(newAnnotations)
     
   }
   
@@ -72,18 +67,18 @@ struct MapView: UIViewRepresentable {
       if annotation.isKind(of: MKUserLocation.self) {
         return nil
         
-      } else if annotation.isKind(of: VehicleAnnotation.self) {
-        
-        let annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "vehiclesAnnotationView")
-        annotationView.image = VehicleAnnotationView(title: annotation.title!!).asImage()
-        annotationView.canShowCallout = true
-        
-        return annotationView
-        
       } else if annotation.isKind(of: StopAnnotation.self) {
         
         let annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "stopsAnnotationView")
         annotationView.image = StopAnnotationView().asImage()
+        annotationView.canShowCallout = true
+        
+        return annotationView
+        
+      } else if annotation.isKind(of: VehicleAnnotation.self) {
+        
+        let annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "vehiclesAnnotationView")
+        annotationView.image = VehicleAnnotationView(title: annotation.title!!).asImage()
         annotationView.canShowCallout = true
         
         return annotationView

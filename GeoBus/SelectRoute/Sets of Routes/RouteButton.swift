@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct RouteSelectionSquareView: View {
+struct RouteButton: View {
   
   let route: Route
   private let activeColor: Color = Color(red: 1, green: 0.85, blue: 0)

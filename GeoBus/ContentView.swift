@@ -12,57 +12,55 @@ import MapKit
 
 struct ContentView : View {
   
+  @State var selectedRouteNumber = ""
   @State var selectedRoute = Route(routeNumber: "", name: "")
   
-  @State var availableRoutes = AvailableRoutes()
-  @State var annotationsStore = AnnotationsStore()
+  @State var routesStorage = RoutesStorage()
+  @ObservedObject var stopsStorage = StopsStorage()
+  @ObservedObject var vehiclesStorage = VehiclesStorage()
   
   @State var isLoading = false
   @State var isAutoUpdating = false
   
   private let timeBetweenRefreshes: CGFloat = 10 // seconds
-  private let timer = Timer.publish(every: 10, on: .main, in: .common).autoconnect()
   
   
   var body: some View {
     
-    let geoBusAPI = GeoBusAPI(
-      selectedRoute: $selectedRoute,
-      availableRoutes: $availableRoutes,
-      annotationsStore: $annotationsStore,
-      isLoading: $isLoading,
-      isAutoUpdating: $isAutoUpdating
-    )
-    
     return VStack {
-      MapView(
-        selectedRoute: $selectedRoute,
-        annotationsStore: $annotationsStore
-      ).edgesIgnoringSafeArea(.top)
-        .onReceive(timer) { input in
-          if self.isAutoUpdating {
-            geoBusAPI.getVehicles()
-          }
+      
+      MapView(stopsStorage: stopsStorage, vehiclesStorage: vehiclesStorage)
+        .edgesIgnoringSafeArea(.top)
+      
+      HStack {
+        SelectRoute(
+          selectedRouteNumber: $selectedRouteNumber,
+          routesStorage: $routesStorage,
+          stopsStorage: stopsStorage,
+          vehiclesStorage: vehiclesStorage,
+          isLoading: $isLoading,
+          isAutoUpdating: $isAutoUpdating
+        )
+        
+        VerticalLine(thickness: 3)
+        
+        RouteDetails(
+          selectedRouteNumber: $selectedRouteNumber,
+          routesStorage: $routesStorage,
+          stopsStorage: stopsStorage,
+          vehiclesStorage: vehiclesStorage,
+          isLoading: $isLoading,
+          isAutoUpdating: $isAutoUpdating
+        )
+        
+        Spacer()
       }
-      
-
-      
-      ActionBannerView(
-        selectedRoute: $selectedRoute,
-        availableRoutes: $availableRoutes,
-        isLoading: $isLoading,
-        isAutoUpdating: $isAutoUpdating,
-        geoBusAPI: geoBusAPI
-      )
-      //      .alert(isPresented: self.$showInvalidRouteAlert) {
-      //        Alert(
-      //          title: Text("Route does not exist"),
-      //          message: Text("The route '\(selectedRoute)' does not exist. Maybe fix the typo?"),
-      //          dismissButton: .default(Text("OK"))
-      //        )
-      //      }
+      .frame(maxHeight: 115)
+      .padding(.top, -7)
+      .padding(.bottom, -10)
       
       RefreshStatusView(interval: timeBetweenRefreshes, isAutoUpdating: $isAutoUpdating)
+      
     }
   }
 }

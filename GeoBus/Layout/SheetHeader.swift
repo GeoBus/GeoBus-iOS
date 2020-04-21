@@ -8,11 +8,13 @@
 
 import SwiftUI
 
-struct RouteSelectionHeaderView: View {
+struct SheetHeader: View {
+  
+  let title: String
   
   var body: some View {
     VStack(alignment: .leading) {
-      Text("Find by Route")
+      Text(title)
         .font(.largeTitle)
         .fontWeight(.bold)
     }
