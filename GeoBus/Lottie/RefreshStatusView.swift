@@ -23,7 +23,7 @@ struct RefreshStatusView: View {
       duration: (interval / defaultAnimationSpeed),
       play: $isAutoUpdating
     )
-      .frame(height: 3)
+      .frame(height: 50)
       .background(Color.green)
   }
 }

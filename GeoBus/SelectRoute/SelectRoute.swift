@@ -10,9 +10,7 @@ import SwiftUI
 
 struct SelectRoute: View {
   
-  @Binding var selectedRouteNumber: String
-  
-  @Binding var routesStorage: RoutesStorage
+  @ObservedObject var routesStorage: RoutesStorage
   @ObservedObject var stopsStorage: StopsStorage
   @ObservedObject var vehiclesStorage: VehiclesStorage
   
@@ -20,7 +18,6 @@ struct SelectRoute: View {
   @Binding var isAutoUpdating: Bool
   
   @State var presentRouteSelectionSheet: Bool = false
-  @State var presentRouteDetailsSheet: Bool = false
   
   
   var body: some View {
@@ -29,17 +26,16 @@ struct SelectRoute: View {
       self.isAutoUpdating = false
       self.vehiclesStorage.set(state: .idle)
     }) {
-      SelectRouteButton(selectedRouteNumber: self.$selectedRouteNumber, isLoading: self.$isLoading)
+      SelectRouteButton(routesStorage: routesStorage, isLoading: self.$isLoading)
     }
     .sheet(
       isPresented: $presentRouteSelectionSheet,
       onDismiss: {
-        self.stopsStorage.getStops(for: self.selectedRouteNumber)
-        self.vehiclesStorage.set(state: .syncing, route: self.selectedRouteNumber)
+        self.stopsStorage.getStops(for: self.routesStorage.selected.routeNumber)
+        self.vehiclesStorage.set(route: self.routesStorage.selected.routeNumber, state: .syncing)
     }) {
       SelectRouteSheet(
-        selectedRouteNumber: self.$selectedRouteNumber,
-        routesStorage: self.$routesStorage,
+        routesStorage: self.routesStorage,
         presentRouteSelectionSheet: self.$presentRouteSelectionSheet)
     }
   }

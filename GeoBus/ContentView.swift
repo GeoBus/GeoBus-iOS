@@ -12,10 +12,7 @@ import MapKit
 
 struct ContentView : View {
   
-  @State var selectedRouteNumber = ""
-  @State var selectedRoute = Route(routeNumber: "", name: "")
-  
-  @State var routesStorage = RoutesStorage()
+  @ObservedObject var routesStorage = RoutesStorage()
   @ObservedObject var stopsStorage = StopsStorage()
   @ObservedObject var vehiclesStorage = VehiclesStorage()
   
@@ -34,8 +31,7 @@ struct ContentView : View {
       
       HStack {
         SelectRoute(
-          selectedRouteNumber: $selectedRouteNumber,
-          routesStorage: $routesStorage,
+          routesStorage: routesStorage,
           stopsStorage: stopsStorage,
           vehiclesStorage: vehiclesStorage,
           isLoading: $isLoading,
@@ -45,8 +41,7 @@ struct ContentView : View {
         VerticalLine(thickness: 3)
         
         RouteDetails(
-          selectedRouteNumber: $selectedRouteNumber,
-          routesStorage: $routesStorage,
+          routesStorage: routesStorage,
           stopsStorage: stopsStorage,
           vehiclesStorage: vehiclesStorage,
           isLoading: $isLoading,

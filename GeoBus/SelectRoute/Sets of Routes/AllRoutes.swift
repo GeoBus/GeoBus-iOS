@@ -11,8 +11,8 @@ import Grid
 
 struct AllRoutes: View {
   
-  @Binding var selectedRouteNumber: String
-  @Binding var routesStorage: RoutesStorage
+  @ObservedObject var routesStorage: RoutesStorage
+  
   @Binding var presentRouteSelectionSheet: Bool
   
   var body: some View {
@@ -27,7 +27,7 @@ struct AllRoutes: View {
       
       Grid(routesStorage.all) { route in
         Button(action: {
-          self.selectedRouteNumber = route.routeNumber
+          self.routesStorage.select(route: route)
           self.presentRouteSelectionSheet = false
         }){
           RouteButton(route: route)

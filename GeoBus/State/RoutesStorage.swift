@@ -7,14 +7,17 @@
 //
 
 import Foundation
+import Combine
 
-class RoutesStorage {
+class RoutesStorage: ObservableObject {
   
-  var favorites: [Route] = []
+  @Published var selected: Route = Route()
   
-  var recent: [Route] = []
+  @Published var favorites: [Route] = []
   
-  var all: [Route] = []
+  @Published var recent: [Route] = []
+  
+  @Published var all: [Route] = []
   
   
   private var endpoint = "https://geobus-api.herokuapp.com"
@@ -66,6 +69,31 @@ class RoutesStorage {
     
     task.resume()
     
+  }
+  
+  
+  
+  
+  func isSelected() -> Bool {
+    return selected.routeNumber.count > 2
+  }
+  
+  
+  func select(route: Route) {
+    self.selected = route
+  }
+  
+  func select(with routeNumber: String) {
+    
+    let index = all.firstIndex(where: { (route) -> Bool in
+      route.routeNumber == routeNumber // test if this is the item you're looking for
+    }) ?? -1 // if the item does not exist,
+    
+    if index < 0 {
+      self.selected = Route() // selected route is an empty route
+    } else {
+      self.selected = all[index]
+    }
   }
   
   

@@ -13,22 +13,24 @@ struct SelectRouteButton: View {
   private let activeColor: Color = Color(red: 1, green: 0.85, blue: 0)
   private let disabledColor: Color = Color(red: 0.95, green: 0.95, blue: 0.95)
   
-  @Binding var selectedRouteNumber: String
+  @ObservedObject var routesStorage: RoutesStorage
+  
   @Binding var isLoading: Bool
   
   var body: some View {
     ZStack {
       RoundedRectangle(cornerRadius: 10)
-        .fill( (selectedRouteNumber.count > 2) ? activeColor : disabledColor )
+        .fill( routesStorage.isSelected() ? activeColor : disabledColor )
       
-      if(selectedRouteNumber.count > 2) {
-        Text(selectedRouteNumber.prefix(3))
+      if routesStorage.isSelected() {
+        Text(routesStorage.selected.routeNumber)
           .font(.title)
           .fontWeight(.heavy)
           .foregroundColor(.black)
       } else {
-        Image(systemName: "plus.circle.fill")
-          .foregroundColor(.black)
+        Image(systemName: "plus")
+          .font(.title)
+          .foregroundColor(.secondary)
       }
       
       if isLoading {

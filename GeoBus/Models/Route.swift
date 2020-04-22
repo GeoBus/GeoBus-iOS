@@ -12,4 +12,10 @@ struct Route: Codable, Identifiable {
   let id = UUID()
   var routeNumber: String
   let name: String
+  
+  init() {
+    self.routeNumber = ""
+    self.name = ""
+  }
+  
 }

@@ -36,9 +36,15 @@
 		CF40AAA5244F3DA1002DC2FD /* StopsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF40AAA4244F3DA1002DC2FD /* StopsStorage.swift */; };
 		CF40AAA7244F3F8A002DC2FD /* VehiclesStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF40AAA6244F3F8A002DC2FD /* VehiclesStorage.swift */; };
 		CF4454B1244E42FB00C87691 /* VerticalLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4454B0244E42FB00C87691 /* VerticalLine.swift */; };
-		CF5E64B1244BE9A900F9BA16 /* SelectRouteInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5E64B0244BE9A900F9BA16 /* SelectRouteInput.swift */; };
+		CF5E64B1244BE9A900F9BA16 /* RouteDetailsInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5E64B0244BE9A900F9BA16 /* RouteDetailsInput.swift */; };
 		CF5E64B3244BEA5D00F9BA16 /* AllRoutes.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5E64B2244BEA5D00F9BA16 /* AllRoutes.swift */; };
 		CF5E64B5244BF08E00F9BA16 /* HorizontalLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5E64B4244BF08E00F9BA16 /* HorizontalLine.swift */; };
+		CF5E7546244F8EB500B1EF10 /* LiveConnectionIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5E7545244F8EB500B1EF10 /* LiveConnectionIcon.swift */; };
+		CF5E754A244F956E00B1EF10 /* live-icon.json in Resources */ = {isa = PBXBuildFile; fileRef = CF5E7549244F956E00B1EF10 /* live-icon.json */; };
+		CF5E754C244F9FA400B1EF10 /* left-arrow.json in Resources */ = {isa = PBXBuildFile; fileRef = CF5E754B244F9FA300B1EF10 /* left-arrow.json */; };
+		CF5E754E244FA01100B1EF10 /* LeftArrow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5E754D244FA01100B1EF10 /* LeftArrow.swift */; };
+		CF5E7556244FC06900B1EF10 /* arrow.json in Resources */ = {isa = PBXBuildFile; fileRef = CF5E7555244FC06900B1EF10 /* arrow.json */; };
+		CF5E7558244FC8B900B1EF10 /* SelectRouteInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5E7557244FC8B900B1EF10 /* SelectRouteInput.swift */; };
 		CF80B989244CCE7600B921F2 /* StopAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF80B988244CCE7600B921F2 /* StopAnnotation.swift */; };
 		CF80B98B244CCEF700B921F2 /* Stop.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF80B98A244CCEF700B921F2 /* Stop.swift */; };
 		CF80B98D244CD12D00B921F2 /* DrawViewAsUIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF80B98C244CD12D00B921F2 /* DrawViewAsUIImage.swift */; };
@@ -82,9 +88,15 @@
 		CF40AAA4244F3DA1002DC2FD /* StopsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopsStorage.swift; sourceTree = "<group>"; };
 		CF40AAA6244F3F8A002DC2FD /* VehiclesStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehiclesStorage.swift; sourceTree = "<group>"; };
 		CF4454B0244E42FB00C87691 /* VerticalLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalLine.swift; sourceTree = "<group>"; };
-		CF5E64B0244BE9A900F9BA16 /* SelectRouteInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectRouteInput.swift; sourceTree = "<group>"; };
+		CF5E64B0244BE9A900F9BA16 /* RouteDetailsInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteDetailsInput.swift; sourceTree = "<group>"; };
 		CF5E64B2244BEA5D00F9BA16 /* AllRoutes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllRoutes.swift; sourceTree = "<group>"; };
 		CF5E64B4244BF08E00F9BA16 /* HorizontalLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalLine.swift; sourceTree = "<group>"; };
+		CF5E7545244F8EB500B1EF10 /* LiveConnectionIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveConnectionIcon.swift; sourceTree = "<group>"; };
+		CF5E7549244F956E00B1EF10 /* live-icon.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "live-icon.json"; sourceTree = "<group>"; };
+		CF5E754B244F9FA300B1EF10 /* left-arrow.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "left-arrow.json"; sourceTree = "<group>"; };
+		CF5E754D244FA01100B1EF10 /* LeftArrow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftArrow.swift; sourceTree = "<group>"; };
+		CF5E7555244FC06900B1EF10 /* arrow.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = arrow.json; sourceTree = "<group>"; };
+		CF5E7557244FC8B900B1EF10 /* SelectRouteInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectRouteInput.swift; sourceTree = "<group>"; };
 		CF80B988244CCE7600B921F2 /* StopAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopAnnotation.swift; sourceTree = "<group>"; };
 		CF80B98A244CCEF700B921F2 /* Stop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stop.swift; sourceTree = "<group>"; };
 		CF80B98C244CD12D00B921F2 /* DrawViewAsUIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawViewAsUIImage.swift; sourceTree = "<group>"; };
@@ -164,7 +176,7 @@
 				CF40AA9F244F36D7002DC2FD /* SelectRoute.swift */,
 				CF07232B244A1101007AFAD2 /* SelectRouteButton.swift */,
 				CF072331244A1101007AFAD2 /* SelectRouteSheet.swift */,
-				CF5E64B0244BE9A900F9BA16 /* SelectRouteInput.swift */,
+				CF5E7557244FC8B900B1EF10 /* SelectRouteInput.swift */,
 				CF40AA9C244F35B3002DC2FD /* Sets of Routes */,
 			);
 			path = SelectRoute;
@@ -200,6 +212,8 @@
 				CF072358244A112C007AFAD2 /* LottieView.swift */,
 				CF072359244A112C007AFAD2 /* LoadingView.swift */,
 				CF0A5912244A313F002557CF /* RefreshStatusView.swift */,
+				CF5E7545244F8EB500B1EF10 /* LiveConnectionIcon.swift */,
+				CF5E754D244FA01100B1EF10 /* LeftArrow.swift */,
 				CF07235A244A112C007AFAD2 /* Animations */,
 			);
 			path = Lottie;
@@ -211,6 +225,9 @@
 				CF07235B244A112C007AFAD2 /* circular-loader.json */,
 				CFE7295B244A3CB100ED034E /* loader-interval.json */,
 				CFE72969244A6FCB00ED034E /* reversed-progress-bar.json */,
+				CF5E7549244F956E00B1EF10 /* live-icon.json */,
+				CF5E754B244F9FA300B1EF10 /* left-arrow.json */,
+				CF5E7555244FC06900B1EF10 /* arrow.json */,
 			);
 			path = Animations;
 			sourceTree = "<group>";
@@ -269,6 +286,7 @@
 				CF40AAA2244F3787002DC2FD /* RouteDetails.swift */,
 				CF07232E244A1101007AFAD2 /* RouteDetailsButton.swift */,
 				CFEF73F3244B49A400743857 /* RouteDetailsSheet.swift */,
+				CF5E64B0244BE9A900F9BA16 /* RouteDetailsInput.swift */,
 			);
 			name = RouteDetails;
 			path = Views/RouteDetails;
@@ -341,10 +359,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				CF07231E244A10D4007AFAD2 /* Preview Assets.xcassets in Resources */,
+				CF5E754A244F956E00B1EF10 /* live-icon.json in Resources */,
 				CFE7295C244A3CB100ED034E /* loader-interval.json in Resources */,
 				CF07235E244A112C007AFAD2 /* circular-loader.json in Resources */,
 				CF07231B244A10D4007AFAD2 /* Assets.xcassets in Resources */,
+				CF5E754C244F9FA400B1EF10 /* left-arrow.json in Resources */,
 				CFE7296A244A6FCB00ED034E /* reversed-progress-bar.json in Resources */,
+				CF5E7556244FC06900B1EF10 /* arrow.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -356,6 +377,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CF1786CC244BF4F2005592F3 /* RouteButton.swift in Sources */,
+				CF5E7546244F8EB500B1EF10 /* LiveConnectionIcon.swift in Sources */,
 				CF072315244A10D3007AFAD2 /* AppDelegate.swift in Sources */,
 				CF5E64B5244BF08E00F9BA16 /* HorizontalLine.swift in Sources */,
 				CF80B98F244CD6E900B921F2 /* StopAnnotationView.swift in Sources */,
@@ -380,6 +402,8 @@
 				CF07235D244A112C007AFAD2 /* LoadingView.swift in Sources */,
 				CF07233D244A1102007AFAD2 /* RouteDetailsButton.swift in Sources */,
 				CF40AAA3244F3787002DC2FD /* RouteDetails.swift in Sources */,
+				CF5E7558244FC8B900B1EF10 /* SelectRouteInput.swift in Sources */,
+				CF5E754E244FA01100B1EF10 /* LeftArrow.swift in Sources */,
 				CF40AAA5244F3DA1002DC2FD /* StopsStorage.swift in Sources */,
 				CFE7296C244A721400ED034E /* VehicleAnnotationView.swift in Sources */,
 				CF40AA9E244F3605002DC2FD /* FavoriteRoutes.swift in Sources */,
@@ -387,7 +411,7 @@
 				CF072362244A1134007AFAD2 /* IndexedCollection.swift in Sources */,
 				CF80B98D244CD12D00B921F2 /* DrawViewAsUIImage.swift in Sources */,
 				CF4454B1244E42FB00C87691 /* VerticalLine.swift in Sources */,
-				CF5E64B1244BE9A900F9BA16 /* SelectRouteInput.swift in Sources */,
+				CF5E64B1244BE9A900F9BA16 /* RouteDetailsInput.swift in Sources */,
 				CF07235C244A112C007AFAD2 /* LottieView.swift in Sources */,
 				CF40AAA0244F36D7002DC2FD /* SelectRoute.swift in Sources */,
 			);

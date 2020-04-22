@@ -16,7 +16,8 @@ struct LottieView: UIViewRepresentable {
   
   var name: String!
   let loopMode: LottieLoopMode
-  var duration: CGFloat
+  var duration: CGFloat?
+  var aspect: UIView.ContentMode?
   @Binding var play: Bool
   
   var animationView = AnimationView()
@@ -34,9 +35,9 @@ struct LottieView: UIViewRepresentable {
     let view = UIView()
     
     animationView.animation = Animation.named(name)
-    animationView.contentMode = .scaleToFill
+    animationView.contentMode = aspect ?? .scaleToFill
     animationView.loopMode = loopMode.self
-    animationView.animationSpeed = 1 / duration
+    animationView.animationSpeed = 1 / (duration ?? 1)
     
     animationView.translatesAutoresizingMaskIntoConstraints = false
     view.addSubview(animationView)

@@ -7,11 +7,13 @@
 //
 
 import SwiftUI
+import Grid
 
 struct RouteDetailsSheet: View {
   
-  @Binding var selectedRouteNumber: String
-  @Binding var routesStorage: RoutesStorage
+  @ObservedObject var routesStorage: RoutesStorage
+  @ObservedObject var stopsStorage: StopsStorage
+  @ObservedObject var vehiclesStorage: VehiclesStorage
   
   @Binding var presentRouteSelectionSheet: Bool
   
@@ -21,16 +23,21 @@ struct RouteDetailsSheet: View {
         
         SheetHeader(title: "Route Details")
         
-        SelectRouteInput(
-          selectedRouteNumber: self.$selectedRouteNumber,
-          presentRouteSelectionSheet: self.$presentRouteSelectionSheet
-        )
-          .padding(.horizontal)
+        RouteDetailsInput(routesStorage: routesStorage)
+          .padding()
         
         HorizontalLine()
         
         VStack {
-          Text("udhu")
+          ForEach(stopsStorage.stops) { stop in
+            VStack(alignment: .leading) {
+              Text(stop.name ?? "-")
+                .fontWeight(.bold)
+              Text(stop.publicId ?? "-")
+              HorizontalLine()
+            }
+            .padding(.horizontal)
+          }
         }
       }
     }

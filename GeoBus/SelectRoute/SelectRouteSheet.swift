@@ -10,8 +10,7 @@ import SwiftUI
 
 struct SelectRouteSheet: View {
   
-  @Binding var selectedRouteNumber: String
-  @Binding var routesStorage: RoutesStorage
+  @ObservedObject var routesStorage: RoutesStorage
   
   @Binding var presentRouteSelectionSheet: Bool
   
@@ -22,7 +21,7 @@ struct SelectRouteSheet: View {
         SheetHeader(title: "Find by Route")
         
         SelectRouteInput(
-          selectedRouteNumber: self.$selectedRouteNumber,
+          routesStorage: routesStorage,
           presentRouteSelectionSheet: self.$presentRouteSelectionSheet
         )
           .padding(.horizontal)
@@ -30,18 +29,10 @@ struct SelectRouteSheet: View {
         HorizontalLine()
         
         VStack {
-          AllRoutes(
-            selectedRouteNumber: $selectedRouteNumber,
-            routesStorage: $routesStorage,
-            presentRouteSelectionSheet: $presentRouteSelectionSheet
-          )
-         
-          FavoriteRoutes(
-            selectedRouteNumber: $selectedRouteNumber,
-            routesStorage: $routesStorage,
-            presentRouteSelectionSheet: $presentRouteSelectionSheet
-          )
+          FavoriteRoutes(routesStorage: routesStorage, presentRouteSelectionSheet: $presentRouteSelectionSheet)
+          AllRoutes(routesStorage: routesStorage, presentRouteSelectionSheet: $presentRouteSelectionSheet)
         }
+        
       }
     }
   }
