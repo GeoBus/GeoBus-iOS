@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Route: Codable, Identifiable {
+struct Route: Codable, Identifiable, Equatable {
   let id = UUID()
   var routeNumber: String
   let name: String

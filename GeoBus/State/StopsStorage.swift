@@ -13,6 +13,9 @@ class StopsStorage: ObservableObject {
   
   @Published var stops: [Stop] = []
   
+//  @Published var ascending: [Stop] = []
+//  @Published var descending: [Stop] = []
+  
   @Published var annotations: [StopAnnotation] = []
   
   
@@ -27,6 +30,8 @@ class StopsStorage: ObservableObject {
    *
    */
   func getStops(for  routeNumber: String) {
+    
+    if routeNumber.isEmpty { return }
     
     // Setup the url
     let url = URL(string: endpoint + "/stops/" + routeNumber)!

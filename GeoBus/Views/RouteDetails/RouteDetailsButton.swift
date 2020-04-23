@@ -21,12 +21,7 @@ struct RouteDetailsButton: View {
       if routesStorage.isSelected() {
         VStack(alignment: .leading) {
           HStack {
-            LiveConnectionIcon()
-              .padding(.leading, -2)
-            Text("Live")
-              .font(Font.system(size: 11, weight: .medium, design: .default) )
-              .foregroundColor(.green)
-              .padding(.leading, -5)
+            LiveIcon()
             Text("\(vehiclesStorage.vehicles.count) \(vehiclesStorage.vehicles.count == 1 ? "vehicle" : "vehicles" ) in circulation")
               .font(Font.system(size: 11, weight: .medium, design: .default) )
               .foregroundColor(.secondary)

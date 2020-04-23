@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Stop: Codable, Identifiable {
+struct Stop: Codable, Identifiable, Equatable {
   let id = UUID()
   let name: String?
   let publicId: String?

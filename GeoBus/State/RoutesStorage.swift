@@ -97,5 +97,18 @@ class RoutesStorage: ObservableObject {
   }
   
   
+  func isFavorite(route: Route) -> Bool {
+    return favorites.contains(route)
+  }
+  
+  func toggleFavorite(route: Route) {
+    if let index = favorites.firstIndex(of: route) {
+        favorites.remove(at: index)
+    } else {
+      favorites.append(route)
+    }
+  }
+  
+  
   
 }

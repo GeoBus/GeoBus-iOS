@@ -17,6 +17,7 @@ struct AllRoutes: View {
   
   var body: some View {
     VStack {
+      
       Text("All Routes")
         .font(.title)
         .fontWeight(.bold)
@@ -25,7 +26,7 @@ struct AllRoutes: View {
       
       HorizontalLine(color: .white)
       
-      Grid(routesStorage.all) { route in
+      Grid(self.routesStorage.all) { route in
         Button(action: {
           self.routesStorage.select(route: route)
           self.presentRouteSelectionSheet = false
@@ -33,13 +34,15 @@ struct AllRoutes: View {
           RouteButton(route: route)
         }
       }
-    .gridStyle(ModularGridStyle(columns: .min(70), rows: .fixed(70)))
+      .gridStyle(ModularGridStyle(columns: .min(70), rows: .fixed(70)))
       .padding(.top, 5)
       .padding(.bottom)
       .padding(.horizontal)
+      
     }
     .background(Color(red: 0.95, green: 0.95, blue: 0.95))
     .cornerRadius(15)
     .padding()
+    
   }
 }

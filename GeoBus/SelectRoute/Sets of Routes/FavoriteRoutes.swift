@@ -25,18 +25,31 @@ struct FavoriteRoutes: View {
       
       HorizontalLine(color: .white)
       
-      Grid(routesStorage.all) { route in
-        Button(action: {
-          self.routesStorage.select(route: route)
-          self.presentRouteSelectionSheet = false
-        }){
-          RouteButton(route: route)
-        }
+      VStack {
+        
+        if routesStorage.favorites.count > 0 {
+          
+          Grid(routesStorage.favorites) { route in
+            Button(action: {
+              self.routesStorage.select(route: route)
+              self.presentRouteSelectionSheet = false
+            }){
+              RouteButton(route: route)
+            }
+          }
+          .gridStyle(ModularGridStyle(columns: .min(70), rows: .fixed(70)))
+          
+        } else if routesStorage.favorites.count == 0 && routesStorage.isSelected() {
+          
+          Text("Add \(routesStorage.selected.routeNumber) to your favorites.")
+          
+        } else { Text("You have no favorite routes.") }
+        
       }
-    .gridStyle(ModularGridStyle(columns: .min(70), rows: .fixed(70)))
       .padding(.top, 5)
       .padding(.bottom)
       .padding(.horizontal)
+      
     }
     .background(Color(red: 0.95, green: 0.95, blue: 0.95))
     .cornerRadius(15)

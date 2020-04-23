@@ -11,7 +11,7 @@ import Combine
 
 class VehiclesStorage: ObservableObject {
   
-  var route: String?
+  var routeNumber: String = ""
   
   @Published var vehicles: [Vehicle] = []
   
@@ -30,12 +30,12 @@ class VehiclesStorage: ObservableObject {
   
   
   func set(route: String, state: State) {
-    self.route = route // route must be updated first, otherwise state will update without a route being set
+    self.routeNumber = route // route must be updated first, otherwise state will update without a route being set
     self.state = state
   }
   
   func set(state: State) {
-    self.route = nil
+    self.routeNumber = ""
     self.state = state
   }
   
@@ -43,11 +43,12 @@ class VehiclesStorage: ObservableObject {
   func stateDidChange() {
     switch state {
       case .idle:
+        timer?.invalidate()
         timer = nil
         break
       case .syncing:
         timer = Timer.scheduledTimer(
-          timeInterval: 20.0,
+          timeInterval: 15.0,
           target: self,
           selector: #selector(self.syncVehicles),
           userInfo: nil,
@@ -77,10 +78,10 @@ class VehiclesStorage: ObservableObject {
    */
   @objc func getVehicles() {
     
-    guard route != nil else { return }
+    if routeNumber.isEmpty { return }
     
     // Setup the url
-    let url = URL(string: endpoint + "/vehicles/" + route!)!
+    let url = URL(string: endpoint + "/vehicles/" + routeNumber)!
     
     // Configure a session
     let session = URLSession(configuration: URLSessionConfiguration.default)

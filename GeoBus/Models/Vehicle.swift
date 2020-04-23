@@ -9,7 +9,7 @@
 import Foundation
 import MapKit
 
-class Vehicle: Codable, Identifiable {
+struct Vehicle: Codable, Identifiable, Equatable {
   let id = UUID()
   let busNumber: Int
   let vehiclePlate: String?

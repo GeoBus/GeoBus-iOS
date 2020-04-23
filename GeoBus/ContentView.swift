@@ -24,7 +24,7 @@ struct ContentView : View {
   
   var body: some View {
     
-    return VStack {
+    VStack {
       
       MapView(stopsStorage: stopsStorage, vehiclesStorage: vehiclesStorage)
         .edgesIgnoringSafeArea(.top)
@@ -54,7 +54,7 @@ struct ContentView : View {
       .padding(.top, -7)
       .padding(.bottom, -10)
       
-      RefreshStatusView(interval: timeBetweenRefreshes, isAutoUpdating: $isAutoUpdating)
+//      RefreshStatusView(interval: timeBetweenRefreshes, isAutoUpdating: $isAutoUpdating)
       
     }
   }
