@@ -11,7 +11,6 @@ import SwiftUI
 struct RouteDetailsButton: View {
   
   @ObservedObject var routesStorage: RoutesStorage
-  @ObservedObject var stopsStorage: StopsStorage
   @ObservedObject var vehiclesStorage: VehiclesStorage
   
   var body: some View {
@@ -28,7 +27,7 @@ struct RouteDetailsButton: View {
             Spacer()
           }
           
-          Text(routesStorage.selected.name)
+          Text(routesStorage.selectedRoute?.name ?? "-")
             .font(.body)
             .fontWeight(.bold)
             .lineLimit(nil)
@@ -40,11 +39,9 @@ struct RouteDetailsButton: View {
       } else {
         
         HStack {
-          LeftArrow()
-            .padding(.leading, -2)
-          Text("Choose a Route")
+          Text("← Choose a Route")
             .font(Font.system(size: 15, weight: .bold, design: .default))
-            .foregroundColor(.black)
+            .foregroundColor(.gray)
           Spacer()
         }
         

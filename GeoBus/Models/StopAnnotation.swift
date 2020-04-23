@@ -14,6 +14,8 @@ class StopAnnotation: NSObject, MKAnnotation {
   let subtitle: String?
   let coordinate: CLLocationCoordinate2D
   
+  let descending = false // To choose the color of the stop
+  
   init(title: String?, subtitle: String?, latitude: Double, longitude: Double) {
     self.title = title
     self.subtitle = subtitle

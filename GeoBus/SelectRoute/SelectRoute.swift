@@ -11,7 +11,6 @@ import SwiftUI
 struct SelectRoute: View {
   
   @ObservedObject var routesStorage: RoutesStorage
-  @ObservedObject var stopsStorage: StopsStorage
   @ObservedObject var vehiclesStorage: VehiclesStorage
   
   @Binding var isLoading: Bool
@@ -31,8 +30,7 @@ struct SelectRoute: View {
     .sheet(
       isPresented: $presentRouteSelectionSheet,
       onDismiss: {
-        self.stopsStorage.getStops(for: self.routesStorage.selected.routeNumber)
-        self.vehiclesStorage.set(route: self.routesStorage.selected.routeNumber, state: .syncing)
+        self.vehiclesStorage.set(route: self.routesStorage.selectedRoute?.number ?? "", state: .syncing)
     }) {
       SelectRouteSheet(
         routesStorage: self.routesStorage,

@@ -41,7 +41,7 @@ struct FavoriteRoutes: View {
           
         } else if routesStorage.favorites.count == 0 && routesStorage.isSelected() {
           
-          Text("Add \(routesStorage.selected.routeNumber) to your favorites.")
+          Text("Add \(routesStorage.selectedRoute?.number ?? "-") to your favorites.")
           
         } else { Text("You have no favorite routes.") }
         

@@ -18,7 +18,7 @@ struct RouteButton: View {
       RoundedRectangle(cornerRadius: 10)
         .fill(activeColor)
       
-      Text(route.routeNumber.prefix(3))
+      Text(route.number.prefix(3))
         .font(Font.system(size: 20, weight: .heavy, design: .default))
         .foregroundColor(.black)
       

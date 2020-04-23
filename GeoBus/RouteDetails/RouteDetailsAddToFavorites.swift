@@ -15,7 +15,7 @@ struct RouteDetailsAddToFavorites: View {
   
   var body: some View {
     VStack {
-      Image(systemName: routesStorage.isFavorite(route: routesStorage.selected) ? "star.slash" :"star.fill")
+      Image(systemName: routesStorage.isFavorite(route: routesStorage.selectedRoute) ? "star.slash" : "star.fill")
         .font(.system(size: 30, weight: .bold, design: .default))
         .foregroundColor(.yellow)
     }

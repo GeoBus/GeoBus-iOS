@@ -13,7 +13,7 @@ import MapKit
 
 struct MapView: UIViewRepresentable {
                                                          
-  @ObservedObject var stopsStorage: StopsStorage
+  @ObservedObject var routesStorage: RoutesStorage
   @ObservedObject var vehiclesStorage: VehiclesStorage
   
   @State var mapView = MKMapView()
@@ -35,7 +35,7 @@ struct MapView: UIViewRepresentable {
   func updateUIView(_ uiView: MKMapView, context: UIViewRepresentableContext<MapView>) {
     
     var newAnnotations: [MKAnnotation] = []
-    newAnnotations.append(contentsOf: stopsStorage.annotations)
+    newAnnotations.append(contentsOf: routesStorage.stopAnnotations)
     newAnnotations.append(contentsOf: vehiclesStorage.annotations)
     
     mapView.removeAnnotations(mapView.annotations)
@@ -70,7 +70,7 @@ struct MapView: UIViewRepresentable {
       } else if annotation.isKind(of: StopAnnotation.self) {
         
         let annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "stopsAnnotationView")
-        annotationView.image = StopAnnotationView().asImage()
+        annotationView.image = StopAnnotationView(orderInRoute: annotation.subtitle!!).asImage()
         annotationView.canShowCallout = true
         
         return annotationView

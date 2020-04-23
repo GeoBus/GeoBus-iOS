@@ -23,7 +23,7 @@ struct SelectRouteButton: View {
         .fill( routesStorage.isSelected() ? activeColor : disabledColor )
       
       if routesStorage.isSelected() {
-        Text(routesStorage.selected.routeNumber)
+        Text(routesStorage.selectedRoute?.number ?? "-")
           .font(.title)
           .fontWeight(.heavy)
           .foregroundColor(.black)

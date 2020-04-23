@@ -26,13 +26,12 @@ struct ContentView : View {
     
     VStack {
       
-      MapView(stopsStorage: stopsStorage, vehiclesStorage: vehiclesStorage)
+      MapView(routesStorage: routesStorage, vehiclesStorage: vehiclesStorage)
         .edgesIgnoringSafeArea(.top)
       
       HStack {
         SelectRoute(
           routesStorage: routesStorage,
-          stopsStorage: stopsStorage,
           vehiclesStorage: vehiclesStorage,
           isLoading: $isLoading,
           isAutoUpdating: $isAutoUpdating
@@ -40,13 +39,7 @@ struct ContentView : View {
         
         VerticalLine(thickness: 3)
         
-        RouteDetails(
-          routesStorage: routesStorage,
-          stopsStorage: stopsStorage,
-          vehiclesStorage: vehiclesStorage,
-          isLoading: $isLoading,
-          isAutoUpdating: $isAutoUpdating
-        )
+        RouteDetails(routesStorage: routesStorage, vehiclesStorage: vehiclesStorage)
         
         Spacer()
       }

@@ -11,7 +11,8 @@ import Combine
 
 class RoutesStorage: ObservableObject {
   
-  @Published var selected: Route = Route()
+  @Published var selectedRoute: Route?
+  @Published var selectedVariant: RouteVariant?
   
   @Published var favorites: [Route] = []
   
@@ -20,8 +21,13 @@ class RoutesStorage: ObservableObject {
   @Published var all: [Route] = []
   
   
+  @Published var stopAnnotations: [StopAnnotation] = []
+  
+  
   private var endpoint = "https://geobus-api.herokuapp.com"
   
+  
+  // ----------------------------
   
   init() {
     self.getAllRoutes()
@@ -72,40 +78,119 @@ class RoutesStorage: ObservableObject {
   }
   
   
+  func formatStopAnnotations(of variant: RouteVariant) -> [StopAnnotation] {
+    
+    var formatedAnnotations: [StopAnnotation] = []
+    
+    // Format ascending stops
+    if variant.ascending.count > 0 {
+      for stop in variant.ascending {
+        formatedAnnotations.append(
+          StopAnnotation(
+            title: String(stop.name),
+            subtitle: stop.orderInRoute != nil ? String(stop.orderInRoute!) : "-",
+            latitude: stop.lat,
+            longitude: stop.lng
+          )
+        )
+      }
+    }
+    
+    // Format descending stops
+    if variant.descending.count > 0 {
+      for stop in variant.descending {
+        formatedAnnotations.append(
+          StopAnnotation(
+            title: String(stop.name),
+            subtitle: stop.orderInRoute != nil ? String(stop.orderInRoute!) : "-",
+            latitude: stop.lat,
+            longitude: stop.lng
+          )
+        )
+      }
+    }
+    
+    // Format circular stops
+    if variant.circular.count > 0 {
+      for stop in variant.circular {
+        formatedAnnotations.append(
+          StopAnnotation(
+            title: String(stop.name),
+            subtitle: stop.orderInRoute != nil ? String(stop.orderInRoute!) : "-",
+            latitude: stop.lat,
+            longitude: stop.lng
+          )
+        )
+      }
+    }
+    
+    return formatedAnnotations
+    
+  }
+  
+  
   
   
   func isSelected() -> Bool {
-    return selected.routeNumber.count > 2
+    return selectedRoute != nil
+  }
+  
+  func isThisVariantSelected(variant: RouteVariant) -> Bool {
+    return variant == self.selectedVariant
+  }
+  
+  func getVariantName(variant: RouteVariant) -> String {
+    if variant.isCircular {
+    
+      return "\(variant.circular.first?.name ?? "-")"
+    
+    } else {
+      
+      let firstStop = variant.ascending.first?.name ?? (variant.descending.last?.name ?? "-")
+      let lastStop = variant.descending.first?.name ?? (variant.ascending.last?.name ?? "-")
+      
+      return "\(firstStop) ⇄ \(lastStop)"
+    
+    }
   }
   
   
   func select(route: Route) {
-    self.selected = route
+    self.selectedRoute = route
+    self.selectedVariant = route.variants[0]
+    self.stopAnnotations = formatStopAnnotations(of: self.selectedVariant!)
+  }
+  
+  func select(variant: RouteVariant) {
+    self.selectedVariant = variant
+    self.stopAnnotations = formatStopAnnotations(of: self.selectedVariant!)
   }
   
   func select(with routeNumber: String) {
     
     let index = all.firstIndex(where: { (route) -> Bool in
-      route.routeNumber == routeNumber // test if this is the item you're looking for
+      route.number == routeNumber // test if this is the item you're looking for
     }) ?? -1 // if the item does not exist,
     
     if index < 0 {
-      self.selected = Route() // selected route is an empty route
+      self.selectedRoute = nil
     } else {
-      self.selected = all[index]
+      self.select(route: all[index])
     }
   }
   
   
-  func isFavorite(route: Route) -> Bool {
-    return favorites.contains(route)
+  func isFavorite(route: Route?) -> Bool {
+    if route == nil { return false }
+    return favorites.contains(route!)
   }
   
-  func toggleFavorite(route: Route) {
-    if let index = favorites.firstIndex(of: route) {
-        favorites.remove(at: index)
+  func toggleFavorite(route: Route?) {
+    if route == nil { return }
+    if let index = favorites.firstIndex(of: route!) {
+      favorites.remove(at: index)
     } else {
-      favorites.append(route)
+      favorites.append(route!)
     }
   }
   

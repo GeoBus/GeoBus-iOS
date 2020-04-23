@@ -10,10 +10,22 @@ import SwiftUI
 import MapKit
 
 struct StopAnnotationView: View {
+  
+  var orderInRoute: String
+  
+  var descending: Bool = false
+  
+  
   var body: some View {
-    Circle()
-      .frame(width: 8, height: 8)
-      .foregroundColor(.green)
+    VStack {
+      Text(orderInRoute)
+        .font(.footnote)
+        .fontWeight(.bold)
+        .foregroundColor(.white)
+    }
+    .padding(.all, 5)
+    .background(descending ? Color.blue : Color.green)
+    .cornerRadius(.infinity)
   }
 }
 

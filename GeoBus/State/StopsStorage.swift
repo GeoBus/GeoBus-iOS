@@ -62,8 +62,8 @@ class StopsStorage: ObservableObject {
           for item in self.stops {
             self.annotations.append(
               StopAnnotation(
-                title: String(item.name ?? "-"),
-                subtitle: String(item.publicId ?? "-"),
+                title: String(item.name),
+                subtitle: String(item.publicId),
                 latitude: item.lat,
                 longitude: item.lng
               )

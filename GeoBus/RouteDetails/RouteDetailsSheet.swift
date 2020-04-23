@@ -12,10 +12,7 @@ import Grid
 struct RouteDetailsSheet: View {
   
   @ObservedObject var routesStorage: RoutesStorage
-  @ObservedObject var stopsStorage: StopsStorage
   @ObservedObject var vehiclesStorage: VehiclesStorage
-  
-  @Binding var presentRouteSelectionSheet: Bool
   
   @State var isLoading: Bool = false
   
@@ -29,7 +26,7 @@ struct RouteDetailsSheet: View {
         
         HStack {
           SelectRouteButton(routesStorage: routesStorage, isLoading: $isLoading)
-          Text(routesStorage.selected.name)
+          Text(routesStorage.selectedRoute?.name ?? "-")
           Spacer()
         }
         .padding(.vertical)
@@ -43,7 +40,7 @@ struct RouteDetailsSheet: View {
             .padding(.trailing, 6)
           
           Button(action: {
-            self.routesStorage.toggleFavorite(route: self.routesStorage.selected)
+            self.routesStorage.toggleFavorite(route: self.routesStorage.selectedRoute)
           }) {
             RouteDetailsAddToFavorites(routesStorage: routesStorage)
           }
@@ -52,26 +49,17 @@ struct RouteDetailsSheet: View {
         .padding(.horizontal)
         
         HorizontalLine()
-          .padding(.vertical, 20)
+          .padding(.top, 20)
         
-        Picker("Direction", selection: $routeDirection) {
-          Text(stopsStorage.stops.first?.name ?? "Ascending").tag(0)
-          Text(stopsStorage.stops.last?.name ?? "Descending").tag(1)
+        if routesStorage.selectedRoute?.variants.count ?? 0 > 1 {
+          RouteVariantPicker(routesStorage: routesStorage)
+            .padding(.top, 12)
+          HorizontalLine()
         }
-        .pickerStyle(SegmentedPickerStyle())
-        .padding(.horizontal)
-        .padding(.bottom, 20)
         
-        VStack {
-          ForEach(stopsStorage.stops) { stop in
-            VStack(alignment: .leading) {
-              StopButton(stop: stop)
-                .padding(.bottom)
-              //              VerticalLine(thickness: 2, color: .yellow)
-            }
-            .padding(.horizontal)
-          }
-        }
+        RouteVariantStops(routesStorage: routesStorage)
+          .padding(.top, 20)
+        
       }
     }
   }

@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct StopButton: View {
+struct StopDetails: View {
   
   var stop: Stop
   
@@ -24,16 +24,16 @@ struct StopButton: View {
         
         HStack {
           VStack {
-            Text("23")
+            Text(stop.orderInRoute != nil ? String(stop.orderInRoute!) : "-")
               .font(.caption)
               .fontWeight(.bold)
-              .foregroundColor(.black)
+              .foregroundColor(.white)
           }
           .padding(.all, 7)
-          .background(Color.yellow)
+          .background(Color.green)
           .cornerRadius(.infinity)
           
-          Text(stop.name ?? "-")
+          Text(stop.name)
             .fontWeight(.medium)
             .foregroundColor(.black)
           

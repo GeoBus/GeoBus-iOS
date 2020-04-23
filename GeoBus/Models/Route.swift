@@ -10,12 +10,7 @@ import Foundation
 
 struct Route: Codable, Identifiable, Equatable {
   let id = UUID()
-  var routeNumber: String
+  let number: String
   let name: String
-  
-  init() {
-    self.routeNumber = ""
-    self.name = ""
-  }
-  
+  let variants: [RouteVariant]
 }
