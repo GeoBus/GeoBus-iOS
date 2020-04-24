@@ -205,8 +205,14 @@ class RoutesStorage: ObservableObject {
   
   func select(route: Route) {
     self.selectedRoute = route
-    self.selectedVariant = route.variants[0]
-    self.stopAnnotations = formatStopAnnotations(of: self.selectedVariant!)
+    self.select(variant: route.variants[0])
+  }
+  
+  func select(with routeNumber: String) {
+    let route = getRoute(from: routeNumber)
+    if route != nil {
+      self.select(route: route!)
+    }
   }
   
   func select(variant: RouteVariant) {
@@ -214,9 +220,7 @@ class RoutesStorage: ObservableObject {
     self.stopAnnotations = formatStopAnnotations(of: self.selectedVariant!)
   }
   
-  func select(with routeNumber: String) {
-    self.selectedRoute = getRoute(from: routeNumber)
-  }
+
   
   
   

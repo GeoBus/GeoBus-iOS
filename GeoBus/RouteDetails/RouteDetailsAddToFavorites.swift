@@ -15,12 +15,12 @@ struct RouteDetailsAddToFavorites: View {
   
   var body: some View {
     VStack {
-      Image(systemName: routesStorage.isFavorite(route: routesStorage.selectedRoute) ? "star.slash" : "star.fill")
+      Image(systemName: "star.fill")
         .font(.system(size: 30, weight: .bold, design: .default))
-        .foregroundColor(.yellow)
+        .foregroundColor(routesStorage.isFavorite(route: routesStorage.selectedRoute) ? Color(.white) : Color(.systemOrange))
     }
     .frame(maxWidth: .infinity, maxHeight: .infinity)
-    .background(Color(red: 0.95, green: 0.95, blue: 0.95))
+    .background(routesStorage.isFavorite(route: routesStorage.selectedRoute) ? Color(.systemOrange) : Color(.secondarySystemBackground))
     .cornerRadius(10)
   }
 }

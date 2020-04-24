@@ -11,6 +11,7 @@ import SwiftUI
 struct StopDetails: View {
   
   var stop: Stop
+  var direction: Int
   
   @State var isSelected = false
   
@@ -24,18 +25,20 @@ struct StopDetails: View {
         
         HStack {
           VStack {
-            Text(stop.orderInRoute != nil ? String(stop.orderInRoute!) : "-")
+            Text(stop.orderInRoute != nil ? (stop.orderInRoute! < 10 ? "0\(stop.orderInRoute!)" : "\(stop.orderInRoute!)" ) : "-")
               .font(.caption)
               .fontWeight(.bold)
-              .foregroundColor(.white)
+              .foregroundColor(Color(.white))
           }
-          .padding(.all, 7)
-          .background(Color.green)
+          .padding(7)
+          .background(getColor(for: direction))
           .cornerRadius(.infinity)
+          .padding(.trailing, 3)
+          
           
           Text(stop.name)
             .fontWeight(.medium)
-            .foregroundColor(.black)
+            .foregroundColor(Color(.label))
           
           Spacer()
         }
@@ -43,7 +46,7 @@ struct StopDetails: View {
         
         VStack {
           
-          if isSelected { HorizontalLine(color: isSelected ? Color(red: 0.95, green: 0.95, blue: 0.95) : .white) }
+          if isSelected { HorizontalLine() } // color: isSelected ? Color(red: 0.95, green: 0.95, blue: 0.95) : .white
           
           if isSelected {
             
@@ -53,7 +56,7 @@ struct StopDetails: View {
                 Text("Next on this stop")
                   .font(.footnote)
                   .fontWeight(.medium)
-                  .foregroundColor(.gray)
+                  .foregroundColor(Color(.tertiaryLabel))
                 Spacer()
                 EstimatedIcon()
               }
@@ -63,19 +66,19 @@ struct StopDetails: View {
                 VehicleAnnotationView(title: "728")
                 Text("to")
                   .font(.footnote)
-                  .foregroundColor(.gray)
+                  .foregroundColor(Color(.tertiaryLabel))
                 Text("Portas de Benfica")
                   .font(.body)
                   .fontWeight(.medium)
-                  .foregroundColor(.black)
+                  .foregroundColor(Color(.label))
                 Spacer()
                 Text("in ±")
                   .font(.footnote)
-                  .foregroundColor(.gray)
+                  .foregroundColor(Color(.tertiaryLabel))
                 Text("2 min")
                   .font(.body)
                   .fontWeight(.medium)
-                  .foregroundColor(.black)
+                  .foregroundColor(Color(.label))
               }
               
             }
@@ -88,11 +91,20 @@ struct StopDetails: View {
         .padding(.top, -12)
         
       }
-      .background(isSelected ? Color(red: 0.97, green: 0.97, blue: 0.97) : Color(red: 0.95, green: 0.95, blue: 0.95))
+      .background(isSelected ? Color(.tertiarySystemBackground) : Color(.secondarySystemBackground))
       .cornerRadius(10)
       .padding(.bottom, isSelected ? 15 : 0)
-      .shadow(color: Color(red: 0.85, green: 0.85, blue: 0.85), radius: isSelected ? 1 : 0, x: 0, y: 0)
-      .shadow(color: Color(red: 0.95, green: 0.95, blue: 0.95), radius: isSelected ? 25 : 0, x: 0, y: isSelected ? 2 : 0)
+      .shadow(color: Color(.secondarySystemBackground), radius: isSelected ? 1 : 0, x: 0, y: 0)
+      .shadow(color: Color(.secondarySystemBackground), radius: isSelected ? 25 : 0, x: 0, y: isSelected ? 2 : 0)
     }
   }
+  
+  func getColor(for direction: Int) -> Color {
+    switch direction {
+      case 0: return Color(.systemGreen)
+      case 1: return Color(.systemBlue)
+      default: return Color(.systemBlue)
+    }
+  }
+  
 }

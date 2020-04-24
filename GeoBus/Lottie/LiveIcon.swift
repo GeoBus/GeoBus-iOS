@@ -19,7 +19,7 @@ struct LiveIcon: View {
         .padding(.leading, -2)
       Text("Live")
         .font(Font.system(size: 11, weight: .medium, design: .default) )
-        .foregroundColor(.green)
+        .foregroundColor(Color(.systemGreen))
         .padding(.leading, -5)
     }
   }

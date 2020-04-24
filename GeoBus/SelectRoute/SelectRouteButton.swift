@@ -10,9 +10,6 @@ import SwiftUI
 
 struct SelectRouteButton: View {
   
-  private let activeColor: Color = Color(red: 1, green: 0.85, blue: 0)
-  private let disabledColor: Color = Color(red: 0.95, green: 0.95, blue: 0.95)
-  
   @ObservedObject var routesStorage: RoutesStorage
   
   
@@ -20,7 +17,7 @@ struct SelectRouteButton: View {
     
     return ZStack {
       RoundedRectangle(cornerRadius: 10)
-        .fill( routesStorage.isSelected() ? activeColor : disabledColor )
+        .fill( routesStorage.isSelected() ? Color(.systemYellow) : Color(.systemGray4) )
       
       if routesStorage.isSelected() {
         Text(routesStorage.selectedRoute?.number ?? "-")
@@ -30,7 +27,7 @@ struct SelectRouteButton: View {
       } else {
         Image(systemName: "plus")
           .font(.title)
-          .foregroundColor(.secondary)
+          .foregroundColor(Color(.secondaryLabel))
       }
       
       if routesStorage.isLoading {

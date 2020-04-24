@@ -24,7 +24,7 @@ struct StopAnnotationView: View {
         .foregroundColor(.white)
     }
     .padding(.all, 5)
-    .background(descending ? Color.blue : Color.green)
+    .background(descending ? Color(.systemBlue) : Color(.systemGreen))
     .cornerRadius(.infinity)
   }
 }

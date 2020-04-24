@@ -21,10 +21,10 @@ struct AllRoutes: View {
       Text("All Routes")
         .font(.title)
         .fontWeight(.bold)
-        .foregroundColor(Color(red: 0.15, green: 0.15, blue: 0.15))
+        .foregroundColor(Color(.label))
         .padding(.top, 20)
       
-      HorizontalLine(color: .white)
+      HorizontalLine() //color: .white
       
       Grid(self.routesStorage.all) { route in
         Button(action: {
@@ -40,7 +40,7 @@ struct AllRoutes: View {
       .padding(.horizontal)
       
     }
-    .background(Color(red: 0.95, green: 0.95, blue: 0.95))
+    .background(Color(.secondarySystemBackground))
     .cornerRadius(15)
     .padding()
     

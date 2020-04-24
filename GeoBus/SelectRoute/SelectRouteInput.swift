@@ -24,7 +24,7 @@ struct SelectRouteInput: View {
           .font(.system(size: 40, weight: .bold, design: .default))
           .multilineTextAlignment(.center)
           .padding()
-          .background(Color(red: 0.9, green: 0.9, blue: 0.9))
+          .background(Color(.secondarySystemBackground))
           .cornerRadius(10)
           .frame(width: 120)
         
@@ -34,12 +34,12 @@ struct SelectRouteInput: View {
         }) {
           Text("Locate")
             .font(.system(size: 40, weight: .bold, design: .default))
-            .foregroundColor(.white)
+            .foregroundColor(Color(.label))
         }
         .disabled(routeNumber.count == 0)
         .frame(maxWidth: .infinity)
         .padding()
-        .background(routeNumber.count > 2 ? Color.blue : Color.gray)
+        .background(routeNumber.count > 2 ? Color(.systemBlue) : Color(.secondarySystemBackground))
         .cornerRadius(10)
       }
       Text("Choose a Route Number (like 758 or 28E) to locate the buses on the map in real time.")

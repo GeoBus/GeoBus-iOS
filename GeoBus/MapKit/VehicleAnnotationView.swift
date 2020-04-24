@@ -17,10 +17,10 @@ struct VehicleAnnotationView: View {
     Text(title.prefix(3))
       .font(.footnote)
       .fontWeight(.heavy)
-      .foregroundColor(.black)
+      .foregroundColor(Color(.black))
       .padding(.horizontal, 7)
       .padding(.vertical, 2)
-      .background( RoundedRectangle(cornerRadius: 10).foregroundColor(.yellow) )
+      .background( RoundedRectangle(cornerRadius: 10).foregroundColor(Color(.systemYellow)) )
       .padding(.trailing, 0)
   }
 }

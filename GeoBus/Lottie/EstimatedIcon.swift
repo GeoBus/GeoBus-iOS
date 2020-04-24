@@ -19,7 +19,7 @@ struct EstimatedIcon: View {
         .padding(.leading, -2)
       Text("Estimated")
         .font(Font.system(size: 11, weight: .medium, design: .default) )
-        .foregroundColor(.orange)
+        .foregroundColor(Color(.systemOrange))
         .padding(.leading, -5)
     }
   }

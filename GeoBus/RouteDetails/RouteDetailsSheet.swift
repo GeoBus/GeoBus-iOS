@@ -25,10 +25,11 @@ struct RouteDetailsSheet: View {
         HStack {
           SelectRouteButton(routesStorage: routesStorage)
           Text(routesStorage.selectedRoute?.name ?? "-")
+            .foregroundColor(Color(.label))
           Spacer()
         }
         .padding(.vertical)
-        .background(Color(red: 0.95, green: 0.95, blue: 0.95))
+        .background(Color(.secondarySystemBackground))
         .cornerRadius(10)
         .padding(.horizontal)
         

@@ -23,7 +23,7 @@ struct RouteDetailsButton: View {
             LiveIcon()
             Text("\(vehiclesStorage.vehicles.count) \(vehiclesStorage.vehicles.count == 1 ? "vehicle" : "vehicles" ) in circulation")
               .font(Font.system(size: 11, weight: .medium, design: .default) )
-              .foregroundColor(.secondary)
+              .foregroundColor(Color(.secondaryLabel))
             Spacer()
           }
           
@@ -31,7 +31,7 @@ struct RouteDetailsButton: View {
             .font(.body)
             .fontWeight(.bold)
             .lineLimit(nil)
-            .foregroundColor(.black)
+            .foregroundColor(Color(.label))
           
           Spacer()
         }
@@ -41,7 +41,7 @@ struct RouteDetailsButton: View {
         HStack {
           Text("← Choose a Route")
             .font(Font.system(size: 15, weight: .bold, design: .default))
-            .foregroundColor(.gray)
+            .foregroundColor(Color(.secondaryLabel))
           Spacer()
         }
         

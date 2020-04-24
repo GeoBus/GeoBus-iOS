@@ -21,8 +21,8 @@ struct RouteVariantButton: View {
         .font(.callout)
     }
     .padding()
-    .foregroundColor(isSelected ? .white : .black)
-    .background(isSelected ? Color.blue : Color(red: 0.95, green: 0.95, blue: 0.95))
+    .foregroundColor(isSelected ? .white : Color(.secondaryLabel))
+    .background(isSelected ? Color(.systemBlue) : Color(.secondarySystemBackground))
     .cornerRadius(10)
   }
 }

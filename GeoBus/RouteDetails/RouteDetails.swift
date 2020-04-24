@@ -18,7 +18,11 @@ struct RouteDetails: View {
   
   var body: some View {
     
-    Button(action: { if self.routesStorage.isSelected() { self.presentRouteDetailsSheet = true } }) {
+    Button(action: {
+      if self.routesStorage.isSelected() {
+        self.presentRouteDetailsSheet = true
+      }
+    }) {
       RouteDetailsButton(
         routesStorage: self.routesStorage,
         vehiclesStorage: self.vehiclesStorage

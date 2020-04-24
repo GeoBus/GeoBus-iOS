@@ -15,7 +15,8 @@ struct LoadingView: View {
   var body: some View {
     ZStack {
       Rectangle()
-        .fill(Color(red: 1, green: 1, blue: 1, opacity: 0.6))
+        .fill(Color(.separator))
+        .cornerRadius(10)
       LottieView(name: "circular-loader", loopMode: .loop, duration: 1, play: $play)
     }
   }

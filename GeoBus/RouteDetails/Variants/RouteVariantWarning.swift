@@ -23,8 +23,8 @@ struct RouteVariantWarning: View {
       }
     }
     .padding()
-    .foregroundColor(.orange)
-    .background(Color(red: 1.00, green: 0.90, blue: 0.80))
+    .foregroundColor(Color(.systemOrange))
+    .background(Color(.systemOrange).opacity(0.2))
     .cornerRadius(10)
     
   }

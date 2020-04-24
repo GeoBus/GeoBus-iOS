@@ -20,10 +20,10 @@ struct FavoriteRoutes: View {
       Text("Favorite Routes")
         .font(.title)
         .fontWeight(.bold)
-        .foregroundColor(Color(red: 0.15, green: 0.15, blue: 0.15))
+        .foregroundColor(Color(.label))
         .padding(.top, 20)
       
-      HorizontalLine(color: .white)
+      HorizontalLine() //color: .white
       
       VStack {
         
@@ -43,7 +43,11 @@ struct FavoriteRoutes: View {
           
           Text("Add \(routesStorage.selectedRoute?.number ?? "-") to your favorites.")
           
-        } else { Text("You have no favorite routes.") }
+        } else {
+          
+          Text("You have no favorite routes.")
+          
+        }
         
       }
       .padding(.top, 5)
@@ -51,7 +55,7 @@ struct FavoriteRoutes: View {
       .padding(.horizontal)
       
     }
-    .background(Color(red: 0.95, green: 0.95, blue: 0.95))
+    .background(Color(.secondarySystemBackground))
     .cornerRadius(15)
     .padding()
   }

@@ -16,7 +16,7 @@ struct RouteVariantStops: View {
   
   var body: some View {
     
-   VStack {
+    VStack {
       
       if !(routesStorage.selectedVariant?.isCircular ?? true) {
         
@@ -29,9 +29,9 @@ struct RouteVariantStops: View {
         .padding(.bottom, 20)
         
         VStack {
-          ForEach(getStopsToShow(for: self.routeDirection)) { stop in
+          ForEach(getStopsToShow(for: routeDirection)) { stop in
             VStack(alignment: .leading) {
-              StopDetails(stop: stop)
+              StopDetails(stop: stop, direction: self.routeDirection)
                 .padding(.bottom)
             }
             .padding(.horizontal)
@@ -43,9 +43,9 @@ struct RouteVariantStops: View {
         RouteCircularVariantInfo()
         
         VStack {
-          ForEach(self.routesStorage.selectedVariant!.circular) { stop in
+          ForEach(getStopsToShow(for: 3 /* Circular routes */ )) { stop in
             VStack(alignment: .leading) {
-              StopDetails(stop: stop)
+              StopDetails(stop: stop, direction: self.routeDirection)
                 .padding(.bottom)
             }
             .padding(.horizontal)
@@ -59,7 +59,7 @@ struct RouteVariantStops: View {
   
   
   func getStopsToShow(for direction: Int) -> [Stop] {
-    switch routeDirection {
+    switch direction {
       case 0: return self.routesStorage.selectedVariant!.ascending
       case 1: return self.routesStorage.selectedVariant!.descending
       default: return self.routesStorage.selectedVariant!.circular

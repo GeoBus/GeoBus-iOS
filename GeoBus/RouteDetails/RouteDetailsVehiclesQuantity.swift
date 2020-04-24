@@ -30,7 +30,7 @@ struct RouteDetailsVehiclesQuantity: View {
     }
     .padding()
     .frame(maxWidth: .infinity, maxHeight: .infinity)
-    .background(Color(red: 0.95, green: 0.95, blue: 0.95))
+    .background(Color(.secondarySystemBackground))
     .cornerRadius(10)
     
   }
