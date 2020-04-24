@@ -12,7 +12,6 @@ import Combine
 struct ContentView : View {
   
   @ObservedObject var routesStorage = RoutesStorage()
-  @ObservedObject var stopsStorage = StopsStorage()
   @ObservedObject var vehiclesStorage = VehiclesStorage()
   
   @State var isAutoUpdating = false
@@ -33,7 +32,7 @@ struct ContentView : View {
           vehiclesStorage: vehiclesStorage
         )
         
-        VerticalLine(thickness: 3)
+        VerticalLine(thickness: 2)
         
         RouteDetails(routesStorage: routesStorage, vehiclesStorage: vehiclesStorage)
         

@@ -9,16 +9,18 @@
 import Foundation
 import Combine
 
-class VehiclesStorage: ObservableObject {
+class EstimationsStorage: ObservableObject {
   
-  var routeNumber: String = ""
+  var stopPublicId: String = ""
   
-  @Published var vehicles: [Vehicle] = []
+  @Published var estimations: [Estimation] = []
   
-  @Published var annotations: [VehicleAnnotation] = []
+  @Published var isLoading: Bool = false
   
   
-  private var endpoint = "https://geobus-api.herokuapp.com"
+  private let endpoint = "https://carris.tecmic.com/api/v2.8/Estimations/busStop/"
+  private let howManyResults = "/top/5"
+  
   
   private var state = State.idle {
     // We add a property observer on 'state', which lets us
@@ -29,13 +31,14 @@ class VehiclesStorage: ObservableObject {
   private var timer: Timer? = nil
   
   
-  func set(route: String, state: State) {
-    self.routeNumber = route // route must be updated first, otherwise state will update without a route being set
+  
+  
+  func set(publicId: String, state: State) {
+    self.stopPublicId = publicId // route must be updated first, otherwise state will update without a route being set
     self.state = state
   }
   
   func set(state: State) {
-    self.routeNumber = ""
     self.state = state
   }
   
@@ -43,27 +46,28 @@ class VehiclesStorage: ObservableObject {
   func stateDidChange() {
     switch state {
       case .idle:
+        stopPublicId = ""
         timer?.invalidate()
         timer = nil
         break
       case .syncing:
         timer = Timer.scheduledTimer(
-          timeInterval: 15.0,
+          timeInterval: 60.0,
           target: self,
-          selector: #selector(self.syncVehicles),
+          selector: #selector(self.syncEstimations),
           userInfo: nil,
           repeats: true
         )
-        self.syncVehicles()
+        self.syncEstimations()
         break
     }
   }
   
   
   
-  @objc func syncVehicles() { //_ timer : Timer
+  @objc func syncEstimations() { //_ timer : Timer
     if state == .syncing {
-      getVehicles()
+      getEstimations()
     }
   }
   
@@ -71,17 +75,19 @@ class VehiclesStorage: ObservableObject {
   
   /* * * *
    *
-   * Get Routes
+   * Get Stops Estimations
    * This function gets stops from each route instance
    * and stores them in the Route variable
    *
    */
-  @objc func getVehicles() {
+  func getEstimations() {
     
-    if routeNumber.isEmpty { return }
+    if stopPublicId.isEmpty { return }
+    
+    isLoading = true
     
     // Setup the url
-    let url = URL(string: endpoint + "/vehicles/" + routeNumber)!
+    let url = URL(string: endpoint + stopPublicId + howManyResults)!
     
     // Configure a session
     let session = URLSession(configuration: URLSessionConfiguration.default)
@@ -93,29 +99,18 @@ class VehiclesStorage: ObservableObject {
       
       // Check status of response
       if httpResponse?.statusCode != 200 {
-        print("Error: API failed at getVehicles()")
+        print("Error: API failed at getEstimations()")
         return
       }
       
       do {
         
-        let decodedData = try JSONDecoder().decode([Vehicle].self, from: data!)
+        let decodedData = try JSONDecoder().decode([Estimation].self, from: data!)
         
         OperationQueue.main.addOperation {
-          self.vehicles.removeAll()
-          self.vehicles.append(contentsOf: decodedData)
-          
-          self.annotations.removeAll()
-          for item in self.vehicles {
-            self.annotations.append(
-              VehicleAnnotation(
-                title: String(item.routeNumber ?? "-"),
-                subtitle: String(item.lastStopOnVoyageName ?? "-"),
-                latitude: item.lat,
-                longitude: item.lng
-              )
-            )
-          }
+          self.estimations.removeAll()
+          self.estimations.append(contentsOf: decodedData)
+          self.isLoading = false
         }
         
       } catch {
@@ -126,16 +121,13 @@ class VehiclesStorage: ObservableObject {
     task.resume()
     
   }
-  
-  
 }
-
 
 
 
 // MARK: - Extension for state control
 
-extension VehiclesStorage {
+extension EstimationsStorage {
   enum State {
     case idle
     case syncing

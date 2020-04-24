@@ -7,11 +7,14 @@
 //
 
 import SwiftUI
+import Combine
 
 struct StopDetails: View {
   
   var stop: Stop
   var direction: Int
+  
+  @ObservedObject var estimationsStorage = EstimationsStorage()
   
   @State var isSelected = false
   
@@ -19,6 +22,7 @@ struct StopDetails: View {
     
     Button(action: {
       self.isSelected = !self.isSelected
+      self.estimationsStorage.set(publicId: self.stop.publicId, state: .syncing)
     }) {
       
       VStack {
@@ -62,23 +66,27 @@ struct StopDetails: View {
               }
               .padding(.bottom, 8)
               
-              HStack {
-                VehicleAnnotationView(title: "728")
-                Text("to")
+              if estimationsStorage.isLoading {
+                
+                Text("Loading...")
                   .font(.footnote)
                   .foregroundColor(Color(.tertiaryLabel))
-                Text("Portas de Benfica")
-                  .font(.body)
-                  .fontWeight(.medium)
-                  .foregroundColor(Color(.label))
-                Spacer()
-                Text("in ±")
-                  .font(.footnote)
-                  .foregroundColor(Color(.tertiaryLabel))
-                Text("2 min")
-                  .font(.body)
-                  .fontWeight(.medium)
-                  .foregroundColor(Color(.label))
+                
+              } else {
+                
+                if estimationsStorage.estimations.count > 0 {
+                  
+                  ForEach(estimationsStorage.estimations) { estimation in
+                    StopEstimations(estimation: estimation)
+                  }.onDisappear() {
+                    self.estimationsStorage.set(state: .idle)
+                  }
+                  
+                } else {
+                  Text("Nothing to show here.")
+                    .font(.footnote)
+                    .foregroundColor(Color(.tertiaryLabel))
+                }
               }
               
             }

@@ -34,7 +34,7 @@ struct SelectRouteInput: View {
         }) {
           Text("Locate")
             .font(.system(size: 40, weight: .bold, design: .default))
-            .foregroundColor(Color(.label))
+            .foregroundColor(routeNumber.count > 2 ? Color(.white) : Color(.secondaryLabel))
         }
         .disabled(routeNumber.count == 0)
         .frame(maxWidth: .infinity)
