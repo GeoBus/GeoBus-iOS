@@ -8,6 +8,7 @@
 
 import Foundation
 import Combine
+import SwiftUI
 
 class RoutesStorage: ObservableObject {
   
@@ -24,13 +25,16 @@ class RoutesStorage: ObservableObject {
   @Published var stopAnnotations: [StopAnnotation] = []
   
   
+  @Published var isLoading: Bool = false
+  
+  
   private var endpoint = "https://geobus-api.herokuapp.com"
   
   
   // ----------------------------
   
   init() {
-    self.getAllRoutes()
+    self.syncAllRoutes()
   }
   
   
@@ -41,7 +45,9 @@ class RoutesStorage: ObservableObject {
    * and stores them in the Route variable
    *
    */
-  private func getAllRoutes() {
+  private func syncAllRoutes() {
+    
+    self.isLoading = true
     
     // Setup the url
     let url = URL(string: endpoint + "/routes/")!
@@ -66,6 +72,8 @@ class RoutesStorage: ObservableObject {
         
         OperationQueue.main.addOperation {
           self.all.append(contentsOf: decodedData)
+          self.retrieveFavorites()
+          self.isLoading = false
         }
         
       } catch {
@@ -141,18 +149,58 @@ class RoutesStorage: ObservableObject {
   
   func getVariantName(variant: RouteVariant) -> String {
     if variant.isCircular {
-    
+      
       return "\(variant.circular.first?.name ?? "-")"
-    
+      
     } else {
       
-      let firstStop = variant.ascending.first?.name ?? (variant.descending.last?.name ?? "-")
-      let lastStop = variant.descending.first?.name ?? (variant.ascending.last?.name ?? "-")
+      let firstStop = getTerminalStopNameForVariant(variant: variant, direction: .ascending)
+      let lastStop = getTerminalStopNameForVariant(variant: variant, direction: .descending)
       
       return "\(firstStop) ⇄ \(lastStop)"
-    
+      
     }
   }
+  
+  
+  
+  func getTerminalStopNameForSelectedVariant(direction: RouteDirection) -> String {
+    return getTerminalStopNameForVariant(variant: self.selectedVariant!, direction: direction)
+  }
+  
+  
+  func getTerminalStopNameForVariant(variant: RouteVariant, direction: RouteDirection) -> String {
+    switch direction {
+      
+      case .ascending:
+        return variant.ascending.last?.name ?? (variant.descending.first?.name ?? "-")
+      
+      case .descending:
+        return variant.descending.last?.name ?? (variant.ascending.first?.name ?? "-")
+      
+      case .circular:
+        return ""
+    }
+  }
+  
+  
+  
+  
+  
+  
+  
+  func getRoute(from routeNumber: String) -> Route? {
+    let index = all.firstIndex(where: { (route) -> Bool in
+      route.number == routeNumber // test if this is the item you're looking for
+    }) ?? -1 // if the item does not exist,
+    if index > 0 {
+      return all[index]
+    } else {
+      return nil
+    }
+  }
+  
+  
   
   
   func select(route: Route) {
@@ -167,23 +215,21 @@ class RoutesStorage: ObservableObject {
   }
   
   func select(with routeNumber: String) {
-    
-    let index = all.firstIndex(where: { (route) -> Bool in
-      route.number == routeNumber // test if this is the item you're looking for
-    }) ?? -1 // if the item does not exist,
-    
-    if index < 0 {
-      self.selectedRoute = nil
-    } else {
-      self.select(route: all[index])
-    }
+    self.selectedRoute = getRoute(from: routeNumber)
   }
+  
+  
+  
+  
+  
+  // ----------- FAVORITES -------------------
   
   
   func isFavorite(route: Route?) -> Bool {
     if route == nil { return false }
     return favorites.contains(route!)
   }
+  
   
   func toggleFavorite(route: Route?) {
     if route == nil { return }
@@ -192,8 +238,56 @@ class RoutesStorage: ObservableObject {
     } else {
       favorites.append(route!)
     }
+    saveFavorites()
   }
   
   
   
+  
+  
+  
+  // iCloud Storage for Favorites
+  
+  
+  func saveFavorites() {
+    var favoritesToSave: [String] = []
+    
+    for favRoute in favorites {
+      favoritesToSave.append(favRoute.number)
+    }
+    
+    let iCloudKeyStore = NSUbiquitousKeyValueStore()
+    iCloudKeyStore.set(favoritesToSave, forKey: "favoriteRoutes")
+    iCloudKeyStore.synchronize()
+  }
+  
+  
+  func retrieveFavorites() {
+    let iCloudKeyStore = NSUbiquitousKeyValueStore()
+    iCloudKeyStore.synchronize()
+    let savedFavorites = iCloudKeyStore.array(forKey: "favoriteRoutes") as? [String] ?? []
+    
+    for routeNumber in savedFavorites {
+      let route = getRoute(from: routeNumber)
+      if route != nil {
+        self.favorites.append( route! )
+      }
+    }
+    
+  }
+  
+  
+  
+}
+
+
+
+// MARK: - Extension for state control
+
+extension RoutesStorage {
+  enum RouteDirection {
+    case ascending
+    case descending
+    case circular
+  }
 }

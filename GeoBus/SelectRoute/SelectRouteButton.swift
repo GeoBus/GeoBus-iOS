@@ -15,10 +15,10 @@ struct SelectRouteButton: View {
   
   @ObservedObject var routesStorage: RoutesStorage
   
-  @Binding var isLoading: Bool
   
   var body: some View {
-    ZStack {
+    
+    return ZStack {
       RoundedRectangle(cornerRadius: 10)
         .fill( routesStorage.isSelected() ? activeColor : disabledColor )
       
@@ -33,8 +33,8 @@ struct SelectRouteButton: View {
           .foregroundColor(.secondary)
       }
       
-      if isLoading {
-        LoadingView(play: $isLoading)
+      if routesStorage.isLoading {
+        LoadingView()
       }
       
     }

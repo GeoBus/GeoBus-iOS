@@ -14,8 +14,6 @@ struct RouteDetailsSheet: View {
   @ObservedObject var routesStorage: RoutesStorage
   @ObservedObject var vehiclesStorage: VehiclesStorage
   
-  @State var isLoading: Bool = false
-  
   @State var routeDirection: Int = 0
   
   var body: some View {
@@ -25,7 +23,7 @@ struct RouteDetailsSheet: View {
         SheetHeader(title: "Route Details")
         
         HStack {
-          SelectRouteButton(routesStorage: routesStorage, isLoading: $isLoading)
+          SelectRouteButton(routesStorage: routesStorage)
           Text(routesStorage.selectedRoute?.name ?? "-")
           Spacer()
         }

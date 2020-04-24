@@ -17,7 +17,7 @@ struct RouteVariantWarning: View {
       HStack {
         Image(systemName: "info.circle.fill")
           .font(.callout)
-        Text("This route has \(qty) alternative paths.")
+        Text("This route may have \(qty) alternative paths.")
           .font(.callout)
           .fixedSize(horizontal: true, vertical: true)
       }

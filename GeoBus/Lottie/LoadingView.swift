@@ -10,7 +10,7 @@ import SwiftUI
 
 struct LoadingView: View {
   
-  @Binding var play: Bool
+  @State var play: Bool = true
   
   var body: some View {
     ZStack {

@@ -16,34 +16,54 @@ struct RouteVariantStops: View {
   
   var body: some View {
     
-    VStack {
+   VStack {
       
       if !(routesStorage.selectedVariant?.isCircular ?? true) {
         
         Picker("Direction", selection: $routeDirection) {
-          Text("Ascending").tag(0)
-          Text("Descending").tag(1)
+          Text("to: \(routesStorage.getTerminalStopNameForSelectedVariant(direction: .ascending))").tag(0)
+          Text("to: \(routesStorage.getTerminalStopNameForSelectedVariant(direction: .descending))").tag(1)
         }
         .pickerStyle(SegmentedPickerStyle())
         .padding(.horizontal)
         .padding(.bottom, 20)
         
+        VStack {
+          ForEach(getStopsToShow(for: self.routeDirection)) { stop in
+            VStack(alignment: .leading) {
+              StopDetails(stop: stop)
+                .padding(.bottom)
+            }
+            .padding(.horizontal)
+          }
+        }
+        
       } else {
         
         RouteCircularVariantInfo()
         
-      }
-      
-      VStack {
-        ForEach(routesStorage.selectedVariant!.ascending) { stop in
-          VStack(alignment: .leading) {
-            StopDetails(stop: stop)
-              .padding(.bottom)
+        VStack {
+          ForEach(self.routesStorage.selectedVariant!.circular) { stop in
+            VStack(alignment: .leading) {
+              StopDetails(stop: stop)
+                .padding(.bottom)
+            }
+            .padding(.horizontal)
           }
-          .padding(.horizontal)
         }
+        
       }
       
     }
   }
+  
+  
+  func getStopsToShow(for direction: Int) -> [Stop] {
+    switch routeDirection {
+      case 0: return self.routesStorage.selectedVariant!.ascending
+      case 1: return self.routesStorage.selectedVariant!.descending
+      default: return self.routesStorage.selectedVariant!.circular
+    }
+  }
+  
 }

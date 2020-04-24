@@ -8,7 +8,6 @@
 
 import SwiftUI
 import Combine
-import MapKit
 
 struct ContentView : View {
   
@@ -16,7 +15,6 @@ struct ContentView : View {
   @ObservedObject var stopsStorage = StopsStorage()
   @ObservedObject var vehiclesStorage = VehiclesStorage()
   
-  @State var isLoading = false
   @State var isAutoUpdating = false
   
   private let timeBetweenRefreshes: CGFloat = 10 // seconds
@@ -32,9 +30,7 @@ struct ContentView : View {
       HStack {
         SelectRoute(
           routesStorage: routesStorage,
-          vehiclesStorage: vehiclesStorage,
-          isLoading: $isLoading,
-          isAutoUpdating: $isAutoUpdating
+          vehiclesStorage: vehiclesStorage
         )
         
         VerticalLine(thickness: 3)

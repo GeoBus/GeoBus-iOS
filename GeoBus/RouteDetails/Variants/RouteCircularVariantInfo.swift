@@ -26,5 +26,6 @@ struct RouteCircularVariantInfo: View {
     .background(Color(red: 0.80, green: 0.90, blue: 1.00))
     .cornerRadius(10)
     .padding(.horizontal)
+    .padding(.bottom, 10)
   }
 }
