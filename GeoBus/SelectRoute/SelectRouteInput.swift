@@ -15,6 +15,7 @@ struct SelectRouteInput: View {
   @Binding var presentRouteSelectionSheet: Bool
   
   @State var routeNumber = ""
+  @State var showErrorLabel: Bool = false
   
   
   var body: some View {
@@ -29,8 +30,12 @@ struct SelectRouteInput: View {
           .frame(width: 120)
         
         Button(action: {
-          self.routesStorage.select(with: self.routeNumber)
-          self.presentRouteSelectionSheet = false
+          let success = self.routesStorage.select(with: self.routeNumber)
+          if success {
+            self.presentRouteSelectionSheet = false
+          } else {
+            self.showErrorLabel = true
+          }
         }) {
           Text("Locate")
             .font(.system(size: 40, weight: .bold, design: .default))
@@ -42,7 +47,17 @@ struct SelectRouteInput: View {
         .background(routeNumber.count > 2 ? Color(.systemBlue) : Color(.secondarySystemBackground))
         .cornerRadius(10)
       }
-      Text("Choose a Route Number (like 758 or 28E) to locate the buses on the map in real time.")
+      
+      if showErrorLabel {
+        Text("The route you entered does not exist.")
+          .font(.footnote)
+          .fontWeight(.bold)
+          .multilineTextAlignment(.center)
+          .foregroundColor(Color(.systemOrange))
+          .padding()
+      }
+      
+      Text("Choose a Route Number (ex: 28E or 758).")
         .font(.footnote)
         .multilineTextAlignment(.center)
         .padding()

@@ -21,10 +21,24 @@ struct RouteDetailsButton: View {
         VStack(alignment: .leading) {
           HStack {
             LiveIcon()
-            Text("\(vehiclesStorage.vehicles.count) \(vehiclesStorage.vehicles.count == 1 ? "vehicle" : "vehicles" ) in circulation")
-              .font(Font.system(size: 11, weight: .medium, design: .default) )
-              .foregroundColor(Color(.secondaryLabel))
+            if vehiclesStorage.vehicles.count == 1 {
+              Text("1 active vehicle")
+                .font(Font.system(size: 11, weight: .medium, design: .default) )
+                .lineLimit(1)
+                .foregroundColor(Color(.secondaryLabel))
+            } else {
+              Text("\(vehiclesStorage.vehicles.count) active vehicles")
+                .font(Font.system(size: 11, weight: .medium, design: .default) )
+                .lineLimit(1)
+                .foregroundColor(Color(.secondaryLabel))
+            }
             Spacer()
+            Text("info")
+              .font(Font.system(size: 10, weight: .medium, design: .default) )
+              .foregroundColor(Color(.secondaryLabel))
+              .padding(.vertical, 2)
+              .padding(.horizontal, 7)
+              .background(RoundedRectangle(cornerRadius: 10).foregroundColor(Color(.systemGray6)))
           }
           
           Text(routesStorage.getSelectedVariantName())
@@ -32,7 +46,17 @@ struct RouteDetailsButton: View {
             .fontWeight(.bold)
             .lineLimit(nil)
             .foregroundColor(Color(.label))
+            .padding(.bottom, 0)
           
+          Spacer()
+        }
+        
+      } else if routesStorage.isLoading {
+        
+        HStack {
+          Text("Syncing Routes...")
+            .font(Font.system(size: 15, weight: .bold, design: .default))
+            .foregroundColor(Color(.tertiaryLabel))
           Spacer()
         }
         

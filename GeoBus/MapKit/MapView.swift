@@ -17,25 +17,37 @@ struct MapView: UIViewRepresentable {
   @ObservedObject var vehiclesStorage: VehiclesStorage
   
   @State var mapView = MKMapView()
+  
   private let locationManager = CLLocationManager()
   
   
   func makeUIView(context: UIViewRepresentableContext<MapView>) -> MKMapView {
+    
     mapView.delegate = context.coordinator
     mapView.mapType = MKMapType.mutedStandard
     mapView.showsUserLocation = true
     mapView.showsTraffic = true
     
-    locationManager.requestWhenInUseAuthorization()
+    mapView.register(StopAnnotationView.self, forAnnotationViewWithReuseIdentifier: "stop")
+    mapView.register(VehicleAnnotationView.self, forAnnotationViewWithReuseIdentifier: "vehicle")
+    
+    // Set initial location in Lisbon
+    let lisbon = CLLocation(latitude: 38.721917, longitude: -9.137732)
+    let lisbonArea = MKCoordinateRegion(center: lisbon.coordinate, latitudinalMeters: 15000, longitudinalMeters: 15000)
+    mapView.setRegion(lisbonArea, animated: true)
+    
+    if UserManagement().isReturningUser() {
+      // Only ask for location the second time the user opens the app
+      locationManager.requestWhenInUseAuthorization()
+    } else {
+      UserManagement().setReturningUser()
+    }
     
     return mapView
   }
   
   
   func updateUIView(_ uiView: MKMapView, context: UIViewRepresentableContext<MapView>) {
-    
-    mapView.register(StopAnnotationView.self, forAnnotationViewWithReuseIdentifier: "stop")
-    mapView.register(VehicleAnnotationView.self, forAnnotationViewWithReuseIdentifier: "vehicle")
     
     var newAnnotations: [MKAnnotation] = []
     newAnnotations.append(contentsOf: routesStorage.stopAnnotations)
@@ -103,7 +115,7 @@ struct MapView: UIViewRepresentable {
       }
       
     }
-  
+    
     
   }
   

@@ -148,6 +148,12 @@ class RoutesStorage: ObservableObject {
   
   
   
+  
+  func getSelectedRouteNumber() -> String {
+    return selectedRoute?.number ?? ""
+  }
+  
+  
   func isSelected() -> Bool {
     return selectedRoute != nil
   }
@@ -223,10 +229,13 @@ class RoutesStorage: ObservableObject {
     self.select(variant: route.variants[0])
   }
   
-  func select(with routeNumber: String) {
+  func select(with routeNumber: String) -> Bool {
     let route = getRoute(from: routeNumber)
     if route != nil {
       self.select(route: route!)
+      return true
+    } else {
+      return false
     }
   }
   
@@ -292,7 +301,6 @@ class RoutesStorage: ObservableObject {
         self.favorites.append( route! )
       }
     }
-    
   }
   
   

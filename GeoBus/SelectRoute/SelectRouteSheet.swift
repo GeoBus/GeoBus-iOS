@@ -20,10 +20,7 @@ struct SelectRouteSheet: View {
         
         SheetHeader(title: "Find by Route")
         
-        SelectRouteInput(
-          routesStorage: routesStorage,
-          presentRouteSelectionSheet: self.$presentRouteSelectionSheet
-        )
+        SelectRouteInput(routesStorage: routesStorage, presentRouteSelectionSheet: self.$presentRouteSelectionSheet)
           .padding(.horizontal)
         
         HorizontalLine()

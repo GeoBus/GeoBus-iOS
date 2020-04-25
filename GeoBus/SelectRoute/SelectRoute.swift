@@ -27,11 +27,9 @@ struct SelectRoute: View {
     .sheet(
       isPresented: $presentRouteSelectionSheet,
       onDismiss: {
-        self.vehiclesStorage.set(route: self.routesStorage.selectedRoute?.number ?? "", state: .syncing)
+        self.vehiclesStorage.set(route: self.routesStorage.getSelectedRouteNumber(), state: .syncing)
     }) {
-      SelectRouteSheet(
-        routesStorage: self.routesStorage,
-        presentRouteSelectionSheet: self.$presentRouteSelectionSheet)
+      SelectRouteSheet(routesStorage: self.routesStorage, presentRouteSelectionSheet: self.$presentRouteSelectionSheet)
     }
   }
 }

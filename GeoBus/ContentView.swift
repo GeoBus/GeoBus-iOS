@@ -31,8 +31,6 @@ struct ContentView : View {
           vehiclesStorage: vehiclesStorage
         )
         
-        VerticalLine(thickness: 2)
-        
         RouteDetails(routesStorage: routesStorage, vehiclesStorage: vehiclesStorage)
         
         Spacer()
@@ -40,8 +38,8 @@ struct ContentView : View {
       .frame(height: 115)
       .background(colorScheme == .dark ? Color(.systemGray5) : Color(.white))
       
-//      RefreshStatusView(interval: timeBetweenRefreshes, isAutoUpdating: $isAutoUpdating)
-      
     }
+    
   }
+  
 }

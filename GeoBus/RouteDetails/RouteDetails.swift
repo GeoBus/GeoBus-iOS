@@ -23,16 +23,13 @@ struct RouteDetails: View {
         self.presentRouteDetailsSheet = true
       }
     }) {
-      RouteDetailsButton(
-        routesStorage: self.routesStorage,
-        vehiclesStorage: self.vehiclesStorage
-      )
+      RouteDetailsButton(routesStorage: self.routesStorage, vehiclesStorage: self.vehiclesStorage)
     }
-    .sheet(
-      isPresented: $presentRouteDetailsSheet)
-    {
+    .disabled(!routesStorage.isSelected())
+    .sheet(isPresented: $presentRouteDetailsSheet) {
       RouteDetailsSheet(routesStorage: self.routesStorage, vehiclesStorage: self.vehiclesStorage)
     }
     
   }
+  
 }

@@ -20,14 +20,14 @@ struct SelectRouteButton: View {
         .fill( routesStorage.isSelected() ? Color(.systemYellow) : Color(.systemGray4) )
       
       if routesStorage.isSelected() {
-        Text(routesStorage.selectedRoute?.number ?? "-")
+        Text(routesStorage.getSelectedRouteNumber())
           .font(.title)
           .fontWeight(.heavy)
           .foregroundColor(.black)
       } else {
         Image(systemName: "plus")
           .font(.title)
-          .foregroundColor(Color(.secondaryLabel))
+          .foregroundColor(Color(.white))
       }
       
       if routesStorage.isLoading {

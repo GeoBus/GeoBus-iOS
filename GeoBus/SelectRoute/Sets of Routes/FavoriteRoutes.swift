@@ -23,7 +23,7 @@ struct FavoriteRoutes: View {
         .foregroundColor(Color(.label))
         .padding(.top, 20)
       
-      HorizontalLine() //color: .white
+      HorizontalLine()
       
       VStack {
         
@@ -38,11 +38,7 @@ struct FavoriteRoutes: View {
             }
           }
           .gridStyle(ModularGridStyle(columns: .min(70), rows: .fixed(70)))
-          
-        } else if routesStorage.favorites.count == 0 && routesStorage.isSelected() {
-          
-          Text("Add \(routesStorage.selectedRoute?.number ?? "-") to your favorites.")
-          
+           
         } else {
           
           Text("You have no favorite routes.")
