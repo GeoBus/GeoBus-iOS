@@ -9,21 +9,73 @@
 import SwiftUI
 import MapKit
 
-struct VehicleAnnotationView: View {
+class VehicleAnnotationView: MKAnnotationView {
   
-  let title: String
+  override var annotation: MKAnnotation? {
   
-  var body: some View {
-    Text(title.prefix(3))
-      .font(.footnote)
-      .fontWeight(.heavy)
-      .foregroundColor(Color(.black))
-      .padding(.horizontal, 7)
-      .padding(.vertical, 2)
-      .background( RoundedRectangle(cornerRadius: 10).foregroundColor(Color(.systemYellow)) )
-      .padding(.trailing, 0)
+    willSet {
+      guard let annotation = newValue as? VehicleAnnotation else {
+        return
+      }
+      
+      canShowCallout = true
+      //      calloutOffset = CGPoint(x: -5, y: 5)
+      //      let mapsButton = UIButton(frame: CGRect(origin: CGPoint.zero, size: CGSize(width: 48, height: 48)))
+      //      mapsButton.setBackgroundImage(#imageLiteral(resourceName: "Map"), for: .normal)
+      //      rightCalloutAccessoryView = mapsButton
+      
+      image = VehicleAnnotationMarker(routeNumber: annotation.routeNumber ?? "-").asImage()
+      
+      let detailLabel = UILabel()
+      detailLabel.numberOfLines = 0
+      detailLabel.font = detailLabel.font.withSize(12)
+      detailLabel.text = annotation.subtitle
+      detailCalloutAccessoryView = detailLabel
+    
+    }
   }
 }
+
+
+
+struct VehicleAnnotationMarker: View {
+  
+  let routeNumber: String
+  
+  var body: some View {
+    Text(routeNumber.prefix(3))
+    .font(.footnote)
+    .fontWeight(.heavy)
+    .foregroundColor(Color(.black))
+    .padding(.horizontal, 7)
+    .padding(.vertical, 2)
+    .background( RoundedRectangle(cornerRadius: 10).foregroundColor(Color(.systemYellow)) )
+    .padding(.trailing, 0)
+  }
+  
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

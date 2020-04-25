@@ -10,13 +10,26 @@ import Foundation
 import MapKit
 
 class VehicleAnnotation: NSObject, MKAnnotation {
-  let title: String?
-  let subtitle: String?
+  
+  let routeNumber: String?
+  let lastStopInRoute: String?
+  
   let coordinate: CLLocationCoordinate2D
   
-  init(title: String?, subtitle: String?, latitude: Double, longitude: Double) {
-    self.title = title
-    self.subtitle = subtitle
+  
+  init(routeNumber: String?, lastStopInRoute: String?, latitude: Double, longitude: Double) {
+    self.routeNumber = routeNumber
+    self.lastStopInRoute = lastStopInRoute
     self.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
   }
+  
+  
+  var title: String? {
+    return routeNumber
+  }
+  
+  var subtitle: String? {
+    return lastStopInRoute
+  }
+  
 }

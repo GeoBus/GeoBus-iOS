@@ -9,25 +9,73 @@
 import SwiftUI
 import MapKit
 
-struct StopAnnotationView: View {
+class StopAnnotationView: MKAnnotationView {
   
-  var orderInRoute: String
+  override var annotation: MKAnnotation? {
   
-  var descending: Bool = false
-  
-  
-  var body: some View {
-    VStack {
-      Text(orderInRoute)
-        .font(.footnote)
-        .fontWeight(.bold)
-        .foregroundColor(.white)
+    willSet {
+      guard let annotation = newValue as? StopAnnotation else {
+        return
+      }
+      
+      canShowCallout = true
+      //      calloutOffset = CGPoint(x: -5, y: 5)
+      //      let mapsButton = UIButton(frame: CGRect(origin: CGPoint.zero, size: CGSize(width: 48, height: 48)))
+      //      mapsButton.setBackgroundImage(#imageLiteral(resourceName: "Map"), for: .normal)
+      //      rightCalloutAccessoryView = mapsButton
+      
+      image = StopAnnotationMarker(color: annotation.markerColor).asImage()
+      
+      let detailLabel = UILabel()
+      detailLabel.numberOfLines = 0
+      detailLabel.font = detailLabel.font.withSize(12)
+      detailLabel.text = annotation.subtitle
+      detailCalloutAccessoryView = detailLabel
+    
     }
-    .padding(.all, 5)
-    .background(descending ? Color(.systemBlue) : Color(.systemGreen))
-    .cornerRadius(.infinity)
   }
 }
+
+
+
+struct StopAnnotationMarker: View {
+  
+  let color: UIColor
+  
+  var body: some View {
+    Circle()
+      .frame(width: 8, height: 8)
+      .foregroundColor(Color(color))
+  }
+  
+}
+
+
+
+
+
+
+
+
+//struct StopAnnotationView: View {
+//
+//  var orderInRoute: String
+//
+//  var descending: Bool = false
+//
+//
+//  var body: some View {
+//    VStack {
+//      Text(orderInRoute)
+//        .font(.footnote)
+//        .fontWeight(.bold)
+//        .foregroundColor(.white)
+//    }
+//    .padding(.all, 5)
+//    .background(descending ? Color(.systemBlue) : Color(.systemGreen))
+//    .cornerRadius(.infinity)
+//  }
+//}
 
 
 
