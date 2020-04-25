@@ -11,12 +11,10 @@ import Combine
 
 struct ContentView : View {
   
+  @Environment(\.colorScheme) var colorScheme: ColorScheme
+  
   @ObservedObject var routesStorage = RoutesStorage()
   @ObservedObject var vehiclesStorage = VehiclesStorage()
-  
-  @State var isAutoUpdating = false
-  
-  private let timeBetweenRefreshes: CGFloat = 10 // seconds
   
   
   var body: some View {
@@ -24,7 +22,8 @@ struct ContentView : View {
     VStack {
       
       MapView(routesStorage: routesStorage, vehiclesStorage: vehiclesStorage)
-        .edgesIgnoringSafeArea(.top)
+        .edgesIgnoringSafeArea(.vertical)
+        .padding(.bottom, -10)
       
       HStack {
         SelectRoute(
@@ -38,9 +37,8 @@ struct ContentView : View {
         
         Spacer()
       }
-      .frame(maxHeight: 115)
-      .padding(.top, -7)
-      .padding(.bottom, -10)
+      .frame(height: 115)
+      .background(colorScheme == .dark ? Color(.systemGray5) : Color(.white))
       
 //      RefreshStatusView(interval: timeBetweenRefreshes, isAutoUpdating: $isAutoUpdating)
       

@@ -50,6 +50,5 @@ struct RouteDetailsButton: View {
     .padding(.vertical)
     .padding(.horizontal, 10)
     
-    
   }
 }
