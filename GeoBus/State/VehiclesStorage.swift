@@ -109,8 +109,8 @@ class VehiclesStorage: ObservableObject {
           for item in self.vehicles {
             self.annotations.append(
               VehicleAnnotation(
-                title: String(item.routeNumber ?? "-"),
-                subtitle: String(item.lastStopOnVoyageName ?? "-"),
+                routeNumber: String(item.routeNumber ?? "-"),
+                lastStopInRoute: String(item.lastStopOnVoyageName ?? "-"),
                 latitude: item.lat,
                 longitude: item.lng
               )

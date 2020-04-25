@@ -21,8 +21,9 @@ struct StopDetails: View {
   var body: some View {
     
     Button(action: {
-      self.isSelected = !self.isSelected
       self.estimationsStorage.set(publicId: self.stop.publicId, state: .syncing)
+      self.isSelected = !self.isSelected
+      TapticEngine.impact.feedback(.medium)
     }) {
       
       VStack {

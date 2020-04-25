@@ -12,7 +12,7 @@ import SwiftUI
 import MapKit
 
 struct MapView: UIViewRepresentable {
-                                                         
+  
   @ObservedObject var routesStorage: RoutesStorage
   @ObservedObject var vehiclesStorage: VehiclesStorage
   
@@ -34,6 +34,9 @@ struct MapView: UIViewRepresentable {
   
   func updateUIView(_ uiView: MKMapView, context: UIViewRepresentableContext<MapView>) {
     
+    mapView.register(StopAnnotationView.self, forAnnotationViewWithReuseIdentifier: "stop")
+    mapView.register(VehicleAnnotationView.self, forAnnotationViewWithReuseIdentifier: "vehicle")
+    
     var newAnnotations: [MKAnnotation] = []
     newAnnotations.append(contentsOf: routesStorage.stopAnnotations)
     newAnnotations.append(contentsOf: vehiclesStorage.annotations)
@@ -54,7 +57,8 @@ struct MapView: UIViewRepresentable {
   
   final class Coordinator: NSObject, MKMapViewDelegate {
     
-    var control: MapView
+    private let control: MapView
+    
     
     init(_ control: MapView) {
       self.control = control
@@ -64,29 +68,43 @@ struct MapView: UIViewRepresentable {
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
       
-      if annotation.isKind(of: MKUserLocation.self) {
-        return nil
+      if annotation.isKind(of: StopAnnotation.self) {
         
-      } else if annotation.isKind(of: StopAnnotation.self) {
+        let identifier = "stop"
+        var view: MKAnnotationView
         
-        let annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "stopsAnnotationView")
-        annotationView.image = StopAnnotationView(orderInRoute: annotation.subtitle!!).asImage()
-        annotationView.canShowCallout = true
+        if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) {
+          dequeuedView.annotation = annotation
+          view = dequeuedView
+        } else {
+          view = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+        }
         
-        return annotationView
+        return view
         
       } else if annotation.isKind(of: VehicleAnnotation.self) {
         
-        let annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "vehiclesAnnotationView")
-        annotationView.image = VehicleAnnotationView(title: annotation.title!!).asImage()
-        annotationView.canShowCallout = true
+        let identifier = "vehicle"
+        var view: MKAnnotationView
         
-        return annotationView
+        if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) {
+          dequeuedView.annotation = annotation
+          view = dequeuedView
+        } else {
+          view = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+        }
+        
+        return view
         
       } else {
+        
         return nil
+        
       }
+      
     }
+  
     
   }
+  
 }

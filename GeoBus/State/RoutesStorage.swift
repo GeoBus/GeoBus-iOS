@@ -95,8 +95,11 @@ class RoutesStorage: ObservableObject {
       for stop in variant.ascending {
         formatedAnnotations.append(
           StopAnnotation(
-            title: String(stop.name),
-            subtitle: stop.orderInRoute != nil ? String(stop.orderInRoute!) : "-",
+            name: String(stop.name),
+            publicId: String(stop.publicId),
+            direction: .ascending,
+            orderInRoute: stop.orderInRoute ?? -1,
+            lastStopOnVoyage: variant.ascending.last?.name ?? "-",
             latitude: stop.lat,
             longitude: stop.lng
           )
@@ -109,8 +112,11 @@ class RoutesStorage: ObservableObject {
       for stop in variant.descending {
         formatedAnnotations.append(
           StopAnnotation(
-            title: String(stop.name),
-            subtitle: stop.orderInRoute != nil ? String(stop.orderInRoute!) : "-",
+            name: String(stop.name),
+            publicId: String(stop.publicId),
+            direction: .descending,
+            orderInRoute: stop.orderInRoute ?? -1,
+            lastStopOnVoyage: variant.descending.last?.name ?? "-",
             latitude: stop.lat,
             longitude: stop.lng
           )
@@ -123,8 +129,11 @@ class RoutesStorage: ObservableObject {
       for stop in variant.circular {
         formatedAnnotations.append(
           StopAnnotation(
-            title: String(stop.name),
-            subtitle: stop.orderInRoute != nil ? String(stop.orderInRoute!) : "-",
+            name: String(stop.name),
+            publicId: String(stop.publicId),
+            direction: .circular,
+            orderInRoute: stop.orderInRoute ?? -1,
+            lastStopOnVoyage: variant.circular.last?.name ?? "-",
             latitude: stop.lat,
             longitude: stop.lng
           )
@@ -145,6 +154,12 @@ class RoutesStorage: ObservableObject {
   
   func isThisVariantSelected(variant: RouteVariant) -> Bool {
     return variant == self.selectedVariant
+  }
+  
+  func getSelectedVariantName() -> String {
+    if self.selectedVariant != nil {
+      return self.getVariantName(variant: self.selectedVariant!)
+    } else { return "" }
   }
   
   func getVariantName(variant: RouteVariant) -> String {
@@ -220,7 +235,7 @@ class RoutesStorage: ObservableObject {
     self.stopAnnotations = formatStopAnnotations(of: self.selectedVariant!)
   }
   
-
+  
   
   
   

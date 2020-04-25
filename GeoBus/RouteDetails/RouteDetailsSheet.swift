@@ -39,6 +39,7 @@ struct RouteDetailsSheet: View {
             .padding(.trailing, 6)
           
           Button(action: {
+            TapticEngine.impact.feedback(.heavy)
             self.routesStorage.toggleFavorite(route: self.routesStorage.selectedRoute)
           }) {
             RouteDetailsAddToFavorites(routesStorage: routesStorage)

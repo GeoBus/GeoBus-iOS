@@ -27,7 +27,7 @@ struct RouteDetailsButton: View {
             Spacer()
           }
           
-          Text(routesStorage.selectedRoute?.name ?? "-")
+          Text(routesStorage.getSelectedVariantName())
             .font(.body)
             .fontWeight(.bold)
             .lineLimit(nil)
