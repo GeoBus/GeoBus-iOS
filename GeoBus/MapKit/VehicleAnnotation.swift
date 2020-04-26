@@ -11,25 +11,28 @@ import MapKit
 
 class VehicleAnnotation: NSObject, MKAnnotation {
   
-  let routeNumber: String?
-  let lastStopInRoute: String?
+  let routeNumber: String
+  let lastStopInRoute: String
+  
+  let busNumber: String
   
   let coordinate: CLLocationCoordinate2D
   
   
-  init(routeNumber: String?, lastStopInRoute: String?, latitude: Double, longitude: Double) {
+  init(routeNumber: String, lastStopInRoute: String, busNumber: String, latitude: Double, longitude: Double) {
     self.routeNumber = routeNumber
     self.lastStopInRoute = lastStopInRoute
+    self.busNumber = busNumber
     self.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
   }
   
   
   var title: String? {
-    return routeNumber
+    return "\(routeNumber) to \(lastStopInRoute)"
   }
   
   var subtitle: String? {
-    return lastStopInRoute
+    return "#\(busNumber)"
   }
   
 }

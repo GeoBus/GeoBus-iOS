@@ -32,7 +32,7 @@ class StopAnnotation: NSObject, MKAnnotation {
   
   
   var title: String? {
-    return "\(name) (\(publicId))"
+    return name
   }
   
   var subtitle: String? {

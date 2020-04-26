@@ -24,7 +24,7 @@ class VehicleAnnotationView: MKAnnotationView {
       //      mapsButton.setBackgroundImage(#imageLiteral(resourceName: "Map"), for: .normal)
       //      rightCalloutAccessoryView = mapsButton
       
-      image = VehicleAnnotationMarker(routeNumber: annotation.routeNumber ?? "-").asImage()
+      image = VehicleAnnotationMarker(routeNumber: annotation.routeNumber).asImage()
       
       let detailLabel = UILabel()
       detailLabel.numberOfLines = 0
