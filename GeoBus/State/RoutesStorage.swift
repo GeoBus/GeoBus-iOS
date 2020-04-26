@@ -8,9 +8,16 @@
 
 import Foundation
 import Combine
-import SwiftUI
 
 class RoutesStorage: ObservableObject {
+  
+  // MARK: - Settings
+  
+  private var endpoint = "https://geobus-api.herokuapp.com"
+  
+  
+  
+  // MARK: - Variables
   
   @Published var selectedRoute: Route?
   @Published var selectedVariant: RouteVariant?
@@ -25,18 +32,48 @@ class RoutesStorage: ObservableObject {
   @Published var stopAnnotations: [StopAnnotation] = []
   
   
-  @Published var isLoading: Bool = false
   
+  // MARK: - State
   
-  private var endpoint = "https://geobus-api.herokuapp.com"
-  
-  
-  // ----------------------------
-  
-  init() {
-    self.syncAllRoutes()
+  @Published var state = State.idle {
+    // We add a property observer on 'state', which lets us
+    // run a function evertyime it's value changes.
+    didSet { stateDidChange() }
   }
   
+  
+  func set(state: State) {
+    self.state = state
+  }
+  
+  
+  func stateDidChange() {
+    switch state {
+      case .idle:
+        break
+      case .syncing:
+        self.syncAllRoutes()
+        break
+      case .routeSelected:
+        break
+      case .error:
+        break
+    }
+  }
+  
+  
+  
+  
+  
+  // MARK: - Initialization
+  
+  init() {
+    self.set(state: .syncing)
+  }
+  
+  
+  
+  // MARK: - Network Calls
   
   /* * * *
    *
@@ -46,8 +83,6 @@ class RoutesStorage: ObservableObject {
    *
    */
   private func syncAllRoutes() {
-    
-    self.isLoading = true
     
     // Setup the url
     let url = URL(string: endpoint + "/routes/")!
@@ -62,7 +97,8 @@ class RoutesStorage: ObservableObject {
       
       // Check status of response
       if httpResponse?.statusCode != 200 {
-        print("Error: API failed at getRoutes()")
+        print("Error: API failed at syncAllRoutes()")
+        OperationQueue.main.addOperation { self.set(state: .error) }
         return
       }
       
@@ -73,17 +109,21 @@ class RoutesStorage: ObservableObject {
         OperationQueue.main.addOperation {
           self.all.append(contentsOf: decodedData)
           self.retrieveFavorites()
-          self.isLoading = false
+          self.set(state: .idle)
         }
         
       } catch {
-        print("Error info: \(error)")
+        print("Error info: \(error.localizedDescription)")
+        OperationQueue.main.addOperation { self.set(state: .error) }
       }
     }
     
     task.resume()
     
   }
+  
+  
+  
   
   
   func formatStopAnnotations(of variant: RouteVariant) -> [StopAnnotation] {
@@ -227,6 +267,7 @@ class RoutesStorage: ObservableObject {
   func select(route: Route) {
     self.selectedRoute = route
     self.select(variant: route.variants[0])
+    self.set(state: .routeSelected)
   }
   
   func select(with routeNumber: String) -> Bool {
@@ -312,9 +353,18 @@ class RoutesStorage: ObservableObject {
 // MARK: - Extension for state control
 
 extension RoutesStorage {
+  
+  enum State {
+    case idle
+    case syncing
+    case routeSelected
+    case error
+  }
+  
   enum RouteDirection {
     case ascending
     case descending
     case circular
   }
+  
 }

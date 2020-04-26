@@ -17,19 +17,35 @@ struct SelectRoute: View {
   
   
   var body: some View {
+    
     Button(action: {
-      self.presentRouteSelectionSheet = true
-      self.vehiclesStorage.set(state: .idle)
+      
+      if self.routesStorage.state == .idle || self.routesStorage.state == .routeSelected {
+
+        self.presentRouteSelectionSheet = true
+        self.vehiclesStorage.set(state: .idle)
+      
+      } else if self.routesStorage.state == .error {
+      
+        self.routesStorage.set(state: .syncing)
+      
+      }
+      
     }) {
+      
       SelectRouteButton(routesStorage: routesStorage)
+      
     }
-    .disabled(routesStorage.isLoading)
+    .disabled( routesStorage.state == .syncing )
     .sheet(
       isPresented: $presentRouteSelectionSheet,
       onDismiss: {
         self.vehiclesStorage.set(route: self.routesStorage.getSelectedRouteNumber(), state: .syncing)
     }) {
+      
       SelectRouteSheet(routesStorage: self.routesStorage, presentRouteSelectionSheet: self.$presentRouteSelectionSheet)
+      
     }
+    
   }
 }

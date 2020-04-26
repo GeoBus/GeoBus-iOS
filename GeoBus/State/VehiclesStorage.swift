@@ -11,22 +11,33 @@ import Combine
 
 class VehiclesStorage: ObservableObject {
   
+  // MARK: - Settings
+  
+  private var endpoint = "https://geobus-api.herokuapp.com"
+  
+  private var syncInterval = 10.0 // seconds
+  
+  
+  
+  // MARK: - Variables
+  
   var routeNumber: String = ""
   
   @Published var vehicles: [Vehicle] = []
   
   @Published var annotations: [VehicleAnnotation] = []
   
+  private var timer: Timer? = nil
   
-  private var endpoint = "https://geobus-api.herokuapp.com"
+  
+  
+  // MARK: - State
   
   private var state = State.idle {
     // We add a property observer on 'state', which lets us
-    // run a function on each value change.
+    // run a function evertyime it's value changes.
     didSet { stateDidChange() }
   }
-  
-  private var timer: Timer? = nil
   
   
   func set(route: String, state: State) {
@@ -48,7 +59,7 @@ class VehiclesStorage: ObservableObject {
         break
       case .syncing:
         timer = Timer.scheduledTimer(
-          timeInterval: 15.0,
+          timeInterval: syncInterval,
           target: self,
           selector: #selector(self.syncVehicles),
           userInfo: nil,
@@ -56,22 +67,22 @@ class VehiclesStorage: ObservableObject {
         )
         self.syncVehicles()
         break
+      case .error:
+        break
     }
   }
   
   
   
-  @objc func syncVehicles() { //_ timer : Timer
-    if state == .syncing {
-      getVehicles()
-    }
+  @objc func syncVehicles() {
+    self.getVehicles()
   }
   
   
   
   /* * * *
    *
-   * Get Routes
+   * Get Vehicles
    * This function gets stops from each route instance
    * and stores them in the Route variable
    *
@@ -121,6 +132,7 @@ class VehiclesStorage: ObservableObject {
         
       } catch {
         print("Error info: \(error)")
+        self.set(state: .error)
       }
     }
     
@@ -140,5 +152,6 @@ extension VehiclesStorage {
   enum State {
     case idle
     case syncing
+    case error
   }
 }

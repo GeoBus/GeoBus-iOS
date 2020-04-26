@@ -15,23 +15,34 @@ struct SelectRouteButton: View {
   
   var body: some View {
     
-    return ZStack {
-      RoundedRectangle(cornerRadius: 10)
-        .fill( routesStorage.isSelected() ? Color(.systemYellow) : Color(.systemGray4) )
+    ZStack {
       
-      if routesStorage.isSelected() {
+      RoundedRectangle(cornerRadius: 10)
+        .fill( routesStorage.state == .routeSelected ? Color(.systemYellow) : Color(.systemGray4) )
+      
+      if routesStorage.state == .idle {
+        
+        Image(systemName: "plus")
+          .font(.title)
+          .foregroundColor(Color(.white))
+        
+      } else if routesStorage.state == .syncing {
+        
+        LoadingView()
+        
+      } else if routesStorage.state == .error {
+        
+        Image(systemName: "bolt.slash.fill")
+          .font(.title)
+          .foregroundColor(Color(.white))
+        
+      } else if routesStorage.state == .routeSelected {
+        
         Text(routesStorage.getSelectedRouteNumber())
           .font(.title)
           .fontWeight(.heavy)
           .foregroundColor(.black)
-      } else {
-        Image(systemName: "plus")
-          .font(.title)
-          .foregroundColor(Color(.white))
-      }
-      
-      if routesStorage.isLoading {
-        LoadingView()
+        
       }
       
     }

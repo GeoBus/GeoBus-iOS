@@ -19,7 +19,20 @@ struct RouteDetailsButton: View {
     
     VStack {
       
-      if routesStorage.isSelected() {
+      if routesStorage.state == .idle {
+        
+        ChooseRouteMessage()
+        
+      } else if routesStorage.state == .syncing {
+        
+        SyncingRoutesMessage()
+        
+      } else if routesStorage.state == .error {
+        
+         ConnectionErrorMessage()
+        
+      } else if routesStorage.state == .routeSelected {
+        
         VStack(alignment: .leading) {
           HStack {
             LiveIcon()
@@ -35,43 +48,26 @@ struct RouteDetailsButton: View {
                 .foregroundColor(Color(.secondaryLabel))
             }
             Spacer()
-            Text("info")
+            Text("+info")
               .font(Font.system(size: 10, weight: .medium, design: .default) )
               .foregroundColor(Color(.secondaryLabel))
               .padding(.vertical, 2)
               .padding(.horizontal, 7)
               .background(RoundedRectangle(cornerRadius: 10).foregroundColor(colorScheme == .dark ? Color(.systemGray4) : Color(.systemGray6)))
           }
-          
+
           Text(routesStorage.getSelectedVariantName())
             .font(.body)
             .fontWeight(.bold)
             .lineLimit(nil)
             .foregroundColor(Color(.label))
             .padding(.bottom, 0)
-          
-          Spacer()
-        }
-        
-      } else if routesStorage.isLoading {
-        
-        HStack {
-          Text("Syncing Routes...")
-            .font(Font.system(size: 15, weight: .bold, design: .default))
-            .foregroundColor(Color(.tertiaryLabel))
-          Spacer()
-        }
-        
-      } else {
-        
-        HStack {
-          Text("← Choose a Route")
-            .font(Font.system(size: 15, weight: .bold, design: .default))
-            .foregroundColor(Color(.secondaryLabel))
+
           Spacer()
         }
         
       }
+      
     }
     .padding(.vertical)
     .padding(.horizontal, 10)
