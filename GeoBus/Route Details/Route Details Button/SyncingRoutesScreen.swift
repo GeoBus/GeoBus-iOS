@@ -8,15 +8,16 @@
 
 import SwiftUI
 
-struct ChooseRouteMessage: View {
-    
+struct SyncingRoutesScreen: View {
+  
   var body: some View {
-      
+    
     VStack(alignment: .leading) {
-        Text("← Choose a Route")
-          .font(Font.system(size: 15, weight: .bold, design: .default))
-          .foregroundColor(Color(.secondaryLabel))
-      }
-      
+      Text("Syncing Routes...")
+        .font(Font.system(size: 15, weight: .bold, design: .default))
+        .foregroundColor(Color(.tertiaryLabel))
     }
+    
+  }
+  
 }
