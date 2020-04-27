@@ -85,7 +85,6 @@
 		CF072359244A112C007AFAD2 /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		CF072360244A1134007AFAD2 /* IndexedCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndexedCollection.swift; sourceTree = "<group>"; };
 		CF072361244A1134007AFAD2 /* ForEach.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForEach.swift; sourceTree = "<group>"; };
-		CF072368244A11BE007AFAD2 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		CF1786C9244BF247005592F3 /* SheetHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetHeader.swift; sourceTree = "<group>"; };
 		CF1786CB244BF4F2005592F3 /* RouteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteButton.swift; sourceTree = "<group>"; };
 		CF1786CD244BFB93005592F3 /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
@@ -150,7 +149,6 @@
 			children = (
 				CF072313244A10D3007AFAD2 /* GeoBus */,
 				CF072312244A10D3007AFAD2 /* Products */,
-				CF072367244A11BE007AFAD2 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -262,14 +260,6 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		CF072367244A11BE007AFAD2 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				CF072368244A11BE007AFAD2 /* MapKit.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		CF40AA9B244F34E8002DC2FD /* Layout */ = {
 			isa = PBXGroup;
 			children = (
@@ -326,11 +316,7 @@
 			children = (
 				CFF4980824524DB700EB9C36 /* RouteDetails.swift */,
 				CFD9E24E24561E1F00AFA80B /* Route Details Button */,
-				CFF4980724524DB700EB9C36 /* RouteDetailsSheet.swift */,
-				CFF4980524524DB700EB9C36 /* RouteDetailsAddToFavorites.swift */,
-				CFF4980924524DB700EB9C36 /* RouteDetailsVehiclesQuantity.swift */,
-				CFF4980124524DB700EB9C36 /* Variants */,
-				CFF4980A24524DB700EB9C36 /* Stop Layout */,
+				CFFD3CF824565B44005B09A2 /* Route Details Sheet */,
 			);
 			path = "Route Details";
 			sourceTree = "<group>";
@@ -347,13 +333,25 @@
 			path = Variants;
 			sourceTree = "<group>";
 		};
-		CFF4980A24524DB700EB9C36 /* Stop Layout */ = {
+		CFF4980A24524DB700EB9C36 /* Stops List */ = {
 			isa = PBXGroup;
 			children = (
 				CF4570592453477A000AEA87 /* StopDetails.swift */,
 				CFF4980B24524DB700EB9C36 /* StopEstimations.swift */,
 			);
-			path = "Stop Layout";
+			path = "Stops List";
+			sourceTree = "<group>";
+		};
+		CFFD3CF824565B44005B09A2 /* Route Details Sheet */ = {
+			isa = PBXGroup;
+			children = (
+				CFF4980724524DB700EB9C36 /* RouteDetailsSheet.swift */,
+				CFF4980924524DB700EB9C36 /* RouteDetailsVehiclesQuantity.swift */,
+				CFF4980524524DB700EB9C36 /* RouteDetailsAddToFavorites.swift */,
+				CFF4980124524DB700EB9C36 /* Variants */,
+				CFF4980A24524DB700EB9C36 /* Stops List */,
+			);
+			path = "Route Details Sheet";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -388,7 +386,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 1140;
 				LastUpgradeCheck = 1140;
-				ORGANIZATIONNAME = "João";
+				ORGANIZATIONNAME = "João de Vasconcelos";
 				TargetAttributes = {
 					CF072310244A10D3007AFAD2 = {
 						CreatedOnToolsVersion = 11.4.1;
@@ -615,7 +613,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = GeoBus/GeoBus.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"GeoBus/Preview Content\"";
 				DEVELOPMENT_TEAM = D7S2TY22W7;
 				ENABLE_PREVIEWS = YES;
@@ -624,6 +622,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = earth.joao.geobus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -637,7 +636,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = GeoBus/GeoBus.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"GeoBus/Preview Content\"";
 				DEVELOPMENT_TEAM = D7S2TY22W7;
 				ENABLE_PREVIEWS = YES;
@@ -646,6 +645,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = earth.joao.geobus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

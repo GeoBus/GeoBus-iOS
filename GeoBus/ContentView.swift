@@ -26,13 +26,8 @@ struct ContentView : View {
         .padding(.bottom, -10)
       
       HStack {
-        SelectRoute(
-          routesStorage: routesStorage,
-          vehiclesStorage: vehiclesStorage
-        )
-        
+        SelectRoute(routesStorage: routesStorage, vehiclesStorage: vehiclesStorage)
         RouteDetails(routesStorage: routesStorage, vehiclesStorage: vehiclesStorage)
-        
         Spacer()
       }
       .frame(height: 115)
