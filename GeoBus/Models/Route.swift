@@ -12,5 +12,6 @@ struct Route: Codable, Identifiable, Equatable {
   let id = UUID()
   let number: String
   let name: String
+  let kind: String
   let variants: [RouteVariant]
 }

@@ -13,7 +13,7 @@ struct SelectRoute: View {
   @ObservedObject var routesStorage: RoutesStorage
   @ObservedObject var vehiclesStorage: VehiclesStorage
   
-  @State var presentRouteSelectionSheet: Bool = false
+  @State var showSelectRouteSheet: Bool = false
   
   
   var body: some View {
@@ -22,7 +22,7 @@ struct SelectRoute: View {
       
       if self.routesStorage.state == .idle || self.routesStorage.state == .routeSelected {
 
-        self.presentRouteSelectionSheet = true
+        self.showSelectRouteSheet = true
         self.vehiclesStorage.set(state: .idle)
       
       } else if self.routesStorage.state == .error {
@@ -38,12 +38,12 @@ struct SelectRoute: View {
     }
     .disabled( routesStorage.state == .syncing )
     .sheet(
-      isPresented: $presentRouteSelectionSheet,
+      isPresented: $showSelectRouteSheet,
       onDismiss: {
         self.vehiclesStorage.set(route: self.routesStorage.getSelectedRouteNumber(), state: .syncing)
     }) {
       
-      SelectRouteSheet(routesStorage: self.routesStorage, presentRouteSelectionSheet: self.$presentRouteSelectionSheet)
+      SelectRouteSheet(routesStorage: self.routesStorage, showSelectRouteSheet: self.$showSelectRouteSheet)
       
     }
     

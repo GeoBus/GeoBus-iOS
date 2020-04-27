@@ -9,6 +9,7 @@ import UIKit
 
 /// Generates iOS Device vibrations by UIFeedbackGenerator.
 open class TapticEngine {
+  
   public static let impact: Impact = .init()
   
   

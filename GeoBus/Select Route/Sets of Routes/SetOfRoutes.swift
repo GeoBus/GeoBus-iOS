@@ -1,24 +1,29 @@
 //
-//  RouteSelectionRecentRoutesView.swift
+//  SetOfRoutes.swift
 //  GeoBus
 //
-//  Created by João on 19/04/2020.
-//  Copyright © 2020 João. All rights reserved.
+//  Created by João on 27/04/2020.
+//  Copyright © 2020 João de Vasconcelos. All rights reserved.
 //
 
 import SwiftUI
 import Grid
 
-struct AllRoutes: View {
+struct SetOfRoutes: View {
+    
+  var title: String
+  var set: [Route]
   
   @ObservedObject var routesStorage: RoutesStorage
   
-  @Binding var presentRouteSelectionSheet: Bool
+  @Binding var showSelectRouteSheet: Bool
+  
   
   var body: some View {
+  
     VStack {
       
-      Text("All Routes")
+      Text(title)
         .font(.title)
         .fontWeight(.bold)
         .foregroundColor(Color(.label))
@@ -26,13 +31,15 @@ struct AllRoutes: View {
       
       HorizontalLine() //color: .white
       
-      Grid(self.routesStorage.all) { route in
+      Grid(set) { route in
+        
         Button(action: {
           self.routesStorage.select(route: route)
-          self.presentRouteSelectionSheet = false
+          self.showSelectRouteSheet = false
         }){
-          RouteButton(route: route)
+          RouteButton(route: route, dimensions: 60)
         }
+        
       }
       .gridStyle(ModularGridStyle(columns: .min(70), rows: .fixed(70)))
       .padding(.top, 5)
@@ -45,4 +52,5 @@ struct AllRoutes: View {
     .padding()
     
   }
+  
 }

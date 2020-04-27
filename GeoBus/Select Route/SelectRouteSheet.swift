@@ -12,7 +12,7 @@ struct SelectRouteSheet: View {
   
   @ObservedObject var routesStorage: RoutesStorage
   
-  @Binding var presentRouteSelectionSheet: Bool
+  @Binding var showSelectRouteSheet: Bool
   
   var body: some View {
     ScrollView(.vertical, showsIndicators: true) {
@@ -20,14 +20,18 @@ struct SelectRouteSheet: View {
         
         SheetHeader(title: "Find by Route")
         
-        SelectRouteInput(routesStorage: routesStorage, presentRouteSelectionSheet: self.$presentRouteSelectionSheet)
+        SelectRouteInput(routesStorage: routesStorage, showSelectRouteSheet: self.$showSelectRouteSheet)
           .padding(.horizontal)
         
         HorizontalLine()
         
         VStack {
-          FavoriteRoutes(routesStorage: routesStorage, presentRouteSelectionSheet: $presentRouteSelectionSheet)
-          AllRoutes(routesStorage: routesStorage, presentRouteSelectionSheet: $presentRouteSelectionSheet)
+          FavoriteRoutes(routesStorage: routesStorage, showSelectRouteSheet: $showSelectRouteSheet)
+          SetOfRoutes(title: "Trams", set: routesStorage.trams, routesStorage: routesStorage, showSelectRouteSheet: $showSelectRouteSheet)
+          SetOfRoutes(title: "Neighborhood Buses", set: routesStorage.neighborhood, routesStorage: routesStorage, showSelectRouteSheet: $showSelectRouteSheet)
+          SetOfRoutes(title: "Night Buses", set: routesStorage.night, routesStorage: routesStorage, showSelectRouteSheet: $showSelectRouteSheet)
+          SetOfRoutes(title: "Regular Service", set: routesStorage.regular, routesStorage: routesStorage, showSelectRouteSheet: $showSelectRouteSheet)
+          SetOfRoutes(title: "Elevators", set: routesStorage.elevators, routesStorage: routesStorage, showSelectRouteSheet: $showSelectRouteSheet)
         }
         
       }

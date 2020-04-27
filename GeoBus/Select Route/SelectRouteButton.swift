@@ -17,11 +17,10 @@ struct SelectRouteButton: View {
     
     ZStack {
       
-      RoundedRectangle(cornerRadius: 10)
-        .fill( routesStorage.state == .routeSelected ? Color(.systemYellow) : Color(.systemGray4) )
-      
       if routesStorage.state == .idle {
         
+        RoundedRectangle(cornerRadius: 10)
+          .fill(Color(.systemGray4))
         Image(systemName: "plus")
           .font(.title)
           .foregroundColor(Color(.white))
@@ -32,16 +31,15 @@ struct SelectRouteButton: View {
         
       } else if routesStorage.state == .error {
         
+        RoundedRectangle(cornerRadius: 10)
+          .fill(Color(.systemRed).opacity(0.1))
         Image(systemName: "bolt.slash.fill")
           .font(.title)
           .foregroundColor(Color(.white))
         
       } else if routesStorage.state == .routeSelected {
         
-        Text(routesStorage.getSelectedRouteNumber())
-          .font(.title)
-          .fontWeight(.heavy)
-          .foregroundColor(.black)
+        RouteButton(route: routesStorage.selectedRoute!, dimensions: 80)
         
       }
       

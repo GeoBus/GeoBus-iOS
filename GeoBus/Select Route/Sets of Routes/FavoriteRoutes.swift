@@ -13,7 +13,7 @@ struct FavoriteRoutes: View {
   
   @ObservedObject var routesStorage: RoutesStorage
   
-  @Binding var presentRouteSelectionSheet: Bool
+  @Binding var showSelectRouteSheet: Bool
   
   var body: some View {
     VStack {
@@ -32,13 +32,13 @@ struct FavoriteRoutes: View {
           Grid(routesStorage.favorites) { route in
             Button(action: {
               self.routesStorage.select(route: route)
-              self.presentRouteSelectionSheet = false
+              self.showSelectRouteSheet = false
             }){
-              RouteButton(route: route)
+              RouteButton(route: route, dimensions: 60)
             }
           }
           .gridStyle(ModularGridStyle(columns: .min(70), rows: .fixed(70)))
-           
+          
         } else {
           
           Text("You have no favorite routes.")

@@ -19,14 +19,18 @@ class RoutesStorage: ObservableObject {
   
   // MARK: - Variables
   
+  private var all: [Route] = []
+  
   @Published var selectedRoute: Route?
   @Published var selectedVariant: RouteVariant?
   
   @Published var favorites: [Route] = []
   
-  @Published var recent: [Route] = []
-  
-  @Published var all: [Route] = []
+  @Published var trams: [Route] = []
+  @Published var night: [Route] = []
+  @Published var regular: [Route] = []
+  @Published var neighborhood: [Route] = []
+  @Published var elevators: [Route] = []
   
   
   @Published var stopAnnotations: [StopAnnotation] = []
@@ -108,6 +112,8 @@ class RoutesStorage: ObservableObject {
         
         OperationQueue.main.addOperation {
           self.all.append(contentsOf: decodedData)
+          self.separateRoutesByKind()
+          self.sortRoutes()
           self.retrieveFavorites()
           self.set(state: .idle)
         }
@@ -121,6 +127,48 @@ class RoutesStorage: ObservableObject {
     task.resume()
     
   }
+  
+  
+  
+  
+  func separateRoutesByKind() {
+    
+    for route in all {
+      switch route.kind {
+        case "tram":
+          trams.append(route)
+          break
+        case "night":
+          night.append(route)
+          break
+        case "neighborhood":
+          neighborhood.append(route)
+          break
+        case "elevator":
+          elevators.append(route)
+          break
+        default: // kind == "regular"
+          regular.append(route)
+          break
+      }
+    }
+    
+  }
+  
+  
+  func sortRoutes() {
+    
+    trams.sort(by: { $0.number < $1.number })
+    night.sort(by: { $0.number < $1.number })
+    neighborhood.sort(by: { $0.number < $1.number })
+    elevators.sort(by: { $0.number < $1.number })
+    regular.sort(by: { $0.number < $1.number })
+    
+  }
+  
+  
+  
+  
   
   
   

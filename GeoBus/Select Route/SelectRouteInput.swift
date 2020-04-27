@@ -12,7 +12,7 @@ struct SelectRouteInput: View {
   
   @ObservedObject var routesStorage: RoutesStorage
   
-  @Binding var presentRouteSelectionSheet: Bool
+  @Binding var showSelectRouteSheet: Bool
   
   @State var routeNumber = ""
   @State var showErrorLabel: Bool = false
@@ -30,9 +30,9 @@ struct SelectRouteInput: View {
           .frame(width: 120)
         
         Button(action: {
-          let success = self.routesStorage.select(with: self.routeNumber)
+          let success = self.routesStorage.select(with: self.routeNumber.uppercased())
           if success {
-            self.presentRouteSelectionSheet = false
+            self.showSelectRouteSheet = false
           } else {
             self.showErrorLabel = true
           }
