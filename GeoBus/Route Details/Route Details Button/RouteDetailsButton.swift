@@ -38,7 +38,7 @@ struct RouteDetailsButton: View {
       
     }
     .padding(.vertical)
-    .padding(.horizontal, 10)
+    .padding(.trailing, 10)
     
   }
 }

@@ -17,13 +17,15 @@ class VehicleAnnotation: NSObject, MKAnnotation {
   let busNumber: String
   
   let coordinate: CLLocationCoordinate2D
+  let angleInRadians: Double
   
   
-  init(routeNumber: String, lastStopInRoute: String, busNumber: String, latitude: Double, longitude: Double) {
+  init(routeNumber: String, lastStopInRoute: String, busNumber: String, latitude: Double, longitude: Double, angleInRadians: Double) {
     self.routeNumber = routeNumber
     self.lastStopInRoute = lastStopInRoute
     self.busNumber = busNumber
     self.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+    self.angleInRadians = angleInRadians - (.pi / 2) // Correction cuz Apple rotates clockwise
   }
   
   

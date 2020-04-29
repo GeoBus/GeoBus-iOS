@@ -16,7 +16,7 @@ struct StopEstimations: View {
   var body: some View {
     
     HStack {
-      VehicleAnnotationMarker(routeNumber: estimation.routeNumber)
+      RouteBadge(routeNumber: estimation.routeNumber)
       Text("to")
         .font(.footnote)
         .foregroundColor(Color(.tertiaryLabel))

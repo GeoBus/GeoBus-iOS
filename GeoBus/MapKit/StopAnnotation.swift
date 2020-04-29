@@ -43,11 +43,11 @@ class StopAnnotation: NSObject, MKAnnotation {
   var markerColor: UIColor  {
     switch direction {
       case .ascending:
-        return .systemBlue
+        return .systemGreen
       case .descending:
-        return .systemGreen
+        return .systemBlue
       case .circular:
-        return .systemGreen
+        return .systemBlue
     }
   }
   

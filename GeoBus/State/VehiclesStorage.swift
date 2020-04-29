@@ -124,7 +124,8 @@ class VehiclesStorage: ObservableObject {
                 lastStopInRoute: item.lastStopOnVoyageName ?? "-",
                 busNumber: String(item.busNumber),
                 latitude: item.lat,
-                longitude: item.lng
+                longitude: item.lng,
+                angleInRadians: item.angleInRadians
               )
             )
           }

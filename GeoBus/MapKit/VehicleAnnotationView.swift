@@ -11,8 +11,11 @@ import MapKit
 
 class VehicleAnnotationView: MKAnnotationView {
   
-  override var annotation: MKAnnotation? {
+//  let imageView = UIImageView(image: UIImage(systemName: "plus.square.fill"))
+  let imageView = UIImageView(image: UIImage(named: "RegularService"))
   
+  override var annotation: MKAnnotation? {
+    
     willSet {
       guard let annotation = newValue as? VehicleAnnotation else {
         return
@@ -24,36 +27,23 @@ class VehicleAnnotationView: MKAnnotationView {
       //      mapsButton.setBackgroundImage(#imageLiteral(resourceName: "Map"), for: .normal)
       //      rightCalloutAccessoryView = mapsButton
       
-      image = VehicleAnnotationMarker(routeNumber: annotation.routeNumber).asImage()
+      frame = imageView.frame
+      imageView.transform = CGAffineTransform(rotationAngle: CGFloat(annotation.angleInRadians))
+      addSubview(imageView)
       
       let detailLabel = UILabel()
       detailLabel.numberOfLines = 0
       detailLabel.font = detailLabel.font.withSize(12)
       detailLabel.text = annotation.subtitle
       detailCalloutAccessoryView = detailLabel
-    
+      
     }
   }
 }
 
 
 
-struct VehicleAnnotationMarker: View {
-  
-  let routeNumber: String
-  
-  var body: some View {
-    Text(routeNumber.prefix(3))
-    .font(.footnote)
-    .fontWeight(.heavy)
-    .foregroundColor(Color(.black))
-    .padding(.horizontal, 7)
-    .padding(.vertical, 2)
-    .background( RoundedRectangle(cornerRadius: 10).foregroundColor(Color(.systemYellow)) )
-    .padding(.trailing, 0)
-  }
-  
-}
+
 
 
 

@@ -17,6 +17,7 @@ struct Vehicle: Codable, Identifiable, Equatable {
   let routeNumber: String?
   let lat: Double
   let lng: Double
+  let angleInRadians: Double
   let lastStopOnVoyageId: String?
   let lastStopOnVoyageName: String?
 }

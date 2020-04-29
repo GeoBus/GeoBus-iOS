@@ -11,6 +11,8 @@ import MapKit
 
 class StopAnnotationView: MKAnnotationView {
   
+  let imageView = UIImageView(image: UIImage(systemName: "circle.fill"))
+  
   override var annotation: MKAnnotation? {
   
     willSet {
@@ -24,7 +26,11 @@ class StopAnnotationView: MKAnnotationView {
       //      mapsButton.setBackgroundImage(#imageLiteral(resourceName: "Map"), for: .normal)
       //      rightCalloutAccessoryView = mapsButton
       
-      image = StopAnnotationMarker(color: annotation.markerColor).asImage()
+//      image = StopAnnotationMarker(color: annotation.markerColor).asImage()
+      
+      frame = imageView.frame
+      imageView.tintColor = annotation.markerColor
+      addSubview(imageView)
       
       let detailLabel = UILabel()
       detailLabel.numberOfLines = 0
