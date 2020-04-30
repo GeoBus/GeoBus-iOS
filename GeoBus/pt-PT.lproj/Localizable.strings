@@ -1,0 +1,66 @@
+/* No comment provided by engineer. */
+"-" = "-";
+
+/* No comment provided by engineer. */
+"%@ active vehicles" = "%@ veículos ativos";
+
+/* No comment provided by engineer. */
+"%@ in circulation" = "%@ em circulação";
+
+/* No comment provided by engineer. */
+"← Choose a Route" = "← Escolha uma Carreira";
+
+/* No comment provided by engineer. */
+"+info" = "+info";
+
+/* No comment provided by engineer. */
+"1 active vehicle" = "1 veículo ativo";
+
+/* No comment provided by engineer. */
+"Click here to retry ↺" = "Tente novamente ↺";
+
+/* No comment provided by engineer. */
+"Connection Error" = "Erro de Ligação";
+
+/* No comment provided by engineer. */
+"Estimated" = "Estimado";
+
+/* No comment provided by engineer. */
+"Favorite Routes" = "Favoritos";
+
+/* No comment provided by engineer. */
+"in ±" = "em ±";
+
+/* No comment provided by engineer. */
+"Live" = "Live";
+
+/* No comment provided by engineer. */
+"Loading..." = "A Carregar...";
+
+/* No comment provided by engineer. */
+"Next on this stop" = "Próximos nesta paragem";
+
+/* No comment provided by engineer. */
+"Nothing to show here." = "Nada para mostrar";
+
+/* No comment provided by engineer. */
+"Please check your internet connection." = "Por favor verifique a sua ligação à internet.";
+
+/* No comment provided by engineer. */
+"Syncing Routes..." = "A Sincronizar...";
+
+/* No comment provided by engineer. */
+"This is a circular route." = "Esta é uma carreira circular.";
+
+/* No comment provided by engineer. */
+"This route may have %@ alternative paths." = "Esta carreira pode ter %@ caminhos alternativos.";
+
+/* No comment provided by engineer. */
+"to" = "para";
+
+/* No comment provided by engineer. */
+"to: %@" = "para: %@";
+
+/* No comment provided by engineer. */
+"You have no favorite routes." = "Ainda não tem carreiras favoritas.";
+

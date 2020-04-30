@@ -1,0 +1,9 @@
+/* Bundle name */
+"CFBundleName" = "GeoBus";
+
+/* Privacy - Location Usage Description */
+"NSLocationUsageDescription" = "A sua localização será utilizada apenas para mostrar onde se encontra no mapa.";
+
+/* Privacy - Location When In Use Usage Description */
+"NSLocationWhenInUseUsageDescription" = "A sua localização será utilizada apenas para mostrar onde se encontra no mapa.";
+
