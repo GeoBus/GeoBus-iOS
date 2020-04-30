@@ -53,7 +53,7 @@
 "This is a circular route." = "This is a circular route.";
 
 /* No comment provided by engineer. */
-"This route may have %lld alternative paths." = "This route may have %@ alternative paths.";
+"This route may have %lld alternative paths." = "This route may have %lld alternative paths.";
 
 /* No comment provided by engineer. */
 "to" = "to";
