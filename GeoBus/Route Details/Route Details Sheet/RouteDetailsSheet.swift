@@ -20,7 +20,7 @@ struct RouteDetailsSheet: View {
     ScrollView(.vertical, showsIndicators: true) {
       VStack {
         
-        SheetHeader(title: "Route Details")
+        SheetHeader(title: Text("Route Details"))
         
         HStack {
           RouteButton(route: routesStorage.selectedRoute!, dimensions: 80)

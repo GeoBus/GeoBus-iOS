@@ -120,7 +120,7 @@
 		CFCCE44C245A5F79007062ED /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		CFCCE44F245A5F79007062ED /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		CFCCE452245A60D2007062ED /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		CFCCE453245A60FF007062ED /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		CFCCE454245A6614007062ED /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CFD2C233244D131C00C1C33B /* RoutesStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutesStorage.swift; sourceTree = "<group>"; };
 		CFD9E24C24561E1500AFA80B /* ConnectionErrorScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionErrorScreen.swift; sourceTree = "<group>"; };
 		CFD9E24F24561EB700AFA80B /* ChooseRouteScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseRouteScreen.swift; sourceTree = "<group>"; };
@@ -520,7 +520,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				CFCCE44F245A5F79007062ED /* pt-PT */,
-				CFCCE453245A60FF007062ED /* en */,
+				CFCCE454245A6614007062ED /* en */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";

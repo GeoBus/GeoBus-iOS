@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
+  <file original="GeoBus/en.lproj/InfoPlist.strings" source-language="en" target-language="en" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="11.4.1" build-num="11E503a"/>
+    </header>
+    <body>
+      <trans-unit id="CFBundleName" xml:space="preserve">
+        <source>GeoBus</source>
+        <target>GeoBus</target>
+        <note>Bundle name</note>
+      </trans-unit>
+      <trans-unit id="NSLocationUsageDescription" xml:space="preserve">
+        <source>Your location will only be used to show you where you are on the map.</source>
+        <target>Your location will only be used to show you where you are on the map.</target>
+        <note>Privacy - Location Usage Description</note>
+      </trans-unit>
+      <trans-unit id="NSLocationWhenInUseUsageDescription" xml:space="preserve">
+        <source>Your location will only be used to show you where you are on the map.</source>
+        <target>Your location will only be used to show you where you are on the map.</target>
+        <note>Privacy - Location When In Use Usage Description</note>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="GeoBus/en.lproj/Localizable.strings" source-language="en" target-language="en" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="11.4.1" build-num="11E503a"/>
+    </header>
+    <body>
+      <trans-unit id="%@ active vehicles" xml:space="preserve">
+        <source>%@ active vehicles</source>
+        <target>%@ active vehicles</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="%@ in circulation" xml:space="preserve">
+        <source>%@ in circulation</source>
+        <target>%@ in circulation</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="+info" xml:space="preserve">
+        <source>+info</source>
+        <target>+info</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="-" xml:space="preserve">
+        <source>-</source>
+        <target>-</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="1 active vehicle" xml:space="preserve">
+        <source>1 active vehicle</source>
+        <target>1 active vehicle</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Click here to retry ↺" xml:space="preserve">
+        <source>Click here to retry ↺</source>
+        <target>Click here to retry ↺</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Connection Error" xml:space="preserve">
+        <source>Connection Error</source>
+        <target>Connection Error</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Estimated" xml:space="preserve">
+        <source>Estimated</source>
+        <target>Estimated</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Favorite Routes" xml:space="preserve">
+        <source>Favorite Routes</source>
+        <target>Favorite Routes</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Find by Route" xml:space="preserve">
+        <source>Find by Route</source>
+        <target>Find by Route</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Live" xml:space="preserve">
+        <source>Live</source>
+        <target>Live</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Loading..." xml:space="preserve">
+        <source>Loading...</source>
+        <target>Loading...</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Next on this stop" xml:space="preserve">
+        <source>Next on this stop</source>
+        <target>Next on this stop</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Nothing to show here." xml:space="preserve">
+        <source>Nothing to show here.</source>
+        <target>Nothing to show here.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Please check your internet connection." xml:space="preserve">
+        <source>Please check your internet connection.</source>
+        <target>Please check your internet connection.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Route Details" xml:space="preserve">
+        <source>Route Details</source>
+        <target>Route Details</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Syncing Routes..." xml:space="preserve">
+        <source>Syncing Routes...</source>
+        <target>Syncing Routes...</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="This is a circular route." xml:space="preserve">
+        <source>This is a circular route.</source>
+        <target>This is a circular route.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="This route may have %@ alternative paths." xml:space="preserve">
+        <source>This route may have %@ alternative paths.</source>
+        <target>This route may have %@ alternative paths.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="You have no favorite routes." xml:space="preserve">
+        <source>You have no favorite routes.</source>
+        <target>You have no favorite routes.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="in ±" xml:space="preserve">
+        <source>in ±</source>
+        <target>in ±</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="to" xml:space="preserve">
+        <source>to</source>
+        <target>to</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="to: %@" xml:space="preserve">
+        <source>to: %@</source>
+        <target>to: %@</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="← Choose a Route" xml:space="preserve">
+        <source>← Choose a Route</source>
+        <target>← Choose a Route</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

@@ -10,11 +10,11 @@ import SwiftUI
 
 struct SheetHeader: View {
   
-  let title: String
+  let title: Text
   
   var body: some View {
     VStack(alignment: .leading) {
-      Text(title)
+      title
         .font(.largeTitle)
         .fontWeight(.bold)
     }
