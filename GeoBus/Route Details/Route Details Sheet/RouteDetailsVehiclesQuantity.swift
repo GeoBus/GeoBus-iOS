@@ -21,9 +21,17 @@ struct RouteDetailsVehiclesQuantity: View {
         Text(String(vehiclesQuantity))
           .font(.system(size: 30, weight: .bold, design: .default))
           .padding(.bottom, 5)
-        Text("\(vehiclesQuantity == 1 ? "vehicle" : "vehicles" ) in circulation")
-          .multilineTextAlignment(.center)
-          .font(.callout)
+        
+        if vehiclesQuantity == 1 {
+          Text("vehicle in circulation")
+            .multilineTextAlignment(.center)
+            .font(.callout)
+        } else {
+          Text("vehicles in circulation")
+            .multilineTextAlignment(.center)
+            .font(.callout)
+        }
+        
       }
       .frame(maxWidth: .infinity, maxHeight: .infinity)
       

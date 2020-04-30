@@ -11,7 +11,7 @@ import Grid
 
 struct SetOfRoutes: View {
     
-  var title: String
+  var title: Text
   var set: [Route]
   
   @ObservedObject var routesStorage: RoutesStorage
@@ -23,7 +23,7 @@ struct SetOfRoutes: View {
   
     VStack {
       
-      Text(title)
+      title
         .font(.title)
         .fontWeight(.bold)
         .foregroundColor(Color(.label))

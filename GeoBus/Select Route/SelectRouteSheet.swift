@@ -27,11 +27,11 @@ struct SelectRouteSheet: View {
         
         VStack {
           FavoriteRoutes(routesStorage: routesStorage, showSelectRouteSheet: $showSelectRouteSheet)
-          SetOfRoutes(title: "Trams", set: routesStorage.trams, routesStorage: routesStorage, showSelectRouteSheet: $showSelectRouteSheet)
-          SetOfRoutes(title: "Neighborhood Buses", set: routesStorage.neighborhood, routesStorage: routesStorage, showSelectRouteSheet: $showSelectRouteSheet)
-          SetOfRoutes(title: "Night Buses", set: routesStorage.night, routesStorage: routesStorage, showSelectRouteSheet: $showSelectRouteSheet)
-          SetOfRoutes(title: "Regular Service", set: routesStorage.regular, routesStorage: routesStorage, showSelectRouteSheet: $showSelectRouteSheet)
-          SetOfRoutes(title: "Elevators", set: routesStorage.elevators, routesStorage: routesStorage, showSelectRouteSheet: $showSelectRouteSheet)
+          SetOfRoutes(title: Text("Trams"), set: routesStorage.trams, routesStorage: routesStorage, showSelectRouteSheet: $showSelectRouteSheet)
+          SetOfRoutes(title: Text("Neighborhood Buses"), set: routesStorage.neighborhood, routesStorage: routesStorage, showSelectRouteSheet: $showSelectRouteSheet)
+          SetOfRoutes(title: Text("Night Buses"), set: routesStorage.night, routesStorage: routesStorage, showSelectRouteSheet: $showSelectRouteSheet)
+          SetOfRoutes(title: Text("Regular Service"), set: routesStorage.regular, routesStorage: routesStorage, showSelectRouteSheet: $showSelectRouteSheet)
+          SetOfRoutes(title: Text("Elevators"), set: routesStorage.elevators, routesStorage: routesStorage, showSelectRouteSheet: $showSelectRouteSheet)
         }
         
       }

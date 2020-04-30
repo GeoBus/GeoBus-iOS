@@ -1,8 +1,11 @@
 /* No comment provided by engineer. */
-"%@ active vehicles" = "%@ active vehicles";
+"%lld active vehicles" = "%lld active vehicles";
 
 /* No comment provided by engineer. */
-"%@ in circulation" = "%@ in circulation";
+"vehicle in circulation" = "vehicle in circulation";
+
+/* No comment provided by engineer. */
+"vehicles in circulation" = "vehicles in circulation";
 
 /* No comment provided by engineer. */
 "+info" = "+info";
@@ -50,7 +53,7 @@
 "This is a circular route." = "This is a circular route.";
 
 /* No comment provided by engineer. */
-"This route may have %@ alternative paths." = "This route may have %@ alternative paths.";
+"This route may have %lld alternative paths." = "This route may have %@ alternative paths.";
 
 /* No comment provided by engineer. */
 "to" = "to";
@@ -63,3 +66,33 @@
 
 /* No comment provided by engineer. */
 "← Choose a Route" = "← Choose a Route";
+
+/* No comment provided by engineer. */
+"Find by Route" = "Find by Route";
+
+/* No comment provided by engineer. */
+"Route Details" = "Route Details";
+
+/* No comment provided by engineer. */
+"Locate" = "Locate";
+
+/* No comment provided by engineer. */
+"The route you entered does not exist." = "The route you entered does not exist.";
+
+/* No comment provided by engineer. */
+"Choose a Route Number (ex: 28E or 758)." = "Choose a Route Number (ex: 28E or 758).";
+
+/* No comment provided by engineer. */
+"Trams" = "Trams";
+
+/* No comment provided by engineer. */
+"Neighborhood Buses" = "Neighborhood Buses";
+
+/* No comment provided by engineer. */
+"Night Buses" = "Night Buses";
+
+/* No comment provided by engineer. */
+"Regular Service" = "Regular Service";
+
+/* No comment provided by engineer. */
+"Elevators" = "Elevators";

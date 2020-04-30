@@ -24,8 +24,9 @@ struct RouteDetailsSheet: View {
         
         HStack {
           RouteButton(route: routesStorage.selectedRoute!, dimensions: 80)
-          Text(routesStorage.selectedRoute?.name ?? "-")
+          Text(routesStorage.getSelectedVariantName())
             .foregroundColor(Color(.label))
+            .padding(.leading)
           Spacer()
         }
         .padding()
