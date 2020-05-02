@@ -13,6 +13,8 @@ class StopAnnotationView: MKAnnotationView {
   
   let imageView = UIImageView(image: UIImage(systemName: "circle.fill"))
   
+  @ObservedObject var estimationsStorage = EstimationsStorage()
+  
   override var annotation: MKAnnotation? {
   
     willSet {
@@ -32,14 +34,15 @@ class StopAnnotationView: MKAnnotationView {
       imageView.tintColor = annotation.markerColor
       addSubview(imageView)
       
-      let detailLabel = UILabel()
-      detailLabel.numberOfLines = 0
-      detailLabel.font = detailLabel.font.withSize(12)
-      detailLabel.text = annotation.subtitle
-      detailCalloutAccessoryView = detailLabel
+      estimationsStorage.set(publicId: annotation.publicId, state: .idle)
+      
+      let child = UIHostingController(rootView: StopAnnotationCallout(estimationsStorage: self.estimationsStorage))
+      child.view.backgroundColor = .clear
+      detailCalloutAccessoryView = child.view
     
     }
   }
+  
 }
 
 

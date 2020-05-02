@@ -33,7 +33,7 @@ struct StopEstimations: View {
         .fontWeight(.medium)
         .foregroundColor(Color(.label))
     }
-    .padding(.bottom, 5)
+    .padding(.bottom, 10)
     
   }
   

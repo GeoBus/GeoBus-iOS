@@ -22,6 +22,7 @@ class EstimationsStorage: ObservableObject {
   private let howManyResults = "/top/5"
   
   
+  
   private var state = State.idle {
     // We add a property observer on 'state', which lets us
     // run a function on each value change.
@@ -30,6 +31,16 @@ class EstimationsStorage: ObservableObject {
   
   private var timer: Timer? = nil
   
+  
+  
+  init(stopPublicId: String, state: State) {
+    self.stopPublicId = stopPublicId
+    self.state = state
+  }
+  
+  init() {
+    
+  }
   
   
   

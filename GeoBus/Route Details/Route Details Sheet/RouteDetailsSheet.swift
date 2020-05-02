@@ -14,13 +14,15 @@ struct RouteDetailsSheet: View {
   @ObservedObject var routesStorage: RoutesStorage
   @ObservedObject var vehiclesStorage: VehiclesStorage
   
+  @Binding var showRouteDetailsSheet: Bool
+  
   @State var routeDirection: Int = 0
   
   var body: some View {
     ScrollView(.vertical, showsIndicators: true) {
       VStack {
         
-        SheetHeader(title: Text("Route Details"))
+        SheetHeader(title: Text("Route Details"), toggle: $showRouteDetailsSheet)
         
         HStack {
           RouteButton(route: routesStorage.selectedRoute!, dimensions: 80)

@@ -57,6 +57,8 @@
 		CFD9E24D24561E1500AFA80B /* ConnectionErrorScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD9E24C24561E1500AFA80B /* ConnectionErrorScreen.swift */; };
 		CFD9E25024561EB700AFA80B /* ChooseRouteScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD9E24F24561EB700AFA80B /* ChooseRouteScreen.swift */; };
 		CFD9E25224561EF500AFA80B /* SyncingRoutesScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD9E25124561EF500AFA80B /* SyncingRoutesScreen.swift */; };
+		CFE51D8F245CAAE5007B440B /* VehicleAnnotationCallout.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE51D8E245CAAE5007B440B /* VehicleAnnotationCallout.swift */; };
+		CFE51D94245D00C5007B440B /* StopAnnotationCallout.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE51D93245D00C5007B440B /* StopAnnotationCallout.swift */; };
 		CFE7296C244A721400ED034E /* VehicleAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE7296B244A721400ED034E /* VehicleAnnotationView.swift */; };
 		CFF4980C24524DB700EB9C36 /* RouteVariantPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFF4980224524DB700EB9C36 /* RouteVariantPicker.swift */; };
 		CFF4980D24524DB700EB9C36 /* RouteVariantStops.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFF4980324524DB700EB9C36 /* RouteVariantStops.swift */; };
@@ -125,6 +127,8 @@
 		CFD9E24C24561E1500AFA80B /* ConnectionErrorScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionErrorScreen.swift; sourceTree = "<group>"; };
 		CFD9E24F24561EB700AFA80B /* ChooseRouteScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseRouteScreen.swift; sourceTree = "<group>"; };
 		CFD9E25124561EF500AFA80B /* SyncingRoutesScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncingRoutesScreen.swift; sourceTree = "<group>"; };
+		CFE51D8E245CAAE5007B440B /* VehicleAnnotationCallout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleAnnotationCallout.swift; sourceTree = "<group>"; };
+		CFE51D93245D00C5007B440B /* StopAnnotationCallout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopAnnotationCallout.swift; sourceTree = "<group>"; };
 		CFE7296B244A721400ED034E /* VehicleAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleAnnotationView.swift; sourceTree = "<group>"; };
 		CFF4980224524DB700EB9C36 /* RouteVariantPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteVariantPicker.swift; sourceTree = "<group>"; };
 		CFF4980324524DB700EB9C36 /* RouteVariantStops.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteVariantStops.swift; sourceTree = "<group>"; };
@@ -217,10 +221,8 @@
 			isa = PBXGroup;
 			children = (
 				CF072333244A1101007AFAD2 /* MapView.swift */,
-				CF80B988244CCE7600B921F2 /* StopAnnotation.swift */,
-				CF80B98E244CD6E900B921F2 /* StopAnnotationView.swift */,
-				CF07234D244A1125007AFAD2 /* VehicleAnnotation.swift */,
-				CFE7296B244A721400ED034E /* VehicleAnnotationView.swift */,
+				CFE51D90245D008F007B440B /* Stop Annotations */,
+				CFE51D95245D00DD007B440B /* Vehicle Annotations */,
 			);
 			path = MapKit;
 			sourceTree = "<group>";
@@ -320,6 +322,26 @@
 				CFD9E24C24561E1500AFA80B /* ConnectionErrorScreen.swift */,
 			);
 			path = "Route Details Button";
+			sourceTree = "<group>";
+		};
+		CFE51D90245D008F007B440B /* Stop Annotations */ = {
+			isa = PBXGroup;
+			children = (
+				CF80B988244CCE7600B921F2 /* StopAnnotation.swift */,
+				CF80B98E244CD6E900B921F2 /* StopAnnotationView.swift */,
+				CFE51D93245D00C5007B440B /* StopAnnotationCallout.swift */,
+			);
+			path = "Stop Annotations";
+			sourceTree = "<group>";
+		};
+		CFE51D95245D00DD007B440B /* Vehicle Annotations */ = {
+			isa = PBXGroup;
+			children = (
+				CF07234D244A1125007AFAD2 /* VehicleAnnotation.swift */,
+				CFE7296B244A721400ED034E /* VehicleAnnotationView.swift */,
+				CFE51D8E245CAAE5007B440B /* VehicleAnnotationCallout.swift */,
+			);
+			path = "Vehicle Annotations";
 			sourceTree = "<group>";
 		};
 		CFF4980024524DB700EB9C36 /* Route Details */ = {
@@ -454,6 +476,7 @@
 				CF5E7546244F8EB500B1EF10 /* LiveIcon.swift in Sources */,
 				CF072315244A10D3007AFAD2 /* AppDelegate.swift in Sources */,
 				CFF4980E24524DB700EB9C36 /* RouteVariantWarning.swift in Sources */,
+				CFE51D8F245CAAE5007B440B /* VehicleAnnotationCallout.swift in Sources */,
 				CF5E64B5244BF08E00F9BA16 /* HorizontalLine.swift in Sources */,
 				CFD9E25024561EB700AFA80B /* ChooseRouteScreen.swift in Sources */,
 				CF80B98F244CD6E900B921F2 /* StopAnnotationView.swift in Sources */,
@@ -471,6 +494,7 @@
 				CF072353244A1125007AFAD2 /* Vehicle.swift in Sources */,
 				CF072363244A1134007AFAD2 /* ForEach.swift in Sources */,
 				CFF4980F24524DB700EB9C36 /* RouteDetailsAddToFavorites.swift in Sources */,
+				CFE51D94245D00C5007B440B /* StopAnnotationCallout.swift in Sources */,
 				CFF4981824525AC500EB9C36 /* RouteCircularVariantInfo.swift in Sources */,
 				CF1786CA244BF247005592F3 /* SheetHeader.swift in Sources */,
 				CFF4980C24524DB700EB9C36 /* RouteVariantPicker.swift in Sources */,
@@ -648,16 +672,17 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = GeoBus/GeoBus.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_ASSET_PATHS = "\"GeoBus/Preview Content\"";
 				DEVELOPMENT_TEAM = D7S2TY22W7;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = GeoBus/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = earth.joao.geobus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -671,16 +696,17 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = GeoBus/GeoBus.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_ASSET_PATHS = "\"GeoBus/Preview Content\"";
 				DEVELOPMENT_TEAM = D7S2TY22W7;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = GeoBus/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = earth.joao.geobus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

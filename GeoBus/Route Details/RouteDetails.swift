@@ -37,7 +37,7 @@ struct RouteDetails: View {
     }
     .disabled( routesStorage.state == .idle || routesStorage.state == .syncing )
     .sheet(isPresented: $showRouteDetailsSheet) {
-      RouteDetailsSheet(routesStorage: self.routesStorage, vehiclesStorage: self.vehiclesStorage)
+      RouteDetailsSheet(routesStorage: self.routesStorage, vehiclesStorage: self.vehiclesStorage, showRouteDetailsSheet: self.$showRouteDetailsSheet)
     }
     
   }

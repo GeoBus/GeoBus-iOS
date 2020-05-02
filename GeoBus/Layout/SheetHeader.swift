@@ -11,14 +11,23 @@ import SwiftUI
 struct SheetHeader: View {
   
   let title: Text
+  @Binding var toggle: Bool
   
   var body: some View {
-    VStack(alignment: .leading) {
+    VStack {
+      HStack {
+        Spacer()
+        Button(action: { self.toggle = false }) {
+          Text("Close")
+            .fontWeight(.bold)
+        }
+        .padding(25)
+        
+      }
       title
         .font(.largeTitle)
         .fontWeight(.bold)
     }
-    .padding(.top, 45)
     .padding(.bottom, 20)
   }
 }

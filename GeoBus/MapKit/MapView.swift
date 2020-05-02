@@ -53,7 +53,7 @@ struct MapView: UIViewRepresentable {
     var newAnnotations: [MKAnnotation] = []
     newAnnotations.append(contentsOf: routesStorage.stopAnnotations)
     newAnnotations.append(contentsOf: vehiclesStorage.annotations)
-    
+
     mapView.removeAnnotations(mapView.annotations)
     mapView.addAnnotations(newAnnotations)
     

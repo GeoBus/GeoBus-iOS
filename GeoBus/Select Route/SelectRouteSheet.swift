@@ -18,7 +18,7 @@ struct SelectRouteSheet: View {
     ScrollView(.vertical, showsIndicators: true) {
       VStack {
         
-        SheetHeader(title: Text("Find by Route"))
+        SheetHeader(title: Text("Find by Route"), toggle: $showSelectRouteSheet)
         
         SelectRouteInput(routesStorage: routesStorage, showSelectRouteSheet: self.$showSelectRouteSheet)
           .padding(.horizontal)

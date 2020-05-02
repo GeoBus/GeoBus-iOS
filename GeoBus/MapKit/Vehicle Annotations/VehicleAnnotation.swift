@@ -30,7 +30,7 @@ class VehicleAnnotation: NSObject, MKAnnotation {
   
   
   var title: String? {
-    return "\(routeNumber) to \(lastStopInRoute)"
+    return "" //\(routeNumber) to \(lastStopInRoute)
   }
   
   var subtitle: String? {

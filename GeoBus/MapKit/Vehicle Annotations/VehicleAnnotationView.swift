@@ -26,16 +26,14 @@ class VehicleAnnotationView: MKAnnotationView {
       //      mapsButton.setBackgroundImage(#imageLiteral(resourceName: "Map"), for: .normal)
       //      rightCalloutAccessoryView = mapsButton
       
-      frame = imageView.frame
       imageView.transform = CGAffineTransform(rotationAngle: CGFloat(annotation.angleInRadians))
+      frame = imageView.frame
       addSubview(imageView)
       
-      let detailLabel = UILabel()
-      detailLabel.numberOfLines = 0
-      detailLabel.font = detailLabel.font.withSize(12)
-      detailLabel.text = annotation.subtitle
-      detailCalloutAccessoryView = detailLabel
       
+      let child = UIHostingController(rootView: VehicleAnnotationCallout(direction: annotation.lastStopInRoute))
+      child.view.backgroundColor = .clear
+      detailCalloutAccessoryView = child.view
     }
   }
 }
