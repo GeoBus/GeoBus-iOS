@@ -30,8 +30,8 @@ class VehicleAnnotationView: MKAnnotationView {
       frame = imageView.frame
       addSubview(imageView)
       
-      
-      let child = UIHostingController(rootView: VehicleAnnotationCallout(direction: annotation.lastStopInRoute))
+      let callout = VehicleAnnotationCallout(annotation: annotation)
+      let child = UIHostingController(rootView: callout)
       child.view.backgroundColor = .clear
       detailCalloutAccessoryView = child.view
     }

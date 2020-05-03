@@ -60,7 +60,7 @@ struct RouteDetailsSheet: View {
           HorizontalLine()
         }
         
-        RouteVariantStops(routesStorage: routesStorage)
+        StopsList(routesStorage: routesStorage)
           .padding(.top, 20)
         
       }

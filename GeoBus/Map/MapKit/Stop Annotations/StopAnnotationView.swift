@@ -16,31 +16,26 @@ class StopAnnotationView: MKAnnotationView {
   @ObservedObject var estimationsStorage = EstimationsStorage()
   
   override var annotation: MKAnnotation? {
-  
+    
     willSet {
+      
       guard let annotation = newValue as? StopAnnotation else {
         return
       }
       
-      canShowCallout = true
-      //      calloutOffset = CGPoint(x: -5, y: 5)
-      //      let mapsButton = UIButton(frame: CGRect(origin: CGPoint.zero, size: CGSize(width: 48, height: 48)))
-      //      mapsButton.setBackgroundImage(#imageLiteral(resourceName: "Map"), for: .normal)
-      //      rightCalloutAccessoryView = mapsButton
-      
-//      image = StopAnnotationMarker(color: annotation.markerColor).asImage()
+      canShowCallout = false
       
       frame = imageView.frame
       imageView.tintColor = annotation.markerColor
       addSubview(imageView)
       
-      estimationsStorage.set(publicId: annotation.publicId, state: .idle)
+//      let child = UIHostingController(rootView: StopAnnotationCallout(estimationsStorage: estimationsStorage))
+//      child.view.backgroundColor = .clear
+//      detailCalloutAccessoryView = child.view
+//      detailCalloutAccessoryView?.translatesAutoresizingMaskIntoConstraints = true
       
-      let child = UIHostingController(rootView: StopAnnotationCallout(estimationsStorage: self.estimationsStorage))
-      child.view.backgroundColor = .clear
-      detailCalloutAccessoryView = child.view
-    
     }
+    
   }
   
 }

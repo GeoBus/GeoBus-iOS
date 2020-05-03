@@ -23,6 +23,10 @@ class RoutesStorage: ObservableObject {
   
   @Published var selectedRoute: Route?
   @Published var selectedVariant: RouteVariant?
+  var previousSelectedVariant: RouteVariant?
+  
+  @Published var selectedStopAnnotation: StopAnnotation?
+  @Published var isStopSelected: Bool = false
   
   @Published var favorites: [Route] = []
   
@@ -57,6 +61,8 @@ class RoutesStorage: ObservableObject {
         break
       case .syncing:
         self.syncAllRoutes()
+        break
+      case .routeChanged:
         break
       case .routeSelected:
         break
@@ -157,13 +163,11 @@ class RoutesStorage: ObservableObject {
   
   
   func sortRoutes() {
-    
     trams.sort(by: { $0.number < $1.number })
     night.sort(by: { $0.number < $1.number })
     neighborhood.sort(by: { $0.number < $1.number })
     elevators.sort(by: { $0.number < $1.number })
     regular.sort(by: { $0.number < $1.number })
-    
   }
   
   
@@ -337,6 +341,17 @@ class RoutesStorage: ObservableObject {
   
   
   
+  func setSelectedStopPublicId(annotation: StopAnnotation) {
+    self.selectedStopAnnotation = annotation
+    self.isStopSelected = true
+  }
+  
+  func unselectStop() {
+    self.selectedStopAnnotation = nil
+    self.isStopSelected = false
+  }
+  
+  
   
   
   // ----------- FAVORITES -------------------
@@ -405,6 +420,7 @@ extension RoutesStorage {
   enum State {
     case idle
     case syncing
+    case routeChanged
     case routeSelected
     case error
   }
@@ -416,3 +432,23 @@ extension RoutesStorage {
   }
   
 }
+
+
+
+
+
+
+
+// PARSE JSON FILE
+//
+// if let path = Bundle.main.path(forResource: "test", ofType: "json") {
+//    do {
+//          let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
+//          let jsonResult = try JSONSerialization.jsonObject(with: data, options: .mutableLeaves)
+//          if let jsonResult = jsonResult as? Dictionary<String, AnyObject>, let person = jsonResult["person"] as? [Any] {
+//                    // do stuff
+//          }
+//      } catch {
+//           // handle error
+//      }
+// }

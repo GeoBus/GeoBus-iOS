@@ -18,7 +18,7 @@ struct SheetHeader: View {
       HStack {
         Spacer()
         Button(action: { self.toggle = false }) {
-          Text("Close")
+          Text("Done")
             .fontWeight(.bold)
         }
         .padding(25)

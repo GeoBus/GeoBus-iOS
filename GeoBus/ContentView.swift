@@ -21,9 +21,7 @@ struct ContentView : View {
     
     VStack {
       
-      MapView(routesStorage: routesStorage, vehiclesStorage: vehiclesStorage)
-        .edgesIgnoringSafeArea(.vertical)
-        .padding(.bottom, -10)
+      Map(routesStorage: routesStorage, vehiclesStorage: vehiclesStorage)
       
       HStack {
         SelectRoute(routesStorage: routesStorage, vehiclesStorage: vehiclesStorage)

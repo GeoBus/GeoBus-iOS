@@ -9,7 +9,7 @@
 import SwiftUI
 import Combine
 
-struct StopEstimations: View {
+struct EstimationView: View {
   
   var estimation: Estimation
   

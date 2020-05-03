@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct RouteVariantStops: View {
+struct StopsList: View {
   
   @ObservedObject var routesStorage: RoutesStorage
   

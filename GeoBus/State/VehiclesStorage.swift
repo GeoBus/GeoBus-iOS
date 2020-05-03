@@ -15,7 +15,7 @@ class VehiclesStorage: ObservableObject {
   
   private var endpoint = "https://geobus-api.herokuapp.com"
   
-  private var syncInterval = 10.0 // seconds
+  private var syncInterval = 15.0 // seconds
   
   
   

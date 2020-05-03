@@ -63,7 +63,7 @@ class EstimationsStorage: ObservableObject {
         break
       case .syncing:
         timer = Timer.scheduledTimer(
-          timeInterval: 60.0,
+          timeInterval: 5.0,
           target: self,
           selector: #selector(self.syncEstimations),
           userInfo: nil,

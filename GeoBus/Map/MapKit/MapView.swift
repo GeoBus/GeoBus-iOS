@@ -50,18 +50,37 @@ struct MapView: UIViewRepresentable {
   
   func updateUIView(_ uiView: MKMapView, context: UIViewRepresentableContext<MapView>) {
     
-    var newAnnotations: [MKAnnotation] = []
-    newAnnotations.append(contentsOf: routesStorage.stopAnnotations)
-    newAnnotations.append(contentsOf: vehiclesStorage.annotations)
-
-    mapView.removeAnnotations(mapView.annotations)
-    mapView.addAnnotations(newAnnotations)
+    var annotationsToAdd: [MKAnnotation] = []
+    var annotationsToRemove: [MKAnnotation] = []
+    
+    // Only update stopAnnotations if variant has changed
+    if routesStorage.previousSelectedVariant != routesStorage.selectedVariant {
+      routesStorage.previousSelectedVariant = routesStorage.selectedVariant
+      annotationsToAdd.append(contentsOf: routesStorage.stopAnnotations)
+      for annotation in mapView.annotations {
+        if annotation.isKind(of: StopAnnotation.self) {
+          annotationsToRemove.append(annotation)
+        }
+      }
+    }
+    
+    // Always update vehicleAnnotations
+    annotationsToAdd.append(contentsOf: vehiclesStorage.annotations)
+    for annotation in mapView.annotations {
+      if annotation.isKind(of: VehicleAnnotation.self) {
+        annotationsToRemove.append(annotation)
+      }
+    }
+    
+    // Update whatever was set to update
+    mapView.removeAnnotations(annotationsToRemove)
+    mapView.addAnnotations(annotationsToAdd)
     
   }
   
   
   func makeCoordinator() -> MapView.Coordinator {
-    Coordinator(self)
+    Coordinator(control: self)
   }
   
   
@@ -72,11 +91,38 @@ struct MapView: UIViewRepresentable {
     
     private let control: MapView
     
-    
-    init(_ control: MapView) {
+    init(control: MapView) {
       self.control = control
     }
     
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+      if view.isKind(of: StopAnnotationView.self) {
+        
+        let selectedStopAnnotationView = view as! StopAnnotationView
+        let stopAnnotation = selectedStopAnnotationView.annotation as! StopAnnotation
+        
+        selectedStopAnnotationView.imageView.image = UIImage(systemName: "square.fill")
+        selectedStopAnnotationView.imageView.tintColor = .systemRed
+        
+        control.routesStorage.setSelectedStopPublicId(annotation: stopAnnotation)
+        
+      }
+    }
+    
+    func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
+      if view.isKind(of: StopAnnotationView.self) {
+        
+        let selectedStopAnnotationView = view as! StopAnnotationView
+        let stopAnnotation = selectedStopAnnotationView.annotation as! StopAnnotation
+        
+        selectedStopAnnotationView.imageView.image = UIImage(systemName: "circle.fill")
+        selectedStopAnnotationView.imageView.tintColor = stopAnnotation.markerColor
+        
+        control.routesStorage.unselectStop()
+        
+      }
+    }
     
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
