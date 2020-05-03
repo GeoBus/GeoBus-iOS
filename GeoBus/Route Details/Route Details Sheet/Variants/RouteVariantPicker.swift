@@ -27,10 +27,10 @@ struct RouteVariantPicker: View {
           }) {
             RouteVariantButton(
               variantName: self.routesStorage.getVariantName(variant: variant),
-              isSelected: self.routesStorage.isThisVariantSelected(variant: variant)
+              isSelected: self.routesStorage.isSelected(variant: variant)
             )
           }
-        .disabled(self.routesStorage.isThisVariantSelected(variant: variant))
+        .disabled(self.routesStorage.isSelected(variant: variant))
         }
         
       }

@@ -11,12 +11,6 @@ import Combine
 
 class RoutesStorage: ObservableObject {
   
-  // MARK: - Settings
-  
-  private var endpoint = "https://geobus-api.herokuapp.com"
-  
-  
-  
   // MARK: - Variables
   
   private var all: [Route] = []
@@ -26,7 +20,6 @@ class RoutesStorage: ObservableObject {
   var previousSelectedVariant: RouteVariant?
   
   @Published var selectedStopAnnotation: StopAnnotation?
-  @Published var isStopSelected: Bool = false
   
   @Published var favorites: [Route] = []
   
@@ -38,7 +31,6 @@ class RoutesStorage: ObservableObject {
   
   
   @Published var stopAnnotations: [StopAnnotation] = []
-  
   
   
   // MARK: - State
@@ -60,7 +52,7 @@ class RoutesStorage: ObservableObject {
       case .idle:
         break
       case .syncing:
-        self.syncAllRoutes()
+        self.retrieveRoutes()
         break
       case .routeChanged:
         break
@@ -75,70 +67,49 @@ class RoutesStorage: ObservableObject {
   
   
   
-  // MARK: - Initialization
+  /* * */
+  /* MARK: - Initialization */
   
-  init() {
-    self.set(state: .syncing)
-  }
-  
-  
-  
-  // MARK: - Network Calls
   
   /* * * *
-   *
-   * Get Routes
-   * This function gets stops from each route instance
-   * and stores them in the Route variable
-   *
+   * INIT-
+   * At initialization, routesStorage will:
+   *  1. Read and parse routes.json file, and store it's content in all: [Route] variable;
+   *  2. Separate routes by it's kind (like tram or night bus), and store them in their respective variables;
+   *  3. Sort these just created sets of routes by route number, ascending;
+   *  4. Retrieve favorites from iCloud Key-Value-Storage and store them in the favorites array.
    */
-  private func syncAllRoutes() {
-    
-    // Setup the url
-    let url = URL(string: endpoint + "/routes/")!
-    
-    // Configure a session
-    let session = URLSession(configuration: URLSessionConfiguration.default)
-    
-    // Create the task
-    let task = session.dataTask(with: url) { (data, response, error) in
-      
-      let httpResponse = response as? HTTPURLResponse
-      
-      // Check status of response
-      if httpResponse?.statusCode != 200 {
-        print("Error: API failed at syncAllRoutes()")
-        OperationQueue.main.addOperation { self.set(state: .error) }
-        return
-      }
-      
-      do {
-        
-        let decodedData = try JSONDecoder().decode([Route].self, from: data!)
-        
-        OperationQueue.main.addOperation {
-          self.all.append(contentsOf: decodedData)
-          self.separateRoutesByKind()
-          self.sortRoutes()
-          self.retrieveFavorites()
-          self.set(state: .idle)
-        }
-        
-      } catch {
-        print("Error info: \(error.localizedDescription)")
-        OperationQueue.main.addOperation { self.set(state: .error) }
-      }
-    }
-    
-    task.resume()
-    
+  init() {
+    self.retrieveRoutes()
+    self.separateRoutesByKind()
+    self.sortRoutes()
+    self.retrieveFavorites()
   }
   
   
+  /* * * *
+   * INIT: RETRIEVE ROUTES
+   * This function reads the routes.json file and populates the variable all: [Route]
+   */
+  func retrieveRoutes() {
+    if let path = Bundle.main.path(forResource: "routes", ofType: "json") {
+      do {
+        let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
+        let decodedData = try JSONDecoder().decode([Route].self, from: data)
+        self.all.append(contentsOf: decodedData)
+      } catch {
+        print("Error: \(error.localizedDescription)")
+      }
+    }
+  }
   
   
+  /* * * *
+   * INIT: SEPARATE ROUTES BY KIND
+   * This function separates routes by it's kind, like regular buses or trams,
+   * storing them in their respective variables.
+   */
   func separateRoutesByKind() {
-    
     for route in all {
       switch route.kind {
         case "tram":
@@ -158,10 +129,13 @@ class RoutesStorage: ObservableObject {
           break
       }
     }
-    
   }
   
   
+  /* * * *
+   * INIT: SORT ROUTES
+   * This function sorts routes by it's route number (ascending).
+   */
   func sortRoutes() {
     trams.sort(by: { $0.number < $1.number })
     night.sort(by: { $0.number < $1.number })
@@ -169,6 +143,320 @@ class RoutesStorage: ObservableObject {
     elevators.sort(by: { $0.number < $1.number })
     regular.sort(by: { $0.number < $1.number })
   }
+  
+  
+  /* * * *
+   * INIT: RETRIEVE FAVORITES
+   * This function retrieves favorites from iCloud Key-Value-Storage.
+   */
+  func retrieveFavorites() {
+    
+    // Get from iCloud
+    let iCloudKeyStore = NSUbiquitousKeyValueStore()
+    iCloudKeyStore.synchronize()
+    let savedFavorites = iCloudKeyStore.array(forKey: "favoriteRoutes") as? [String] ?? []
+    
+    // Save to array
+    for routeNumber in savedFavorites {
+      let route = findRoute(from: routeNumber)
+      if route != nil {
+        self.favorites.append( route! )
+      }
+    }
+    
+  }
+  
+  
+  /* MARK: Initialization - */
+  /* * */
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  /* * */
+  /* MARK: - Favorites */
+  
+  
+  /* * * *
+   * FAVORITES: IS FAVORITE
+   * This function checks if a route is marked as favorite.
+   */
+  func isFavorite(route: Route?) -> Bool {
+    if route == nil { return false }
+    return favorites.contains(route!)
+  }
+  
+  
+  /* * * *
+   * FAVORITES: TOGGLE FAVORITE
+   * This function marks a route as favorite if it is not,
+   * and removes it from favorites if it is.
+   */
+  func toggleFavorite(route: Route?) {
+    if route == nil { return }
+    if let index = favorites.firstIndex(of: route!) { favorites.remove(at: index) }
+    else { favorites.append(route!) }
+    saveFavorites()
+  }
+  
+  
+  /* * * *
+   * FAVORITES: SAVE FAVORITE
+   * This function saves a representation of the routes stored in the favorites array
+   * to iCloud Key-Value-Store. This function should be called whenever a change
+   * in favorites occurs, to ensure consistency across devices.
+   */
+  func saveFavorites() {
+    var favoritesToSave: [String] = []
+    for favRoute in favorites {
+      favoritesToSave.append(favRoute.number)
+    }
+    let iCloudKeyStore = NSUbiquitousKeyValueStore()
+    iCloudKeyStore.set(favoritesToSave, forKey: "favoriteRoutes")
+    iCloudKeyStore.synchronize()
+  }
+  
+  
+  /* MARK: Favorites - */
+  /* * */
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  /* * */
+  /* MARK: - Routes and Variants Selection */
+  
+  
+  /* * * *
+   * SELECTION: SELECT(:Route)
+   * This function sets the selectedRoute variable for the provided Route.
+   * Also, it sets the default variant (the first) for the provided Route as selected,
+   * as well as changed the state to .routeSelected
+   */
+  func select(route: Route) {
+    self.selectedRoute = route
+    self.select(variant: route.variants[0])
+    self.set(state: .routeSelected)
+  }
+  
+  
+  /* * * *
+   * SELECTION: SELECT(:RouteVariant)
+   * This function sets the provided RouteVariant as selected.
+   * It also requests for a rebuild of StopAnnotations,
+   * while also keeping track of the previously selected variant.
+   */
+  func select(variant: RouteVariant) {
+    self.previousSelectedVariant = selectedVariant
+    self.selectedVariant = variant
+    self.stopAnnotations = formatStopAnnotations(of: self.selectedVariant!)
+  }
+  
+  
+  /* * * *
+   * SELECTION: SELECT(:StopAnnotation)
+   * This function sets the provided StopAnnotation as selected.
+   */
+  func select(stop: StopAnnotation?) {
+    self.selectedStopAnnotation = stop
+  }
+  
+  
+  /* * * *
+   * SELECTION: SELECT(:String)
+   * This function asks for the route object to the findRoute function.
+   * If a route was found, it asks the select(:Route) function to set it as selected
+   * and returns true to its caller. Else, it only returns false to its caller.
+   */
+  func select(with routeNumber: String) -> Bool {
+    let route = findRoute(from: routeNumber)
+    if route != nil {
+      self.select(route: route!)
+      return true
+    } else {
+      return false
+    }
+  }
+  
+  
+  /* * * *
+   * SELECTION: FIND ROUTE
+   * This function searches for the provided routeNumber in all routes array,
+   * and returns it if found. If not found, returns nil.
+   */
+  func findRoute(from routeNumber: String) -> Route? {
+    let index = all.firstIndex(where: { (route) -> Bool in
+      route.number == routeNumber // test if this is the item we're looking for
+    }) ?? -1 // if the item does not exist,
+    if index > 0 {
+      return all[index]
+    } else {
+      return nil
+    }
+  }
+  
+  
+  /* MARK: Routes and Variants Selection - */
+  /* * */
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  /* * */
+  /* MARK: - Getters */
+  
+  
+  /* * * *
+   * GET: GET SELECTED ROUTE NUMBER
+   * This function returns the selected route's number.
+   */
+  func getSelectedRouteNumber() -> String {
+    return selectedRoute?.number ?? ""
+  }
+  
+  
+  /* * * *
+   * GET: GET SELECTED VARIANT NAME
+   * This function returns the selected variant's name.
+   */
+  func getSelectedVariantName() -> String {
+    if self.selectedVariant != nil {
+      return self.getVariantName(variant: self.selectedVariant!)
+    } else { return "" }
+  }
+  
+  
+  /* * * *
+   * GET: GET VARIANT NAME
+   * This function returns the provided variant's name
+   * by joining both ascending and descending variant's last stops,
+   * or by providing the first stop name if it is a circular route.
+   */
+  func getVariantName(variant: RouteVariant) -> String {
+    if variant.isCircular {
+      return getTerminalStopNameForVariant(variant: variant, direction: .circular)
+    }
+    else {
+      let firstStop = getTerminalStopNameForVariant(variant: variant, direction: .ascending)
+      let lastStop = getTerminalStopNameForVariant(variant: variant, direction: .descending)
+      return "\(firstStop) ⇄ \(lastStop)"
+    }
+  }
+  
+  
+  /* * * *
+   * GET: GET TERMINAL STOP NAME FOR SELECTED VARIANT
+   * Helper function that returns the selected variant's terminal stop
+   * for the provided direction.
+   */
+  func getTerminalStopNameForSelectedVariant(direction: Route.Direction) -> String {
+    return getTerminalStopNameForVariant(variant: self.selectedVariant!, direction: direction)
+  }
+  
+  
+  /* * * *
+   * GET: GET TERMINAL STOP NAME FOR VARIANT
+   * This function returns the provided variant's terminal stop for the provided direction.
+   */
+  func getTerminalStopNameForVariant(variant: RouteVariant, direction: Route.Direction) -> String {
+    switch direction {
+      case .circular:
+        return variant.circular.first?.name ?? "-"
+      case .ascending:
+        return variant.ascending.last?.name ?? (variant.descending.first?.name ?? "-")
+      case .descending:
+        return variant.descending.last?.name ?? (variant.ascending.first?.name ?? "-")
+    }
+  }
+  
+  
+  /* MARK: Getters - */
+  /* * */
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  /* * */
+  /* MARK: - State Checkers */
+  
+  
+  /* * * *
+   * STATE: IS ROUTE SELECTED
+   * This function returns true if a route is selected, false otherwise.
+   */
+  func isRouteSelected() -> Bool {
+    return selectedRoute != nil
+  }
+  
+  
+  /* * * *
+   * STATE: IS STOP SELECTED
+   * This function returns true if a route is selected, false otherwise.
+   */
+  func isStopSelected() -> Bool {
+    return selectedStopAnnotation != nil
+  }
+  
+  
+  /* * * *
+   * STATE: IS SELECTED (:RouteVariant)
+   * This function returns true if the provided variant is selected, false otherwise.
+   */
+  func isSelected(variant: RouteVariant) -> Bool {
+    return variant == self.selectedVariant
+  }
+  
+  
+  /* * * *
+   * STATE: IS SELECTED VARIANT CIRCULAR
+   * This function returns true if the selected variant is a circular route, false otherwise.
+   */
+  func isSelectedVariantCircular() -> Bool {
+    if self.selectedVariant == nil { return false }
+    return self.selectedVariant!.isCircular
+  }
+  
+  
+  /* MARK: State Checkers - */
+  /* * */
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
   
   
@@ -190,7 +478,7 @@ class RoutesStorage: ObservableObject {
             name: String(stop.name),
             publicId: String(stop.publicId),
             direction: .ascending,
-            orderInRoute: stop.orderInRoute ?? -1,
+            orderInRoute: stop.orderInRoute,
             lastStopOnVoyage: variant.ascending.last?.name ?? "-",
             latitude: stop.lat,
             longitude: stop.lng
@@ -207,7 +495,7 @@ class RoutesStorage: ObservableObject {
             name: String(stop.name),
             publicId: String(stop.publicId),
             direction: .descending,
-            orderInRoute: stop.orderInRoute ?? -1,
+            orderInRoute: stop.orderInRoute,
             lastStopOnVoyage: variant.descending.last?.name ?? "-",
             latitude: stop.lat,
             longitude: stop.lng
@@ -224,7 +512,7 @@ class RoutesStorage: ObservableObject {
             name: String(stop.name),
             publicId: String(stop.publicId),
             direction: .circular,
-            orderInRoute: stop.orderInRoute ?? -1,
+            orderInRoute: stop.orderInRoute,
             lastStopOnVoyage: variant.circular.last?.name ?? "-",
             latitude: stop.lat,
             longitude: stop.lng
@@ -241,60 +529,6 @@ class RoutesStorage: ObservableObject {
   
   
   
-  func getSelectedRouteNumber() -> String {
-    return selectedRoute?.number ?? ""
-  }
-  
-  
-  func isSelected() -> Bool {
-    return selectedRoute != nil
-  }
-  
-  func isThisVariantSelected(variant: RouteVariant) -> Bool {
-    return variant == self.selectedVariant
-  }
-  
-  func getSelectedVariantName() -> String {
-    if self.selectedVariant != nil {
-      return self.getVariantName(variant: self.selectedVariant!)
-    } else { return "" }
-  }
-  
-  func getVariantName(variant: RouteVariant) -> String {
-    if variant.isCircular {
-      
-      return "\(variant.circular.first?.name ?? "-")"
-      
-    } else {
-      
-      let firstStop = getTerminalStopNameForVariant(variant: variant, direction: .ascending)
-      let lastStop = getTerminalStopNameForVariant(variant: variant, direction: .descending)
-      
-      return "\(firstStop) ⇄ \(lastStop)"
-      
-    }
-  }
-  
-  
-  
-  func getTerminalStopNameForSelectedVariant(direction: RouteDirection) -> String {
-    return getTerminalStopNameForVariant(variant: self.selectedVariant!, direction: direction)
-  }
-  
-  
-  func getTerminalStopNameForVariant(variant: RouteVariant, direction: RouteDirection) -> String {
-    switch direction {
-      
-      case .ascending:
-        return variant.ascending.last?.name ?? (variant.descending.first?.name ?? "-")
-      
-      case .descending:
-        return variant.descending.last?.name ?? (variant.ascending.first?.name ?? "-")
-      
-      case .circular:
-        return ""
-    }
-  }
   
   
   
@@ -302,110 +536,18 @@ class RoutesStorage: ObservableObject {
   
   
   
-  func getRoute(from routeNumber: String) -> Route? {
-    let index = all.firstIndex(where: { (route) -> Bool in
-      route.number == routeNumber // test if this is the item you're looking for
-    }) ?? -1 // if the item does not exist,
-    if index > 0 {
-      return all[index]
-    } else {
-      return nil
-    }
-  }
-  
-  
-  
-  
-  func select(route: Route) {
-    self.selectedRoute = route
-    self.select(variant: route.variants[0])
-    self.set(state: .routeSelected)
-  }
-  
-  func select(with routeNumber: String) -> Bool {
-    let route = getRoute(from: routeNumber)
-    if route != nil {
-      self.select(route: route!)
-      return true
-    } else {
-      return false
-    }
-  }
-  
-  func select(variant: RouteVariant) {
-    self.selectedVariant = variant
-    self.stopAnnotations = formatStopAnnotations(of: self.selectedVariant!)
-  }
-  
-  
-  
-  
-  
-  func setSelectedStopPublicId(annotation: StopAnnotation) {
-    self.selectedStopAnnotation = annotation
-    self.isStopSelected = true
-  }
-  
-  func unselectStop() {
-    self.selectedStopAnnotation = nil
-    self.isStopSelected = false
-  }
-  
-  
-  
-  
-  // ----------- FAVORITES -------------------
-  
-  
-  func isFavorite(route: Route?) -> Bool {
-    if route == nil { return false }
-    return favorites.contains(route!)
-  }
-  
-  
-  func toggleFavorite(route: Route?) {
-    if route == nil { return }
-    if let index = favorites.firstIndex(of: route!) {
-      favorites.remove(at: index)
-    } else {
-      favorites.append(route!)
-    }
-    saveFavorites()
-  }
   
   
   
   
   
   
-  // iCloud Storage for Favorites
   
   
-  func saveFavorites() {
-    var favoritesToSave: [String] = []
-    
-    for favRoute in favorites {
-      favoritesToSave.append(favRoute.number)
-    }
-    
-    let iCloudKeyStore = NSUbiquitousKeyValueStore()
-    iCloudKeyStore.set(favoritesToSave, forKey: "favoriteRoutes")
-    iCloudKeyStore.synchronize()
-  }
   
   
-  func retrieveFavorites() {
-    let iCloudKeyStore = NSUbiquitousKeyValueStore()
-    iCloudKeyStore.synchronize()
-    let savedFavorites = iCloudKeyStore.array(forKey: "favoriteRoutes") as? [String] ?? []
-    
-    for routeNumber in savedFavorites {
-      let route = getRoute(from: routeNumber)
-      if route != nil {
-        self.favorites.append( route! )
-      }
-    }
-  }
+  
+  
   
   
   
@@ -425,12 +567,6 @@ extension RoutesStorage {
     case error
   }
   
-  enum RouteDirection {
-    case ascending
-    case descending
-    case circular
-  }
-  
 }
 
 
@@ -439,16 +575,4 @@ extension RoutesStorage {
 
 
 
-// PARSE JSON FILE
-//
-// if let path = Bundle.main.path(forResource: "test", ofType: "json") {
-//    do {
-//          let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
-//          let jsonResult = try JSONSerialization.jsonObject(with: data, options: .mutableLeaves)
-//          if let jsonResult = jsonResult as? Dictionary<String, AnyObject>, let person = jsonResult["person"] as? [Any] {
-//                    // do stuff
-//          }
-//      } catch {
-//           // handle error
-//      }
-// }
+

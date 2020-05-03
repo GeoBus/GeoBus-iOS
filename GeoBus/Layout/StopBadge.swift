@@ -12,7 +12,7 @@ struct StopBadge: View {
   
   var name: String
   var orderInRoute: Int
-  var direction: Int
+  var direction: Route.Direction
   
   var body: some View {
     
@@ -38,10 +38,10 @@ struct StopBadge: View {
     
   }
   
-  func getColor(for direction: Int) -> Color {
+  func getColor(for direction: Route.Direction) -> Color {
     switch direction {
-      case 0: return Color(.systemGreen)
-      case 1: return Color(.systemBlue)
+      case .ascending: return Color(.systemGreen)
+      case .descending: return Color(.systemBlue)
       default: return Color(.systemBlue)
     }
   }

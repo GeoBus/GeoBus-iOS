@@ -11,40 +11,39 @@ import Combine
 
 struct StopDetails: View {
   
-  var stop: Stop
-  var direction: Int
+  var publicId: String
+  var name: String
+  var orderInRoute: Int
+  var direction: Route.Direction
   
-  @ObservedObject var estimationsStorage = EstimationsStorage()
-  
-  @State var isSelected = false
+  @State var isOpen = false
   
   var body: some View {
     
     Button(action: {
-      self.estimationsStorage.set(publicId: self.stop.publicId, state: .syncing)
-      self.isSelected = !self.isSelected
+      self.isOpen = !self.isOpen
       TapticEngine.impact.feedback(.medium)
     }) {
       
       VStack {
         
-        StopBadge(name: stop.name, orderInRoute: stop.orderInRoute ?? -1, direction: direction)
+        StopBadge(name: name, orderInRoute: orderInRoute, direction: direction)
           .padding()
         
         VStack {
-          if isSelected {
+          if isOpen {
             HorizontalLine()
-            StopEstimations(estimationsStorage: estimationsStorage)
+            StopEstimations(publicId: self.publicId)
           }
         }
         .padding(.top, -12)
         
       }
-      .background(isSelected ? Color(.tertiarySystemBackground) : Color(.secondarySystemBackground))
+      .background(isOpen ? Color(.tertiarySystemBackground) : Color(.secondarySystemBackground))
       .cornerRadius(10)
-      .padding(.bottom, isSelected ? 15 : 0)
-      .shadow(color: Color(.secondarySystemBackground), radius: isSelected ? 1 : 0, x: 0, y: 0)
-      .shadow(color: Color(.secondarySystemBackground), radius: isSelected ? 25 : 0, x: 0, y: isSelected ? 2 : 0)
+      .padding(.bottom, isOpen ? 15 : 0)
+      .shadow(color: Color(.secondarySystemBackground), radius: isOpen ? 1 : 0, x: 0, y: 0)
+      .shadow(color: Color(.secondarySystemBackground), radius: isOpen ? 25 : 0, x: 0, y: isOpen ? 2 : 0)
     }
   }
   

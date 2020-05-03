@@ -21,7 +21,25 @@ struct ContentView : View {
     
     VStack {
       
-      Map(routesStorage: routesStorage, vehiclesStorage: vehiclesStorage)
+      ZStack(alignment: .top) {
+        
+        MapView(routesStorage: routesStorage, vehiclesStorage: vehiclesStorage)
+          .edgesIgnoringSafeArea(.vertical)
+          .padding(.bottom, -10)
+        
+        if routesStorage.isStopSelected() {
+          StopDetails(
+            publicId: routesStorage.selectedStopAnnotation?.publicId ?? "",
+            name: routesStorage.selectedStopAnnotation?.name ?? "-",
+            orderInRoute: routesStorage.selectedStopAnnotation?.orderInRoute ?? -1,
+            direction: routesStorage.selectedStopAnnotation?.direction ?? .ascending,
+            isOpen: true
+          )
+            .padding()
+            .shadow(radius: 10)
+        }
+        
+      }
       
       HStack {
         SelectRoute(routesStorage: routesStorage, vehiclesStorage: vehiclesStorage)

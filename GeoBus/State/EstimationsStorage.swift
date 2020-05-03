@@ -11,87 +11,60 @@ import Combine
 
 class EstimationsStorage: ObservableObject {
   
-  var stopPublicId: String = ""
-  
-  @Published var estimations: [Estimation] = []
-  
-  @Published var isLoading: Bool = false
-  
+  /* * */
+  /* MARK: - Settings */
   
   private let endpoint = "https://carris.tecmic.com/api/v2.8/Estimations/busStop/"
-  private let howManyResults = "/top/5"
+  private let howManyResults = "/top/5" // results
+  private let syncInterval = 100.0 // seconds
+  
+  /* * */
   
   
   
-  private var state = State.idle {
-    // We add a property observer on 'state', which lets us
-    // run a function on each value change.
-    didSet { stateDidChange() }
-  }
+  /* * */
+  /* MARK: - Variables */
   
+  private var stopPublicId: String = ""
   private var timer: Timer? = nil
   
+  @Published var estimations: [Estimation] = []
+  @Published var isLoading: Bool = false
   
-  
-  init(stopPublicId: String, state: State) {
-    self.stopPublicId = stopPublicId
-    self.state = state
-  }
-  
-  init() {
-    
-  }
+  /* * */
   
   
   
-  func set(publicId: String, state: State) {
-    self.stopPublicId = publicId // route must be updated first, otherwise state will update without a route being set
-    self.state = state
-  }
-  
-  func set(state: State) {
-    self.state = state
-  }
-  
-  
-  func stateDidChange() {
-    switch state {
-      case .idle:
-        stopPublicId = ""
-        timer?.invalidate()
-        timer = nil
-        break
-      case .syncing:
-        timer = Timer.scheduledTimer(
-          timeInterval: 5.0,
-          target: self,
-          selector: #selector(self.syncEstimations),
-          userInfo: nil,
-          repeats: true
-        )
-        self.syncEstimations()
-        break
-    }
-  }
-  
-  
-  
-  @objc func syncEstimations() { //_ timer : Timer
-    if state == .syncing {
-      getEstimations()
-    }
-  }
-  
+  /* * */
+  /* MARK: - Initialization */
   
   
   /* * * *
-   *
-   * Get Stops Estimations
-   * This function gets stops from each route instance
-   * and stores them in the Route variable
-   *
+   * INIT-
+   * At initialization, estimationsStorage will:
+   *  1. Set the stop publicId for which to get estimations from;
+   *  2. Get estimations immediately for the set stopPublicId;
+   *  3. Initiate the timer to update estimations every x seconds.
    */
-  func getEstimations() {
+  init(publicId: String) {
+    self.stopPublicId = publicId
+    self.getEstimations()
+    self.timer = Timer.scheduledTimer(
+      timeInterval: self.syncInterval,
+      target: self,
+      selector: #selector(self.getEstimations),
+      userInfo: nil,
+      repeats: true
+    )
+  }
+  
+  
+  /* * * *
+   * INIT: GET ESTIMATIONS
+   * This function will call the Carris API directly to retrieve estimations for the set stopPublicId,
+   * while storing them in the estimations array. It must have @objc flag because Timer is written in Objective-C...
+   */
+  @objc func getEstimations() {
     
     if stopPublicId.isEmpty { return }
     
@@ -115,32 +88,25 @@ class EstimationsStorage: ObservableObject {
       }
       
       do {
-        
         let decodedData = try JSONDecoder().decode([Estimation].self, from: data!)
-        
         OperationQueue.main.addOperation {
           self.estimations.removeAll()
           self.estimations.append(contentsOf: decodedData)
           self.isLoading = false
         }
-        
       } catch {
-        print("Error info: \(error)")
+        print("Error info: \(error.localizedDescription)")
       }
+      
     }
     
     task.resume()
-    
+  
   }
-}
-
-
-
-// MARK: - Extension for state control
-
-extension EstimationsStorage {
-  enum State {
-    case idle
-    case syncing
-  }
+  
+  
+  /* MARK: Initialization - */
+  /* * */
+  
+  
 }

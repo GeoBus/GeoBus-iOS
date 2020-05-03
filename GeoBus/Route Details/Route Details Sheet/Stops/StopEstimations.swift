@@ -10,10 +10,16 @@ import SwiftUI
 
 struct StopEstimations: View {
   
+  var publicId: String
   @ObservedObject var estimationsStorage: EstimationsStorage
- 
+  
+  init(publicId: String) {
+    self.publicId = publicId
+    self.estimationsStorage = EstimationsStorage(publicId: self.publicId)
+  }
+  
   var body: some View {
-
+    
     VStack(alignment: .leading) {
       
       HStack {
@@ -38,8 +44,6 @@ struct StopEstimations: View {
           
           ForEach(estimationsStorage.estimations) { estimation in
             EstimationView(estimation: estimation)
-          }.onDisappear() {
-            self.estimationsStorage.set(state: .idle)
           }
           
         } else {
@@ -54,5 +58,5 @@ struct StopEstimations: View {
     .padding(.bottom)
     
   }
-
+  
 }

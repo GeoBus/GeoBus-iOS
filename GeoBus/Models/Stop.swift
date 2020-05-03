@@ -10,9 +10,11 @@ import Foundation
 
 struct Stop: Codable, Identifiable, Equatable {
   let id = UUID()
-  let orderInRoute: Int?
+  let orderInRoute: Int
   let publicId: String
   let name: String
   let lat: Double
   let lng: Double
 }
+
+

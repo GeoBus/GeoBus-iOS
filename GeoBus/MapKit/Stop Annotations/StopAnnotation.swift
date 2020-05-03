@@ -13,14 +13,14 @@ class StopAnnotation: NSObject, MKAnnotation {
   let name: String
   let publicId: String
   
-  let direction: Direction // To choose the color of the stop
+  let direction: Route.Direction // To choose the color of the stop
   let orderInRoute: Int
   let lastStopOnVoyage: String
   
   let coordinate: CLLocationCoordinate2D
   
   
-  init(name: String?, publicId: String?, direction: Direction, orderInRoute: Int, lastStopOnVoyage: String, latitude: Double, longitude: Double) {
+  init(name: String?, publicId: String?, direction: Route.Direction, orderInRoute: Int, lastStopOnVoyage: String, latitude: Double, longitude: Double) {
     self.name = name ?? "-"
     self.publicId = publicId ?? "-"
     self.direction = direction
@@ -53,11 +53,3 @@ class StopAnnotation: NSObject, MKAnnotation {
   
 }
 
-
-extension StopAnnotation {
-  enum Direction {
-    case ascending
-    case descending
-    case circular
-  }
-}

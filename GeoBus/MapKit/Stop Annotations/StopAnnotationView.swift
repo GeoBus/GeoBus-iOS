@@ -13,8 +13,6 @@ class StopAnnotationView: MKAnnotationView {
   
   let imageView = UIImageView(image: UIImage(systemName: "circle.fill"))
   
-  @ObservedObject var estimationsStorage = EstimationsStorage()
-  
   override var annotation: MKAnnotation? {
     
     willSet {
@@ -28,11 +26,6 @@ class StopAnnotationView: MKAnnotationView {
       frame = imageView.frame
       imageView.tintColor = annotation.markerColor
       addSubview(imageView)
-      
-//      let child = UIHostingController(rootView: StopAnnotationCallout(estimationsStorage: estimationsStorage))
-//      child.view.backgroundColor = .clear
-//      detailCalloutAccessoryView = child.view
-//      detailCalloutAccessoryView?.translatesAutoresizingMaskIntoConstraints = true
       
     }
     
