@@ -14,18 +14,8 @@ class VehiclesStorage: ObservableObject {
   /* * */
   /* MARK: - Settings */
   
-  private var syncInterval = 5.0 // seconds
+  private var syncInterval = 10.0 // seconds
   private var endpoint = "https://geobus-api.herokuapp.com"
-  
-  /* * */
-  
-  
-  
-  /* * */
-  /* MARK: - Private Variables */
-  
-  private var routeNumber: String = ""
-  private var timer: Timer? = nil
   
   /* * */
   
@@ -41,6 +31,27 @@ class VehiclesStorage: ObservableObject {
   
   
   
+  /* * */
+  /* MARK: - Private Variables */
+  
+  private var timer: Timer? = nil
+  
+  private var routeNumber: String = ""
+  
+  /* * */
+  
+  
+  
+  
+  init() {
+    self.timer = Timer.scheduledTimer(
+      timeInterval: syncInterval,
+      target: self,
+      selector: #selector(self.getVehicles),
+      userInfo: nil,
+      repeats: true
+    )
+  }
   
   
   
@@ -57,7 +68,9 @@ class VehiclesStorage: ObservableObject {
    */
   enum State {
     case idle
-    case syncing
+    case active
+    case loading
+    case paused
     case error
   }
   
@@ -69,28 +82,21 @@ class VehiclesStorage: ObservableObject {
    *  SYNCING - Timer is set. Vehicle positions are continuosly fetched from API.
    *  ERROR - An error occured while syncing. Syncing is halted and timer is invalidated.
    */
-  private var state = State.idle {
-    // We add a property observer on 'state', which lets us
+  @Published var state: State = .paused {
+    // We add a property observer on 'routeNumber', which lets us
     // run a function evertyime it's value changes.
     didSet {
       switch state {
         case .idle:
-          self.timer?.invalidate()
-          self.timer = nil
           break
-        case .syncing:
+        case .paused:
+          break
+        case .active:
           self.getVehicles()
-          self.timer = Timer.scheduledTimer(
-            timeInterval: syncInterval,
-            target: self,
-            selector: #selector(self.getVehicles),
-            userInfo: nil,
-            repeats: true
-          )
+          break
+        case .loading:
           break
         case .error:
-          self.timer?.invalidate()
-          self.timer = nil
           break
       }
     }
@@ -98,12 +104,11 @@ class VehiclesStorage: ObservableObject {
   
   
   /* * * *
-   * STATE: SET
+   * STATE: SET (:String)
    * This function sets the route number and the state variable.
    */
-  func set(route: String, state: State) {
-    self.routeNumber = route // route must be updated first, otherwise state will update without a route being set
-    self.state = state
+  func set(route: String) {
+    self.routeNumber = route
   }
   
   
@@ -112,8 +117,16 @@ class VehiclesStorage: ObservableObject {
    * This function sets the state variable.
    */
   func set(state: State) {
-    self.routeNumber = ""
     self.state = state
+  }
+  
+  
+  /* * * *
+   * STATE: GET STATE
+   * This function return the state variable.
+   */
+  func getState() -> State {
+    return self.state
   }
   
   
@@ -123,9 +136,11 @@ class VehiclesStorage: ObservableObject {
    * while storing them in the vehicles array. It also formats VehicleAnnotations and stores them in the annotations array.
    * It must have @objc flag because Timer is written in Objective-C.
    */
-  @objc func getVehicles() {
+  @objc private func getVehicles() {
     
-    if routeNumber.isEmpty { return }
+    if (state == .paused) { return }
+    
+    self.set(state: .loading)
     
     // Setup the url
     let url = URL(string: endpoint + "/vehicles/" + routeNumber)!
@@ -141,6 +156,7 @@ class VehiclesStorage: ObservableObject {
       // Check status of response
       if httpResponse?.statusCode != 200 {
         print("Error: API failed at getVehicles()")
+        OperationQueue.main.addOperation { self.set(state: .error) }
         return
       }
       
@@ -168,11 +184,13 @@ class VehiclesStorage: ObservableObject {
             )
           }
           
+          self.set(state: .idle)
+          
         }
         
       } catch {
         print("Error info: \(error.localizedDescription)")
-        self.set(state: .error)
+        OperationQueue.main.addOperation { self.set(state: .error) }
       }
     }
     

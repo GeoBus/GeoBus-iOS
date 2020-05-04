@@ -18,13 +18,21 @@ struct RouteDetailsButton: View {
     
     VStack {
       
-      if routesStorage.isRouteSelected() {
+      if vehiclesStorage.state == .error {
         
-        SelectedRouteScreen(routesStorage: routesStorage, vehiclesStorage: vehiclesStorage)
+        ConnectionErrorScreen()
         
       } else {
         
-        ChooseRouteScreen()
+        if routesStorage.isRouteSelected() {
+          
+          SelectedRouteScreen(routesStorage: routesStorage, vehiclesStorage: vehiclesStorage)
+          
+        } else {
+          
+          ChooseRouteScreen()
+          
+        }
         
       }
       
@@ -34,12 +42,3 @@ struct RouteDetailsButton: View {
     
   }
 }
-
-
-
-
-//else if routesStorage.state == .error {
-//
-//  ConnectionErrorScreen()
-//
-//}

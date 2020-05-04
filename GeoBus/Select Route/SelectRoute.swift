@@ -19,15 +19,20 @@ struct SelectRoute: View {
   var body: some View {
     
     Button(action: {
-      self.showSelectRouteSheet = true
-      self.vehiclesStorage.set(state: .idle)
+      if self.vehiclesStorage.state == .error {
+        self.vehiclesStorage.set(state: .active)
+      } else {
+        self.showSelectRouteSheet = true
+        self.vehiclesStorage.set(state: .paused)
+      }
     }) {
-      SelectRouteButton(routesStorage: routesStorage)
+      SelectRouteButton(routesStorage: routesStorage, vehiclesStorage: vehiclesStorage)
     }
     .sheet(
       isPresented: $showSelectRouteSheet,
       onDismiss: {
-        self.vehiclesStorage.set(route: self.routesStorage.getSelectedRouteNumber(), state: .syncing)
+        self.vehiclesStorage.set(route: self.routesStorage.getSelectedRouteNumber())
+        self.vehiclesStorage.set(state: .active)
     }) {
       
       SelectRouteSheet(routesStorage: self.routesStorage, showSelectRouteSheet: self.$showSelectRouteSheet)

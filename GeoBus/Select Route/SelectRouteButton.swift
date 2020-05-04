@@ -11,23 +11,40 @@ import SwiftUI
 struct SelectRouteButton: View {
   
   @ObservedObject var routesStorage: RoutesStorage
+  @ObservedObject var vehiclesStorage: VehiclesStorage
   
   
   var body: some View {
     
     ZStack {
       
-      if routesStorage.isRouteSelected() {
+      if vehiclesStorage.state == .loading {
         
-        RouteButton(route: routesStorage.selectedRoute!, dimensions: 80)
+        LoadingView()
+        
+      } else if vehiclesStorage.state == .error {
+        
+        RoundedRectangle(cornerRadius: 10)
+          .fill(Color(.systemRed).opacity(0.5))
+        Image(systemName: "bolt.slash.fill")
+          .font(.title)
+          .foregroundColor(Color(.white))
         
       } else {
         
-        RoundedRectangle(cornerRadius: 10)
-          .fill(Color(.systemGray4))
-        Image(systemName: "plus")
-          .font(.title)
-          .foregroundColor(Color(.white))
+        if routesStorage.isRouteSelected() {
+          
+          RouteButton(route: routesStorage.selectedRoute!, dimensions: 80)
+          
+        } else {
+          
+          RoundedRectangle(cornerRadius: 10)
+            .fill(Color(.systemGray4))
+          Image(systemName: "plus")
+            .font(.title)
+            .foregroundColor(Color(.white))
+          
+        }
         
       }
       
@@ -37,17 +54,3 @@ struct SelectRouteButton: View {
     .padding(.trailing, 10)
   }
 }
-
-
-
-
-
-//if routesStorage.state == .error {
-//
-//  RoundedRectangle(cornerRadius: 10)
-//    .fill(Color(.systemRed).opacity(0.1))
-//  Image(systemName: "bolt.slash.fill")
-//    .font(.title)
-//    .foregroundColor(Color(.white))
-//
-//}

@@ -33,7 +33,7 @@ struct EstimationView: View {
         .fontWeight(.medium)
         .foregroundColor(Color(.label))
     }
-    .padding(.bottom, 10)
+    .padding(.bottom, 8)
     
   }
   

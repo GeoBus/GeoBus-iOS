@@ -19,8 +19,12 @@ struct RouteDetails: View {
   var body: some View {
     
     Button(action: {
-      if self.routesStorage.isRouteSelected() {
-        self.showRouteDetailsSheet = true
+      if self.vehiclesStorage.state == .error {
+        self.vehiclesStorage.set(state: .active)
+      } else {
+        if self.routesStorage.isRouteSelected() {
+          self.showRouteDetailsSheet = true
+        }
       }
     }) {
       RouteDetailsButton(routesStorage: self.routesStorage, vehiclesStorage: self.vehiclesStorage)

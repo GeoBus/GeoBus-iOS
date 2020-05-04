@@ -14,15 +14,20 @@ struct VehicleAnnotationCallout: View {
   
   var body: some View {
     
-    HStack {
-      Text("direction:")
+    VStack {
+      HStack {
+        Text("direction:")
+          .font(.footnote)
+          .foregroundColor(Color(.secondaryLabel))
+        Text(annotation.lastStopInRoute)
+          .font(.body)
+          .fontWeight(.medium)
+          .lineLimit(1)
+          .foregroundColor(Color(.label))
+      }
+      Text(annotation.busNumber)
         .font(.footnote)
         .foregroundColor(Color(.secondaryLabel))
-      Text(annotation.lastStopInRoute)
-        .font(.body)
-        .fontWeight(.medium)
-        .lineLimit(1)
-        .foregroundColor(Color(.label))
     }
     
   }

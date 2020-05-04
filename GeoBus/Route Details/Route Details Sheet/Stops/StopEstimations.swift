@@ -42,8 +42,10 @@ struct StopEstimations: View {
         
         if estimationsStorage.estimations.count > 0 {
           
-          ForEach(estimationsStorage.estimations) { estimation in
-            EstimationView(estimation: estimation)
+          VStack {
+            ForEach(estimationsStorage.estimations) { estimation in
+              EstimationView(estimation: estimation)
+            }
           }
           .padding(.bottom, -10)
           
