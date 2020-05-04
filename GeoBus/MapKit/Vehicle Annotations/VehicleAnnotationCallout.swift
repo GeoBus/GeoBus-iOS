@@ -14,9 +14,10 @@ struct VehicleAnnotationCallout: View {
   
   var body: some View {
     
-    VStack {
+    VStack(alignment: .leading) {
       HStack {
-        Text("direction:")
+        RouteBadge(routeNumber: annotation.routeNumber)
+        Text("to")
           .font(.footnote)
           .foregroundColor(Color(.secondaryLabel))
         Text(annotation.lastStopInRoute)
@@ -25,10 +26,31 @@ struct VehicleAnnotationCallout: View {
           .lineLimit(1)
           .foregroundColor(Color(.label))
       }
-      Text(annotation.busNumber)
-        .font(.footnote)
-        .foregroundColor(Color(.secondaryLabel))
+      HStack {
+        Text(
+          "Last seen \(getTimeInterval(for: annotation.lastGpsTime)) ago"
+            + " (Bus #\(annotation.busNumber))")
+          .font(.footnote)
+          .foregroundColor(Color(.secondaryLabel))
+          .padding(.top, 4)
+      }
     }
+    
+  }
+  
+  
+  func getTimeInterval(for eta: String) -> String {
+    
+    let formatter = DateFormatter()
+    formatter.locale = Locale(identifier: "en_US_POSIX")
+    formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+    
+    let now = Date()
+    let estimation = formatter.date(from: eta) ?? now
+    
+    let seconds = now.timeIntervalSince(estimation)
+    
+    return "\( Int(seconds) ) sec"
     
   }
   

@@ -18,6 +18,7 @@ struct Vehicle: Codable, Identifiable, Equatable {
   let kind: String
   let lat: Double
   let lng: Double
+  let lastGpsTime: String
   let angleInRadians: Double
   let lastStopOnVoyageId: String?
   let lastStopOnVoyageName: String?

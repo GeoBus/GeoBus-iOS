@@ -176,6 +176,7 @@ class VehiclesStorage: ObservableObject {
                 busNumber: String(item.busNumber),
                 routeNumber: item.routeNumber,
                 lastStopInRoute: item.lastStopOnVoyageName ?? "-",
+                lastGpsTime: item.lastGpsTime,
                 kind: item.kind,
                 latitude: item.lat,
                 longitude: item.lng,
