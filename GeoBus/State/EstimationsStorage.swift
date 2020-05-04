@@ -14,19 +14,26 @@ class EstimationsStorage: ObservableObject {
   /* * */
   /* MARK: - Settings */
   
-  private let endpoint = "https://carris.tecmic.com/api/v2.8/Estimations/busStop/"
+  private let syncInterval = 30.0 // seconds
   private let howManyResults = "/top/5" // results
-  private let syncInterval = 100.0 // seconds
+  private let endpoint = "https://carris.tecmic.com/api/v2.8/Estimations/busStop/"
   
   /* * */
   
   
   
   /* * */
-  /* MARK: - Variables */
+  /* MARK: - Private Variables */
   
   private var stopPublicId: String = ""
   private var timer: Timer? = nil
+  
+  /* * */
+  
+  
+  
+  /* * */
+  /* MARK: - Published Variables */
   
   @Published var estimations: [Estimation] = []
   @Published var isLoading: Bool = false
@@ -62,7 +69,7 @@ class EstimationsStorage: ObservableObject {
   /* * * *
    * INIT: GET ESTIMATIONS
    * This function will call the Carris API directly to retrieve estimations for the set stopPublicId,
-   * while storing them in the estimations array. It must have @objc flag because Timer is written in Objective-C...
+   * while storing them in the estimations array. It must have @objc flag because Timer is written in Objective-C.
    */
   @objc func getEstimations() {
     

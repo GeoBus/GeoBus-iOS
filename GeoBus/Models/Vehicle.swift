@@ -14,7 +14,8 @@ struct Vehicle: Codable, Identifiable, Equatable {
   let busNumber: Int
   let vehiclePlate: String?
   let driverNumber: String?
-  let routeNumber: String?
+  let routeNumber: String
+  let kind: String
   let lat: Double
   let lng: Double
   let angleInRadians: Double

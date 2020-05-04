@@ -14,9 +14,9 @@ struct SelectRouteInput: View {
   
   @Binding var showSelectRouteSheet: Bool
   
-  @State var routeNumber = ""
   @State var showErrorLabel: Bool = false
   
+  @State var routeNumber = ""
   
   var body: some View {
     VStack {
@@ -48,9 +48,9 @@ struct SelectRouteInput: View {
         .cornerRadius(10)
       }
       
-      if showErrorLabel {
+      if showErrorLabel && routeNumber.count > 0 {
         Text("The route you entered does not exist.")
-          .font(.footnote)
+          .font(.body)
           .fontWeight(.bold)
           .multilineTextAlignment(.center)
           .foregroundColor(Color(.systemOrange))
@@ -58,7 +58,7 @@ struct SelectRouteInput: View {
       }
       
       Text("Choose a Route Number (ex: 28E or 758).")
-        .font(.footnote)
+        .font(.body)
         .multilineTextAlignment(.center)
         .padding()
     }

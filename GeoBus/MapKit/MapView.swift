@@ -37,12 +37,9 @@ struct MapView: UIViewRepresentable {
     let lisbonArea = MKCoordinateRegion(center: lisbon.coordinate, latitudinalMeters: 15000, longitudinalMeters: 15000)
     mapView.setRegion(lisbonArea, animated: true)
     
-    if UserManagement().isReturningUser() {
-      // Only ask for location the second time the user opens the app
-      locationManager.requestWhenInUseAuthorization()
-    } else {
-      UserManagement().setReturningUser()
-    }
+    // Only ask for location the second time the user opens the app
+    if UserManagement().isReturningUser() { locationManager.requestWhenInUseAuthorization() }
+    else { UserManagement().setReturningUser() }
     
     return mapView
   }
@@ -53,8 +50,10 @@ struct MapView: UIViewRepresentable {
     var annotationsToAdd: [MKAnnotation] = []
     var annotationsToRemove: [MKAnnotation] = []
     
+    let routeChanged = routesStorage.previousSelectedVariant != routesStorage.selectedVariant
+    
     // Only update stopAnnotations if variant has changed
-    if routesStorage.previousSelectedVariant != routesStorage.selectedVariant {
+    if routeChanged {
       routesStorage.previousSelectedVariant = routesStorage.selectedVariant
       annotationsToAdd.append(contentsOf: routesStorage.stopAnnotations)
       for annotation in mapView.annotations {
@@ -75,6 +74,8 @@ struct MapView: UIViewRepresentable {
     // Update whatever was set to update
     mapView.removeAnnotations(annotationsToRemove)
     mapView.addAnnotations(annotationsToAdd)
+    
+    if routeChanged { mapView.showAnnotations(annotationsToAdd, animated: true) }
     
   }
   

@@ -17,29 +17,17 @@ struct SelectRouteButton: View {
     
     ZStack {
       
-      if routesStorage.state == .idle {
+      if routesStorage.isRouteSelected() {
+        
+        RouteButton(route: routesStorage.selectedRoute!, dimensions: 80)
+        
+      } else {
         
         RoundedRectangle(cornerRadius: 10)
           .fill(Color(.systemGray4))
         Image(systemName: "plus")
           .font(.title)
           .foregroundColor(Color(.white))
-        
-      } else if routesStorage.state == .syncing {
-        
-        LoadingView()
-        
-      } else if routesStorage.state == .error {
-        
-        RoundedRectangle(cornerRadius: 10)
-          .fill(Color(.systemRed).opacity(0.1))
-        Image(systemName: "bolt.slash.fill")
-          .font(.title)
-          .foregroundColor(Color(.white))
-        
-      } else if routesStorage.state == .routeSelected {
-        
-        RouteButton(route: routesStorage.selectedRoute!, dimensions: 80)
         
       }
       
@@ -49,3 +37,17 @@ struct SelectRouteButton: View {
     .padding(.trailing, 10)
   }
 }
+
+
+
+
+
+//if routesStorage.state == .error {
+//
+//  RoundedRectangle(cornerRadius: 10)
+//    .fill(Color(.systemRed).opacity(0.1))
+//  Image(systemName: "bolt.slash.fill")
+//    .font(.title)
+//    .foregroundColor(Color(.white))
+//
+//}

@@ -18,21 +18,13 @@ struct RouteDetailsButton: View {
     
     VStack {
       
-      if routesStorage.state == .idle {
-        
-        ChooseRouteScreen()
-        
-      } else if routesStorage.state == .syncing {
-        
-        SyncingRoutesScreen()
-        
-      } else if routesStorage.state == .error {
-        
-        ConnectionErrorScreen()
-        
-      } else if routesStorage.state == .routeSelected {
+      if routesStorage.isRouteSelected() {
         
         SelectedRouteScreen(routesStorage: routesStorage, vehiclesStorage: vehiclesStorage)
+        
+      } else {
+        
+        ChooseRouteScreen()
         
       }
       
@@ -42,3 +34,12 @@ struct RouteDetailsButton: View {
     
   }
 }
+
+
+
+
+//else if routesStorage.state == .error {
+//
+//  ConnectionErrorScreen()
+//
+//}

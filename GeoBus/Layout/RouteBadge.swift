@@ -13,14 +13,19 @@ struct RouteBadge: View {
   let routeNumber: String
   
   var body: some View {
-    Text(routeNumber)
-      .font(.footnote)
-      .fontWeight(.heavy)
-      .foregroundColor(Color(.black))
-      .padding(.horizontal, 7)
-      .padding(.vertical, 2)
-      .background( RoundedRectangle(cornerRadius: 10).foregroundColor(Color(.systemYellow)) )
-      .padding(.trailing, 0)
+    
+    VStack {
+      Text(routeNumber)
+        .font(.footnote)
+        .fontWeight(.heavy)
+        .lineLimit(1)
+        .foregroundColor(Color(.black))
+        .padding(.horizontal, 7)
+        .padding(.vertical, 2)
+    }
+    .background(Color(.systemYellow))
+    .cornerRadius(10)
+    
   }
   
 }

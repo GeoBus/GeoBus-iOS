@@ -31,7 +31,12 @@ struct StopsList: View {
         VStack {
           ForEach(getStopsToShow(for: routeDirection)) { stop in
             VStack(alignment: .leading) {
-              StopDetails(publicId: stop.publicId, name: stop.name, orderInRoute: stop.orderInRoute, direction: .ascending)
+              StopDetails(
+                publicId: stop.publicId,
+                name: stop.name,
+                orderInRoute: stop.orderInRoute,
+                direction: self.routeDirection > 0 ? .descending : .ascending
+              )
                 .padding(.bottom)
             }
             .padding(.horizontal)

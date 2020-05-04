@@ -15,13 +15,13 @@ struct VehicleAnnotationCallout: View {
   var body: some View {
     
     HStack {
-      RouteBadge(routeNumber: annotation.routeNumber)
-      Text("to")
+      Text("direction:")
         .font(.footnote)
-        .foregroundColor(Color(.tertiaryLabel))
+        .foregroundColor(Color(.secondaryLabel))
       Text(annotation.lastStopInRoute)
         .font(.body)
         .fontWeight(.medium)
+        .lineLimit(1)
         .foregroundColor(Color(.label))
     }
     

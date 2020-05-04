@@ -45,6 +45,7 @@ struct StopEstimations: View {
           ForEach(estimationsStorage.estimations) { estimation in
             EstimationView(estimation: estimation)
           }
+          .padding(.bottom, -10)
           
         } else {
           Text("Nothing to show here.")

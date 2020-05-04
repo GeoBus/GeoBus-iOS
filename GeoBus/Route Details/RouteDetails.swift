@@ -19,23 +19,13 @@ struct RouteDetails: View {
   var body: some View {
     
     Button(action: {
-      
-      if self.routesStorage.state == .routeSelected {
-
+      if self.routesStorage.isRouteSelected() {
         self.showRouteDetailsSheet = true
-      
-      } else if self.routesStorage.state == .error {
-      
-        self.routesStorage.set(state: .syncing)
-      
       }
-      
     }) {
-      
       RouteDetailsButton(routesStorage: self.routesStorage, vehiclesStorage: self.vehiclesStorage)
-    
     }
-    .disabled( routesStorage.state == .idle || routesStorage.state == .syncing )
+    .disabled(!routesStorage.isRouteSelected())
     .sheet(isPresented: $showRouteDetailsSheet) {
       RouteDetailsSheet(routesStorage: self.routesStorage, vehiclesStorage: self.vehiclesStorage, showRouteDetailsSheet: self.$showRouteDetailsSheet)
     }

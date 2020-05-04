@@ -11,15 +11,31 @@ import Combine
 
 class RoutesStorage: ObservableObject {
   
-  // MARK: - Variables
+  /* * */
+  /* MARK: - Private Variables */
   
   private var all: [Route] = []
+  
+  /* * */
+  
+  
+  
+  /* * */
+  /* MARK: - Published Variables */
   
   @Published var selectedRoute: Route?
   @Published var selectedVariant: RouteVariant?
   var previousSelectedVariant: RouteVariant?
   
+  @Published var stopAnnotations: [StopAnnotation] = []
   @Published var selectedStopAnnotation: StopAnnotation?
+  
+  /* * */
+  
+  
+  
+  /* * */
+  /* MARK: - Sets of Routes */
   
   @Published var favorites: [Route] = []
   
@@ -29,42 +45,10 @@ class RoutesStorage: ObservableObject {
   @Published var neighborhood: [Route] = []
   @Published var elevators: [Route] = []
   
-  
-  @Published var stopAnnotations: [StopAnnotation] = []
-  
-  
-  // MARK: - State
-  
-  @Published var state = State.idle {
-    // We add a property observer on 'state', which lets us
-    // run a function evertyime it's value changes.
-    didSet { stateDidChange() }
-  }
+  /* * */
   
   
-  func set(state: State) {
-    self.state = state
-  }
-  
-  
-  func stateDidChange() {
-    switch state {
-      case .idle:
-        break
-      case .syncing:
-        self.retrieveRoutes()
-        break
-      case .routeChanged:
-        break
-      case .routeSelected:
-        break
-      case .error:
-        break
-    }
-  }
-  
-  
-  
+
   
   
   /* * */
@@ -251,7 +235,6 @@ class RoutesStorage: ObservableObject {
   func select(route: Route) {
     self.selectedRoute = route
     self.select(variant: route.variants[0])
-    self.set(state: .routeSelected)
   }
   
   
@@ -462,10 +445,14 @@ class RoutesStorage: ObservableObject {
   
   
   
+  /* * */
+  /* MARK: - MapKit Helper Functions */
   
   
-  
-  
+  /* * * *
+  * MAP: FORMAT STOP ANNOTATIONS
+  * This function returns an array of [StopAnnotation] for the provided RouteVariant.
+  */
   func formatStopAnnotations(of variant: RouteVariant) -> [StopAnnotation] {
     
     var formatedAnnotations: [StopAnnotation] = []
@@ -475,11 +462,11 @@ class RoutesStorage: ObservableObject {
       for stop in variant.ascending {
         formatedAnnotations.append(
           StopAnnotation(
-            name: String(stop.name),
-            publicId: String(stop.publicId),
+            name: stop.name,
+            publicId: stop.publicId,
             direction: .ascending,
             orderInRoute: stop.orderInRoute,
-            lastStopOnVoyage: variant.ascending.last?.name ?? "-",
+            lastStopOnVoyage: getTerminalStopNameForVariant(variant: variant, direction: .ascending),
             latitude: stop.lat,
             longitude: stop.lng
           )
@@ -492,11 +479,11 @@ class RoutesStorage: ObservableObject {
       for stop in variant.descending {
         formatedAnnotations.append(
           StopAnnotation(
-            name: String(stop.name),
-            publicId: String(stop.publicId),
+            name: stop.name,
+            publicId: stop.publicId,
             direction: .descending,
             orderInRoute: stop.orderInRoute,
-            lastStopOnVoyage: variant.descending.last?.name ?? "-",
+            lastStopOnVoyage: getTerminalStopNameForVariant(variant: variant, direction: .descending),
             latitude: stop.lat,
             longitude: stop.lng
           )
@@ -509,11 +496,11 @@ class RoutesStorage: ObservableObject {
       for stop in variant.circular {
         formatedAnnotations.append(
           StopAnnotation(
-            name: String(stop.name),
-            publicId: String(stop.publicId),
+            name: stop.name,
+            publicId: stop.publicId,
             direction: .circular,
             orderInRoute: stop.orderInRoute,
-            lastStopOnVoyage: variant.circular.last?.name ?? "-",
+            lastStopOnVoyage: getTerminalStopNameForVariant(variant: variant, direction: .circular),
             latitude: stop.lat,
             longitude: stop.lng
           )
@@ -527,52 +514,8 @@ class RoutesStorage: ObservableObject {
   
   
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  /* MARK: MapKit Helper Functions - */
+  /* * */
   
   
 }
-
-
-
-// MARK: - Extension for state control
-
-extension RoutesStorage {
-  
-  enum State {
-    case idle
-    case syncing
-    case routeChanged
-    case routeSelected
-    case error
-  }
-  
-}
-
-
-
-
-
-
-
-
