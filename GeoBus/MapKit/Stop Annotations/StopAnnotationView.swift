@@ -11,7 +11,7 @@ import MapKit
 
 class StopAnnotationView: MKAnnotationView {
   
-  let imageView = UIImageView(image: UIImage(systemName: "circle.fill"))
+  var marker = UIImageView(image: UIImage(systemName: "arrow.clockwise.circle.fill"))
   
   override var annotation: MKAnnotation? {
     
@@ -23,26 +23,13 @@ class StopAnnotationView: MKAnnotationView {
       
       canShowCallout = false
       
-      frame = imageView.frame
-      imageView.tintColor = annotation.markerColor
-      addSubview(imageView)
+      marker.image = annotation.markerSymbol
+      marker.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
+      frame = marker.frame
+      addSubview(marker)
       
     }
     
-  }
-  
-}
-
-
-
-struct StopAnnotationMarker: View {
-  
-  let color: UIColor
-  
-  var body: some View {
-    Circle()
-      .frame(width: 8, height: 8)
-      .foregroundColor(Color(color))
   }
   
 }

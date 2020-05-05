@@ -103,8 +103,7 @@ struct MapView: UIViewRepresentable {
         let selectedStopAnnotationView = view as! StopAnnotationView
         let stopAnnotation = selectedStopAnnotationView.annotation as! StopAnnotation
         
-        selectedStopAnnotationView.imageView.image = UIImage(systemName: "square.fill")
-        selectedStopAnnotationView.imageView.tintColor = .systemRed
+        selectedStopAnnotationView.marker.image = UIImage(named: "GreenInfo")
         
         control.routesStorage.select(stop: stopAnnotation)
         
@@ -117,8 +116,7 @@ struct MapView: UIViewRepresentable {
         let selectedStopAnnotationView = view as! StopAnnotationView
         let stopAnnotation = selectedStopAnnotationView.annotation as! StopAnnotation
         
-        selectedStopAnnotationView.imageView.image = UIImage(systemName: "circle.fill")
-        selectedStopAnnotationView.imageView.tintColor = stopAnnotation.markerColor
+        selectedStopAnnotationView.marker.image = stopAnnotation.markerSymbol
         
         control.routesStorage.select(stop: nil)
         

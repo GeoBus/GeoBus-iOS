@@ -32,22 +32,22 @@ class StopAnnotation: NSObject, MKAnnotation {
   
   
   var title: String? {
-    return name
+    return ""
   }
   
   var subtitle: String? {
-    return "Stop nr. \(orderInRoute) to \(lastStopOnVoyage)"
+    return ""
   }
   
   
-  var markerColor: UIColor  {
+  var markerSymbol: UIImage  {
     switch direction {
       case .ascending:
-        return .systemGreen
+        return UIImage(named: "PinkArrowUp")!
       case .descending:
-        return .systemBlue
+        return UIImage(named: "OrangeArrowDown")!
       case .circular:
-        return .systemBlue
+        return UIImage(named: "OrangeArrowDown")!
     }
   }
   

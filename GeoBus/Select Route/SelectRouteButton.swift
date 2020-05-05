@@ -26,7 +26,7 @@ struct SelectRouteButton: View {
         
         RoundedRectangle(cornerRadius: 10)
           .fill(Color(.systemRed).opacity(0.5))
-        Image(systemName: "bolt.slash.fill")
+        Image(systemName: "wifi.exclamationmark")
           .font(.title)
           .foregroundColor(Color(.white))
         

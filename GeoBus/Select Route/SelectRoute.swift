@@ -23,7 +23,6 @@ struct SelectRoute: View {
         self.vehiclesStorage.set(state: .active)
       } else {
         self.showSelectRouteSheet = true
-        self.vehiclesStorage.set(state: .paused)
       }
     }) {
       SelectRouteButton(routesStorage: routesStorage, vehiclesStorage: vehiclesStorage)

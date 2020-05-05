@@ -11,7 +11,7 @@ import MapKit
 
 class VehicleAnnotationView: MKAnnotationView {
   
-  var imageView = UIImageView(image: UIImage(named: "RegularService"))
+  var marker = UIImageView(image: UIImage(named: "RegularService"))
   
   override var annotation: MKAnnotation? {
     
@@ -19,36 +19,21 @@ class VehicleAnnotationView: MKAnnotationView {
       guard let annotation = newValue as? VehicleAnnotation else {
         return
       }
-
-      switch annotation.kind {
-        case "tram":
-          imageView.image = UIImage(named: "Tram")
-          break
-        case "neighborhood":
-          imageView.image = UIImage(named: "RegularService")
-          break
-        case "night":
-          imageView.image = UIImage(named: "RegularService")
-          break
-        case "elevator":
-          imageView.image = UIImage(named: "RegularService")
-          break
-        default:
-          imageView.image = UIImage(named: "RegularService")
-          break
-      }
       
-      
-      imageView.transform = CGAffineTransform(rotationAngle: CGFloat(annotation.angleInRadians))
-      frame = imageView.frame
-      addSubview(imageView)
+      marker.image = annotation.markerSymbol
+      marker.transform = CGAffineTransform(rotationAngle: CGFloat(annotation.angleInRadians))
+      frame = marker.frame
+      addSubview(marker)
       
       let callout = VehicleAnnotationCallout(annotation: annotation)
       let child = UIHostingController(rootView: callout)
       child.view.backgroundColor = .clear
       detailCalloutAccessoryView = child.view
       canShowCallout = true
+      
     }
+    
   }
+  
 }
 
