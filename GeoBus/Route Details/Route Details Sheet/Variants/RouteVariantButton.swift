@@ -10,8 +10,9 @@ import SwiftUI
 
 struct RouteVariantButton: View {
   
-  var variantName: String
+  @Environment(\.colorScheme) var colorScheme: ColorScheme
   
+  var variantName: String
   var isSelected: Bool
   
   
@@ -22,7 +23,7 @@ struct RouteVariantButton: View {
     }
     .padding()
     .foregroundColor(isSelected ? .white : Color(.secondaryLabel))
-    .background(isSelected ? Color(.systemBlue) : Color(.secondarySystemBackground))
+    .background(isSelected ? Color(.systemBlue) : colorScheme == .dark ? Color(.secondarySystemBackground) : Color(.systemBackground) )
     .cornerRadius(10)
   }
 }

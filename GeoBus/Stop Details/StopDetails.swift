@@ -11,6 +11,8 @@ import Combine
 
 struct StopDetails: View {
   
+  @Environment(\.colorScheme) var colorScheme: ColorScheme
+  
   var publicId: String
   var name: String
   var orderInRoute: Int
@@ -39,12 +41,15 @@ struct StopDetails: View {
         .padding(.top, -12)
         
       }
-      .background(isOpen ? Color(.tertiarySystemBackground) : Color(.secondarySystemBackground))
+      .background(isOpen
+        ? (colorScheme == .dark ? Color(.tertiarySystemBackground) : Color(.systemBackground))
+        : (colorScheme == .dark ? Color(.secondarySystemBackground) : Color(.systemBackground))
+      )
       .cornerRadius(10)
       .padding(.bottom, isOpen ? 15 : 0)
-      .shadow(color: Color(.secondarySystemBackground), radius: isOpen ? 1 : 0, x: 0, y: 0)
-      .shadow(color: Color(.secondarySystemBackground), radius: isOpen ? 25 : 0, x: 0, y: isOpen ? 2 : 0)
+      
     }
+    
   }
   
 }

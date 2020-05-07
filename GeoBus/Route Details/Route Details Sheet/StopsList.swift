@@ -50,7 +50,12 @@ struct StopsList: View {
         VStack {
           ForEach(getStopsToShow(for: 3 /* Circular routes */ )) { stop in
             VStack(alignment: .leading) {
-              StopDetails(publicId: stop.publicId, name: stop.name, orderInRoute: stop.orderInRoute, direction: .circular)
+              StopDetails(
+                publicId: stop.publicId,
+                name: stop.name,
+                orderInRoute: stop.orderInRoute,
+                direction: .circular
+              )
                 .padding(.bottom)
             }
             .padding(.horizontal)

@@ -10,6 +10,8 @@ import SwiftUI
 
 struct SelectRouteInput: View {
   
+  @Environment(\.colorScheme) var colorScheme: ColorScheme
+  
   @ObservedObject var routesStorage: RoutesStorage
   
   @Binding var showSelectRouteSheet: Bool
@@ -25,7 +27,7 @@ struct SelectRouteInput: View {
           .font(.system(size: 40, weight: .bold, design: .default))
           .multilineTextAlignment(.center)
           .padding()
-          .background(Color(.secondarySystemBackground))
+          .background(colorScheme == .dark ? Color(.secondarySystemBackground) : Color(.systemBackground))
           .cornerRadius(10)
           .frame(width: 120)
         
@@ -44,7 +46,7 @@ struct SelectRouteInput: View {
         .disabled(routeNumber.count == 0)
         .frame(maxWidth: .infinity)
         .padding()
-        .background(routeNumber.count > 2 ? Color(.systemBlue) : Color(.secondarySystemBackground))
+        .background(routeNumber.count > 2 ? Color(.systemBlue) : (colorScheme == .dark ? Color(.secondarySystemBackground) : Color(.systemBackground)) )
         .cornerRadius(10)
       }
       

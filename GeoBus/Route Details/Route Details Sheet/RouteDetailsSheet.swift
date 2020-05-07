@@ -11,28 +11,37 @@ import Grid
 
 struct RouteDetailsSheet: View {
   
+  @Environment(\.colorScheme) var colorScheme: ColorScheme
+  
   @ObservedObject var routesStorage: RoutesStorage
   @ObservedObject var vehiclesStorage: VehiclesStorage
   
+  @Binding var showSelectRouteSheet: Bool
   @Binding var showRouteDetailsSheet: Bool
   
   @State var routeDirection: Int = 0
   
   var body: some View {
+    
     ScrollView(.vertical, showsIndicators: true) {
       VStack {
         
         SheetHeader(title: Text("Route Details"), toggle: $showRouteDetailsSheet)
         
         HStack {
-          RouteButton(route: routesStorage.selectedRoute!, dimensions: 80)
+          Button(action: {
+            self.showRouteDetailsSheet = false
+            self.showSelectRouteSheet = true
+          }) {
+            RouteButton(route: routesStorage.selectedRoute!, dimensions: 80)
+          }
           Text(routesStorage.getSelectedVariantName())
             .foregroundColor(Color(.label))
             .padding(.leading)
           Spacer()
         }
         .padding()
-        .background(Color(.secondarySystemBackground))
+        .background(colorScheme == .dark ? Color(.secondarySystemBackground) : Color(.systemBackground))
         .cornerRadius(10)
         .padding(.horizontal)
         
@@ -65,5 +74,7 @@ struct RouteDetailsSheet: View {
         
       }
     }
+    .background(colorScheme == .dark ? Color(.systemBackground) : Color(.secondarySystemBackground))
+    
   }
 }

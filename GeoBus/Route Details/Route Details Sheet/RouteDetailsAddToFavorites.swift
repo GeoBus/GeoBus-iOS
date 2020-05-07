@@ -10,17 +10,22 @@ import SwiftUI
 
 struct RouteDetailsAddToFavorites: View {
   
+  @Environment(\.colorScheme) var colorScheme: ColorScheme
+  
   @ObservedObject var routesStorage: RoutesStorage
   
   
   var body: some View {
     VStack {
-      Image(systemName: "star.fill")
+      Image(systemName: "heart.fill")
         .font(.system(size: 30, weight: .bold, design: .default))
-        .foregroundColor(routesStorage.isFavorite(route: routesStorage.selectedRoute) ? Color(.white) : Color(.systemOrange))
+        .foregroundColor(routesStorage.isFavorite(route: routesStorage.selectedRoute) ? Color(.white) : Color(.systemRed))
     }
     .frame(maxWidth: .infinity, maxHeight: .infinity)
-    .background(routesStorage.isFavorite(route: routesStorage.selectedRoute) ? Color(.systemOrange) : Color(.secondarySystemBackground))
+    .background(routesStorage.isFavorite(route: routesStorage.selectedRoute)
+      ? Color(.systemRed)
+      : colorScheme == .dark ? Color(.secondarySystemBackground) : Color(.systemBackground)
+    )
     .cornerRadius(10)
   }
 }

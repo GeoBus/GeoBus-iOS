@@ -10,11 +10,14 @@ import SwiftUI
 
 struct SelectRouteSheet: View {
   
+  @Environment(\.colorScheme) var colorScheme: ColorScheme
+  
   @ObservedObject var routesStorage: RoutesStorage
   
   @Binding var showSelectRouteSheet: Bool
   
   var body: some View {
+    
     ScrollView(.vertical, showsIndicators: true) {
       VStack {
         
@@ -36,6 +39,8 @@ struct SelectRouteSheet: View {
         
       }
     }
+    .background(colorScheme == .dark ? Color(.systemBackground) : Color(.secondarySystemBackground))
+    
   }
   
   

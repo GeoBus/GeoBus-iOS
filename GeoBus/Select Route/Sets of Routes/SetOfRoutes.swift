@@ -10,6 +10,8 @@ import SwiftUI
 import Grid
 
 struct SetOfRoutes: View {
+  
+  @Environment(\.colorScheme) var colorScheme: ColorScheme
     
   var title: Text
   var set: [Route]
@@ -47,7 +49,7 @@ struct SetOfRoutes: View {
       .padding(.horizontal)
       
     }
-    .background(Color(.secondarySystemBackground))
+    .background(colorScheme == .dark ? Color(.secondarySystemBackground) : Color(.systemBackground))
     .cornerRadius(15)
     .padding()
     

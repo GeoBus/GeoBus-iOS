@@ -13,7 +13,7 @@ struct SelectRoute: View {
   @ObservedObject var routesStorage: RoutesStorage
   @ObservedObject var vehiclesStorage: VehiclesStorage
   
-  @State var showSelectRouteSheet: Bool = false
+  @Binding var showSelectRouteSheet: Bool
   
   
   var body: some View {

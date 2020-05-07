@@ -186,6 +186,7 @@
 				CF072332244A1101007AFAD2 /* MapKit */,
 				CF072330244A1101007AFAD2 /* Select Route */,
 				CFF4980024524DB700EB9C36 /* Route Details */,
+				CFF4980A24524DB700EB9C36 /* Stop Details */,
 				CF40AA9B244F34E8002DC2FD /* Layout */,
 				CF072349244A1125007AFAD2 /* Models */,
 				CFD2C232244D125200C1C33B /* State */,
@@ -378,15 +379,14 @@
 			path = Variants;
 			sourceTree = "<group>";
 		};
-		CFF4980A24524DB700EB9C36 /* Stops */ = {
+		CFF4980A24524DB700EB9C36 /* Stop Details */ = {
 			isa = PBXGroup;
 			children = (
-				CFF4980324524DB700EB9C36 /* StopsList.swift */,
 				CF4570592453477A000AEA87 /* StopDetails.swift */,
 				CF85A3B1245E394C00A3D4F7 /* StopEstimations.swift */,
 				CFF4980B24524DB700EB9C36 /* EstimationView.swift */,
 			);
-			path = Stops;
+			path = "Stop Details";
 			sourceTree = "<group>";
 		};
 		CFFD3CF824565B44005B09A2 /* Route Details Sheet */ = {
@@ -395,8 +395,8 @@
 				CFF4980724524DB700EB9C36 /* RouteDetailsSheet.swift */,
 				CFF4980924524DB700EB9C36 /* RouteDetailsVehiclesQuantity.swift */,
 				CFF4980524524DB700EB9C36 /* RouteDetailsAddToFavorites.swift */,
+				CFF4980324524DB700EB9C36 /* StopsList.swift */,
 				CFF4980124524DB700EB9C36 /* Variants */,
-				CFF4980A24524DB700EB9C36 /* Stops */,
 			);
 			path = "Route Details Sheet";
 			sourceTree = "<group>";
@@ -688,7 +688,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = GeoBus/GeoBus.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_ASSET_PATHS = "\"GeoBus/Preview Content\"";
 				DEVELOPMENT_TEAM = D7S2TY22W7;
 				ENABLE_PREVIEWS = YES;
@@ -698,7 +698,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.1;
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = earth.joao.geobus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -712,7 +712,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = GeoBus/GeoBus.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_ASSET_PATHS = "\"GeoBus/Preview Content\"";
 				DEVELOPMENT_TEAM = D7S2TY22W7;
 				ENABLE_PREVIEWS = YES;
@@ -722,7 +722,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.1;
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = earth.joao.geobus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

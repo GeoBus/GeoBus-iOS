@@ -138,7 +138,7 @@ class VehiclesStorage: ObservableObject {
    */
   @objc private func getVehicles() {
     
-    if (state == .paused) { return }
+    if (state == .paused || routeNumber.isEmpty) { return }
     
     self.set(state: .loading)
     

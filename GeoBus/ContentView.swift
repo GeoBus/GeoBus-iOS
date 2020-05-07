@@ -16,6 +16,8 @@ struct ContentView : View {
   @ObservedObject var routesStorage = RoutesStorage()
   @ObservedObject var vehiclesStorage = VehiclesStorage()
   
+  @State var showSelectRouteSheet: Bool = false
+  
   
   var body: some View {
     
@@ -36,14 +38,14 @@ struct ContentView : View {
             isOpen: true
           )
             .padding()
-            .shadow(radius: 10)
+            .shadow(color: Color(.black).opacity(0.20), radius: 10, x: 0, y: 0)
         }
         
       }
       
       HStack {
-        SelectRoute(routesStorage: routesStorage, vehiclesStorage: vehiclesStorage)
-        RouteDetails(routesStorage: routesStorage, vehiclesStorage: vehiclesStorage)
+        SelectRoute(routesStorage: routesStorage, vehiclesStorage: vehiclesStorage, showSelectRouteSheet: $showSelectRouteSheet)
+        RouteDetails(routesStorage: routesStorage, vehiclesStorage: vehiclesStorage, showSelectRouteSheet: $showSelectRouteSheet)
         Spacer()
       }
       .frame(height: 115)

@@ -11,6 +11,8 @@ import Grid
 
 struct FavoriteRoutes: View {
   
+  @Environment(\.colorScheme) var colorScheme: ColorScheme
+  
   @ObservedObject var routesStorage: RoutesStorage
   
   @Binding var showSelectRouteSheet: Bool
@@ -51,7 +53,7 @@ struct FavoriteRoutes: View {
       .padding(.horizontal)
       
     }
-    .background(Color(.secondarySystemBackground))
+    .background(colorScheme == .dark ? Color(.secondarySystemBackground) : Color(.systemBackground))
     .cornerRadius(15)
     .padding()
   }
