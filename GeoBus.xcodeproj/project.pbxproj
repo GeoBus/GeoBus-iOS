@@ -56,6 +56,9 @@
 		CFCC233A2450E9A80063D46F /* EstimatedIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCC23392450E9A80063D46F /* EstimatedIcon.swift */; };
 		CFCCE44D245A5F79007062ED /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CFCCE44B245A5F79007062ED /* InfoPlist.strings */; };
 		CFCCE450245A5F79007062ED /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CFCCE44E245A5F79007062ED /* Localizable.strings */; };
+		CFD1A871246480F800861163 /* StringSubscripting.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD1A870246480F800861163 /* StringSubscripting.swift */; };
+		CFD1A8732464835E00861163 /* CarrisVehicle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD1A8722464835E00861163 /* CarrisVehicle.swift */; };
+		CFD1A8752464E6ED00861163 /* VehicleSGO.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD1A8742464E6ED00861163 /* VehicleSGO.swift */; };
 		CFD2C234244D131C00C1C33B /* RoutesStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD2C233244D131C00C1C33B /* RoutesStorage.swift */; };
 		CFD9E24D24561E1500AFA80B /* ConnectionErrorScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD9E24C24561E1500AFA80B /* ConnectionErrorScreen.swift */; };
 		CFD9E25024561EB700AFA80B /* ChooseRouteScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD9E24F24561EB700AFA80B /* ChooseRouteScreen.swift */; };
@@ -128,6 +131,9 @@
 		CFCCE44F245A5F79007062ED /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		CFCCE452245A60D2007062ED /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		CFCCE454245A6614007062ED /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		CFD1A870246480F800861163 /* StringSubscripting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringSubscripting.swift; sourceTree = "<group>"; };
+		CFD1A8722464835E00861163 /* CarrisVehicle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarrisVehicle.swift; sourceTree = "<group>"; };
+		CFD1A8742464E6ED00861163 /* VehicleSGO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleSGO.swift; sourceTree = "<group>"; };
 		CFD2C233244D131C00C1C33B /* RoutesStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutesStorage.swift; sourceTree = "<group>"; };
 		CFD9E24C24561E1500AFA80B /* ConnectionErrorScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionErrorScreen.swift; sourceTree = "<group>"; };
 		CFD9E24F24561EB700AFA80B /* ChooseRouteScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseRouteScreen.swift; sourceTree = "<group>"; };
@@ -240,7 +246,9 @@
 				CFB2E99B2451FD01006915E2 /* RouteVariant.swift */,
 				CF80B98A244CCEF700B921F2 /* Stop.swift */,
 				CF07234C244A1125007AFAD2 /* Vehicle.swift */,
+				CFD1A8742464E6ED00861163 /* VehicleSGO.swift */,
 				CF4570572453436A000AEA87 /* Estimation.swift */,
+				CFD1A8722464835E00861163 /* CarrisVehicle.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -274,6 +282,7 @@
 				CF072360244A1134007AFAD2 /* IndexedCollection.swift */,
 				CF072361244A1134007AFAD2 /* ForEach.swift */,
 				CF80B98C244CD12D00B921F2 /* DrawViewAsUIImage.swift */,
+				CFD1A870246480F800861163 /* StringSubscripting.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -517,6 +526,7 @@
 				CFC40DC924591D34006F002E /* RouteBadge.swift in Sources */,
 				CF07233A244A1102007AFAD2 /* SelectRouteButton.swift in Sources */,
 				CF072319244A10D3007AFAD2 /* ContentView.swift in Sources */,
+				CFD1A871246480F800861163 /* StringSubscripting.swift in Sources */,
 				CF07233F244A1102007AFAD2 /* SelectRouteSheet.swift in Sources */,
 				CFF4981124524DB700EB9C36 /* RouteDetailsSheet.swift in Sources */,
 				CFD9E24D24561E1500AFA80B /* ConnectionErrorScreen.swift in Sources */,
@@ -525,6 +535,7 @@
 				CF5E7558244FC8B900B1EF10 /* SelectRouteInput.swift in Sources */,
 				CFF498162452511D00EB9C36 /* RouteVariantButton.swift in Sources */,
 				CFF4981324524DB700EB9C36 /* RouteDetailsVehiclesQuantity.swift in Sources */,
+				CFD1A8752464E6ED00861163 /* VehicleSGO.swift in Sources */,
 				CFC9CF3B24567C130089171C /* SetOfRoutes.swift in Sources */,
 				CF40AAA5244F3DA1002DC2FD /* EstimationsStorage.swift in Sources */,
 				CFD9E25224561EF500AFA80B /* SyncingRoutesScreen.swift in Sources */,
@@ -533,6 +544,7 @@
 				CF4570582453436A000AEA87 /* Estimation.swift in Sources */,
 				CF40AA9E244F3605002DC2FD /* FavoriteRoutes.swift in Sources */,
 				CF40AAA7244F3F8A002DC2FD /* VehiclesStorage.swift in Sources */,
+				CFD1A8732464835E00861163 /* CarrisVehicle.swift in Sources */,
 				CF072362244A1134007AFAD2 /* IndexedCollection.swift in Sources */,
 				CF80B98D244CD12D00B921F2 /* DrawViewAsUIImage.swift in Sources */,
 				CF826C2624564DCE00886776 /* SelectedRouteScreen.swift in Sources */,
@@ -688,7 +700,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = GeoBus/GeoBus.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 13;
 				DEVELOPMENT_ASSET_PATHS = "\"GeoBus/Preview Content\"";
 				DEVELOPMENT_TEAM = D7S2TY22W7;
 				ENABLE_PREVIEWS = YES;
@@ -698,7 +710,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 1.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = earth.joao.geobus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -712,7 +724,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = GeoBus/GeoBus.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 13;
 				DEVELOPMENT_ASSET_PATHS = "\"GeoBus/Preview Content\"";
 				DEVELOPMENT_TEAM = D7S2TY22W7;
 				ENABLE_PREVIEWS = YES;
@@ -722,7 +734,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 1.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = earth.joao.geobus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
