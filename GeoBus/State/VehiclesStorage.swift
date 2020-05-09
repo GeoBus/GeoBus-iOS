@@ -281,7 +281,6 @@ class VehiclesStorage: ObservableObject {
         // Check status of response
         if httpResponse?.statusCode != 200 {
           print("Error: API failed at getVehiclesSGO()")
-          OperationQueue.main.addOperation { self.set(state: .error) }
           return
         }
         
@@ -297,7 +296,6 @@ class VehiclesStorage: ObservableObject {
           
         } catch {
           print("Error info: \(error)")
-          OperationQueue.main.addOperation { self.set(state: .error) }
         }
       }
       
