@@ -15,7 +15,7 @@ class VehiclesStorage: ObservableObject {
   /* MARK: - Settings */
   
   private var syncInterval = 10.0 // seconds
-  private var endpoint = "https://geobus-api.herokuapp.com"
+  private var endpoint = "https://carris.tecmic.com/api/v2.8/vehicleStatuses/routeNumber/"
   
   /* * */
   
@@ -143,7 +143,7 @@ class VehiclesStorage: ObservableObject {
     self.set(state: .loading)
     
     // Setup the url
-    let url = URL(string: endpoint + "/vehicles/" + routeNumber)!
+    let url = URL(string: endpoint + routeNumber)!
     
     // Configure a session
     let session = URLSession(configuration: URLSessionConfiguration.default)
@@ -175,22 +175,29 @@ class VehiclesStorage: ObservableObject {
               VehicleAnnotation(
                 busNumber: String(item.busNumber),
                 routeNumber: item.routeNumber,
-                lastStopInRoute: item.lastStopOnVoyageName ?? "-",
+                lastStopInRoute: "-",
                 lastGpsTime: item.lastGpsTime,
-                kind: item.kind,
+                kind: self.getKindOfVehicle(basedOn: item.routeNumber),
                 latitude: item.lat,
                 longitude: item.lng,
-                angleInRadians: item.angleInRadians
+                angleInRadians: self.getAngleInRadians(
+                  prevLat: item.previousLatitude ?? 0.00,
+                  prevLng: item.previousLongitude ?? 0.00,
+                  currLat: item.lat,
+                  currLng: item.lng
+                )
               )
             )
           }
+          
+          self.getVehiclesSGO()
           
           self.set(state: .idle)
           
         }
         
       } catch {
-        print("Error info: \(error.localizedDescription)")
+        print("Error info: \(error)")
         OperationQueue.main.addOperation { self.set(state: .error) }
       }
     }
@@ -202,6 +209,101 @@ class VehiclesStorage: ObservableObject {
   
   /* MARK: State - */
   /* * */
+  
+  
+  
+  func getKindOfVehicle(basedOn routeNumber: String) -> Vehicle.Kind {
+    
+    let firstLetter = routeNumber.prefix(1)
+    let lastLetter = routeNumber.suffix(1)
+    
+    if lastLetter == "B" {
+      
+      return .neighborhood
+      
+    } else if lastLetter == "E" {
+      
+      if firstLetter == "5" { return .elevator }
+      else { return .tram }
+      
+    } else if firstLetter == "2" {
+      
+      return .night
+      
+    } else {
+      
+      return .regular
+      
+    }
+    
+  }
+  
+  
+  
+  
+  func getAngleInRadians(prevLat: Double, prevLng: Double, currLat: Double, currLng: Double) -> Double {
+    // and return response to the caller
+    let x = currLat - prevLat;
+    let y = currLng - prevLng;
+    
+    var teta: Double;
+    // Angle is calculated with the arctan of ( y / x )
+    if (x == 0){ teta = .pi / 2 }
+    else { teta = atan(y / x) }
+    
+    // If x is negative, then the angle is in the symetric quadrant
+    if (x < 0) { teta += .pi }
+    
+    return teta - (.pi / 2) // Correction cuz Apple rotates clockwise
+    
+  }
+  
+  
+  
+  
+  
+  func getVehiclesSGO() {
+    
+    
+    for vehicle in annotations {
+      
+      // Setup the url
+      let url = URL(string: "https://carris.tecmic.com/api/v2.8/SGO/busNumber/\(vehicle.busNumber)")!
+      
+      // Configure a session
+      let session = URLSession(configuration: URLSessionConfiguration.default)
+      
+      // Create the task
+      let task = session.dataTask(with: url) { (data, response, error) in
+        
+        let httpResponse = response as? HTTPURLResponse
+        
+        // Check status of response
+        if httpResponse?.statusCode != 200 {
+          print("Error: API failed at getVehiclesSGO()")
+          return
+        }
+        
+        do {
+          
+          let decodedData = try JSONDecoder().decode(VehicleSGO.self, from: data!)
+          
+          OperationQueue.main.addOperation {
+            
+            vehicle.lastStopInRoute = decodedData.lastStopOnVoyageName ?? "-"
+            
+          }
+          
+        } catch {
+          print("Error info: \(error)")
+        }
+      }
+      
+      task.resume()
+      
+    }
+    
+  }
   
   
 }

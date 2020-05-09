@@ -13,9 +13,9 @@ class VehicleAnnotation: NSObject, MKAnnotation {
   
   let busNumber: String
   let routeNumber: String
-  let lastStopInRoute: String
+  var lastStopInRoute: String
   let lastGpsTime: String
-  let kind: String
+  let kind: Vehicle.Kind
   
   let coordinate: CLLocationCoordinate2D
   let angleInRadians: Double
@@ -26,7 +26,7 @@ class VehicleAnnotation: NSObject, MKAnnotation {
     routeNumber: String,
     lastStopInRoute: String,
     lastGpsTime: String,
-    kind: String,
+    kind: Vehicle.Kind,
     latitude: Double,
     longitude: Double,
     angleInRadians: Double
@@ -37,7 +37,7 @@ class VehicleAnnotation: NSObject, MKAnnotation {
     self.lastGpsTime = lastGpsTime
     self.kind = kind
     self.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-    self.angleInRadians = angleInRadians - (.pi / 2) // Correction cuz Apple rotates clockwise
+    self.angleInRadians = angleInRadians
   }
   
   
@@ -52,17 +52,16 @@ class VehicleAnnotation: NSObject, MKAnnotation {
   
   var markerSymbol: UIImage  {
     switch kind {
-      case "tram":
+      case .regular:
+        return UIImage(named: "RegularService")!
+      case .tram:
         return UIImage(named: "Tram")!
-      case "neighborhood":
+      case .neighborhood:
         return UIImage(named: "RegularService")!
-      case "night":
+      case .night:
         return UIImage(named: "RegularService")!
-      case "elevator":
+      case .elevator:
         return UIImage(named: "RegularService")!
-      default:
-        return UIImage(named: "RegularService")!
-
     }
   }
   

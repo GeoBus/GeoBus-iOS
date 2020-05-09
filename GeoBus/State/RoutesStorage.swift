@@ -26,6 +26,7 @@ class RoutesStorage: ObservableObject {
   @Published var selectedRoute: Route?
   @Published var selectedVariant: RouteVariant?
   var previousSelectedVariant: RouteVariant?
+  @Published var routeChanged = false
   
   @Published var stopAnnotations: [StopAnnotation] = []
   @Published var selectedStopAnnotation: StopAnnotation?
@@ -248,6 +249,7 @@ class RoutesStorage: ObservableObject {
     self.previousSelectedVariant = selectedVariant
     self.selectedVariant = variant
     self.stopAnnotations = formatStopAnnotations(of: self.selectedVariant!)
+    self.routeChanged = true
   }
   
   

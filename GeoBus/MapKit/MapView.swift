@@ -50,11 +50,11 @@ struct MapView: UIViewRepresentable {
     var annotationsToAdd: [MKAnnotation] = []
     var annotationsToRemove: [MKAnnotation] = []
     
-    let routeChanged = routesStorage.previousSelectedVariant != routesStorage.selectedVariant
+    let routeChanged = routesStorage.routeChanged
     
     // Only update stopAnnotations if variant has changed
     if routeChanged {
-      routesStorage.previousSelectedVariant = routesStorage.selectedVariant
+      routesStorage.routeChanged = false
       annotationsToAdd.append(contentsOf: routesStorage.stopAnnotations)
       for annotation in mapView.annotations {
         if annotation.isKind(of: StopAnnotation.self) {
@@ -106,6 +106,10 @@ struct MapView: UIViewRepresentable {
         selectedStopAnnotationView.marker.image = UIImage(named: "GreenInfo")
         
         control.routesStorage.select(stop: stopAnnotation)
+        
+      } else if view.isKind(of: VehicleAnnotationView.self) {
+        
+        print()
         
       }
     }
