@@ -167,31 +167,34 @@ class VehiclesStorage: ObservableObject {
         OperationQueue.main.addOperation {
           
           self.vehicles.removeAll()
-          self.vehicles.append(contentsOf: decodedData)
-          
           self.annotations.removeAll()
-          for item in self.vehicles {
-            self.annotations.append(
-              VehicleAnnotation(
-                busNumber: String(item.busNumber),
-                routeNumber: item.routeNumber,
-                lastStopInRoute: "-",
-                lastGpsTime: item.lastGpsTime,
-                kind: self.getKindOfVehicle(basedOn: item.routeNumber),
-                latitude: item.lat,
-                longitude: item.lng,
-                angleInRadians: self.getAngleInRadians(
-                  prevLat: item.previousLatitude ?? 0.00,
-                  prevLng: item.previousLongitude ?? 0.00,
-                  currLat: item.lat,
-                  currLng: item.lng
+          
+          for item in decodedData {
+          
+            if self.getLastSeenTime(since: item.lastGpsTime) < 90 {
+              self.vehicles.append(item)
+              self.annotations.append(
+                VehicleAnnotation(
+                  busNumber: String(item.busNumber),
+                  routeNumber: item.routeNumber,
+                  lastStopInRoute: "-",
+                  lastSeen: self.getLastSeenTime(since: item.lastGpsTime),
+                  kind: self.getKindOfVehicle(basedOn: item.routeNumber),
+                  latitude: item.lat,
+                  longitude: item.lng,
+                  angleInRadians: self.getAngleInRadians(
+                    prevLat: item.previousLatitude ?? 0.00,
+                    prevLng: item.previousLongitude ?? 0.00,
+                    currLat: item.lat,
+                    currLng: item.lng
+                  )
                 )
               )
-            )
+            }
+            
           }
           
           self.getVehiclesSGO()
-          
           self.set(state: .idle)
           
         }
@@ -209,6 +212,24 @@ class VehiclesStorage: ObservableObject {
   
   /* MARK: State - */
   /* * */
+  
+  
+  
+  func getLastSeenTime(since lastGpsTime: String) -> Int {
+    
+    let formatter = DateFormatter()
+    formatter.locale = Locale(identifier: "en_US_POSIX")
+    formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+    
+    let now = Date()
+    let estimation = formatter.date(from: lastGpsTime) ?? now
+    
+    let seconds = now.timeIntervalSince(estimation)
+    
+    return Int(seconds)
+    
+  }
+  
   
   
   

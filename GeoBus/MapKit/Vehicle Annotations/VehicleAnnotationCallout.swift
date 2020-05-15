@@ -28,7 +28,7 @@ struct VehicleAnnotationCallout: View {
       }
       HStack {
         Text(
-          "Last seen \(getTimeInterval(for: annotation.lastGpsTime)) ago"
+          "Last seen \(annotation.lastSeen) seconds ago"
             + " (Bus #\(annotation.busNumber))")
           .font(.footnote)
           .foregroundColor(Color(.secondaryLabel))

@@ -17,16 +17,15 @@ struct StopBadge: View {
   var body: some View {
     
     HStack {
-      VStack {
-        Text((orderInRoute < 10 ? "0\(orderInRoute)" : "\(orderInRoute)" ))
+      ZStack {
+        getStopIconName(for: direction)
+          .renderingMode(.original)
+        Text("\(orderInRoute)")
           .font(.caption)
           .fontWeight(.bold)
           .foregroundColor(Color(.white))
       }
       .padding(7)
-      .background(getColor(for: direction))
-      .cornerRadius(.infinity)
-      .padding(.trailing, 3)
       
       
       Text(name)
@@ -38,11 +37,14 @@ struct StopBadge: View {
     
   }
   
-  func getColor(for direction: Route.Direction) -> Color {
+  func getStopIconName(for direction: Route.Direction) -> Image {
     switch direction {
-      case .ascending: return Color(.systemGreen)
-      case .descending: return Color(.systemBlue)
-      default: return Color(.systemBlue)
+      case .ascending:
+        return Image("PinkCircle")
+      case .descending:
+        return Image("OrangeCircle")
+      case .circular:
+        return Image("BlueCircle")
     }
   }
   

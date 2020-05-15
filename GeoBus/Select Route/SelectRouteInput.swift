@@ -59,10 +59,16 @@ struct SelectRouteInput: View {
           .padding()
       }
       
-      Text("Choose a Route Number (ex: 28E or 758).")
-        .font(.body)
-        .multilineTextAlignment(.center)
-        .padding()
+      VStack {
+        Text("Choose a Route Number")
+          .font(.body)
+          .multilineTextAlignment(.center)
+        Text("(ex: 28E or 758)")
+          .font(.footnote)
+          .multilineTextAlignment(.center)
+      }
+      .padding()
+      
     }
   }
 }

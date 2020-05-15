@@ -15,4 +15,5 @@ struct RouteVariant: Codable, Identifiable, Equatable {
   var ascending: [Stop] = []
   var descending: [Stop] = []
   var circular: [Stop] = []
+  
 }

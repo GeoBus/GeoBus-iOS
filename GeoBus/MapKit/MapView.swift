@@ -28,6 +28,7 @@ struct MapView: UIViewRepresentable {
     mapView.showsUserLocation = true
     mapView.showsTraffic = true
     mapView.isRotateEnabled = false
+    mapView.isPitchEnabled = false
     
     mapView.register(StopAnnotationView.self, forAnnotationViewWithReuseIdentifier: "stop")
     mapView.register(VehicleAnnotationView.self, forAnnotationViewWithReuseIdentifier: "vehicle")

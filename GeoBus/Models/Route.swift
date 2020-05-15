@@ -13,7 +13,7 @@ struct Route: Codable, Identifiable, Equatable {
   let number: String
   let name: String
   let kind: String
-  let variants: [RouteVariant]
+  var variants: [RouteVariant]
 
   enum Direction {
     case ascending

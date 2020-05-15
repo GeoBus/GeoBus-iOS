@@ -49,7 +49,7 @@ class RoutesStorage: ObservableObject {
   /* * */
   
   
-
+  
   
   
   /* * */
@@ -248,6 +248,9 @@ class RoutesStorage: ObservableObject {
   func select(variant: RouteVariant) {
     self.previousSelectedVariant = selectedVariant
     self.selectedVariant = variant
+    self.selectedVariant?.ascending.sort(by: { $0.orderInRoute < $1.orderInRoute })
+    self.selectedVariant?.descending.sort(by: { $0.orderInRoute < $1.orderInRoute })
+    self.selectedVariant?.circular.sort(by: { $0.orderInRoute < $1.orderInRoute })
     self.stopAnnotations = formatStopAnnotations(of: self.selectedVariant!)
     self.routeChanged = true
   }
@@ -452,9 +455,9 @@ class RoutesStorage: ObservableObject {
   
   
   /* * * *
-  * MAP: FORMAT STOP ANNOTATIONS
-  * This function returns an array of [StopAnnotation] for the provided RouteVariant.
-  */
+   * MAP: FORMAT STOP ANNOTATIONS
+   * This function returns an array of [StopAnnotation] for the provided RouteVariant.
+   */
   func formatStopAnnotations(of variant: RouteVariant) -> [StopAnnotation] {
     
     var formatedAnnotations: [StopAnnotation] = []

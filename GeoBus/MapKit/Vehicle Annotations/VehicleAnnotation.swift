@@ -8,13 +8,16 @@
 
 import Foundation
 import MapKit
+import SwiftUI
 
 class VehicleAnnotation: NSObject, MKAnnotation {
+  
+  @Environment(\.colorScheme) var colorScheme: ColorScheme
   
   let busNumber: String
   let routeNumber: String
   var lastStopInRoute: String
-  let lastGpsTime: String
+  let lastSeen: Int
   let kind: Vehicle.Kind
   
   let coordinate: CLLocationCoordinate2D
@@ -25,7 +28,7 @@ class VehicleAnnotation: NSObject, MKAnnotation {
     busNumber: String,
     routeNumber: String,
     lastStopInRoute: String,
-    lastGpsTime: String,
+    lastSeen: Int,
     kind: Vehicle.Kind,
     latitude: Double,
     longitude: Double,
@@ -34,7 +37,7 @@ class VehicleAnnotation: NSObject, MKAnnotation {
     self.busNumber = busNumber
     self.routeNumber = routeNumber
     self.lastStopInRoute = lastStopInRoute
-    self.lastGpsTime = lastGpsTime
+    self.lastSeen = lastSeen
     self.kind = kind
     self.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
     self.angleInRadians = angleInRadians

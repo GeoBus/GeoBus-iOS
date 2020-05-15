@@ -19,6 +19,7 @@ struct SelectedRouteScreen: View {
   var body: some View {
     
     VStack(alignment: .leading) {
+      
       HStack {
         LiveIcon()
         if vehiclesStorage.vehicles.count == 1 {

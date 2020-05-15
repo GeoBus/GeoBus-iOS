@@ -80,7 +80,10 @@
 "The route you entered does not exist." = "The route you entered does not exist.";
 
 /* No comment provided by engineer. */
-"Choose a Route Number (ex: 28E or 758)." = "Choose a Route Number (ex: 28E or 758).";
+"Choose a Route Number" = "Choose a Route Number";
+
+/* No comment provided by engineer. */
+"(ex: 28E or 758)" = "(ex: 28E or 758).";
 
 /* No comment provided by engineer. */
 "Trams" = "Trams";
@@ -102,3 +105,6 @@
 
 /* No comment provided by engineer. */
 "direction:" = "direction:";
+
+/* No comment provided by engineer. */
+"Last seen %lld seconds ago" = "Last seen %lld seconds ago";

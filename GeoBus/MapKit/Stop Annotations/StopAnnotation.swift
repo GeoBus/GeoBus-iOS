@@ -47,7 +47,7 @@ class StopAnnotation: NSObject, MKAnnotation {
       case .descending:
         return UIImage(named: "OrangeArrowDown")!
       case .circular:
-        return UIImage(named: "OrangeArrowDown")!
+        return UIImage(named: "BlueArrowRight")!
     }
   }
   

@@ -10,12 +10,24 @@ import SwiftUI
 
 struct ChooseRouteScreen: View {
   
+  let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "?"
+  
   var body: some View {
     
-    VStack(alignment: .leading) {
-      Text("← Choose a Route")
-        .font(Font.system(size: 15, weight: .bold, design: .default))
-        .foregroundColor(Color(.secondaryLabel))
+    ZStack(alignment: .bottomTrailing) {
+      VStack(alignment: .leading) {
+        Spacer()
+        HStack {
+          Text("← Choose a Route")
+            .font(Font.system(size: 15, weight: .bold, design: .default))
+            .foregroundColor(Color(.secondaryLabel))
+          Spacer()
+        }
+        Spacer()
+      }
+      Text("v\(version)")
+        .font(Font.system(size: 10))
+        .foregroundColor(Color(.tertiaryLabel))
     }
     
   }

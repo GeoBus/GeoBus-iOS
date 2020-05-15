@@ -34,8 +34,9 @@ struct SelectRouteSheet: View {
           SetOfRoutes(title: Text("Neighborhood Buses"), set: routesStorage.neighborhood, routesStorage: routesStorage, showSelectRouteSheet: $showSelectRouteSheet)
           SetOfRoutes(title: Text("Night Buses"), set: routesStorage.night, routesStorage: routesStorage, showSelectRouteSheet: $showSelectRouteSheet)
           SetOfRoutes(title: Text("Regular Service"), set: routesStorage.regular, routesStorage: routesStorage, showSelectRouteSheet: $showSelectRouteSheet)
-          SetOfRoutes(title: Text("Elevators"), set: routesStorage.elevators, routesStorage: routesStorage, showSelectRouteSheet: $showSelectRouteSheet)
         }
+        
+//        About()
         
       }
     }

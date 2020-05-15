@@ -17,6 +17,9 @@ struct FavoriteRoutes: View {
   
   @Binding var showSelectRouteSheet: Bool
   
+  @State var routeNumberToRemove = ""
+  @State var showConfirmRemoveFromFavorites: Bool = false
+  
   var body: some View {
     VStack {
       Text("Favorite Routes")
@@ -32,12 +35,24 @@ struct FavoriteRoutes: View {
         if routesStorage.favorites.count > 0 {
           
           Grid(routesStorage.favorites) { route in
-            Button(action: {
-              self.routesStorage.select(route: route)
-              self.showSelectRouteSheet = false
-            }){
-              RouteButton(route: route, dimensions: 60)
-            }
+            RouteButton(route: route, dimensions: 60)
+              .onTapGesture(perform: {
+                self.routesStorage.select(route: route)
+                self.showSelectRouteSheet = false
+              })
+              .onLongPressGesture(perform: {
+                self.routeNumberToRemove = route.number
+                self.showConfirmRemoveFromFavorites = true
+              })
+              .alert(isPresented: self.$showConfirmRemoveFromFavorites, content: {
+                Alert(
+                  title: Text("Remove \(self.routeNumberToRemove) from Favorites?"),
+                  primaryButton: .cancel(),
+                  secondaryButton: .destructive(Text("Remove")) {
+                    self.routesStorage.toggleFavorite(route: self.routesStorage.findRoute(from: self.routeNumberToRemove))
+                  }
+                )
+              })
           }
           .gridStyle(ModularGridStyle(columns: .min(70), rows: .fixed(70)))
           
