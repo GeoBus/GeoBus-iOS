@@ -8,6 +8,7 @@
 
 import SwiftUI
 import Combine
+import MapKit
 
 struct ContentView : View {
   
@@ -16,6 +17,8 @@ struct ContentView : View {
   @ObservedObject var routesStorage = RoutesStorage()
   @ObservedObject var vehiclesStorage = VehiclesStorage()
   
+  @State var mapView = MKMapView()
+  
   @State var showSelectRouteSheet: Bool = false
   
   
@@ -23,11 +26,13 @@ struct ContentView : View {
     
     VStack {
       
-      ZStack(alignment: .top) {
+      ZStack(alignment: .topTrailing) {
         
-        MapView(routesStorage: routesStorage, vehiclesStorage: vehiclesStorage)
+        MapView(mapView: $mapView, routesStorage: routesStorage, vehiclesStorage: vehiclesStorage)
           .edgesIgnoringSafeArea(.vertical)
           .padding(.bottom, -10)
+        
+        UserLocation(mapView: $mapView)
         
         if routesStorage.isStopSelected() {
           StopDetails(

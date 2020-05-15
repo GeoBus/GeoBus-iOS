@@ -30,6 +30,8 @@
 		CF1C866D2450ED2400E53C7A /* estimated-icon.json in Resources */ = {isa = PBXBuildFile; fileRef = CF1C866C2450ED2400E53C7A /* estimated-icon.json */; };
 		CF1FD3FA245E3B30001DCB62 /* StopBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1FD3F9245E3B30001DCB62 /* StopBadge.swift */; };
 		CF1FD403245F3161001DCB62 /* routes.json in Resources */ = {isa = PBXBuildFile; fileRef = CF1FD402245F3161001DCB62 /* routes.json */; };
+		CF3EC3D1246EDAFF003F85B3 /* UserLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF3EC3D0246EDAFF003F85B3 /* UserLocation.swift */; };
+		CF3EC3D5246F03CB003F85B3 /* AboutButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF3EC3D4246F03CB003F85B3 /* AboutButton.swift */; };
 		CF40AA9E244F3605002DC2FD /* FavoriteRoutes.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF40AA9D244F3605002DC2FD /* FavoriteRoutes.swift */; };
 		CF40AAA0244F36D7002DC2FD /* SelectRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF40AA9F244F36D7002DC2FD /* SelectRoute.swift */; };
 		CF40AAA5244F3DA1002DC2FD /* EstimationsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF40AAA4244F3DA1002DC2FD /* EstimationsStorage.swift */; };
@@ -102,6 +104,8 @@
 		CF1C866C2450ED2400E53C7A /* estimated-icon.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "estimated-icon.json"; sourceTree = "<group>"; };
 		CF1FD3F9245E3B30001DCB62 /* StopBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopBadge.swift; sourceTree = "<group>"; };
 		CF1FD402245F3161001DCB62 /* routes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = routes.json; sourceTree = "<group>"; };
+		CF3EC3D0246EDAFF003F85B3 /* UserLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLocation.swift; sourceTree = "<group>"; };
+		CF3EC3D4246F03CB003F85B3 /* AboutButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutButton.swift; sourceTree = "<group>"; };
 		CF40AA9D244F3605002DC2FD /* FavoriteRoutes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteRoutes.swift; sourceTree = "<group>"; };
 		CF40AA9F244F36D7002DC2FD /* SelectRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectRoute.swift; sourceTree = "<group>"; };
 		CF40AAA4244F3DA1002DC2FD /* EstimationsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EstimationsStorage.swift; sourceTree = "<group>"; };
@@ -234,6 +238,7 @@
 			isa = PBXGroup;
 			children = (
 				CF072333244A1101007AFAD2 /* MapView.swift */,
+				CF3EC3CF246EDAE3003F85B3 /* User Location */,
 				CFE51D90245D008F007B440B /* Stop Annotations */,
 				CFE51D95245D00DD007B440B /* Vehicle Annotations */,
 			);
@@ -292,8 +297,17 @@
 			isa = PBXGroup;
 			children = (
 				CF1C5DAD246E4D6D0021D081 /* About.swift */,
+				CF3EC3D4246F03CB003F85B3 /* AboutButton.swift */,
 			);
 			path = About;
+			sourceTree = "<group>";
+		};
+		CF3EC3CF246EDAE3003F85B3 /* User Location */ = {
+			isa = PBXGroup;
+			children = (
+				CF3EC3D0246EDAFF003F85B3 /* UserLocation.swift */,
+			);
+			path = "User Location";
 			sourceTree = "<group>";
 		};
 		CF40AA9B244F34E8002DC2FD /* Layout */ = {
@@ -506,6 +520,7 @@
 				CF1786CC244BF4F2005592F3 /* RouteButton.swift in Sources */,
 				CFB4D0D92454C72D00D07534 /* TapticEngine.swift in Sources */,
 				CF5E7546244F8EB500B1EF10 /* LiveIcon.swift in Sources */,
+				CF3EC3D5246F03CB003F85B3 /* AboutButton.swift in Sources */,
 				CF072315244A10D3007AFAD2 /* AppDelegate.swift in Sources */,
 				CFF4980E24524DB700EB9C36 /* RouteVariantWarning.swift in Sources */,
 				CFE51D8F245CAAE5007B440B /* VehicleAnnotationCallout.swift in Sources */,
@@ -548,6 +563,7 @@
 				CF40AAA5244F3DA1002DC2FD /* EstimationsStorage.swift in Sources */,
 				CFF4981024524DB700EB9C36 /* RouteDetailsButton.swift in Sources */,
 				CFE7296C244A721400ED034E /* VehicleAnnotationView.swift in Sources */,
+				CF3EC3D1246EDAFF003F85B3 /* UserLocation.swift in Sources */,
 				CF4570582453436A000AEA87 /* Estimation.swift in Sources */,
 				CF40AA9E244F3605002DC2FD /* FavoriteRoutes.swift in Sources */,
 				CF40AAA7244F3F8A002DC2FD /* VehiclesStorage.swift in Sources */,

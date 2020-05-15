@@ -108,3 +108,12 @@
 
 /* No comment provided by engineer. */
 "Last seen %lld seconds ago" = "Last seen %lld seconds ago";
+
+/* No comment provided by engineer. */
+"AboutTitle" = "Olá!";
+
+/* No comment provided by engineer. */
+"AboutParagraph" = "If you need help with GeoBus, or have ideas to improve it, please send me a message through Twitter, Facebook, Instagram or Email.";
+
+/* No comment provided by engineer. */
+"AboutCallout" = "I'll be delighted to know your opinion.";

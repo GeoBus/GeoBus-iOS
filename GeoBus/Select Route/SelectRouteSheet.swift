@@ -36,7 +36,10 @@ struct SelectRouteSheet: View {
           SetOfRoutes(title: Text("Regular Service"), set: routesStorage.regular, routesStorage: routesStorage, showSelectRouteSheet: $showSelectRouteSheet)
         }
         
-//        About()
+//        HorizontalLine()
+//          .padding(.vertical)
+        
+        About()
         
       }
     }

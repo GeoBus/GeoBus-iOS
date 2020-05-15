@@ -13,12 +13,10 @@ import MapKit
 
 struct MapView: UIViewRepresentable {
   
+  @Binding var mapView: MKMapView
+  
   @ObservedObject var routesStorage: RoutesStorage
   @ObservedObject var vehiclesStorage: VehiclesStorage
-  
-  @State var mapView = MKMapView()
-  
-  private let locationManager = CLLocationManager()
   
   
   func makeUIView(context: UIViewRepresentableContext<MapView>) -> MKMapView {
@@ -37,10 +35,6 @@ struct MapView: UIViewRepresentable {
     let lisbon = CLLocation(latitude: 38.721917, longitude: -9.137732)
     let lisbonArea = MKCoordinateRegion(center: lisbon.coordinate, latitudinalMeters: 15000, longitudinalMeters: 15000)
     mapView.setRegion(lisbonArea, animated: true)
-    
-    // Only ask for location the second time the user opens the app
-    if UserManagement().isReturningUser() { locationManager.requestWhenInUseAuthorization() }
-    else { UserManagement().setReturningUser() }
     
     return mapView
   }
@@ -96,7 +90,6 @@ struct MapView: UIViewRepresentable {
     init(control: MapView) {
       self.control = control
     }
-    
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
       if view.isKind(of: StopAnnotationView.self) {
