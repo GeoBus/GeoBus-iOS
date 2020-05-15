@@ -17,27 +17,27 @@ struct StopBadge: View {
   var body: some View {
     
     HStack {
+   
       ZStack {
-        getStopIconName(for: direction)
+        getStopIcon(for: direction)
           .renderingMode(.original)
         Text("\(orderInRoute)")
           .font(.caption)
           .fontWeight(.bold)
           .foregroundColor(Color(.white))
       }
-      .padding(7)
-      
-      
+
       Text(name)
         .fontWeight(.medium)
         .foregroundColor(Color(.label))
       
       Spacer()
+    
     }
     
   }
   
-  func getStopIconName(for direction: Route.Direction) -> Image {
+  func getStopIcon(for direction: Route.Direction) -> Image {
     switch direction {
       case .ascending:
         return Image("PinkCircle")

@@ -11,6 +11,7 @@ import SwiftUI
 struct ChooseRouteScreen: View {
   
   let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "?"
+  let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "?"
   
   var body: some View {
     
@@ -25,7 +26,7 @@ struct ChooseRouteScreen: View {
         }
         Spacer()
       }
-      Text("v\(version)")
+      Text("v\(version)-\(build)")
         .font(Font.system(size: 10))
         .foregroundColor(Color(.tertiaryLabel))
     }

@@ -171,7 +171,7 @@ class VehiclesStorage: ObservableObject {
           
           for item in decodedData {
           
-            if self.getLastSeenTime(since: item.lastGpsTime) < 90 {
+            if self.getLastSeenTime(since: item.lastGpsTime) < 180 {
               self.vehicles.append(item)
               self.annotations.append(
                 VehicleAnnotation(

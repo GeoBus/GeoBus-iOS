@@ -75,6 +75,7 @@ struct RouteDetailsSheet: View {
       }
     }
     .background(colorScheme == .dark ? Color(.systemBackground) : Color(.secondarySystemBackground))
+    .edgesIgnoringSafeArea(.bottom)
     
   }
 }

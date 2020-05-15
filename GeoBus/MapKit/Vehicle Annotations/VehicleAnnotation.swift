@@ -53,18 +53,21 @@ class VehicleAnnotation: NSObject, MKAnnotation {
   }
   
   
-  var markerSymbol: UIImage  {
+  var activeMarkerSymbol: UIImage  {
     switch kind {
-      case .regular:
-        return UIImage(named: "RegularService")!
       case .tram:
-        return UIImage(named: "Tram")!
-      case .neighborhood:
-        return UIImage(named: "RegularService")!
-      case .night:
-        return UIImage(named: "RegularService")!
-      case .elevator:
-        return UIImage(named: "RegularService")!
+        return UIImage(named: "Tram-Active")!
+      default:
+        return UIImage(named: "RegularService-Active")!
+    }
+  }
+  
+  var stalledMarkerSymbol: UIImage  {
+    switch kind {
+      case .tram:
+        return UIImage(named: "Tram-Stalled")!
+      default:
+        return UIImage(named: "RegularService-Stalled")!
     }
   }
   

@@ -30,7 +30,7 @@ struct About: View {
       AboutButton(icon: Image("Twitter"), text: Text("Twitter"), link: "https://twitter.com/jodvasconcelos")
       AboutButton(icon: Image("Facebook"), text: Text("Facebook"), link: "https://facebook.com/GeoBusLisbon")
       AboutButton(icon: Image("Instagram"), text: Text("Instagram"), link: "https://instagram.com/GeoBusLisbon")
-      AboutButton(icon: Image(systemName: "envelope.fill"), text: Text("Send an Email"), link: "mailto:feedback@joao.earth")
+      AboutButton(icon: Image(systemName: "envelope.fill"), text: Text("Send an Email"), link: "mailto:contact@joao.earth")
       AboutButton(icon: Image(systemName: "globe"), text: Text("Visit the Website"), link: "https://joao.earth")
       
     }

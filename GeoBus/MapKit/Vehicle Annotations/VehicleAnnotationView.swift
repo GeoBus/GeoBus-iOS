@@ -20,12 +20,12 @@ class VehicleAnnotationView: MKAnnotationView {
         return
       }
       
-      marker.image = annotation.markerSymbol
+      marker.image = annotation.lastSeen <= 60 ? annotation.activeMarkerSymbol : annotation.stalledMarkerSymbol
+      marker.alpha = annotation.lastSeen <= 60 ? 1 : 0.5
       
       marker.contentMode = .center
       marker.transform = CGAffineTransform(rotationAngle: CGFloat(annotation.angleInRadians))
       marker.frame = CGRect(origin: .zero, size: marker.image!.size)
-      marker.alpha = annotation.lastSeen > 60 ? 0.3 : 1
 
       frame = marker.frame
       addSubview(marker)
