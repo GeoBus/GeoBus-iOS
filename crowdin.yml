@@ -1,0 +1,3 @@
+files:
+  - source: /GeoBus/en.lproj/*.strings
+    translation: /GeoBus/%osx_code%/%original_file_name%
