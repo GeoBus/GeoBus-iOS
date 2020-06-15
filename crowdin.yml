@@ -1,3 +1,6 @@
 files:
   - source: /GeoBus/en.lproj/*.strings
     translation: /GeoBus/%osx_code%/%original_file_name%
+
+project_id: 407636
+api_token: 6677bb4922badc7075c9f94da9cc0d5b499387ebe5de6f0c5eea3505813f3b1c902e3e3a6aefa784
