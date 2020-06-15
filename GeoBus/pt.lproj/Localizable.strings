@@ -1,7 +1,4 @@
 /* No comment provided by engineer. */
-"-" = "-";
-
-/* No comment provided by engineer. */
 "%lld active vehicles" = "%lld veículos ativos";
 
 /* No comment provided by engineer. */
@@ -11,10 +8,10 @@
 "vehicles in circulation" = "veículos em circulação";
 
 /* No comment provided by engineer. */
-"← Choose a Route" = "← Escolha uma Carreira";
+"+info" = "+info";
 
 /* No comment provided by engineer. */
-"+info" = "+info";
+"-" = "-";
 
 /* No comment provided by engineer. */
 "1 active vehicle" = "1 veículo ativo";
@@ -66,6 +63,9 @@
 
 /* No comment provided by engineer. */
 "You have no favorite routes." = "Ainda não tem carreiras favoritas.";
+
+/* No comment provided by engineer. */
+"← Choose a Route" = "← Escolha uma Carreira";
 
 /* No comment provided by engineer. */
 "Find by Route" = "Carreiras";
