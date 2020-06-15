@@ -20,5 +20,5 @@ jobs:
         download_translations: true
       env:
         GITHUB_TOKEN: $
-        CROWDIN_PROJECT_ID: $
+        CROWDIN_PROJECT_ID: 407636
         CROWDIN_PERSONAL_TOKEN: $
