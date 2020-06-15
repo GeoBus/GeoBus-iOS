@@ -1,5 +1,5 @@
 project_id: 2
-api_token: 1f19152c672b67134f5a787890d0080d58c5477d8cb38b4d86aa289be20cc0c20351c668090e2aff
+api_token: 79c2e6c51241fae421d5a41eac589a174ca7692e1049fe763b42ceda4433fd0f1cbbf7f49f01d4b0
 files:
   - source: /GeoBus/en.lproj/*.strings
     translation: /GeoBus/%osx_code%/%original_file_name%
