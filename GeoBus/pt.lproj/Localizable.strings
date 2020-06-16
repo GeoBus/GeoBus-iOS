@@ -41,7 +41,7 @@
 "Next on this stop" = "Próximos nesta paragem";
 
 /* No comment provided by engineer. */
-"Nothing to show here." = "Nenhum resultado.";
+"Nothing to show here." = "Nada para mostrar.";
 
 /* No comment provided by engineer. */
 "Please check your internet connection." = "Por favor verifique a sua ligação à internet.";
@@ -80,7 +80,7 @@
 "The route you entered does not exist." = "A carreira que introduziu não existe.";
 
 /* No comment provided by engineer. */
-"Choose a Route Number" = "Introduza uma Carreira";
+"Choose a Route Number" = "Introduza uma carreira";
 
 /* No comment provided by engineer. */
 "(ex: 28E or 758)" = "(ex: 28E ou 758).";
@@ -116,4 +116,4 @@
 "AboutParagraph" = "Se precisar de ajuda para utilizar o GeoBus, ou se tiver alguma ideia para o melhorar, por favor mande-me uma mensagem pelo Twitter, Facebook, Instagram ou Email.";
 
 /* No comment provided by engineer. */
-"AboutCallout" = "Gostava muito de saber a sua opinião.";
+"AboutCallout" = "Gostaria muito de saber a sua opinião.";
