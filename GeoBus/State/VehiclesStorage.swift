@@ -15,7 +15,7 @@ class VehiclesStorage: ObservableObject {
   /* MARK: - Settings */
   
   private var syncInterval = 10.0 // seconds
-  private var endpoint = "https://carris.tecmic.com/api/v2.8/vehicleStatuses/routeNumber/"
+  private var service = "vehicleStatuses/routeNumber/"
   
   /* * */
   
@@ -34,6 +34,8 @@ class VehiclesStorage: ObservableObject {
   /* * */
   /* MARK: - Private Variables */
   
+  private var endpointStorage: EndpointStorage
+  
   private var timer: Timer? = nil
   
   private var routeNumber: String = ""
@@ -44,6 +46,7 @@ class VehiclesStorage: ObservableObject {
   
   
   init() {
+    self.endpointStorage = EndpointStorage()
     self.timer = Timer.scheduledTimer(
       timeInterval: syncInterval,
       target: self,
@@ -142,16 +145,18 @@ class VehiclesStorage: ObservableObject {
     
     self.set(state: .loading)
     
-    // Setup the url
-    let url = URL(string: endpoint + routeNumber)!
+    var request = URLRequest(url: URL(string: endpointStorage.endpoint + service + routeNumber)!)
     
-    // Configure a session
-    let session = URLSession(configuration: URLSessionConfiguration.default)
+    request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+    request.addValue("application/json", forHTTPHeaderField: "Accept")
+    request.setValue( "Bearer \(endpointStorage.token)", forHTTPHeaderField: "Authorization")
     
     // Create the task
-    let task = session.dataTask(with: url) { (data, response, error) in
+    let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
       
       let httpResponse = response as? HTTPURLResponse
+      
+      print(httpResponse)
       
       // Check status of response
       if httpResponse?.statusCode != 200 {
