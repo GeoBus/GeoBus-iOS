@@ -8,8 +8,8 @@
 
 import Foundation
 
-struct Endpoint: Codable, Identifiable, Equatable {
+struct Authorization: Codable, Identifiable, Equatable {
   let id = UUID()
-  let endpoint: String
-  let token: String
+  let authorizationToken: String
+  let refreshToken: String
 }

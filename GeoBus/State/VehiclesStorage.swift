@@ -15,6 +15,7 @@ class VehiclesStorage: ObservableObject {
   /* MARK: - Settings */
   
   private var syncInterval = 10.0 // seconds
+  private var endpoint = "https://gateway.carris.pt/gateway/xtranpassengerapi/api/v2.9/"
   private var service = "vehicleStatuses/routeNumber/"
   
   /* * */
@@ -34,7 +35,7 @@ class VehiclesStorage: ObservableObject {
   /* * */
   /* MARK: - Private Variables */
   
-  private var endpointStorage: EndpointStorage
+  private var authentication: Authentication
   
   private var timer: Timer? = nil
   
@@ -46,7 +47,7 @@ class VehiclesStorage: ObservableObject {
   
   
   init() {
-    self.endpointStorage = EndpointStorage()
+    self.authentication = Authentication()
     self.timer = Timer.scheduledTimer(
       timeInterval: syncInterval,
       target: self,
@@ -145,18 +146,16 @@ class VehiclesStorage: ObservableObject {
     
     self.set(state: .loading)
     
-    var request = URLRequest(url: URL(string: endpointStorage.endpoint + service + routeNumber)!)
+    var request = URLRequest(url: URL(string: endpoint + service + routeNumber)!)
     
     request.addValue("application/json", forHTTPHeaderField: "Content-Type")
     request.addValue("application/json", forHTTPHeaderField: "Accept")
-    request.setValue( "Bearer \(endpointStorage.token)", forHTTPHeaderField: "Authorization")
+    request.setValue( "Bearer \(authentication.authorizationToken)", forHTTPHeaderField: "Authorization")
     
     // Create the task
     let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
       
       let httpResponse = response as? HTTPURLResponse
-      
-      print(httpResponse)
       
       // Check status of response
       if httpResponse?.statusCode != 200 {
