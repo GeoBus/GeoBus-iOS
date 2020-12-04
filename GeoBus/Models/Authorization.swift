@@ -9,7 +9,7 @@
 import Foundation
 
 struct Authorization: Codable, Identifiable, Equatable {
-  let id = UUID()
+  var id = UUID()
   let authorizationToken: String
   let refreshToken: String
 }

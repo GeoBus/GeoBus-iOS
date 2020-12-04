@@ -9,7 +9,7 @@
 import Foundation
 
 struct Route: Codable, Identifiable, Equatable {
-  let id = UUID()
+  var id = UUID()
   let number: String
   let name: String
   let kind: String

@@ -31,7 +31,7 @@ class Authentication: ObservableObject {
   
   init() {
     
-    statements
+//    statements
     
   }
   

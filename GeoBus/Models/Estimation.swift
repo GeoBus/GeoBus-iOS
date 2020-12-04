@@ -9,7 +9,7 @@
 import Foundation
 
 struct Estimation: Codable, Identifiable, Equatable {
-  let id = UUID()
+  var id = UUID()
   let routeNumber: String
   let destination: String
   let time: String // Expected time of arrival

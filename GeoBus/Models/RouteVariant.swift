@@ -9,7 +9,7 @@
 import Foundation
 
 struct RouteVariant: Codable, Identifiable, Equatable {
-  let id = UUID()
+  var id = UUID()
   let number: Int
   let isCircular: Bool
   var ascending: [Stop] = []
