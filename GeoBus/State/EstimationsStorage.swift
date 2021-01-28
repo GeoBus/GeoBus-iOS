@@ -16,7 +16,7 @@ class EstimationsStorage: ObservableObject {
   
   private let syncInterval = 30.0 // seconds
   private let howManyResults = "/top/5" // results
-  private let endpoint = "https://carris.tecmic.com/api/v2.8/Estimations/busStop/"
+  private let endpoint = "https://gateway.carris.pt/gateway/xtranpassengerapi/api/v2.9/Estimations/busStop/"
   
   /* * */
   
@@ -27,6 +27,7 @@ class EstimationsStorage: ObservableObject {
   
   private var stopPublicId: String = ""
   private var timer: Timer? = nil
+  private var authentication: Authentication
   
   /* * */
   
@@ -54,6 +55,7 @@ class EstimationsStorage: ObservableObject {
    *  3. Initiate the timer to update estimations every x seconds.
    */
   init(publicId: String) {
+    self.authentication = Authentication()
     self.stopPublicId = publicId
     self.getEstimations()
     self.timer = Timer.scheduledTimer(
@@ -77,19 +79,22 @@ class EstimationsStorage: ObservableObject {
     
     isLoading = true
     
-    // Setup the url
-    let url = URL(string: endpoint + stopPublicId + howManyResults)!
+    var request = URLRequest(url: URL(string: endpoint + stopPublicId + howManyResults)!)
     
-    // Configure a session
-    let session = URLSession(configuration: URLSessionConfiguration.default)
+    request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+    request.addValue("application/json", forHTTPHeaderField: "Accept")
+    request.setValue("Bearer \(authentication.authToken)", forHTTPHeaderField: "Authorization")
     
     // Create the task
-    let task = session.dataTask(with: url) { (data, response, error) in
+    let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
       
       let httpResponse = response as? HTTPURLResponse
       
       // Check status of response
-      if httpResponse?.statusCode != 200 {
+      if httpResponse?.statusCode == 401 {
+        self.authentication.authenticate()
+        self.getEstimations()
+      } else if httpResponse?.statusCode != 200 {
         print("Error: API failed at getEstimations()")
         return
       }

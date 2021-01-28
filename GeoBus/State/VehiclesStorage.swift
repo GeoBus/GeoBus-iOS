@@ -15,7 +15,8 @@ class VehiclesStorage: ObservableObject {
   /* MARK: - Settings */
   
   private var syncInterval = 10.0 // seconds
-  private var endpoint = "https://carris.tecmic.com/api/v2.8/vehicleStatuses/routeNumber/"
+  private var endpoint = "https://gateway.carris.pt/gateway/xtranpassengerapi/api/v2.9/"
+  private var service = "vehicleStatuses/routeNumber/"
   
   /* * */
   
@@ -34,6 +35,8 @@ class VehiclesStorage: ObservableObject {
   /* * */
   /* MARK: - Private Variables */
   
+  private var authentication: Authentication
+  
   private var timer: Timer? = nil
   
   private var routeNumber: String = ""
@@ -44,6 +47,7 @@ class VehiclesStorage: ObservableObject {
   
   
   init() {
+    self.authentication = Authentication()
     self.timer = Timer.scheduledTimer(
       timeInterval: syncInterval,
       target: self,
@@ -142,19 +146,22 @@ class VehiclesStorage: ObservableObject {
     
     self.set(state: .loading)
     
-    // Setup the url
-    let url = URL(string: endpoint + routeNumber)!
+    var request = URLRequest(url: URL(string: endpoint + service + routeNumber)!)
     
-    // Configure a session
-    let session = URLSession(configuration: URLSessionConfiguration.default)
+    request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+    request.addValue("application/json", forHTTPHeaderField: "Accept")
+    request.setValue("Bearer \(authentication.authToken)", forHTTPHeaderField: "Authorization")
     
     // Create the task
-    let task = session.dataTask(with: url) { (data, response, error) in
+    let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
       
       let httpResponse = response as? HTTPURLResponse
       
       // Check status of response
-      if httpResponse?.statusCode != 200 {
+      if httpResponse?.statusCode == 401 {
+        self.authentication.authenticate()
+        self.getVehicles()
+      } else if httpResponse?.statusCode != 200 {
         print("Error: API failed at getVehicles()")
         OperationQueue.main.addOperation { self.set(state: .error) }
         return
@@ -163,6 +170,8 @@ class VehiclesStorage: ObservableObject {
       do {
         
         let decodedData = try JSONDecoder().decode([Vehicle].self, from: data!)
+        
+        print(decodedData)
         
         OperationQueue.main.addOperation {
           
@@ -288,19 +297,23 @@ class VehiclesStorage: ObservableObject {
     
     for vehicle in annotations {
       
-      // Setup the url
-      let url = URL(string: "https://carris.tecmic.com/api/v2.8/SGO/busNumber/\(vehicle.busNumber)")!
       
-      // Configure a session
-      let session = URLSession(configuration: URLSessionConfiguration.default)
+      var request = URLRequest(url: URL(string: "https://gateway.carris.pt/gateway/xtranpassengerapi/api/v2.9/SGO/busNumber/\(vehicle.busNumber)")!)
+      
+      request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+      request.addValue("application/json", forHTTPHeaderField: "Accept")
+      request.setValue("Bearer \(authentication.authToken)", forHTTPHeaderField: "Authorization")
       
       // Create the task
-      let task = session.dataTask(with: url) { (data, response, error) in
+      let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
         
         let httpResponse = response as? HTTPURLResponse
         
         // Check status of response
-        if httpResponse?.statusCode != 200 {
+        if httpResponse?.statusCode == 401 {
+          self.authentication.authenticate()
+          self.getVehiclesSGO()
+        } else if httpResponse?.statusCode != 200 {
           print("Error: API failed at getVehiclesSGO()")
           return
         }
