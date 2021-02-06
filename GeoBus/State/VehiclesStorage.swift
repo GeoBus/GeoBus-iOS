@@ -159,8 +159,11 @@ class VehiclesStorage: ObservableObject {
       
       // Check status of response
       if httpResponse?.statusCode == 401 {
-        self.authentication.authenticate()
-        self.getVehicles()
+        OperationQueue.main.addOperation {
+          self.authentication.authenticate()
+          self.getVehicles()
+        }
+        return
       } else if httpResponse?.statusCode != 200 {
         print("Error: API failed at getVehicles()")
         OperationQueue.main.addOperation { self.set(state: .error) }
@@ -170,8 +173,6 @@ class VehiclesStorage: ObservableObject {
       do {
         
         let decodedData = try JSONDecoder().decode([Vehicle].self, from: data!)
-        
-        print(decodedData)
         
         OperationQueue.main.addOperation {
           

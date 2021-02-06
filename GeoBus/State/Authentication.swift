@@ -113,7 +113,7 @@ class Authentication: ObservableObject {
     } else {
       parameters = [
         "token": self.refreshToken,
-        "type": "refreshToken" // is this really it?
+        "type": "refresh" // is this really it?
       ]
     }
     
@@ -135,6 +135,7 @@ class Authentication: ObservableObject {
       // Check status of response
       if httpResponse?.statusCode != 200 {
         print("Error: API failed at authenticate()")
+        self.authenticate()
         return
       }
       
