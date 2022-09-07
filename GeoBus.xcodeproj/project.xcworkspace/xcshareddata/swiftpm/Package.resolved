@@ -10,6 +10,15 @@
       }
     },
     {
+      "identity" : "push-notifications-swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pusher/push-notifications-swift",
+      "state" : {
+        "revision" : "cff2308b83ee27e4cfa25e191e103dfe6d6d18d2",
+        "version" : "3.0.4"
+      }
+    },
+    {
       "identity" : "swiftui-grid",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/spacenation/swiftui-grid",
