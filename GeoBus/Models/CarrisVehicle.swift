@@ -9,7 +9,7 @@
 import Foundation
 
 struct CarrisVehicle: Codable, Identifiable, Equatable {
-  let id = UUID()
+  var id = UUID()
   let busNumber: Int
   let vehiclePlate: String?
   let driverNumber: String?

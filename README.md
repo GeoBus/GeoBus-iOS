@@ -1,2 +1,2 @@
-# GeoBus iOS
-GeoBus iOS App, written in Swift and SwiftUI
+# GeoBus for iOS
+GeoBus iOS App, written in Swift and SwiftUI.
