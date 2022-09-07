@@ -70,8 +70,6 @@
 		CFD9E25024561EB700AFA80B /* ChooseRouteScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD9E24F24561EB700AFA80B /* ChooseRouteScreen.swift */; };
 		CFE51D8F245CAAE5007B440B /* VehicleAnnotationCallout.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE51D8E245CAAE5007B440B /* VehicleAnnotationCallout.swift */; };
 		CFE7296C244A721400ED034E /* VehicleAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE7296B244A721400ED034E /* VehicleAnnotationView.swift */; };
-		CFEB74C624F3C89B009F55B9 /* Authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFEB74C524F3C89B009F55B9 /* Authentication.swift */; };
-		CFEB74C824F3C9F4009F55B9 /* Authorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFEB74C724F3C9F3009F55B9 /* Authorization.swift */; };
 		CFF4980C24524DB700EB9C36 /* RouteVariantPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFF4980224524DB700EB9C36 /* RouteVariantPicker.swift */; };
 		CFF4980D24524DB700EB9C36 /* StopsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFF4980324524DB700EB9C36 /* StopsList.swift */; };
 		CFF4980E24524DB700EB9C36 /* RouteVariantWarning.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFF4980424524DB700EB9C36 /* RouteVariantWarning.swift */; };
@@ -478,7 +476,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1140;
-				LastUpgradeCheck = 1230;
+				LastUpgradeCheck = 1340;
 				ORGANIZATIONNAME = "João de Vasconcelos";
 				TargetAttributes = {
 					CF072310244A10D3007AFAD2 = {
@@ -582,7 +580,6 @@
 				CF1167F725C2EAA100A0A07E /* Authorization.swift in Sources */,
 				CFF4981024524DB700EB9C36 /* RouteDetailsButton.swift in Sources */,
 				CFE7296C244A721400ED034E /* VehicleAnnotationView.swift in Sources */,
-				CFEB74C624F3C89B009F55B9 /* Authentication.swift in Sources */,
 				CF3EC3D1246EDAFF003F85B3 /* UserLocation.swift in Sources */,
 				CF4570582453436A000AEA87 /* Estimation.swift in Sources */,
 				CF40AA9E244F3605002DC2FD /* FavoriteRoutes.swift in Sources */,
@@ -595,7 +592,6 @@
 				CF4454B1244E42FB00C87691 /* VerticalLine.swift in Sources */,
 				CF07235C244A112C007AFAD2 /* LottieView.swift in Sources */,
 				CF40AAA0244F36D7002DC2FD /* SelectRoute.swift in Sources */,
-				CFEB74C824F3C9F4009F55B9 /* Authorization.swift in Sources */,
 				CFB2E99C2451FD01006915E2 /* RouteVariant.swift in Sources */,
 				CF45705A2453477A000AEA87 /* StopDetails.swift in Sources */,
 			);
@@ -754,7 +750,7 @@
 				DEVELOPMENT_TEAM = D7S2TY22W7;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = GeoBus/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -778,7 +774,7 @@
 				DEVELOPMENT_TEAM = D7S2TY22W7;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = GeoBus/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

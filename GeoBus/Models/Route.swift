@@ -1,5 +1,5 @@
 //
-//  RecentRoutes.swift
+//  Route.swift
 //  GeoBus
 //
 //  Created by João on 19/04/2020.
@@ -9,7 +9,7 @@
 import Foundation
 
 struct Route: Codable, Identifiable, Equatable {
-  var id = UUID()
+    let id = UUID()
   let number: String
   let name: String
   let kind: String

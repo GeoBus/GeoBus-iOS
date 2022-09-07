@@ -9,7 +9,7 @@
 import Foundation
 
 struct Stop: Codable, Identifiable, Equatable {
-  var id = UUID()
+  let id = UUID()
   let orderInRoute: Int
   let publicId: String
   let name: String

@@ -79,11 +79,11 @@ class RoutesStorage: ObservableObject {
   func retrieveRoutes() {
     if let path = Bundle.main.path(forResource: "routes", ofType: "json") {
       do {
-        let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
-        let decodedData = try JSONDecoder().decode([Route].self, from: data)
+        let data = try Data(contentsOf: URL(fileURLWithPath: path))
+          let decodedData = try JSONDecoder().decode([Route].self, from: data)
         self.all.append(contentsOf: decodedData)
       } catch {
-        print("Error: \(error.localizedDescription)")
+        print("Error: \(error)")
       }
     }
   }

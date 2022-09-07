@@ -10,7 +10,7 @@ import Foundation
 import MapKit
 
 struct Vehicle: Codable, Identifiable, Equatable {
-  var id = UUID()
+  let id = UUID()
   let busNumber: Int
   let vehiclePlate: String?
   let driverNumber: String?
