@@ -14,8 +14,8 @@ class Authentication: ObservableObject {
   /* * */
   /* MARK: - Settings */
   
+  private let apiKey = "1947a1b26468545de0e8f4444effcc2de2eb6660ae677a22d62614bfbf1b630d"
   private var endpoint = "https://gateway.carris.pt/gateway/authenticationapi/authorization/sign"
-  private var refreshToken = ""
   
   /* * */
   
@@ -24,37 +24,54 @@ class Authentication: ObservableObject {
   /* * */
   /* MARK: - Published Variables */
   
-  @Published var authorizationToken: String = ""
+  @Published var authToken = ""
   
   /* * */
   
   
+  
+  /* * */
+  /* MARK: - Private Variables */
+  
+  private var refreshToken = ""
+  
+  /* * */
+  
+  
+  
+  
+  /* * */
+  /* MARK: - State */
   init() {
     
-//    statements
+    //    statements
     
   }
   
   
-
+  
+  
+  
   /* * * *
-   * INIT: RETRIEVE FAVORITES
-   * This function retrieves favorites from iCloud Key-Value-Storage.
+   * STATE: GET VEHICLES
+   * This function calls the GeoBus API and receives vehicle metadata, including positions, for the set route number,
+   * while storing them in the vehicles array. It also formats VehicleAnnotations and stores them in the annotations array.
+   * It must have @objc flag because Timer is written in Objective-C.
    */
   func retrieveRefreshToken() {
     
-    // Get from iCloud
-    let iCloudKeyStore = NSUbiquitousKeyValueStore()
-    iCloudKeyStore.synchronize()
-    let savedFavorites = iCloudKeyStore.array(forKey: "favoriteRoutes") as? [String] ?? []
-    
-    // Save to array
-    for routeNumber in savedFavorites {
-      let route = findRoute(from: routeNumber)
-      if route != nil {
-        self.favorites.append( route! )
-      }
-    }
+//    // Get from iCloud
+//    let iCloudKeyStore = NSUbiquitousKeyValueStore()
+//    iCloudKeyStore.synchronize()
+//    let savedFavorites = iCloudKeyStore.array(forKey: "favoriteRoutes") as? [String] ?? []
+//
+//    // Save to array
+//    for routeNumber in savedFavorites {
+//      let route = findRoute(from: routeNumber)
+//      if route != nil {
+//        self.favorites.append( route! )
+//      }
+//    }
     
   }
   
@@ -79,22 +96,46 @@ class Authentication: ObservableObject {
    * while storing them in the vehicles array. It also formats VehicleAnnotations and stores them in the annotations array.
    * It must have @objc flag because Timer is written in Objective-C.
    */
-  private func authenticate() {
+  func authenticate() {
     
-    // Setup the url
-    let url = URL(string: endpoint)!
+    var request = URLRequest(url: URL(string: endpoint)!)
     
-    // Configure a session
-    let session = URLSession(configuration: URLSessionConfiguration.default)
+    request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+    request.httpMethod = "POST"
+    
+    var parameters: [String: Any]
+    
+    if (refreshToken.isEmpty) {
+      parameters = [
+        "token": self.apiKey,
+        "type": "apikey"
+      ]
+    } else {
+      parameters = [
+        "token": self.refreshToken,
+        "type": "refresh" // is this really it?
+      ]
+    }
+    
+    
+    
+    do {
+      request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted) // pass dictionary to nsdata object and set it as request body
+    } catch let error {
+      print(error.localizedDescription)
+    }
+    
+    
     
     // Create the task
-    let task = session.dataTask(with: url) { (data, response, error) in
+    let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
       
       let httpResponse = response as? HTTPURLResponse
       
       // Check status of response
       if httpResponse?.statusCode != 200 {
-        print("Error: API failed at fetchEndpoint()")
+        print("Error: API failed at authenticate()")
+        self.authenticate()
         return
       }
       
@@ -104,7 +145,7 @@ class Authentication: ObservableObject {
         
         OperationQueue.main.addOperation {
           
-          self.authorizationToken = decodedData.authorizationToken
+          self.authToken = decodedData.authorizationToken
           self.refreshToken = decodedData.refreshToken
           
         }

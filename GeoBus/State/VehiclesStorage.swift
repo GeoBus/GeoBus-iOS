@@ -150,7 +150,7 @@ class VehiclesStorage: ObservableObject {
     
     request.addValue("application/json", forHTTPHeaderField: "Content-Type")
     request.addValue("application/json", forHTTPHeaderField: "Accept")
-    request.setValue( "Bearer \(authentication.authorizationToken)", forHTTPHeaderField: "Authorization")
+    request.setValue("Bearer \(authentication.authToken)", forHTTPHeaderField: "Authorization")
     
     // Create the task
     let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
@@ -158,7 +158,13 @@ class VehiclesStorage: ObservableObject {
       let httpResponse = response as? HTTPURLResponse
       
       // Check status of response
-      if httpResponse?.statusCode != 200 {
+      if httpResponse?.statusCode == 401 {
+        OperationQueue.main.addOperation {
+          self.authentication.authenticate()
+          self.getVehicles()
+        }
+        return
+      } else if httpResponse?.statusCode != 200 {
         print("Error: API failed at getVehicles()")
         OperationQueue.main.addOperation { self.set(state: .error) }
         return
@@ -292,19 +298,23 @@ class VehiclesStorage: ObservableObject {
     
     for vehicle in annotations {
       
-      // Setup the url
-      let url = URL(string: "https://carris.tecmic.com/api/v2.8/SGO/busNumber/\(vehicle.busNumber)")!
       
-      // Configure a session
-      let session = URLSession(configuration: URLSessionConfiguration.default)
+      var request = URLRequest(url: URL(string: "https://gateway.carris.pt/gateway/xtranpassengerapi/api/v2.9/SGO/busNumber/\(vehicle.busNumber)")!)
+      
+      request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+      request.addValue("application/json", forHTTPHeaderField: "Accept")
+      request.setValue("Bearer \(authentication.authToken)", forHTTPHeaderField: "Authorization")
       
       // Create the task
-      let task = session.dataTask(with: url) { (data, response, error) in
+      let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
         
         let httpResponse = response as? HTTPURLResponse
         
         // Check status of response
-        if httpResponse?.statusCode != 200 {
+        if httpResponse?.statusCode == 401 {
+          self.authentication.authenticate()
+          self.getVehiclesSGO()
+        } else if httpResponse?.statusCode != 200 {
           print("Error: API failed at getVehiclesSGO()")
           return
         }

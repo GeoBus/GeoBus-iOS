@@ -1,34 +1,23 @@
 {
-  "object": {
-    "pins": [
-      {
-        "package": "Lottie",
-        "repositoryURL": "https://github.com/airbnb/lottie-ios",
-        "state": {
-          "branch": "master",
-          "revision": "934954c378fbd49f3798931cd314740ff3176972",
-          "version": null
-        }
-      },
-      {
-        "package": "PushNotifications",
-        "repositoryURL": "https://github.com/pusher/push-notifications-swift",
-        "state": {
-          "branch": null,
-          "revision": "cff2308b83ee27e4cfa25e191e103dfe6d6d18d2",
-          "version": "3.0.4"
-        }
-      },
-      {
-        "package": "Grid",
-        "repositoryURL": "https://github.com/spacenation/swiftui-grid",
-        "state": {
-          "branch": "master",
-          "revision": "a3441f80bd01029507bc19e463e7c7208ffcf3f9",
-          "version": null
-        }
+  "pins" : [
+    {
+      "identity" : "lottie-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/airbnb/lottie-ios",
+      "state" : {
+        "branch" : "master",
+        "revision" : "934954c378fbd49f3798931cd314740ff3176972"
       }
-    ]
-  },
-  "version": 1
+    },
+    {
+      "identity" : "swiftui-grid",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/spacenation/swiftui-grid",
+      "state" : {
+        "branch" : "master",
+        "revision" : "a3441f80bd01029507bc19e463e7c7208ffcf3f9"
+      }
+    }
+  ],
+  "version" : 2
 }

@@ -22,6 +22,8 @@
 		CF072362244A1134007AFAD2 /* IndexedCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF072360244A1134007AFAD2 /* IndexedCollection.swift */; };
 		CF072363244A1134007AFAD2 /* ForEach.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF072361244A1134007AFAD2 /* ForEach.swift */; };
 		CF072366244A117A007AFAD2 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = CF072365244A117A007AFAD2 /* Lottie */; };
+		CF1167F425C2DB5000A0A07E /* Authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1167F325C2DB5000A0A07E /* Authentication.swift */; };
+		CF1167F725C2EAA100A0A07E /* Authorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1167F625C2EAA100A0A07E /* Authorization.swift */; };
 		CF1786CA244BF247005592F3 /* SheetHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1786C9244BF247005592F3 /* SheetHeader.swift */; };
 		CF1786CC244BF4F2005592F3 /* RouteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1786CB244BF4F2005592F3 /* RouteButton.swift */; };
 		CF1786CE244BFB93005592F3 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1786CD244BFB93005592F3 /* Route.swift */; };
@@ -100,6 +102,8 @@
 		CF072359244A112C007AFAD2 /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		CF072360244A1134007AFAD2 /* IndexedCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndexedCollection.swift; sourceTree = "<group>"; };
 		CF072361244A1134007AFAD2 /* ForEach.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForEach.swift; sourceTree = "<group>"; };
+		CF1167F325C2DB5000A0A07E /* Authentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authentication.swift; sourceTree = "<group>"; };
+		CF1167F625C2EAA100A0A07E /* Authorization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authorization.swift; sourceTree = "<group>"; };
 		CF1786C9244BF247005592F3 /* SheetHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetHeader.swift; sourceTree = "<group>"; };
 		CF1786CB244BF4F2005592F3 /* RouteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteButton.swift; sourceTree = "<group>"; };
 		CF1786CD244BFB93005592F3 /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
@@ -262,6 +266,7 @@
 				CFD1A8742464E6ED00861163 /* VehicleSGO.swift */,
 				CF4570572453436A000AEA87 /* Estimation.swift */,
 				CFD1A8722464835E00861163 /* CarrisVehicle.swift */,
+				CF1167F625C2EAA100A0A07E /* Authorization.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -365,6 +370,7 @@
 				CF40AAA6244F3F8A002DC2FD /* VehiclesStorage.swift */,
 				CF40AAA4244F3DA1002DC2FD /* EstimationsStorage.swift */,
 				CFB4D0DA2454EDEE00D07534 /* UserManagement.swift */,
+				CF1167F325C2DB5000A0A07E /* Authentication.swift */,
 			);
 			path = State;
 			sourceTree = "<group>";
@@ -472,7 +478,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1140;
-				LastUpgradeCheck = 1200;
+				LastUpgradeCheck = 1230;
 				ORGANIZATIONNAME = "João de Vasconcelos";
 				TargetAttributes = {
 					CF072310244A10D3007AFAD2 = {
@@ -565,6 +571,7 @@
 				CFF4981124524DB700EB9C36 /* RouteDetailsSheet.swift in Sources */,
 				CFD9E24D24561E1500AFA80B /* ConnectionErrorScreen.swift in Sources */,
 				CF07235D244A112C007AFAD2 /* LoadingView.swift in Sources */,
+				CF1167F425C2DB5000A0A07E /* Authentication.swift in Sources */,
 				CFB4D0DB2454EDEE00D07534 /* UserManagement.swift in Sources */,
 				CF5E7558244FC8B900B1EF10 /* SelectRouteInput.swift in Sources */,
 				CFF498162452511D00EB9C36 /* RouteVariantButton.swift in Sources */,
@@ -572,6 +579,7 @@
 				CFD1A8752464E6ED00861163 /* VehicleSGO.swift in Sources */,
 				CFC9CF3B24567C130089171C /* SetOfRoutes.swift in Sources */,
 				CF40AAA5244F3DA1002DC2FD /* EstimationsStorage.swift in Sources */,
+				CF1167F725C2EAA100A0A07E /* Authorization.swift in Sources */,
 				CFF4981024524DB700EB9C36 /* RouteDetailsButton.swift in Sources */,
 				CFE7296C244A721400ED034E /* VehicleAnnotationView.swift in Sources */,
 				CFEB74C624F3C89B009F55B9 /* Authentication.swift in Sources */,
