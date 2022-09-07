@@ -14,7 +14,7 @@ class Authentication: ObservableObject {
   /* * */
   /* MARK: - Settings */
   
-  private let apiKey = "ca493e56d7e1bffa1d95bf88559ef18687f987243926b0758051c2c4aba10721"
+  private let apiKey = "1947a1b26468545de0e8f4444effcc2de2eb6660ae677a22d62614bfbf1b630d"
   private var endpoint = "https://gateway.carris.pt/gateway/authenticationapi/authorization/sign"
   
   /* * */
