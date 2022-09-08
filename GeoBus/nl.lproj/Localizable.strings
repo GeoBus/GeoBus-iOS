@@ -1,11 +1,11 @@
 /* No comment provided by engineer. */
-"%lld active vehicles" = "%lld active vehicles";
+"%lld active vehicles" = "%lld actieve voertuigen";
 
 /* No comment provided by engineer. */
-"vehicle in circulation" = "vehicle in circulation";
+"vehicle in circulation" = "voertuig in circulatie";
 
 /* No comment provided by engineer. */
-"vehicles in circulation" = "vehicles in circulation";
+"vehicles in circulation" = "voertuigen in het verkeer";
 
 /* No comment provided by engineer. */
 "+info" = "+info";
@@ -14,106 +14,106 @@
 "-" = "-";
 
 /* No comment provided by engineer. */
-"1 active vehicle" = "1 active vehicle";
+"1 active vehicle" = "1 actief voertuig";
 
 /* No comment provided by engineer. */
-"Click here to retry ↺" = "Click here to retry ↺";
+"Click here to retry ↺" = "Klik hier om Cerberus opnieuw te proberen";
 
 /* No comment provided by engineer. */
-"Connection Error" = "Connection Error";
+"Connection Error" = "Verbindingsfout";
 
 /* No comment provided by engineer. */
-"Estimated" = "Estimated";
+"Estimated" = "Geschat";
 
 /* No comment provided by engineer. */
-"Favorite Routes" = "Favorite Routes";
+"Favorite Routes" = "Favoriete routes";
 
 /* No comment provided by engineer. */
 "in ±" = "in ±";
 
 /* No comment provided by engineer. */
-"Live" = "Live";
+"Live" = "Zichtbaar";
 
 /* No comment provided by engineer. */
-"Loading..." = "Loading...";
+"Loading..." = "Laden...";
 
 /* No comment provided by engineer. */
-"Next on this stop" = "Next on this stop";
+"Next on this stop" = "Volgende op deze halte";
 
 /* No comment provided by engineer. */
-"Nothing to show here." = "Nothing to show here.";
+"Nothing to show here." = "Niets te tonen hier.";
 
 /* No comment provided by engineer. */
-"Please check your internet connection." = "Please check your internet connection.";
+"Please check your internet connection." = "Controleer alstublieft uw internetverbinding.";
 
 /* No comment provided by engineer. */
-"Syncing Routes..." = "Syncing Routes...";
+"Syncing Routes..." = "Routes synchroniseren...";
 
 /* No comment provided by engineer. */
-"This is a circular route." = "This is a circular route.";
+"This is a circular route." = "Dit is een circulaire route.";
 
 /* No comment provided by engineer. */
-"This route may have %lld alternative paths." = "This route may have %lld alternative paths.";
+"This route may have %lld alternative paths." = "Deze route kan %lld alternatieve paden hebben.";
 
 /* No comment provided by engineer. */
-"to" = "to";
+"to" = "naar";
 
 /* No comment provided by engineer. */
-"to: %@" = "to: %@";
+"to: %@" = "Aan: %@";
 
 /* No comment provided by engineer. */
-"You have no favorite routes." = "You have no favorite routes.";
+"You have no favorite routes." = "Je hebt geen favoriete routes.";
 
 /* No comment provided by engineer. */
-"← Choose a Route" = "← Choose a Route";
+"← Choose a Route" = "¦ Kies een route";
 
 /* No comment provided by engineer. */
-"Find by Route" = "Find by Route";
+"Find by Route" = "Zoeken op route";
 
 /* No comment provided by engineer. */
-"Route Details" = "Route Details";
+"Route Details" = "Details route";
 
 /* No comment provided by engineer. */
-"Locate" = "Locate";
+"Locate" = "Lokaliseren";
 
 /* No comment provided by engineer. */
-"The route you entered does not exist." = "The route you entered does not exist.";
+"The route you entered does not exist." = "De opgegeven route bestaat niet.";
 
 /* No comment provided by engineer. */
-"Choose a Route Number" = "Choose a Route Number";
+"Choose a Route Number" = "Kies een routenummer";
 
 /* No comment provided by engineer. */
-"(ex: 28E or 758)" = "(ex: 28E or 758).";
+"(ex: 28E or 758)" = "(bijv.: 28E of 758).";
 
 /* No comment provided by engineer. */
-"Trams" = "Trams";
+"Trams" = "Vuilen";
 
 /* No comment provided by engineer. */
-"Neighborhood Buses" = "Neighborhood Buses";
+"Neighborhood Buses" = "Buiging naburige buit";
 
 /* No comment provided by engineer. */
-"Night Buses" = "Night Buses";
+"Night Buses" = "Nacht doorsneden";
 
 /* No comment provided by engineer. */
-"Regular Service" = "Regular Service";
+"Regular Service" = "Normale service";
 
 /* No comment provided by engineer. */
-"Elevators" = "Elevators";
+"Elevators" = "Liften";
 
 /* No comment provided by engineer. */
-"Done" = "Done";
+"Done" = "Voltooid";
 
 /* No comment provided by engineer. */
-"direction:" = "direction:";
+"direction:" = "richting:";
 
 /* No comment provided by engineer. */
-"Last seen %lld seconds ago" = "Last seen %lld seconds ago";
+"Last seen %lld seconds ago" = "Laatst gezien %lld seconden geleden";
 
 /* No comment provided by engineer. */
-"AboutTitle" = "Olá!";
+"AboutTitle" = "Olaww!";
 
 /* No comment provided by engineer. */
-"AboutParagraph" = "If you need help with GeoBus, or have ideas to improve it, please send me a message through Twitter, Facebook, Instagram or Email.";
+"AboutParagraph" = "Als je hulp nodig hebt met GeoBus, of ideeën hebt om het te verbeteren, stuur me dan een bericht via Twitter, Facebook, Instagram of e-mail.";
 
 /* No comment provided by engineer. */
-"AboutCallout" = "I'll be delighted to know your opinion.";
+"AboutCallout" = "Ik ben blij om je mening te horen.";
