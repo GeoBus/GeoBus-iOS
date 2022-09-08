@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Credential: Codable, Equatable {
+struct Credential: Codable {
 
    var endpoint: String = ""
    var token: String = ""
