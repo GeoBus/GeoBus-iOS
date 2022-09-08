@@ -22,7 +22,6 @@
 		CF072362244A1134007AFAD2 /* IndexedCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF072360244A1134007AFAD2 /* IndexedCollection.swift */; };
 		CF072363244A1134007AFAD2 /* ForEach.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF072361244A1134007AFAD2 /* ForEach.swift */; };
 		CF072366244A117A007AFAD2 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = CF072365244A117A007AFAD2 /* Lottie */; };
-		CF1167F725C2EAA100A0A07E /* Authorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1167F625C2EAA100A0A07E /* Authorization.swift */; };
 		CF1786CA244BF247005592F3 /* SheetHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1786C9244BF247005592F3 /* SheetHeader.swift */; };
 		CF1786CC244BF4F2005592F3 /* RouteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1786CB244BF4F2005592F3 /* RouteButton.swift */; };
 		CF1786CE244BFB93005592F3 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1786CD244BFB93005592F3 /* Route.swift */; };
@@ -33,6 +32,7 @@
 		CF1FD403245F3161001DCB62 /* routes.json in Resources */ = {isa = PBXBuildFile; fileRef = CF1FD402245F3161001DCB62 /* routes.json */; };
 		CF2B5C2C28CA083A00EEECB3 /* Credential.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF2B5C2B28CA083A00EEECB3 /* Credential.swift */; };
 		CF2B5C2E28CA0C5A00EEECB3 /* Authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF2B5C2D28CA0C5A00EEECB3 /* Authentication.swift */; };
+		CF2B5C3128CA87AC00EEECB3 /* Authorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF2B5C3028CA87AC00EEECB3 /* Authorization.swift */; };
 		CF3EC3D1246EDAFF003F85B3 /* UserLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF3EC3D0246EDAFF003F85B3 /* UserLocation.swift */; };
 		CF3EC3D5246F03CB003F85B3 /* AboutButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF3EC3D4246F03CB003F85B3 /* AboutButton.swift */; };
 		CF40AA9E244F3605002DC2FD /* FavoriteRoutes.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF40AA9D244F3605002DC2FD /* FavoriteRoutes.swift */; };
@@ -101,7 +101,6 @@
 		CF072359244A112C007AFAD2 /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		CF072360244A1134007AFAD2 /* IndexedCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndexedCollection.swift; sourceTree = "<group>"; };
 		CF072361244A1134007AFAD2 /* ForEach.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForEach.swift; sourceTree = "<group>"; };
-		CF1167F625C2EAA100A0A07E /* Authorization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authorization.swift; sourceTree = "<group>"; };
 		CF1786C9244BF247005592F3 /* SheetHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetHeader.swift; sourceTree = "<group>"; };
 		CF1786CB244BF4F2005592F3 /* RouteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteButton.swift; sourceTree = "<group>"; };
 		CF1786CD244BFB93005592F3 /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
@@ -111,6 +110,7 @@
 		CF1FD402245F3161001DCB62 /* routes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = routes.json; sourceTree = "<group>"; };
 		CF2B5C2B28CA083A00EEECB3 /* Credential.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Credential.swift; sourceTree = "<group>"; };
 		CF2B5C2D28CA0C5A00EEECB3 /* Authentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authentication.swift; sourceTree = "<group>"; };
+		CF2B5C3028CA87AC00EEECB3 /* Authorization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authorization.swift; sourceTree = "<group>"; };
 		CF3EC3D0246EDAFF003F85B3 /* UserLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLocation.swift; sourceTree = "<group>"; };
 		CF3EC3D4246F03CB003F85B3 /* AboutButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutButton.swift; sourceTree = "<group>"; };
 		CF40AA9D244F3605002DC2FD /* FavoriteRoutes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteRoutes.swift; sourceTree = "<group>"; };
@@ -151,7 +151,6 @@
 		CFD9E24F24561EB700AFA80B /* ChooseRouteScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseRouteScreen.swift; sourceTree = "<group>"; };
 		CFE51D8E245CAAE5007B440B /* VehicleAnnotationCallout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleAnnotationCallout.swift; sourceTree = "<group>"; };
 		CFE7296B244A721400ED034E /* VehicleAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleAnnotationView.swift; sourceTree = "<group>"; };
-		CFEB74C724F3C9F3009F55B9 /* Authorization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authorization.swift; sourceTree = "<group>"; };
 		CFF4980224524DB700EB9C36 /* RouteVariantPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteVariantPicker.swift; sourceTree = "<group>"; };
 		CFF4980324524DB700EB9C36 /* StopsList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopsList.swift; sourceTree = "<group>"; };
 		CFF4980424524DB700EB9C36 /* RouteVariantWarning.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteVariantWarning.swift; sourceTree = "<group>"; };
@@ -213,6 +212,7 @@
 				CFB4D0D52454C32400D07534 /* Haptics */,
 				CF072357244A112C007AFAD2 /* Lottie */,
 				CF07235F244A1134007AFAD2 /* Extensions */,
+				CF2B5C2F28CA878300EEECB3 /* Authentication */,
 				CF1FD402245F3161001DCB62 /* routes.json */,
 				CF07231A244A10D4007AFAD2 /* Assets.xcassets */,
 				CF072322244A10D4007AFAD2 /* Info.plist */,
@@ -257,8 +257,6 @@
 		CF072349244A1125007AFAD2 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				CFEB74C724F3C9F3009F55B9 /* Authorization.swift */,
-				CF2B5C2B28CA083A00EEECB3 /* Credential.swift */,
 				CF1786CD244BFB93005592F3 /* Route.swift */,
 				CFB2E99B2451FD01006915E2 /* RouteVariant.swift */,
 				CF80B98A244CCEF700B921F2 /* Stop.swift */,
@@ -266,7 +264,6 @@
 				CFD1A8742464E6ED00861163 /* VehicleSGO.swift */,
 				CF4570572453436A000AEA87 /* Estimation.swift */,
 				CFD1A8722464835E00861163 /* CarrisVehicle.swift */,
-				CF1167F625C2EAA100A0A07E /* Authorization.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -312,6 +309,16 @@
 				CF3EC3D4246F03CB003F85B3 /* AboutButton.swift */,
 			);
 			path = About;
+			sourceTree = "<group>";
+		};
+		CF2B5C2F28CA878300EEECB3 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				CF2B5C2D28CA0C5A00EEECB3 /* Authentication.swift */,
+				CF2B5C2B28CA083A00EEECB3 /* Credential.swift */,
+				CF2B5C3028CA87AC00EEECB3 /* Authorization.swift */,
+			);
+			path = Authentication;
 			sourceTree = "<group>";
 		};
 		CF3EC3CF246EDAE3003F85B3 /* User Location */ = {
@@ -369,7 +376,6 @@
 				CF40AAA6244F3F8A002DC2FD /* VehiclesStorage.swift */,
 				CF40AAA4244F3DA1002DC2FD /* EstimationsStorage.swift */,
 				CFB4D0DA2454EDEE00D07534 /* UserManagement.swift */,
-				CF2B5C2D28CA0C5A00EEECB3 /* Authentication.swift */,
 			);
 			path = State;
 			sourceTree = "<group>";
@@ -566,6 +572,7 @@
 				CF07233A244A1102007AFAD2 /* SelectRouteButton.swift in Sources */,
 				CF072319244A10D3007AFAD2 /* ContentView.swift in Sources */,
 				CFD1A871246480F800861163 /* StringSubscripting.swift in Sources */,
+				CF2B5C3128CA87AC00EEECB3 /* Authorization.swift in Sources */,
 				CF07233F244A1102007AFAD2 /* SelectRouteSheet.swift in Sources */,
 				CFF4981124524DB700EB9C36 /* RouteDetailsSheet.swift in Sources */,
 				CF2B5C2E28CA0C5A00EEECB3 /* Authentication.swift in Sources */,
@@ -578,7 +585,6 @@
 				CFD1A8752464E6ED00861163 /* VehicleSGO.swift in Sources */,
 				CFC9CF3B24567C130089171C /* SetOfRoutes.swift in Sources */,
 				CF40AAA5244F3DA1002DC2FD /* EstimationsStorage.swift in Sources */,
-				CF1167F725C2EAA100A0A07E /* Authorization.swift in Sources */,
 				CFF4981024524DB700EB9C36 /* RouteDetailsButton.swift in Sources */,
 				CFE7296C244A721400ED034E /* VehicleAnnotationView.swift in Sources */,
 				CF3EC3D1246EDAFF003F85B3 /* UserLocation.swift in Sources */,

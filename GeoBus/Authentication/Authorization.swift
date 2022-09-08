@@ -1,5 +1,5 @@
 //
-//  RecentRoutes.swift
+//  Authorization.swift
 //  GeoBus
 //
 //  Created by João on 19/04/2020.
@@ -9,7 +9,7 @@
 import Foundation
 
 struct Authorization: Codable, Equatable {
-   
+
    var authorizationToken: String = ""
    var refreshToken: String = ""
    var expires: Double = 0
