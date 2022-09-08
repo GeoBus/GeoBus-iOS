@@ -25,10 +25,10 @@ struct UserLocation: View {
       Spacer()
       Button(action: {
         self.locationManager.requestWhenInUseAuthorization()
-        if CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
+        if locationManager.authorizationStatus == .authorizedWhenInUse {
           let userLocation = self.mapView.userLocation
           self.mapView.setCenter(userLocation.coordinate, animated: true)
-        } else if CLLocationManager.authorizationStatus() != .notDetermined {
+        } else if locationManager.authorizationStatus != .notDetermined {
           self.showLocationNotAllowedAlert = true
         }
       }) {
