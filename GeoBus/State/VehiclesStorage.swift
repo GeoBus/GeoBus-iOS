@@ -14,7 +14,7 @@ class VehiclesStorage: ObservableObject {
   /* * */
   /* MARK: - Settings */
   
-  private var syncInterval = 10.0 // seconds
+  private var syncInterval = 15.0 // seconds
   private var endpoint = "https://gateway.carris.pt/gateway/xtranpassengerapi/api/v2.9/"
   private var service = "vehicleStatuses/routeNumber/"
   
@@ -46,7 +46,7 @@ class VehiclesStorage: ObservableObject {
   
   
   
-  init() {
+   init() {
     self.authentication = Authentication()
     self.timer = Timer.scheduledTimer(
       timeInterval: syncInterval,
