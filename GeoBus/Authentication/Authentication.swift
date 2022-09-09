@@ -8,7 +8,6 @@
 
 import Foundation
 import Boutique
-import Combine
 
 class Authentication: ObservableObject {
 
@@ -139,6 +138,6 @@ class Authentication: ObservableObject {
       self.$authToken.set(parsedAuthorization.authorizationToken)
 
    }
-   
+
 
 }
