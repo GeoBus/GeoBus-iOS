@@ -20,6 +20,8 @@ struct RouteDetailsSheet: View {
   @Binding var showRouteDetailsSheet: Bool
   
   @State var routeDirection: Int = 0
+
+   @StateObject var routesController = RoutesController()
   
   var body: some View {
     
@@ -33,7 +35,7 @@ struct RouteDetailsSheet: View {
             self.showRouteDetailsSheet = false
             self.showSelectRouteSheet = true
           }) {
-            RouteButton(route: routesStorage.selectedRoute!, dimensions: 80)
+             RouteButton(route: routesController.allRoutes[0], dimensions: 80)
           }
           Text(routesStorage.getSelectedVariantName())
             .foregroundColor(Color(.label))

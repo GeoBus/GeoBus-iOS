@@ -65,10 +65,10 @@ class RoutesStorage: ObservableObject {
    *  4. Retrieve favorites from iCloud Key-Value-Storage and store them in the favorites array.
    */
   init() {
-    self.retrieveRoutes()
-    self.separateRoutesByKind()
-    self.sortRoutes()
-    self.retrieveFavorites()
+//    self.retrieveRoutes()
+//    self.separateRoutesByKind()
+//    self.sortRoutes()
+//    self.retrieveFavorites()
   }
   
   

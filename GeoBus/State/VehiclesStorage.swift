@@ -160,7 +160,7 @@ class VehiclesStorage: ObservableObject {
       // Check status of response
       if httpResponse?.statusCode == 401 {
         OperationQueue.main.addOperation {
-          self.authentication.authenticate()
+//          self.authentication.authenticate()
           self.getVehicles()
         }
         return
@@ -312,7 +312,7 @@ class VehiclesStorage: ObservableObject {
         
         // Check status of response
         if httpResponse?.statusCode == 401 {
-          self.authentication.authenticate()
+//          self.authentication.authenticate()
           self.getVehiclesSGO()
         } else if httpResponse?.statusCode != 200 {
           print("Error: API failed at getVehiclesSGO()")

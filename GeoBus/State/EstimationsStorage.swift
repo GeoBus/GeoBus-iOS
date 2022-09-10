@@ -92,7 +92,7 @@ class EstimationsStorage: ObservableObject {
       
       // Check status of response
       if httpResponse?.statusCode == 401 {
-        self.authentication.authenticate()
+//        self.authentication.authenticate()
         self.getEstimations()
       } else if httpResponse?.statusCode != 200 {
         print("Error: API failed at getEstimations()")

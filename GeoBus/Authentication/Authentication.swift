@@ -43,58 +43,45 @@ class Authentication: ObservableObject {
    var refreshToken: String? = nil
 
 
-   /* MARK: - Init */
-
-   // Initiate authentication on init to save time.
-
-   init() {
-      authenticate()
-   }
-
-
    /* MARK: - 1. AUTHENTICATE */
 
    // This function agregates all the steps required for authentication.
 
-   func authenticate() {
+   func authenticate() async {
 
-      Task {
-
-         if (refreshToken != nil) {
-            do {
-               print("Authorizing with Carris API using refreshToken...")
-               try await fetchAuthorization(token: refreshToken!, type: "refresh")
-            } catch {
-               print("Clearing saved refreshToken...")
-               self.$refreshToken.reset()
-               self.authenticate()
-               return
-            }
-         } else if (apiKey != nil) {
-            do {
-               print("Authorizing with Carris API using apiKey...")
-               try await fetchAuthorization(token: apiKey!, type: "apikey")
-            } catch {
-               print("Clearing saved apiKey...")
-               self.$apiKey.reset()
-               self.authenticate()
-               return
-            }
-         } else {
-            do {
-               if (retries > 0) {
-                  print("Retrieving latest credential from server...")
-                  try await fetchLatestCredential()
-                  authenticate()
-                  retries -= 1
-                  return
-               }
-            } catch {
-               print("Unkown Error")
-               return
-            }
+      if (refreshToken != nil) {
+         do {
+            print("Authorizing with Carris API using refreshToken...")
+            try await fetchAuthorization(token: refreshToken!, type: "refresh")
+         } catch {
+            print("Clearing saved refreshToken...")
+            self.$refreshToken.reset()
+            await self.authenticate()
+            return
          }
-
+      } else if (apiKey != nil) {
+         do {
+            print("Authorizing with Carris API using apiKey...")
+            try await fetchAuthorization(token: apiKey!, type: "apikey")
+         } catch {
+            print("Clearing saved apiKey...")
+            self.$apiKey.reset()
+            await self.authenticate()
+            return
+         }
+      } else {
+         do {
+            if (retries > 0) {
+               print("Retrieving latest credential from server...")
+               try await fetchLatestCredential()
+               await self.authenticate()
+               retries -= 1
+               return
+            }
+         } catch {
+            print("Unkown Error")
+            return
+         }
       }
 
    }

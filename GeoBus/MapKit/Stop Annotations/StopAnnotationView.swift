@@ -9,7 +9,7 @@
 import SwiftUI
 import MapKit
 
-class StopAnnotationView: MKAnnotationView {
+class RouteVariantStopAnnotationView: MKAnnotationView {
   
   var marker = UIImageView(image: UIImage(systemName: "arrow.clockwise.circle.fill"))
   
@@ -17,7 +17,7 @@ class StopAnnotationView: MKAnnotationView {
     
     willSet {
       
-      guard let annotation = newValue as? StopAnnotation else {
+      guard let annotation = newValue as? RouteVariantStopAnnotation else {
         return
       }
       

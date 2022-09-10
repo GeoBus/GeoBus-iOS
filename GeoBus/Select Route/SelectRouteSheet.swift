@@ -9,46 +9,48 @@
 import SwiftUI
 
 struct SelectRouteSheet: View {
-  
-  @Environment(\.colorScheme) var colorScheme: ColorScheme
-  
-  @ObservedObject var routesStorage: RoutesStorage
-  
-  @Binding var showSelectRouteSheet: Bool
-  
-  var body: some View {
-    
-    ScrollView(.vertical, showsIndicators: true) {
-      VStack {
-        
-        SheetHeader(title: Text("Find by Route"), toggle: $showSelectRouteSheet)
-        
-        SelectRouteInput(routesStorage: routesStorage, showSelectRouteSheet: self.$showSelectRouteSheet)
-          .padding(.horizontal)
-        
-        HorizontalLine()
-        
-        VStack {
-          FavoriteRoutes(routesStorage: routesStorage, showSelectRouteSheet: $showSelectRouteSheet)
-          SetOfRoutes(title: Text("Trams"), set: routesStorage.trams, routesStorage: routesStorage, showSelectRouteSheet: $showSelectRouteSheet)
-          SetOfRoutes(title: Text("Neighborhood Buses"), set: routesStorage.neighborhood, routesStorage: routesStorage, showSelectRouteSheet: $showSelectRouteSheet)
-          SetOfRoutes(title: Text("Night Buses"), set: routesStorage.night, routesStorage: routesStorage, showSelectRouteSheet: $showSelectRouteSheet)
-          SetOfRoutes(title: Text("Regular Service"), set: routesStorage.regular, routesStorage: routesStorage, showSelectRouteSheet: $showSelectRouteSheet)
-        }
-        
-//        HorizontalLine()
-//          .padding(.vertical)
-        
-        About()
-        
+
+   @Environment(\.colorScheme) var colorScheme: ColorScheme
+
+//   @ObservedObject var routesStorage: RoutesStorage
+
+   @Binding var showSelectRouteSheet: Bool
+
+   @StateObject var routesController = RoutesController()
+   @State private var routes: [Route] = []
+
+   var body: some View {
+
+      ScrollView(.vertical, showsIndicators: true) {
+         
+         VStack {
+
+            SheetHeader(title: Text("Find by Route"), toggle: $showSelectRouteSheet)
+
+            SelectRouteInput(showSelectRouteSheet: self.$showSelectRouteSheet)
+               .padding(.horizontal)
+
+            HorizontalLine()
+
+            VStack {
+               FavoriteRoutes(showSelectRouteSheet: $showSelectRouteSheet)
+               SetOfRoutes(title: Text("Trams"), kind: .tram, showSelectRouteSheet: $showSelectRouteSheet)
+               SetOfRoutes(title: Text("Neighborhood Buses"), kind: .neighborhood, showSelectRouteSheet: $showSelectRouteSheet)
+               SetOfRoutes(title: Text("Night Buses"), kind: .night, showSelectRouteSheet: $showSelectRouteSheet)
+               SetOfRoutes(title: Text("Regular Service"), kind: .regular, showSelectRouteSheet: $showSelectRouteSheet)
+            }
+
+            About()
+
+         }
+
       }
-    }
-    .background(colorScheme == .dark ? Color(.systemBackground) : Color(.secondarySystemBackground))
-    .edgesIgnoringSafeArea(.bottom)
-    
-  }
-  
-  
+      .background(colorScheme == .dark ? Color(.systemBackground) : Color(.secondarySystemBackground))
+      .edgesIgnoringSafeArea(.bottom)
+
+   }
+
+
 }
 
 

@@ -12,7 +12,7 @@ struct StopBadge: View {
   
   var name: String
   var orderInRoute: Int
-  var direction: Route.Direction
+  var direction: RouteVariantDirection
   
   var body: some View {
     
@@ -37,7 +37,7 @@ struct StopBadge: View {
     
   }
   
-  func getStopIcon(for direction: Route.Direction) -> Image {
+  func getStopIcon(for direction: RouteVariantDirection) -> Image {
     switch direction {
       case .ascending:
         return Image("PinkCircle")

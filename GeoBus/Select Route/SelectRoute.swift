@@ -9,34 +9,33 @@
 import SwiftUI
 
 struct SelectRoute: View {
-  
-  @ObservedObject var routesStorage: RoutesStorage
-  @ObservedObject var vehiclesStorage: VehiclesStorage
-  
-  @Binding var showSelectRouteSheet: Bool
-  
-  
-  var body: some View {
-    
-    Button(action: {
-      if self.vehiclesStorage.state == .error {
-        self.vehiclesStorage.set(state: .active)
-      } else {
-        self.showSelectRouteSheet = true
+
+   @ObservedObject var vehiclesStorage: VehiclesStorage
+
+   @Binding var showSelectRouteSheet: Bool
+
+
+   var body: some View {
+
+      Button(action: {
+         if self.vehiclesStorage.state == .error {
+            self.vehiclesStorage.set(state: .active)
+         } else {
+            self.showSelectRouteSheet = true
+         }
+      }) {
+         SelectRouteButton(vehiclesStorage: vehiclesStorage)
       }
-    }) {
-      SelectRouteButton(routesStorage: routesStorage, vehiclesStorage: vehiclesStorage)
-    }
-    .sheet(
-      isPresented: $showSelectRouteSheet,
-      onDismiss: {
-        self.vehiclesStorage.set(route: self.routesStorage.getSelectedRouteNumber())
-        self.vehiclesStorage.set(state: .active)
-    }) {
-      
-      SelectRouteSheet(routesStorage: self.routesStorage, showSelectRouteSheet: self.$showSelectRouteSheet)
-      
-    }
-    
-  }
+      .sheet(
+         isPresented: $showSelectRouteSheet,
+         onDismiss: {
+//            self.vehiclesStorage.set(route: self.routesStorage.getSelectedRouteNumber())
+            self.vehiclesStorage.set(state: .active)
+         }) {
+
+            SelectRouteSheet(showSelectRouteSheet: self.$showSelectRouteSheet)
+
+         }
+
+   }
 }

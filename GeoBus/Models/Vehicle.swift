@@ -10,25 +10,25 @@ import Foundation
 import MapKit
 
 struct Vehicle: Codable, Identifiable, Equatable {
-  let id = UUID()
-  let busNumber: Int
-  let vehiclePlate: String?
-  let driverNumber: String?
-  let routeNumber: String
-  let previousLatitude: Double?
-  let previousLongitude: Double?
-  let lat: Double
-  let lng: Double
-  let lastGpsTime: String
-  let lastStopOnVoyageId: String?
-  let lastStopOnVoyageName: String?
-  
-  enum Kind {
-    case tram
-    case neighborhood
-    case night
-    case regular
-    case elevator
-  }
+   let id: String
+   let busNumber: Int
+   let vehiclePlate: String?
+   let driverNumber: String?
+   let routeNumber: String
+   let previousLatitude: Double?
+   let previousLongitude: Double?
+   let lat: Double
+   let lng: Double
+   let lastGpsTime: String
+   let lastStopOnVoyageId: String?
+   let lastStopOnVoyageName: String?
+
+   enum Kind {
+      case tram
+      case neighborhood
+      case night
+      case regular
+      case elevator
+   }
 
 }
