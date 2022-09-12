@@ -83,7 +83,7 @@ class EstimationsStorage: ObservableObject {
     
     request.addValue("application/json", forHTTPHeaderField: "Content-Type")
     request.addValue("application/json", forHTTPHeaderField: "Accept")
-    request.setValue("Bearer \(authentication.authToken)", forHTTPHeaderField: "Authorization")
+     request.setValue("Bearer \(authentication.authToken ?? "-")", forHTTPHeaderField: "Authorization")
     
     // Create the task
     let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
