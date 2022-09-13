@@ -20,13 +20,13 @@
 "1 active vehicle" = "1 active vehicle";
 
 /* No comment provided by engineer. */
-"AboutCallout" = "I'll be delighted to know your opinion.";
+"AboutCallout" = "AboutCallout";
 
 /* No comment provided by engineer. */
-"AboutParagraph" = "If you need help with GeoBus, or have ideas to improve it, please send me a message through Twitter, Facebook, Instagram or Email.";
+"AboutParagraph" = "AboutParagraph";
 
 /* No comment provided by engineer. */
-"AboutTitle" = "Olá!";
+"AboutTitle" = "AboutTitle";
 
 /* No comment provided by engineer. */
 "Allow in Settings" = "Allow in Settings";
