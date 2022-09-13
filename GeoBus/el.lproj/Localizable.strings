@@ -1,119 +1,119 @@
 /* No comment provided by engineer. */
-"%lld active vehicles" = "%lld ενεργά οχήματα";
+"%lld active vehicles" = "%lld active vehicles";
 
 /* No comment provided by engineer. */
-"vehicle in circulation" = "όχημα σε κυκλοφορία";
+"vehicle in circulation" = "vehicle in circulation";
 
 /* No comment provided by engineer. */
-"vehicles in circulation" = "οχήματα σε κυκλοφορία";
+"vehicles in circulation" = "vehicles in circulation";
 
 /* No comment provided by engineer. */
-"+info" = "+πληροφορίες";
+"+info" = "+info";
 
 /* No comment provided by engineer. */
 "-" = "-";
 
 /* No comment provided by engineer. */
-"1 active vehicle" = "1 ενεργό όχημα";
+"1 active vehicle" = "1 active vehicle";
 
 /* No comment provided by engineer. */
-"Click here to retry ↺" = "Κάντε κλικ εδώ για να προσπαθήσετε ξανά";
+"Click here to retry ↺" = "Click here to retry ↺";
 
 /* No comment provided by engineer. */
-"Connection Error" = "Σφάλμα Σύνδεσης";
+"Connection Error" = "Connection Error";
 
 /* No comment provided by engineer. */
-"Estimated" = "Εκτιμώμενος";
+"Estimated" = "Estimated";
 
 /* No comment provided by engineer. */
-"Favorite Routes" = "Αγαπημένες Διαδρομές";
+"Favorite Routes" = "Favorite Routes";
 
 /* No comment provided by engineer. */
-"in ±" = "σε ±";
+"in ±" = "in ±";
 
 /* No comment provided by engineer. */
-"Live" = "Ζωντανά";
+"Live" = "Live";
 
 /* No comment provided by engineer. */
-"Loading..." = "Φόρτωση...";
+"Loading..." = "Loading...";
 
 /* No comment provided by engineer. */
-"Next on this stop" = "Επόμενο σε αυτή τη στάση";
+"Next on this stop" = "Next on this stop";
 
 /* No comment provided by engineer. */
-"Nothing to show here." = "Τίποτα για προβολή εδώ.";
+"Nothing to show here." = "Nothing to show here.";
 
 /* No comment provided by engineer. */
-"Please check your internet connection." = "Παρακαλώ ελέγξτε τη σύνδεσή σας στο διαδίκτυο.";
+"Please check your internet connection." = "Please check your internet connection.";
 
 /* No comment provided by engineer. */
-"Syncing Routes..." = "Συγχρονισμός Διαδρομών...";
+"Syncing Routes..." = "Syncing Routes...";
 
 /* No comment provided by engineer. */
-"This is a circular route." = "Αυτή είναι μια κυκλική διαδρομή.";
+"This is a circular route." = "This is a circular route.";
 
 /* No comment provided by engineer. */
-"This route may have %lld alternative paths." = "Αυτή η διαδρομή μπορεί να έχει %lld εναλλακτικές διαδρομές.";
+"This route may have %lld alternative paths." = "This route may have %lld alternative paths.";
 
 /* No comment provided by engineer. */
-"to" = "προς";
+"to" = "to";
 
 /* No comment provided by engineer. */
-"to: %@" = "προς: %@";
+"to: %@" = "to: %@";
 
 /* No comment provided by engineer. */
-"You have no favorite routes." = "Δεν έχετε αγαπημένες διαδρομές.";
+"You have no favorite routes." = "You have no favorite routes.";
 
 /* No comment provided by engineer. */
-"← Choose a Route" = "← Επιλέξτε μια διαδρομή";
+"← Choose a Route" = "← Choose a Route";
 
 /* No comment provided by engineer. */
-"Find by Route" = "Εύρεση από διαδρομή";
+"Find by Route" = "Find by Route";
 
 /* No comment provided by engineer. */
-"Route Details" = "Λεπτομέρειες Διαδρομής";
+"Route Details" = "Route Details";
 
 /* No comment provided by engineer. */
-"Locate" = "Εντοπισμός";
+"Locate" = "Locate";
 
 /* No comment provided by engineer. */
-"The route you entered does not exist." = "Η διαδρομή που εισάγατε δεν υπάρχει.";
+"The route you entered does not exist." = "The route you entered does not exist.";
 
 /* No comment provided by engineer. */
-"Choose a Route Number" = "Επιλέξτε αριθμό διαδρομής";
+"Choose a Route Number" = "Choose a Route Number";
 
 /* No comment provided by engineer. */
-"(ex: 28E or 758)" = "(π.χ.: 28E ή 758).";
+"(ex: 28E or 758)" = "(ex: 28E or 758).";
 
 /* No comment provided by engineer. */
-"Trams" = "Τραμ";
+"Trams" = "Trams";
 
 /* No comment provided by engineer. */
-"Neighborhood Buses" = "Λεωφορεία";
+"Neighborhood Buses" = "Neighborhood Buses";
 
 /* No comment provided by engineer. */
-"Night Buses" = "Νυχτερινό Λεωφορείο";
+"Night Buses" = "Night Buses";
 
 /* No comment provided by engineer. */
-"Regular Service" = "Κανονική Υπηρεσία";
+"Regular Service" = "Regular Service";
 
 /* No comment provided by engineer. */
-"Elevators" = "Ανελκυστήρες";
+"Elevators" = "Elevators";
 
 /* No comment provided by engineer. */
-"Done" = "Ολοκληρώθηκε";
+"Done" = "Done";
 
 /* No comment provided by engineer. */
-"direction:" = "κατεύθυνση:";
+"direction:" = "direction:";
 
 /* No comment provided by engineer. */
-"Last seen %lld seconds ago" = "Τελευταία προβολή %lld δευτερόλεπτα πριν";
+"Last seen %lld seconds ago" = "Last seen %lld seconds ago";
 
 /* No comment provided by engineer. */
-"AboutTitle" = "Ολά!";
+"AboutTitle" = "Olá!";
 
 /* No comment provided by engineer. */
-"AboutParagraph" = "Αν χρειάζεστε βοήθεια με το GeoBus, ή έχετε ιδέες για να το βελτιώσετε, παρακαλώ στείλτε μου ένα μήνυμα μέσω Twitter, Facebook, Instagram ή Email.";
+"AboutParagraph" = "If you need help with GeoBus, or have ideas to improve it, please send me a message through Twitter, Facebook, Instagram or Email.";
 
 /* No comment provided by engineer. */
-"AboutCallout" = "Θα είμαι ευτυχής να μάθω τη γνώμη σας.";
+"AboutCallout" = "I'll be delighted to know your opinion.";
