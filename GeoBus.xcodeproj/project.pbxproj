@@ -57,6 +57,8 @@
 		CF18208728CCBD3A00248F72 /* SelectRouteInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF18208128CCBD3A00248F72 /* SelectRouteInput.swift */; };
 		CF18209928CCBD4600248F72 /* UserLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF18209228CCBD4600248F72 /* UserLocation.swift */; };
 		CF18209B28CCBD5000248F72 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF18209A28CCBD5000248F72 /* MapView.swift */; };
+		CF6478F328D108EF00C70691 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CF6478F528D108EF00C70691 /* InfoPlist.strings */; };
+		CF6478F728D108FA00C70691 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CF6478F928D108FA00C70691 /* Localizable.strings */; };
 		CFAF0E7628CE586300DDAD5B /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAF0E7528CE586300DDAD5B /* Globals.swift */; };
 		CFAF0E7828CE84C200DDAD5B /* Vehicles.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAF0E7728CE84C200DDAD5B /* Vehicles.swift */; };
 		CFAF0E7A28CE84F400DDAD5B /* MapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAF0E7928CE84F400DDAD5B /* MapAnnotation.swift */; };
@@ -114,6 +116,10 @@
 		CF18208128CCBD3A00248F72 /* SelectRouteInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectRouteInput.swift; sourceTree = "<group>"; };
 		CF18209228CCBD4600248F72 /* UserLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserLocation.swift; sourceTree = "<group>"; };
 		CF18209A28CCBD5000248F72 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		CF6478F428D108EF00C70691 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		CF6478F628D108F600C70691 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		CF6478F828D108FA00C70691 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		CF6478FA28D108FD00C70691 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		CFAF0E7528CE586300DDAD5B /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		CFAF0E7728CE84C200DDAD5B /* Vehicles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vehicles.swift; sourceTree = "<group>"; };
 		CFAF0E7928CE84F400DDAD5B /* MapAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAnnotation.swift; sourceTree = "<group>"; };
@@ -232,6 +238,8 @@
 				CFAF0E7B28CEC78C00DDAD5B /* GeoBus.entitlements */,
 				CF181FF328CCB87400248F72 /* App */,
 				CF181FE928CCB7D700248F72 /* Assets.xcassets */,
+				CF6478F528D108EF00C70691 /* InfoPlist.strings */,
+				CF6478F928D108FA00C70691 /* Localizable.strings */,
 				CF181FEB28CCB7D700248F72 /* Preview Content */,
 			);
 			path = GeoBus;
@@ -367,6 +375,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"pt-PT",
 			);
 			mainGroup = CF181FD928CCB7D600248F72;
 			packageReferences = (
@@ -388,8 +397,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				CF18202528CCBBBE00248F72 /* estimated-icon.json in Resources */,
+				CF6478F328D108EF00C70691 /* InfoPlist.strings in Resources */,
 				CF181FED28CCB7D700248F72 /* Preview Assets.xcassets in Resources */,
 				CF18202628CCBBBE00248F72 /* live-icon.json in Resources */,
+				CF6478F728D108FA00C70691 /* Localizable.strings in Resources */,
 				CF18202428CCBBBE00248F72 /* circular-loader-white.json in Resources */,
 				CF181FEA28CCB7D700248F72 /* Assets.xcassets in Resources */,
 				CF18202328CCBBBE00248F72 /* circular-loader-green.json in Resources */,
@@ -454,11 +465,33 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXVariantGroup section */
+		CF6478F528D108EF00C70691 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CF6478F428D108EF00C70691 /* en */,
+				CF6478F628D108F600C70691 /* pt-PT */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		CF6478F928D108FA00C70691 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CF6478F828D108FA00C70691 /* en */,
+				CF6478FA28D108FD00C70691 /* pt-PT */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
 		CF181FEE28CCB7D700248F72 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -505,7 +538,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -519,6 +552,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -559,7 +593,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -582,8 +616,11 @@
 				DEVELOPMENT_TEAM = D7S2TY22W7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = GeoBus/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = GeoBus;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.reference";
+				INFOPLIST_KEY_NSLocationUsageDescription = "Your location will only be used to show you where you are on the map.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Your location will only be used to show you where you are on the map.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -619,8 +656,11 @@
 				DEVELOPMENT_TEAM = D7S2TY22W7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = GeoBus/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = GeoBus;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.reference";
+				INFOPLIST_KEY_NSLocationUsageDescription = "Your location will only be used to show you where you are on the map.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Your location will only be used to show you where you are on the map.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
