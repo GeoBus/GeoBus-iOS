@@ -1,11 +1,11 @@
 /* No comment provided by engineer. */
-"%lld active vehicles" = "%lld vehículos activos";
+"%lld active vehicles" = "%lld active vehicles";
 
 /* No comment provided by engineer. */
-"vehicle in circulation" = "vehículo en circulación";
+"vehicle in circulation" = "vehicle in circulation";
 
 /* No comment provided by engineer. */
-"vehicles in circulation" = "vehículos en circulación";
+"vehicles in circulation" = "vehicles in circulation";
 
 /* No comment provided by engineer. */
 "+info" = "+info";
@@ -14,106 +14,106 @@
 "-" = "-";
 
 /* No comment provided by engineer. */
-"1 active vehicle" = "1 vehículo activo";
+"1 active vehicle" = "1 active vehicle";
 
 /* No comment provided by engineer. */
-"Click here to retry ↺" = "Haga clic aquí para volver a intentarlo";
+"Click here to retry ↺" = "Click here to retry ↺";
 
 /* No comment provided by engineer. */
-"Connection Error" = "Error de conexión";
+"Connection Error" = "Connection Error";
 
 /* No comment provided by engineer. */
-"Estimated" = "Estimado";
+"Estimated" = "Estimated";
 
 /* No comment provided by engineer. */
-"Favorite Routes" = "Rutas favoritas";
+"Favorite Routes" = "Favorite Routes";
 
 /* No comment provided by engineer. */
-"in ±" = "en ±";
+"in ±" = "in ±";
 
 /* No comment provided by engineer. */
-"Live" = "Vivo";
+"Live" = "Live";
 
 /* No comment provided by engineer. */
-"Loading..." = "Cargando...";
+"Loading..." = "Loading...";
 
 /* No comment provided by engineer. */
-"Next on this stop" = "Siguiente en esta parada";
+"Next on this stop" = "Next on this stop";
 
 /* No comment provided by engineer. */
-"Nothing to show here." = "Nada que mostrar aquí.";
+"Nothing to show here." = "Nothing to show here.";
 
 /* No comment provided by engineer. */
-"Please check your internet connection." = "Por favor, comprueba tu conexión a Internet.";
+"Please check your internet connection." = "Please check your internet connection.";
 
 /* No comment provided by engineer. */
-"Syncing Routes..." = "Sincronizando Rutas...";
+"Syncing Routes..." = "Syncing Routes...";
 
 /* No comment provided by engineer. */
-"This is a circular route." = "Esta es una ruta circular.";
+"This is a circular route." = "This is a circular route.";
 
 /* No comment provided by engineer. */
-"This route may have %lld alternative paths." = "Esta ruta puede tener %lld rutas alternativas.";
+"This route may have %lld alternative paths." = "This route may have %lld alternative paths.";
 
 /* No comment provided by engineer. */
-"to" = "a";
+"to" = "to";
 
 /* No comment provided by engineer. */
-"to: %@" = "para: %@";
+"to: %@" = "to: %@";
 
 /* No comment provided by engineer. */
-"You have no favorite routes." = "No tiene rutas favoritas.";
+"You have no favorite routes." = "You have no favorite routes.";
 
 /* No comment provided by engineer. */
-"← Choose a Route" = "← Elige una ruta";
+"← Choose a Route" = "← Choose a Route";
 
 /* No comment provided by engineer. */
-"Find by Route" = "Buscar por ruta";
+"Find by Route" = "Find by Route";
 
 /* No comment provided by engineer. */
-"Route Details" = "Detalles de ruta";
+"Route Details" = "Route Details";
 
 /* No comment provided by engineer. */
-"Locate" = "Localizar";
+"Locate" = "Locate";
 
 /* No comment provided by engineer. */
-"The route you entered does not exist." = "La ruta introducida no existe.";
+"The route you entered does not exist." = "The route you entered does not exist.";
 
 /* No comment provided by engineer. */
-"Choose a Route Number" = "Elija un número de ruta";
+"Choose a Route Number" = "Choose a Route Number";
 
 /* No comment provided by engineer. */
-"(ex: 28E or 758)" = "(Ej: 28E o 758).";
+"(ex: 28E or 758)" = "(ex: 28E or 758).";
 
 /* No comment provided by engineer. */
-"Trams" = "Trampas";
+"Trams" = "Trams";
 
 /* No comment provided by engineer. */
-"Neighborhood Buses" = "Autobuses de Neighborhood";
+"Neighborhood Buses" = "Neighborhood Buses";
 
 /* No comment provided by engineer. */
-"Night Buses" = "Autobuses nocturnos";
+"Night Buses" = "Night Buses";
 
 /* No comment provided by engineer. */
-"Regular Service" = "Servicio regular";
+"Regular Service" = "Regular Service";
 
 /* No comment provided by engineer. */
-"Elevators" = "Actores";
+"Elevators" = "Elevators";
 
 /* No comment provided by engineer. */
-"Done" = "Hecho";
+"Done" = "Done";
 
 /* No comment provided by engineer. */
-"direction:" = "dirección:";
+"direction:" = "direction:";
 
 /* No comment provided by engineer. */
-"Last seen %lld seconds ago" = "Visto por última vez hace %lld segundos";
+"Last seen %lld seconds ago" = "Last seen %lld seconds ago";
 
 /* No comment provided by engineer. */
-"AboutTitle" = "¡Olá!";
+"AboutTitle" = "Olá!";
 
 /* No comment provided by engineer. */
-"AboutParagraph" = "Si necesitas ayuda con GeoBus, o tienes ideas para mejorarlo, por favor envíame un mensaje a través de Twitter, Facebook, Instagram o Email.";
+"AboutParagraph" = "If you need help with GeoBus, or have ideas to improve it, please send me a message through Twitter, Facebook, Instagram or Email.";
 
 /* No comment provided by engineer. */
-"AboutCallout" = "Estaré encantado de conocer su opinión.";
+"AboutCallout" = "I'll be delighted to know your opinion.";
