@@ -20,12 +20,8 @@ struct StopDetails: View {
    var content: some View {
       VStack(spacing: 0) {
          // The header of the view is always visible
-         StopBadge(
-            name: stop.name,
-            orderInRoute: stop.orderInRoute,
-            direction: stop.direction
-         )
-         .padding()
+         StopDetailsHeader(stop: stop)
+            .padding()
 
          // Estimations are visible only if the view is opened
          // or if the view cannot be toggled.
@@ -33,6 +29,8 @@ struct StopDetails: View {
             VStack {
                Divider()
                StopEstimations(publicId: stop.publicId)
+                  .padding(.horizontal)
+                  .padding(.bottom)
             }
          }
       }

@@ -52,7 +52,8 @@ class Globals {
 
    }
 
-   func getBackgroundColor(for routeKind: Kind) -> Color {
+   func getBackgroundColor(for routeNumber: String) -> Color {
+      let routeKind = getKind(by: routeNumber)
       switch routeKind {
          case .tram:
             return Color(red: 1.00, green: 0.85, blue: 0.00)
@@ -67,7 +68,8 @@ class Globals {
       }
    }
 
-   func getForegroundColor(for routeKind: Kind) -> Color {
+   func getForegroundColor(for routeNumber: String) -> Color {
+      let routeKind = getKind(by: routeNumber)
       switch routeKind {
          case .tram:
             return Color(.black)

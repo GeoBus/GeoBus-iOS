@@ -31,7 +31,7 @@ struct SelectRouteView: View {
          } else {
 
             if (routesController.selectedRoute != nil) {
-               RouteBadgeSquare(route: routesController.selectedRoute!)
+               RouteBadgeSquare(routeNumber: routesController.selectedRoute!.number)
 
             } else {
                RoundedRectangle(cornerRadius: 10)

@@ -16,24 +16,23 @@ class VehiclesController: ObservableObject {
    private var endpoint = "https://gateway.carris.pt/gateway/xtranpassengerapi/api/v2.10/vehicleStatuses/routeNumber/"
    
    @Published var vehicles: [Vehicle] = []
-   @Published var annotations: [VehicleAnnotation] = []
-   
-   private var authentication = Authentication()
    
    private var routeNumber: String?
    
    
    
-   /* MARK: - RECEIVE APPSTATE */
-   
+   /* MARK: - RECEIVE APPSTATE & AUTHENTICATION */
+
    var appstate = Appstate()
-   
-   func receive(reference: Appstate) {
-      self.appstate = reference
+   var authentication = Authentication()
+
+   func receive(state: Appstate, auth: Authentication) {
+      self.appstate = state
+      self.authentication = auth
    }
-   
-   
-   
+
+
+
    /* MARK: - Set Current Route */
    
    func set(route: String) {
@@ -68,7 +67,7 @@ class VehiclesController: ObservableObject {
             requestAPIVehiclesList.addValue("application/json", forHTTPHeaderField: "Content-Type")
             requestAPIVehiclesList.addValue("application/json", forHTTPHeaderField: "Accept")
             requestAPIVehiclesList.setValue("Bearer \(authentication.authToken ?? "invalid_token")", forHTTPHeaderField: "Authorization")
-            let (rawRequestAPIVehiclesList, rawResponseAPIVehiclesList) = try await URLSession.shared.data(for: requestAPIVehiclesList)
+            let (rawDataAPIVehiclesList, rawResponseAPIVehiclesList) = try await URLSession.shared.data(for: requestAPIVehiclesList)
             let responseAPIVehiclesList = rawResponseAPIVehiclesList as? HTTPURLResponse
 
             // Check status of response
@@ -83,7 +82,7 @@ class VehiclesController: ObservableObject {
                throw Appstate.APIError.undefined
             }
 
-            let decodedAPIVehiclesList = try JSONDecoder().decode([APIVehicleSummary].self, from: rawRequestAPIVehiclesList)
+            let decodedAPIVehiclesList = try JSONDecoder().decode([APIVehicleSummary].self, from: rawDataAPIVehiclesList)
 
 
             // Define a temporary variable to store vehicles
@@ -102,7 +101,7 @@ class VehiclesController: ObservableObject {
                   requestAPIVehicleDetail.addValue("application/json", forHTTPHeaderField: "Content-Type")
                   requestAPIVehicleDetail.addValue("application/json", forHTTPHeaderField: "Accept")
                   requestAPIVehicleDetail.setValue("Bearer \(authentication.authToken ?? "invalid_token")", forHTTPHeaderField: "Authorization")
-                  let (rawRequestAPIVehicleDetail, rawResponseAPIVehicleDetail) = try await URLSession.shared.data(for: requestAPIVehicleDetail)
+                  let (rawDataAPIVehicleDetail, rawResponseAPIVehicleDetail) = try await URLSession.shared.data(for: requestAPIVehicleDetail)
                   let responseAPIVehicleDetail = rawResponseAPIVehicleDetail as? HTTPURLResponse
 
                   // Check status of response
@@ -117,7 +116,7 @@ class VehiclesController: ObservableObject {
                      throw Appstate.APIError.undefined
                   }
 
-                  let decodedAPIVehicleDetail = try JSONDecoder().decode(APIVehicleDetail.self, from: rawRequestAPIVehicleDetail)
+                  let decodedAPIVehicleDetail = try JSONDecoder().decode(APIVehicleDetail.self, from: rawDataAPIVehicleDetail)
 
                   // Format and append each vehicle
                   // to the temporary variable.
@@ -132,7 +131,14 @@ class VehiclesController: ObservableObject {
                         previousLatitude: vehicleSummary.previousLatitude ?? 0,
                         previousLongitude: vehicleSummary.previousLongitude ?? 0,
                         lastGpsTime: vehicleSummary.lastGpsTime ?? "-",
-                        lastStopOnVoyageName: decodedAPIVehicleDetail.lastStopOnVoyageName ?? "-"
+                        lastStopOnVoyageName: decodedAPIVehicleDetail.lastStopOnVoyageName ?? "-",
+                        lastSeenTime: self.getLastSeenTime(since: vehicleSummary.lastGpsTime ?? "-"),
+                        angleInRadians: self.getAngleInRadians(
+                           prevLat: vehicleSummary.previousLatitude ?? 0,
+                           prevLng: vehicleSummary.previousLongitude ?? 0,
+                           currLat: vehicleSummary.lat ?? 0,
+                           currLng: vehicleSummary.lng ?? 0
+                        )
                      )
                   )
 
@@ -141,7 +147,7 @@ class VehiclesController: ObservableObject {
             }
 
             // Publish the formatted vehicles, replacing the old ones.
-            self.updateVehiclesOnMainThread(with: tempAllVehicles)
+            self.vehicles = tempAllVehicles
 
          } catch {
             appstate.change(to: .error)
@@ -153,13 +159,6 @@ class VehiclesController: ObservableObject {
 
       appstate.change(to: .idle)
       
-   }
-   
-   
-   func updateVehiclesOnMainThread(with array: [Vehicle]) {
-      DispatchQueue.main.async {
-         self.vehicles = array
-      }
    }
    
    

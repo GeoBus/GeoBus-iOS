@@ -48,8 +48,8 @@ class Authentication: ObservableObject {
 
    var appstate = Appstate()
 
-   func receive(reference: Appstate) {
-      self.appstate = reference
+   func receive(state: Appstate) {
+      self.appstate = state
    }
 
 
@@ -114,7 +114,7 @@ class Authentication: ObservableObject {
       request.httpMethod = "GET"
 
       let (rawCredential, _) = try await URLSession.shared.data(for: request)
-      let decodedCredential = try JSONDecoder().decode(CredentialResponse.self, from: rawCredential)
+      let decodedCredential = try JSONDecoder().decode(APICredential.self, from: rawCredential)
       self.$endpoint.set(decodedCredential.endpoint)
       self.$apiKey.set(decodedCredential.token)
 
@@ -135,12 +135,10 @@ class Authentication: ObservableObject {
 
       let (data, _) = try await URLSession.shared.data(for: request)
 
-      let parsedAuthorization = try JSONDecoder().decode(AuthorizationResponse.self, from: data)
+      let parsedAuthorization = try JSONDecoder().decode(APIAuthorization.self, from: data)
 
       self.$refreshToken.set(parsedAuthorization.refreshToken)
       self.$authToken.set(parsedAuthorization.authorizationToken)
-
-//      print("TOKEN: "+parsedAuthorization.authorizationToken)
 
    }
 

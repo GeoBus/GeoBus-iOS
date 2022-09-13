@@ -14,10 +14,8 @@ import Combine
 class RoutesController: ObservableObject {
 
    /* MARK: - Variables */
-
+   
    private var endpoint = "https://gateway.carris.pt/gateway/xtranpassengerapi/api/v2.10/Routes"
-
-   private var authentication = Authentication()
 
    @Stored(in: .routesStore) var allRoutes
 
@@ -27,31 +25,33 @@ class RoutesController: ObservableObject {
    @Published var selectedRouteVariant: RouteVariant?
    @Published var selectedRouteVariantStop: RouteVariantStop?
 
-   //   @Published var selectedRouteVariantStopAnnotations: [RouteVariantStopAnnotation] = []
-
 
    @StoredValue(key: "lastUpdatedRoutes")
    var lastUpdateRoutes: String? = nil
 
 
 
-   /* MARK: - RECEIVE APPSTATE */
+   /* MARK: - RECEIVE APPSTATE & AUTHENTICATION */
 
    var appstate = Appstate()
+   var authentication = Authentication()
 
-   func receive(reference: Appstate) {
-      self.appstate = reference
+   func receive(state: Appstate, auth: Authentication) {
+      self.appstate = state
+      self.authentication = auth
    }
 
-   
+
 
    /* MARK: - Select Route */
 
    // Discover the Route kind by analysing the route number.
 
    private func select(route: Route) {
-      self.selectedRoute = route
-      self.select(variant: route.variants[0])
+      DispatchQueue.main.async {
+         self.selectedRoute = route
+         self.select(variant: route.variants[0])
+      }
    }
 
    func select(byRouteNumber routeNumber: String) -> Bool {
@@ -65,60 +65,23 @@ class RoutesController: ObservableObject {
    }
 
    func select(variant: RouteVariant) {
-      self.selectedRouteVariant = variant
+      DispatchQueue.main.async {
+         self.selectedRouteVariant = variant
+      }
    }
 
    func select(stop: RouteVariantStop) {
-      self.selectedRouteVariantStop = stop
+      DispatchQueue.main.async {
+         self.selectedRouteVariantStop = stop
+      }
    }
 
    func deselectStop() {
-      self.selectedRouteVariantStop = nil
+      DispatchQueue.main.async {
+         self.selectedRouteVariantStop = nil
+      }
    }
 
-
-   //   /* MARK: - Set Selected Route Variant Stop Annotations */
-   //
-   //   // Populate array of map annotations for bus stops.
-   //   // RouteVariantStop is transformed into RouteVariantStopAnnotation
-   //   // to be displayed in MKMapView.
-   //
-   //   func setSelectedRouteVariantStopAnnotations() {
-   //
-   //      self.selectedRouteVariantStopAnnotations = []
-   //      var formattedAnnotations: [RouteVariantStopAnnotation] = []
-   //
-   //      if (selectedRoute != nil && selectedRouteVariant != nil) {
-   //
-   //         if (selectedRouteVariant!.upItinerary != nil) {
-   //            for stop in selectedRouteVariant!.upItinerary! {
-   //               formattedAnnotations.append(
-   //                  RouteVariantStopAnnotation(stop: stop)
-   //               )
-   //            }
-   //         }
-   //
-   //         if (selectedRouteVariant!.downItinerary != nil) {
-   //            for stop in selectedRouteVariant!.downItinerary! {
-   //               formattedAnnotations.append(
-   //                  RouteVariantStopAnnotation(stop: stop)
-   //               )
-   //            }
-   //         }
-   //
-   //         if (selectedRouteVariant!.circItinerary != nil) {
-   //            for stop in selectedRouteVariant!.circItinerary! {
-   //               formattedAnnotations.append(
-   //                  RouteVariantStopAnnotation(stop: stop)
-   //               )
-   //            }
-   //         }
-   //
-   //      }
-   //
-   //      self.selectedRouteVariantStopAnnotations = formattedAnnotations
-   //
-   //   }
 
 
    /* MARK: - Find Route by RouteNumber */
@@ -257,7 +220,10 @@ class RoutesController: ObservableObject {
    // the details for each route. Here, we only care about the publicy available routes.
    // After, for each route, it's details are formatted and transformed into a Route.
 
+   @MainActor
    func fetchRoutesFromAPI() async {
+
+      appstate.change(to: .loading)
 
       do {
          // Request API Routes List
@@ -265,7 +231,7 @@ class RoutesController: ObservableObject {
          requestAPIRoutesList.addValue("application/json", forHTTPHeaderField: "Content-Type")
          requestAPIRoutesList.addValue("application/json", forHTTPHeaderField: "Accept")
          requestAPIRoutesList.setValue("Bearer \(authentication.authToken ?? "invalid_token")", forHTTPHeaderField: "Authorization")
-         let (rawRequestAPIRoutesList, rawResponseAPIRoutesList) = try await URLSession.shared.data(for: requestAPIRoutesList)
+         let (rawDataAPIRoutesList, rawResponseAPIRoutesList) = try await URLSession.shared.data(for: requestAPIRoutesList)
          let responseAPIRoutesList = rawResponseAPIRoutesList as? HTTPURLResponse
 
          // Check status of response
@@ -280,7 +246,7 @@ class RoutesController: ObservableObject {
             throw Appstate.APIError.undefined
          }
 
-         let decodedAPIRoutesList = try JSONDecoder().decode([APIRoutesList].self, from: rawRequestAPIRoutesList)
+         let decodedAPIRoutesList = try JSONDecoder().decode([APIRoutesList].self, from: rawDataAPIRoutesList)
 
          // Define a temporary variable to store routes
          // before saving them to the device storage.
@@ -296,7 +262,7 @@ class RoutesController: ObservableObject {
                requestAPIRouteDetail.addValue("application/json", forHTTPHeaderField: "Content-Type")
                requestAPIRouteDetail.addValue("application/json", forHTTPHeaderField: "Accept")
                requestAPIRouteDetail.setValue("Bearer \(authentication.authToken ?? "invalid_token")", forHTTPHeaderField: "Authorization")
-               let (rawRequestAPIRouteDetail, rawResponseAPIRouteDetail) = try await URLSession.shared.data(for: requestAPIRouteDetail)
+               let (rawDataAPIRouteDetail, rawResponseAPIRouteDetail) = try await URLSession.shared.data(for: requestAPIRouteDetail)
                let responseAPIRouteDetail = rawResponseAPIRouteDetail as? HTTPURLResponse
 
                // Check status of response
@@ -311,7 +277,7 @@ class RoutesController: ObservableObject {
                   throw Appstate.APIError.undefined
                }
 
-               let decodedAPIRouteDetail = try JSONDecoder().decode(APIRoute.self, from: rawRequestAPIRouteDetail)
+               let decodedAPIRouteDetail = try JSONDecoder().decode(APIRoute.self, from: rawDataAPIRouteDetail)
 
                // Define a temporary variable to store formatted route variants
                var formattedRouteVariants: [RouteVariant] = []
@@ -353,6 +319,8 @@ class RoutesController: ObservableObject {
             .run()
 
          print("Route Fetching Complete")
+
+         appstate.change(to: .idle)
 
       } catch {
          appstate.change(to: .error)

@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import Combine
 import MapKit
 
 struct ContentView: View {
@@ -47,7 +46,9 @@ struct ContentView: View {
 
             }
             .onChange(of: routesController.selectedRouteVariantStop) { newStop in
-               self.selectedStop = newStop
+               DispatchQueue.main.async {
+                  self.selectedStop = newStop
+               }
             }
 
          }

@@ -6,19 +6,19 @@
 //
 import UIKit
 
-/// Generates iOS Device vibrations by UIFeedbackGenerator.
+// Generates iOS Device vibrations by UIFeedbackGenerator.
 open class TapticEngine {
 
    public static let impact: Impact = .init()
 
 
-   /// Wrapper of `UIImpactFeedbackGenerator`
+   // Wrapper of `UIImpactFeedbackGenerator`
    open class Impact {
-      /// Impact feedback styles
-      ///
-      /// - light: A impact feedback between small, light user interface elements.
-      /// - medium: A impact feedback between moderately sized user interface elements.
-      /// - heavy: A impact feedback between large, heavy user interface elements.
+      // Impact feedback styles
+      //
+      // - light: A impact feedback between small, light user interface elements.
+      // - medium: A impact feedback between moderately sized user interface elements.
+      // - heavy: A impact feedback between large, heavy user interface elements.
       public enum ImpactStyle {
          case light, medium, heavy
       }

@@ -15,8 +15,9 @@ struct GeoBusApp: App {
    @StateObject private var authentication = Authentication()
    @StateObject private var routesController = RoutesController()
    @StateObject private var vehiclesController = VehiclesController()
+   @StateObject private var estimationsController = EstimationsController()
 
-   let timer = Timer.publish(every: 15, on: .main, in: .common).autoconnect()
+   let timer = Timer.publish(every: 20 /* seconds */, on: .main, in: .common).autoconnect()
 
    var body: some Scene {
       WindowGroup {
@@ -25,21 +26,21 @@ struct GeoBusApp: App {
             .environmentObject(authentication)
             .environmentObject(routesController)
             .environmentObject(vehiclesController)
+            .environmentObject(estimationsController)
             .onAppear(perform: {
                Task {
-                  // Pass references to Appstate
-                  authentication.receive(reference: appstate)
-                  routesController.receive(reference: appstate)
-                  vehiclesController.receive(reference: appstate)
-                  // Initiate authentication
-//                  await authentication.authenticate()
+                  // Pass references to Controllers
+                  authentication.receive(state: appstate)
+                  routesController.receive(state: appstate, auth: authentication)
+                  vehiclesController.receive(state: appstate, auth: authentication)
+                  estimationsController.receive(state: appstate, auth: authentication)
                   // Update available routes
                   await routesController.start()
                }
             })
             .onReceive(timer) { event in
                Task {
-//                  await self.authentication.authenticate()
+                  // Update vehicles on timer call
                   await vehiclesController.fetchVehiclesFromAPI()
                }
             }

@@ -23,7 +23,9 @@ struct NavBar: View {
    var routeSelector: some View {
       Button(action: {
          // What happens when button is tapped
-         self.showSelectRouteSheet = true
+         if (routesController.allRoutes.count > 0) {
+            self.showSelectRouteSheet = true
+         }
       }) {
          // What is shown as the button view
          SelectRouteView()
@@ -42,7 +44,9 @@ struct NavBar: View {
          if (routesController.selectedRoute != nil) {
             self.showRouteDetailsSheet = true
          } else {
-            self.showSelectRouteSheet = true
+            if (routesController.allRoutes.count > 0) {
+               self.showSelectRouteSheet = true
+            }
          }
       }) {
          // What is shown as the button view

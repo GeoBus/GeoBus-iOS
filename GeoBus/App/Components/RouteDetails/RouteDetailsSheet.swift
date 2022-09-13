@@ -27,12 +27,12 @@ struct RouteDetailsSheet: View {
 
          SheetHeader(title: Text("Route Details"), toggle: $showRouteDetailsSheet)
 
-         HStack(spacing: 15) {
-            RouteBadgeSquare(route: routesController.selectedRoute!)
+         HStack(spacing: 25) {
+            RouteBadgeSquare(routeNumber: routesController.selectedRoute!.number)
                .frame(width: 80)
-            Text("route variant name")
+            Text(routesController.selectedRoute?.name ?? "-")
+               .fontWeight(.bold)
                .foregroundColor(Color(.label))
-               .padding(.leading)
             Spacer()
          }
          .padding()
@@ -69,9 +69,9 @@ struct RouteDetailsSheet: View {
             .pickerStyle(SegmentedPickerStyle())
 
             if (self.routeDirectionPicker == 0) {
-               StopsList(stops: routesController.selectedRouteVariant!.upItinerary!)
+               StopsList(stops: routesController.selectedRouteVariant!.upItinerary ?? [])
             } else {
-               StopsList(stops: routesController.selectedRouteVariant!.downItinerary!)
+               StopsList(stops: routesController.selectedRouteVariant!.downItinerary ?? [])
             }
          }
 
@@ -83,27 +83,20 @@ struct RouteDetailsSheet: View {
    var body: some View {
 
       ScrollView(.vertical, showsIndicators: true) {
-
          VStack(spacing: 20) {
-
             liveInfo
                .padding(.horizontal)
-
             Divider()
-
             if (routesController.selectedRoute!.variants.count > 1) {
                RouteVariantPicker()
                Divider()
             }
-
             stopsList
                .padding(.horizontal)
-
          }
-
       }
       .background(colorScheme == .dark ? Color(.systemBackground) : Color(.secondarySystemBackground))
-//      .edgesIgnoringSafeArea(.bottom)
 
    }
+
 }
