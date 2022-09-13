@@ -1,59 +1,59 @@
 /* No comment provided by engineer. */
-"%lld active vehicles" = "%lld 台のアクティブ車両";
+"%lld active vehicles" = "%lld active vehicles";
 
 /* No comment provided by engineer. */
-"vehicle in circulation" = "循環する車";
+"vehicle in circulation" = "vehicle in circulation";
 
 /* No comment provided by engineer. */
-"vehicles in circulation" = "循環する車";
+"vehicles in circulation" = "vehicles in circulation";
 
 /* No comment provided by engineer. */
-"+info" = "+ (info)";
+"+info" = "+info";
 
 /* No comment provided by engineer. */
 "-" = "-";
 
 /* No comment provided by engineer. */
-"1 active vehicle" = "有効な車両が1台";
+"1 active vehicle" = "1 active vehicle";
 
 /* No comment provided by engineer. */
-"Click here to retry ↺" = "ここをクリックして <unk> を再試行する";
+"Click here to retry ↺" = "Click here to retry ↺";
 
 /* No comment provided by engineer. */
-"Connection Error" = "接続エラー";
+"Connection Error" = "Connection Error";
 
 /* No comment provided by engineer. */
-"Estimated" = "推定値";
+"Estimated" = "Estimated";
 
 /* No comment provided by engineer. */
-"Favorite Routes" = "お気に入りのルート";
+"Favorite Routes" = "Favorite Routes";
 
 /* No comment provided by engineer. */
-"in ±" = "±で";
+"in ±" = "in ±";
 
 /* No comment provided by engineer. */
-"Live" = "ライブ";
+"Live" = "Live";
 
 /* No comment provided by engineer. */
-"Loading..." = "読み込み中...";
+"Loading..." = "Loading...";
 
 /* No comment provided by engineer. */
-"Next on this stop" = "次の停車駅へ";
+"Next on this stop" = "Next on this stop";
 
 /* No comment provided by engineer. */
-"Nothing to show here." = "ここに表示するものはありません。";
+"Nothing to show here." = "Nothing to show here.";
 
 /* No comment provided by engineer. */
-"Please check your internet connection." = "インターネット接続を確認してください。";
+"Please check your internet connection." = "Please check your internet connection.";
 
 /* No comment provided by engineer. */
-"Syncing Routes..." = "ルートを同期中...";
+"Syncing Routes..." = "Syncing Routes...";
 
 /* No comment provided by engineer. */
-"This is a circular route." = "これは円形のルートです。";
+"This is a circular route." = "This is a circular route.";
 
 /* No comment provided by engineer. */
-"This route may have %lld alternative paths." = "このルートには %lld 個の別のパスがあります。";
+"This route may have %lld alternative paths." = "This route may have %lld alternative paths.";
 
 /* No comment provided by engineer. */
 "to" = "to";
@@ -62,58 +62,58 @@
 "to: %@" = "to: %@";
 
 /* No comment provided by engineer. */
-"You have no favorite routes." = "お気に入りのルートがありません。";
+"You have no favorite routes." = "You have no favorite routes.";
 
 /* No comment provided by engineer. */
-"← Choose a Route" = "航路を選択";
+"← Choose a Route" = "← Choose a Route";
 
 /* No comment provided by engineer. */
-"Find by Route" = "ルートで検索";
+"Find by Route" = "Find by Route";
 
 /* No comment provided by engineer. */
-"Route Details" = "ルートの詳細";
+"Route Details" = "Route Details";
 
 /* No comment provided by engineer. */
-"Locate" = "場所を特定する";
+"Locate" = "Locate";
 
 /* No comment provided by engineer. */
-"The route you entered does not exist." = "入力したルートは存在しません。";
+"The route you entered does not exist." = "The route you entered does not exist.";
 
 /* No comment provided by engineer. */
-"Choose a Route Number" = "ルート番号を選択";
+"Choose a Route Number" = "Choose a Route Number";
 
 /* No comment provided by engineer. */
-"(ex: 28E or 758)" = "（例：28Eまたは758）";
+"(ex: 28E or 758)" = "(ex: 28E or 758).";
 
 /* No comment provided by engineer. */
-"Trams" = "トラム";
+"Trams" = "Trams";
 
 /* No comment provided by engineer. */
-"Neighborhood Buses" = "ネイバーフッドバス";
+"Neighborhood Buses" = "Neighborhood Buses";
 
 /* No comment provided by engineer. */
-"Night Buses" = "夜のバス";
+"Night Buses" = "Night Buses";
 
 /* No comment provided by engineer. */
-"Regular Service" = "レギュラーサービス";
+"Regular Service" = "Regular Service";
 
 /* No comment provided by engineer. */
-"Elevators" = "エレベーター";
+"Elevators" = "Elevators";
 
 /* No comment provided by engineer. */
-"Done" = "完了";
+"Done" = "Done";
 
 /* No comment provided by engineer. */
-"direction:" = "方向:";
+"direction:" = "direction:";
 
 /* No comment provided by engineer. */
-"Last seen %lld seconds ago" = "最後に見たのは %lld 秒前";
+"Last seen %lld seconds ago" = "Last seen %lld seconds ago";
 
 /* No comment provided by engineer. */
-"AboutTitle" = "Olá!";
+"AboutTitle" = "Olá!";
 
 /* No comment provided by engineer. */
-"AboutParagraph" = "GeoBusのヘルプが必要な場合、または改善のアイデアがある場合は、Twitter、Facebook、Instagram、またはEメールでメッセージを送ってください。";
+"AboutParagraph" = "If you need help with GeoBus, or have ideas to improve it, please send me a message through Twitter, Facebook, Instagram or Email.";
 
 /* No comment provided by engineer. */
-"AboutCallout" = "あなたの意見を知って喜んでいます。";
+"AboutCallout" = "I'll be delighted to know your opinion.";
