@@ -1,0 +1,140 @@
+/* No comment provided by engineer. */
+"_ _ _" = "_ _ _";
+
+/* No comment provided by engineer. */
+"(ex: 28E or 758)" = "(ex: 28E ou 758)";
+
+/* No comment provided by engineer. */
+"%@" = "%@";
+
+/* No comment provided by engineer. */
+"%lld" = "%lld";
+
+/* No comment provided by engineer. */
+"%lld active vehicles" = "%lld veículos ativos";
+
+/* No comment provided by engineer. */
+"← Choose a Route" = "← Choose a Route";
+
+/* No comment provided by engineer. */
+"1 active vehicle" = "1 veículo ativo";
+
+/* No comment provided by engineer. */
+"AboutCallout" = "Gostaria muito de saber a sua opinião.";
+
+/* No comment provided by engineer. */
+"AboutParagraph" = "Se precisar de ajuda para utilizar o GeoBus, ou se tiver alguma ideia para o melhorar, por favor envie uma mensagem pelo Twitter, Facebook, Instagram ou Email.";
+
+/* No comment provided by engineer. */
+"AboutTitle" = "Olá!";
+
+/* No comment provided by engineer. */
+"Allow in Settings" = "Allow in Settings";
+
+/* No comment provided by engineer. */
+"Allow Location Access" = "Allow Location Access";
+
+/* No comment provided by engineer. */
+"Choose a Route Number" = "Choose a Route Number";
+
+/* No comment provided by engineer. */
+"Click here to retry ↺" = "Click here to retry ↺";
+
+/* No comment provided by engineer. */
+"Close" = "Close";
+
+/* No comment provided by engineer. */
+"Connection Error" = "Connection Error";
+
+/* No comment provided by engineer. */
+"Details are visisble!" = "Details are visisble!";
+
+/* No comment provided by engineer. */
+"Direction" = "Direction";
+
+/* No comment provided by engineer. */
+"Estimated" = "Estimated";
+
+/* No comment provided by engineer. */
+"Favorite Routes" = "Favorite Routes";
+
+/* No comment provided by engineer. */
+"Find Routes" = "Find Routes";
+
+/* No comment provided by engineer. */
+"GitHub" = "GitHub";
+
+/* No comment provided by engineer. */
+"in ±" = "in ±";
+
+/* No comment provided by engineer. */
+"Live" = "Live";
+
+/* No comment provided by engineer. */
+"Loading..." = "Loading...";
+
+/* No comment provided by engineer. */
+"Locate" = "Locate";
+
+/* No comment provided by engineer. */
+"Neighborhood Buses" = "Neighborhood Buses";
+
+/* No comment provided by engineer. */
+"Next on this stop:" = "Next on this stop:";
+
+/* No comment provided by engineer. */
+"Night Buses" = "Night Buses";
+
+/* No comment provided by engineer. */
+"No estimations available for this stop." = "No estimations available for this stop.";
+
+/* No comment provided by engineer. */
+"Regular Service" = "Regular Service";
+
+/* No comment provided by engineer. */
+"Route Details" = "Route Details";
+
+/* No comment provided by engineer. */
+"Send an Email" = "Send an Email";
+
+/* No comment provided by engineer. */
+"Service may be unavailable." = "Service may be unavailable.";
+
+/* No comment provided by engineer. */
+"The route you entered is not available." = "The route you entered is not available.";
+
+/* No comment provided by engineer. */
+"This is a circular route." = "This is a circular route.";
+
+/* No comment provided by engineer. */
+"This route may have %lld alternative paths." = "This route may have %lld alternative paths.";
+
+/* No comment provided by engineer. */
+"to" = "to";
+
+/* No comment provided by engineer. */
+"to: %@" = "to: %@";
+
+/* No comment provided by engineer. */
+"Trams" = "Trams";
+
+/* No comment provided by engineer. */
+"Twitter" = "Twitter";
+
+/* No comment provided by engineer. */
+"v%@-%@" = "v%@-%@";
+
+/* No comment provided by engineer. */
+"vehicle in circulation" = "vehicle in circulation";
+
+/* No comment provided by engineer. */
+"vehicles in circulation" = "vehicles in circulation";
+
+/* No comment provided by engineer. */
+"Visit the Website" = "Visit the Website";
+
+/* No comment provided by engineer. */
+"You have no favorite routes." = "You have no favorite routes.";
+
+/* No comment provided by engineer. */
+"You have to allow location access so that GeoBus can show where you are on the map." = "You have to allow location access so that GeoBus can show where you are on the map.";
