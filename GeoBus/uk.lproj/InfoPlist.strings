@@ -2,7 +2,7 @@
 "CFBundleName" = "GeoBus";
 
 /* Privacy - Location Usage Description */
-"NSLocationUsageDescription" = "Ваше місцезнаходження буде використано, щоб показати вам, де ви знаходитесь на карті.";
+"NSLocationUsageDescription" = "Your location will only be used to show you where you are on the map.";
 
 /* Privacy - Location When In Use Usage Description */
-"NSLocationWhenInUseUsageDescription" = "Ваше місцезнаходження буде використано, щоб показати вам, де ви знаходитесь на карті.";
+"NSLocationWhenInUseUsageDescription" = "Your location will only be used to show you where you are on the map.";
