@@ -1,30 +1,48 @@
 {
   "pins" : [
     {
+      "identity" : "bodega",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/mergesort/Bodega.git",
+      "state" : {
+        "revision" : "8e240838b37f2596026b23934e3b87a36354b728",
+        "version" : "2.0.0"
+      }
+    },
+    {
+      "identity" : "boutique",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/mergesort/Boutique",
+      "state" : {
+        "branch" : "main",
+        "revision" : "f8e40d4bf0bbbc17290eed2dc5aae202ad66e410"
+      }
+    },
+    {
       "identity" : "lottie-ios",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/airbnb/lottie-ios",
+      "location" : "https://github.com/airbnb/lottie-ios.git",
       "state" : {
-        "branch" : "master",
-        "revision" : "934954c378fbd49f3798931cd314740ff3176972"
+        "revision" : "314537ec697719fa33a9d48210f4d06a463286d3",
+        "version" : "3.4.3"
       }
     },
     {
-      "identity" : "push-notifications-swift",
+      "identity" : "sqlite.swift",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/pusher/push-notifications-swift",
+      "location" : "https://github.com/stephencelis/SQLite.swift.git",
       "state" : {
-        "revision" : "cff2308b83ee27e4cfa25e191e103dfe6d6d18d2",
-        "version" : "3.0.4"
+        "revision" : "4d543d811ee644fa4cc4bfa0be996b4dd6ba0f54",
+        "version" : "0.13.3"
       }
     },
     {
-      "identity" : "swiftui-grid",
+      "identity" : "swift-collections",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/spacenation/swiftui-grid",
+      "location" : "https://github.com/apple/swift-collections",
       "state" : {
-        "branch" : "master",
-        "revision" : "a3441f80bd01029507bc19e463e7c7208ffcf3f9"
+        "revision" : "48254824bb4248676bf7ce56014ff57b142b77eb",
+        "version" : "1.0.2"
       }
     }
   ],

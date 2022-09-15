@@ -1,119 +1,141 @@
 /* No comment provided by engineer. */
-"%lld active vehicles" = "%lld veículos ativos";
+"_ _ _" = "_ _ _";
 
 /* No comment provided by engineer. */
-"vehicle in circulation" = "veículo em circulação";
+"(ex: 28E or 758)" = "(ex: 28E or 758)";
 
 /* No comment provided by engineer. */
-"vehicles in circulation" = "veículos em circulação";
+"%@" = "%@";
 
 /* No comment provided by engineer. */
-"+info" = "+info";
+"%lld" = "%lld";
 
 /* No comment provided by engineer. */
-"-" = "-";
+"%lld active vehicles" = "%lld active vehicles";
 
 /* No comment provided by engineer. */
-"1 active vehicle" = "1 veículo ativo";
+"← Choose a Route" = "← Choose a Route";
 
 /* No comment provided by engineer. */
-"Click here to retry ↺" = "Tente novamente ↺";
+"1 active vehicle" = "1 active vehicle";
 
 /* No comment provided by engineer. */
-"Connection Error" = "Erro de Ligação";
+"AboutCallout" = "AboutCallout";
 
 /* No comment provided by engineer. */
-"Estimated" = "Estimado";
+"AboutParagraph" = "AboutParagraph";
 
 /* No comment provided by engineer. */
-"Favorite Routes" = "Favoritos";
+"AboutTitle" = "AboutTitle";
 
 /* No comment provided by engineer. */
-"in ±" = "em ±";
+"Allow in Settings" = "Allow in Settings";
+
+/* No comment provided by engineer. */
+"Allow Location Access" = "Allow Location Access";
+
+/* No comment provided by engineer. */
+"Choose a Route Number" = "Choose a Route Number";
+
+/* No comment provided by engineer. */
+"Click here to retry ↺" = "Click here to retry ↺";
+
+/* No comment provided by engineer. */
+"Close" = "Close";
+
+/* No comment provided by engineer. */
+"Connection Error" = "Connection Error";
+
+/* No comment provided by engineer. */
+"Details are visisble!" = "Details are visisble!";
+
+/* No comment provided by engineer. */
+"Direction" = "Direction";
+
+/* No comment provided by engineer. */
+"Estimated" = "Estimated";
+
+/* No comment provided by engineer. */
+"Favorite Routes" = "Favorite Routes";
+
+/* No comment provided by engineer. */
+"Find Routes" = "Find Routes";
+
+/* No comment provided by engineer. */
+"GitHub" = "GitHub";
+
+/* No comment provided by engineer. */
+"in ±" = "in ±";
 
 /* No comment provided by engineer. */
 "Live" = "Live";
 
 /* No comment provided by engineer. */
-"Loading..." = "A Carregar...";
+"Loading..." = "Loading...";
 
 /* No comment provided by engineer. */
-"Next on this stop" = "Próximos nesta paragem";
+"Locate" = "Locate";
 
 /* No comment provided by engineer. */
-"Nothing to show here." = "Nada para mostrar.";
+"Neighborhood Buses" = "Neighborhood Buses";
 
 /* No comment provided by engineer. */
-"Please check your internet connection." = "Por favor verifique a sua ligação à internet.";
+"Next on this stop:" = "Next on this stop:";
 
 /* No comment provided by engineer. */
-"Syncing Routes..." = "A Sincronizar...";
+"Night Buses" = "Night Buses";
 
 /* No comment provided by engineer. */
-"This is a circular route." = "Esta é uma carreira circular.";
+"No estimations available for this stop." = "No estimations available for this stop.";
 
 /* No comment provided by engineer. */
-"This route may have %lld alternative paths." = "Esta carreira pode ter %lld caminhos alternativos.";
+"Regular Service" = "Regular Service";
 
 /* No comment provided by engineer. */
-"to" = "para";
+"Route Details" = "Route Details";
 
 /* No comment provided by engineer. */
-"to: %@" = "para: %@";
+"Send an Email" = "Send an Email";
 
 /* No comment provided by engineer. */
-"You have no favorite routes." = "Ainda não tem carreiras favoritas.";
+"Service may be unavailable." = "Service may be unavailable.";
 
 /* No comment provided by engineer. */
-"← Choose a Route" = "← Escolha uma Carreira";
+"The route you entered is not available." = "The route you entered is not available.";
 
 /* No comment provided by engineer. */
-"Find by Route" = "Carreiras";
+"This is a circular route." = "This is a circular route.";
 
 /* No comment provided by engineer. */
-"Route Details" = "Detalhes";
+"This route may have %lld alternative paths." = "This route may have %lld alternative paths.";
 
 /* No comment provided by engineer. */
-"Locate" = "Procurar";
+"to" = "to";
 
 /* No comment provided by engineer. */
-"The route you entered does not exist." = "A carreira que introduziu não existe.";
+"to: %@" = "to: %@";
 
 /* No comment provided by engineer. */
-"Choose a Route Number" = "Introduza uma carreira";
+"Trams" = "Trams";
 
 /* No comment provided by engineer. */
-"(ex: 28E or 758)" = "(ex: 28E ou 758).";
+"Twitter" = "Twitter";
 
 /* No comment provided by engineer. */
-"Trams" = "Elétricos";
+"v%@-%@" = "v%@-%@";
 
 /* No comment provided by engineer. */
-"Neighborhood Buses" = "Carreiras de Bairro";
+"vehicle in circulation" = "vehicle in circulation";
 
 /* No comment provided by engineer. */
-"Night Buses" = "Noturnos";
+"vehicles in circulation" = "vehicles in circulation";
 
 /* No comment provided by engineer. */
-"Regular Service" = "Diurnos";
+"Visit the Website" = "Visit the Website";
 
 /* No comment provided by engineer. */
-"Elevators" = "Elevadores";
+"You have no favorite routes." = "You have no favorite routes.";
 
 /* No comment provided by engineer. */
-"Done" = "Voltar";
+"You have to allow location access so that GeoBus can show where you are on the map." = "You have to allow location access so that GeoBus can show where you are on the map.";
 
-/* No comment provided by engineer. */
-"direction:" = "direção:";
-
-/* No comment provided by engineer. */
-"Last seen %lld seconds ago" = "Visto há %lld segundos atrás";
-
-/* No comment provided by engineer. */
-"AboutTitle" = "Olá!";
-
-/* No comment provided by engineer. */
-"AboutParagraph" = "Se precisar de ajuda para utilizar o GeoBus, ou se tiver alguma ideia para o melhorar, por favor mande-me uma mensagem pelo Twitter, Facebook, Instagram ou Email.";
-
-/* No comment provided by engineer. */
-"AboutCallout" = "Gostaria muito de saber a sua opinião.";
