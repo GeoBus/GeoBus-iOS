@@ -138,8 +138,6 @@
 		CFEF85C428D34E6300A29526 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		CFEF85C928D34FBB00A29526 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		CFEF85CA28D34FBB00A29526 /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
-		CFF4875B28D3BC2F00E2C13D /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		CFF4875C28D3BC3300E2C13D /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -415,7 +413,6 @@
 			knownRegions = (
 				en,
 				pt,
-				"pt-PT",
 			);
 			mainGroup = CF181FD928CCB7D600248F72;
 			packageReferences = (
@@ -518,7 +515,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				CF70E52C28D36F07008C6F6A /* pt */,
-				CFF4875C28D3BC3300E2C13D /* pt-PT */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -527,7 +523,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				CF70E52D28D36F0A008C6F6A /* pt */,
-				CFF4875B28D3BC2F00E2C13D /* pt-PT */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
