@@ -30,7 +30,7 @@ struct Estimation: Codable, Identifiable, Equatable {
    let routeNumber: String
    let destination: String
    let publicId: String
-   let timeLeft: String
+   let eta: String
 
    var id: String {
       return UUID().uuidString

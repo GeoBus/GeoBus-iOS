@@ -75,7 +75,7 @@ class EstimationsController: ObservableObject {
                   routeNumber: estimation.routeNumber ?? "-",
                   destination: estimation.destination ?? "-",
                   publicId: estimation.publicId ?? "-",
-                  timeLeft: getTimeInterval(for: estimation.time ?? "-")
+                  eta: Globals().getTimeString(for: estimation.time ?? "", in: .future, style: .short, units: [.hour, .minute])
                )
             )
 
@@ -91,29 +91,6 @@ class EstimationsController: ObservableObject {
          print("ERROR IN ESTIMATIONS: \(error)")
          return []
       }
-
-   }
-
-
-
-   /* MARK: - Get Time Interval */
-
-   // Transform a date in the future into minutes.
-
-   func getTimeInterval(for eta: String) -> String {
-
-      let formatter = DateFormatter()
-      formatter.locale = Locale(identifier: "en_US_POSIX")
-      formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-
-      let estimation = formatter.date(from: eta)
-      let now = Date()
-
-      let interval = estimation?.timeIntervalSince(now) ?? TimeInterval()
-
-      let minutes = Int(interval / 60)
-
-      return "\(minutes) min"
 
    }
 

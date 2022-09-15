@@ -86,19 +86,20 @@ class RoutesController: ObservableObject {
 
       let formatter = ISO8601DateFormatter()
 
-      if (lastUpdateRoutes != nil && allRoutes.count > 0) {
+      if (lastUpdateRoutes != nil || allRoutes.count > 0) {
 
          // Calculate time interval
          let formattedDateObj = formatter.date(from: lastUpdateRoutes!)
          let secondsPassed = Int(formattedDateObj?.timeIntervalSinceNow ?? -1)
 
-         if ( (secondsPassed * -1) > (86400 * 5) ) { // 1 day = 86400 seconds
+         if ( (secondsPassed * -1) > (86400 * 5) ) { // 86400 seconds * 5 = 5 days
             await fetchRoutesFromAPI()
             let timestamp = formatter.string(from: Date.now)
             $lastUpdateRoutes.set(timestamp)
          }
 
       } else {
+         appstate.change(to: .loading, for: .routes)
          await fetchRoutesFromAPI()
          let timestamp = formatter.string(from: Date.now)
          $lastUpdateRoutes.set(timestamp)
@@ -211,6 +212,8 @@ class RoutesController: ObservableObject {
 
       appstate.change(to: .loading, for: .routes)
 
+      print("Fetching Routes: Starting...")
+
       do {
          // Request API Routes List
          var requestAPIRoutesList = URLRequest(url: URL(string: "https://gateway.carris.pt/gateway/xtranpassengerapi/api/v2.10/Routes")!)
@@ -304,14 +307,14 @@ class RoutesController: ObservableObject {
             .add(tempAllRoutes)
             .run()
 
-         print("Route Fetching Complete")
+         print("Fetching Routes: Complete!")
 
          appstate.change(to: .idle, for: .routes)
 
       } catch {
          appstate.change(to: .error, for: .routes)
-         print("************")
-         print("Error: \(error)")
+         print("Fetching Routes: Error!")
+         print(error)
          print("************")
       }
 

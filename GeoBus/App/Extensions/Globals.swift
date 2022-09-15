@@ -53,49 +53,9 @@ class Globals {
    }
 
 
-   func getLastSeenTime(since lastGpsTime: String) -> Int {
+   /* MARK: - Get Theme Colors */
 
-      let formatter = DateFormatter()
-      formatter.locale = Locale(identifier: "en_US_POSIX")
-      formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-
-      let now = Date()
-      let estimation = formatter.date(from: lastGpsTime) ?? now
-
-      let seconds = now.timeIntervalSince(estimation)
-
-      return Int(seconds)
-
-   }
-
-
-   func getLastSeenTimeString(for secondsAmount: Int) -> String {
-      let formatter = DateComponentsFormatter()
-      formatter.unitsStyle = .short
-      formatter.includesApproximationPhrase = false
-      formatter.includesTimeRemainingPhrase = false
-      formatter.allowedUnits = [.second, .minute, .hour]
-
-      // Use the configured formatter to generate the string.
-      return formatter.string(from: DateComponents(second: secondsAmount)) ?? "-"
-   }
-
-   func getLastSeenTimeString(for isoDateString: String) -> String {
-
-      // style: DateComponentsFormatter.UnitsStyle, units: [NSCalendar.Unit]
-
-      let formatter = DateComponentsFormatter()
-      formatter.unitsStyle = .full
-      formatter.includesApproximationPhrase = false
-      formatter.includesTimeRemainingPhrase = false
-      formatter.allowedUnits = [.second, .minute, .hour]
-
-      let secondsAmount = getLastSeenTime(since: isoDateString)
-
-      // Use the configured formatter to generate the string.
-      return formatter.string(from: DateComponents(second: secondsAmount)) ?? "-"
-   }
-
+   // Centralized functions that retrieve theme colors.
 
    func getBackgroundColor(for routeNumber: String) -> Color {
       let routeKind = getKind(by: routeNumber)
@@ -127,5 +87,46 @@ class Globals {
          case .regular:
             return Color(.black)
       }
+   }
+
+
+
+   /* MARK: - Get Time Interval */
+
+   // Transform an ISO Timestamp String into relative date components.
+
+   enum TimeRelativeToNow {
+      case past
+      case future
+   }
+
+   func getTimeString(for isoDateString: String, in timeRelation: TimeRelativeToNow, style: DateComponentsFormatter.UnitsStyle, units: NSCalendar.Unit) -> String {
+
+      // Setup Date Formatter
+      let dateFormatter = DateFormatter()
+      dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+      dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+
+      // Parse ISO Timestamp using the Date Formatter
+      let now = Date()
+      let dateObj = dateFormatter.date(from: isoDateString) ?? now
+      let seconds = now.timeIntervalSince(dateObj) // in seconds
+
+      // Setup Date Components Formatter
+      let dateComponentsFormatter = DateComponentsFormatter()
+      dateComponentsFormatter.unitsStyle = style
+      dateComponentsFormatter.allowedUnits = units
+      dateComponentsFormatter.includesApproximationPhrase = false
+      dateComponentsFormatter.includesTimeRemainingPhrase = false
+      dateComponentsFormatter.allowsFractionalUnits = false
+
+      // Use the configured Date Components Formatter to generate the string.
+      switch timeRelation {
+         case .past:
+            return dateComponentsFormatter.string(from: seconds) ?? "?"
+         case .future:
+            return dateComponentsFormatter.string(from: -seconds) ?? "?"
+      }
+
    }
 }

@@ -96,7 +96,7 @@ class VehiclesController: ObservableObject {
 
                // Discard vehicles with outdated location,
                // here decided to be 180 seconds (3 minutes).
-               if (Globals().getLastSeenTime(since: vehicleSummary.lastGpsTime ?? "") < 180) {
+               if (0 < 180) { // Globals().getLastSeenTime(since: vehicleSummary.lastGpsTime ?? "")
 
                   // Format and append each vehicle
                   // to the temporary variable.

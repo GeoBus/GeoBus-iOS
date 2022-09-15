@@ -52,10 +52,14 @@ struct RouteDetailsView: View {
 
    var updatingRoutesScreen: some View {
       HStack {
-         VStack(alignment: .leading, spacing: 10) {
+         VStack(alignment: .leading, spacing: 5) {
             Text("Updating Routes...")
                .font(Font.system(size: 15, weight: .bold, design: .default))
+               .padding(.bottom, 5)
             Text("Please wait a few seconds.")
+               .font(Font.system(size: 12, weight: .bold, design: .default))
+               .foregroundColor(Color(.secondaryLabel))
+            Text("This will only happen once.")
                .font(Font.system(size: 12, weight: .bold, design: .default))
                .foregroundColor(Color(.secondaryLabel))
          }
@@ -87,7 +91,7 @@ struct RouteDetailsView: View {
    // The final view where screens are composed based on appstate
    var body: some View {
       VStack {
-         if (appstate.routes == .loading) {
+         if (appstate.routes == .loading && routesController.allRoutes.count < 1) {
             updatingRoutesScreen
          } else if (appstate.global == .error) {
             connectionError

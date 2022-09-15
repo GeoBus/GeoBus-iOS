@@ -48,14 +48,14 @@ class Appstate: ObservableObject {
                self.estimations = newState
          }
          // Change state of global module
-         if (self.auth == .idle && self.routes == .idle && self.vehicles == .idle && self.estimations == .idle) {
-            // All modules must be idle for global to be idle
+         if (self.auth == .idle && self.routes == .idle && self.vehicles == .idle) {
+            // Only count auth, routes and vehicles for idle global state
             self.global = .idle
-         } else if (self.auth == .loading || self.routes == .loading || self.vehicles == .loading || self.estimations == .loading) {
-            // Global is loading if at least 1 module is loading
+         } else if (self.auth == .loading || self.routes == .loading || self.vehicles == .loading) {
+            // Only count auth, routes and vehicles for loading global state
             self.global = .loading
          } else if (self.auth == .error || self.routes == .error || self.vehicles == .error) {
-            // Global is error if at least 1 module is error (except Estimations)
+            // Only count auth, routes and vehicles for error global state
             self.global = .error
          }
       }

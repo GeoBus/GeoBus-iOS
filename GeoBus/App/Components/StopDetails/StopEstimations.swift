@@ -53,7 +53,7 @@ struct StopEstimations: View {
                Text("in ±")
                   .font(.footnote)
                   .foregroundColor(Color(.tertiaryLabel))
-               Text(estimation.timeLeft)
+               Text(estimation.eta)
                   .font(.body)
                   .fontWeight(.medium)
                   .foregroundColor(Color(.label))
