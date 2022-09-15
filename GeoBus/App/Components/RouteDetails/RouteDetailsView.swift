@@ -79,12 +79,10 @@ struct RouteDetailsView: View {
       VStack {
          if (appstate.current == .error) {
             connectionError
+         } else if (routesController.selectedRoute != nil) {
+            selectedRouteDetails
          } else {
-            if (routesController.selectedRoute != nil) {
-               selectedRouteDetails
-            } else {
-               initScreen
-            }
+            initScreen
          }
       }
    }
