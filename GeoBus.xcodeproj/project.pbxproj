@@ -164,6 +164,7 @@
 				CF6478FB28D112CD00C70691 /* VehicleDetails */,
 				CF05F61C28CD1F2800B4AD58 /* Layout */,
 				CF18204D28CCBCDC00248F72 /* About */,
+				CFF4875F28D3D35F00E2C13D /* Info */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -365,6 +366,13 @@
 				CFEF85CA28D34FBB00A29526 /* InfoPlist.strings */,
 			);
 			path = Strings;
+			sourceTree = "<group>";
+		};
+		CFF4875F28D3D35F00E2C13D /* Info */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Info;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
