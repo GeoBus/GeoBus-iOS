@@ -1,0 +1,143 @@
+/* No comment provided by engineer. */
+"_ _ _" = "_ _ _";
+
+/* No comment provided by engineer. */
+"(ex: 28E or 758)" = "(ex: 28E ou 758)";
+
+/* No comment provided by engineer. */
+"%lld active vehicles" = "%lld veículos ativos";
+
+/* No comment provided by engineer. */
+"← Choose a Route" = "← Escolha uma Rota";
+
+/* No comment provided by engineer. */
+"1 active vehicle" = "1 veículo ativo";
+
+/* No comment provided by engineer. */
+"Allow in Settings" = "Permitir nas Definições";
+
+/* No comment provided by engineer. */
+"Allow Location Access" = "Permitir Acesso à Localização";
+
+/* No comment provided by engineer. */
+"Carris API is unavailable." = "Carris API indisponível.";
+
+/* No comment provided by engineer. */
+"Choose a Route Number" = "Escolha uma Carreira";
+
+/* No comment provided by engineer. */
+"Close" = "Fechar";
+
+/* No comment provided by engineer. */
+"Connection Error" = "Erro de Ligação";
+
+/* No comment provided by engineer. */
+"Direction" = "Direção";
+
+/* No comment provided by engineer. */
+"Estimated" = "Estimado";
+
+/* No comment provided by engineer. */
+"Favorite Routes" = "Favoritas";
+
+/* No comment provided by engineer. */
+"Find Routes" = "Encontrar Carreiras";
+
+/* No comment provided by engineer. */
+"GitHub" = "GitHub";
+
+/* No comment provided by engineer. */
+"GPS updated %@ ago" = "GPS atualizado há %@";
+
+/* No comment provided by engineer. */
+"I'll be delighted to know your opinion." = "Gostava muito de saber a sua opinião.";
+
+/* No comment provided by engineer. */
+"If you need help with GeoBus, or have ideas to improve it, please send me an Email or a message on Twitter." = "Se precisar de ajuda para utilizar o GeoBus, ou se tiver alguma ideia para o melhorar, por favor mande-me uma mensagem pelo Twitter ou um Email.";
+
+/* No comment provided by engineer. */
+"in ±" = "em ±";
+
+/* No comment provided by engineer. */
+"Live" = "Live";
+
+/* No comment provided by engineer. */
+"Live data is provided by Carris free of charge." = "Dados em tempo real fornecidos pela Carris gratuitamente.";
+
+/* No comment provided by engineer. */
+"Loading..." = "A Carregar...";
+
+/* No comment provided by engineer. */
+"Locate" = "Encontrar";
+
+/* No comment provided by engineer. */
+"Neighborhood Buses" = "Carreiras de Bairro";
+
+/* No comment provided by engineer. */
+"Next on this stop:" = "Próximos nesta paragem:";
+
+/* No comment provided by engineer. */
+"Night Buses" = "Noturnos";
+
+/* No comment provided by engineer. */
+"No estimations available for this stop." = "Sem estimativas para esta paragem.";
+
+/* No comment provided by engineer. */
+"Olá!" = "Olá!";
+
+/* No comment provided by engineer. */
+"P" = "P";
+
+/* No comment provided by engineer. */
+"Please wait a few seconds." = "Por favor aguarde uns segundos.";
+
+/* No comment provided by engineer. */
+"Regular Service" = "Serviço Regular";
+
+/* No comment provided by engineer. */
+"Route Details" = "Detalhes";
+
+/* No comment provided by engineer. */
+"Send an Email" = "Enviar um Email";
+
+/* No comment provided by engineer. */
+"The route you entered is not available." = "A carreira que inseriu não está disponível.";
+
+/* No comment provided by engineer. */
+"This is a circular route." = "Esta é uma carreira circular.";
+
+/* No comment provided by engineer. */
+"This route may have %lld alternative paths." = "Esta carreira pode ter %lld caminhos alternativos.";
+
+/* No comment provided by engineer. */
+"to" = "para";
+
+/* No comment provided by engineer. */
+"to: %@" = "para: %@";
+
+/* No comment provided by engineer. */
+"Trams" = "Elétricos";
+
+/* No comment provided by engineer. */
+"Twitter" = "Twitter";
+
+/* No comment provided by engineer. */
+"Updating Routes..." = "A Atualizar Carreiras...";
+
+/* No comment provided by engineer. */
+"v%@-%@" = "v%@-%@";
+
+/* No comment provided by engineer. */
+"vehicle in circulation" = "veículo em circulação";
+
+/* No comment provided by engineer. */
+"vehicles in circulation" = "veículos em circulação";
+
+/* No comment provided by engineer. */
+"Visit the Website" = "Visite o Site";
+
+/* No comment provided by engineer. */
+"You have no favorite routes." = "Ainda não tem carreiras favoritas.";
+
+/* No comment provided by engineer. */
+"You have to allow location access so that GeoBus can show where you are on the map." = "É necessário permitir o acesso à localização para que o GeoBus consiga mostrar onde se encontra no mapa.";
