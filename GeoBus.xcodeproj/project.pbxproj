@@ -138,8 +138,6 @@
 		CFEF85C428D34E6300A29526 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		CFEF85C928D34FBB00A29526 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		CFEF85CA28D34FBB00A29526 /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
-		CFEF85CD28D3500000A29526 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		CFEF85CE28D3500400A29526 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -518,7 +516,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				CF6478F628D108F600C70691 /* pt-PT */,
-				CFEF85CD28D3500000A29526 /* nl */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -527,7 +524,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				CF6478FA28D108FD00C70691 /* pt-PT */,
-				CFEF85CE28D3500400A29526 /* nl */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
