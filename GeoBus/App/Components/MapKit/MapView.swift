@@ -116,19 +116,25 @@ extension MapView {
       private var stopAnnotations: [GenericMapAnnotation] = []
       private var vehicleAnnotations: [GenericMapAnnotation] = []
 
+      private var hasAlreadyInitiatedLocationManager: Bool = false
 
 
 
       func moveMap(to newRegion: MKCoordinateRegion) {
-         withAnimation(.easeIn(duration: 0.5)) {
-            self.region = newRegion
+         DispatchQueue.main.async {
+            withAnimation(.easeIn(duration: 0.5)) {
+               self.region = newRegion
+            }
          }
       }
 
 
       func centerMapOnUserLocation(andZoom: Bool) {
 
-         locationManager.requestWhenInUseAuthorization()
+         if (!hasAlreadyInitiatedLocationManager) {
+            locationManager.requestWhenInUseAuthorization()
+            hasAlreadyInitiatedLocationManager = true
+         }
 
          if (locationManager.authorizationStatus == .authorizedWhenInUse) {
             if (andZoom) {
