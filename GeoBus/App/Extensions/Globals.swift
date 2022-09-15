@@ -69,6 +69,34 @@ class Globals {
    }
 
 
+   func getLastSeenTimeString(for secondsAmount: Int) -> String {
+      let formatter = DateComponentsFormatter()
+      formatter.unitsStyle = .short
+      formatter.includesApproximationPhrase = false
+      formatter.includesTimeRemainingPhrase = false
+      formatter.allowedUnits = [.second, .minute, .hour]
+
+      // Use the configured formatter to generate the string.
+      return formatter.string(from: DateComponents(second: secondsAmount)) ?? "-"
+   }
+
+   func getLastSeenTimeString(for isoDateString: String) -> String {
+
+      // style: DateComponentsFormatter.UnitsStyle, units: [NSCalendar.Unit]
+
+      let formatter = DateComponentsFormatter()
+      formatter.unitsStyle = .full
+      formatter.includesApproximationPhrase = false
+      formatter.includesTimeRemainingPhrase = false
+      formatter.allowedUnits = [.second, .minute, .hour]
+
+      let secondsAmount = getLastSeenTime(since: isoDateString)
+
+      // Use the configured formatter to generate the string.
+      return formatter.string(from: DateComponents(second: secondsAmount)) ?? "-"
+   }
+
+
    func getBackgroundColor(for routeNumber: String) -> Color {
       let routeKind = getKind(by: routeNumber)
       switch routeKind {
