@@ -124,9 +124,9 @@
 		CF47994C28D3315E00B56D4B /* Appstate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Appstate.swift; sourceTree = "<group>"; };
 		CF47994E28D33E1900B56D4B /* Disclaimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Disclaimer.swift; sourceTree = "<group>"; };
 		CF548FF528D14BA400668CB6 /* VehicleIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleIdentifier.swift; sourceTree = "<group>"; };
-		CF6478F628D108F600C70691 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
-		CF6478FA28D108FD00C70691 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		CF6478FC28D112E800C70691 /* VehicleDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleDetailsView.swift; sourceTree = "<group>"; };
+		CF70E52C28D36F07008C6F6A /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		CF70E52D28D36F0A008C6F6A /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CFAF0E7528CE586300DDAD5B /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		CFAF0E7728CE84C200DDAD5B /* Vehicles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vehicles.swift; sourceTree = "<group>"; };
 		CFAF0E7928CE84F400DDAD5B /* MapAnnotations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAnnotations.swift; sourceTree = "<group>"; };
@@ -412,8 +412,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
-				"pt-PT",
-				nl,
+				pt,
 			);
 			mainGroup = CF181FD928CCB7D600248F72;
 			packageReferences = (
@@ -515,7 +514,7 @@
 		CF6478F528D108EF00C70691 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				CF6478F628D108F600C70691 /* pt-PT */,
+				CF70E52C28D36F07008C6F6A /* pt */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -523,7 +522,7 @@
 		CF6478F928D108FA00C70691 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				CF6478FA28D108FD00C70691 /* pt-PT */,
+				CF70E52D28D36F0A008C6F6A /* pt */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -655,7 +654,7 @@
 				CODE_SIGN_ENTITLEMENTS = GeoBus/GeoBus.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2001;
+				CURRENT_PROJECT_VERSION = 2002;
 				DEVELOPMENT_ASSET_PATHS = "\"GeoBus/Preview Content\"";
 				DEVELOPMENT_TEAM = D7S2TY22W7;
 				ENABLE_PREVIEWS = YES;
@@ -695,7 +694,7 @@
 				CODE_SIGN_ENTITLEMENTS = GeoBus/GeoBus.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2001;
+				CURRENT_PROJECT_VERSION = 2002;
 				DEVELOPMENT_ASSET_PATHS = "\"GeoBus/Preview Content\"";
 				DEVELOPMENT_TEAM = D7S2TY22W7;
 				ENABLE_PREVIEWS = YES;
