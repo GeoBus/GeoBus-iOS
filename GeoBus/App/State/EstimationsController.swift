@@ -9,12 +9,14 @@
 import Foundation
 import Combine
 
+@MainActor
 class EstimationsController: ObservableObject {
 
    /* MARK: - Variables */
 
+   @Published var state: Appstate.State = .idle
+
    @Published var estimations: [Estimation] = []
-   @Published var isLoading: Bool = false
 
 
 
@@ -30,12 +32,24 @@ class EstimationsController: ObservableObject {
 
 
 
+   /* MARK: - Selectors */
+
+   // Getters and Setters for published and private variables.
+
+   private func set(state: Appstate.State) {
+      self.state = state
+   }
+
+
+
    /* MARK: - Get Estimations */
 
    // This function calls the API to retrieve estimations for the provided stop 'publicId'.
    // It formats and returns the results to the caller.
 
    func get(for publicId: String) async -> [Estimation] {
+
+      self.set(state: .loading)
 
       do {
          // Request API Routes List
@@ -79,11 +93,13 @@ class EstimationsController: ObservableObject {
 
          }
 
+         self.set(state: .idle)
+
          // Return the formatted estimations.
          return tempAllEstimations
 
       } catch {
-         appstate.change(to: .error)
+         self.set(state: .error)
          print("ERROR IN ESTIMATIONS: \(error)")
          return []
       }
@@ -91,6 +107,10 @@ class EstimationsController: ObservableObject {
    }
 
 
+
+   /* MARK: - Get Time Interval */
+
+   // Transform a date in the future into minutes.
 
    func getTimeInterval(for eta: String) -> String {
 

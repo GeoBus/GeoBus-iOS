@@ -61,7 +61,7 @@ struct NavBar: View {
    // It encompasses the route selector and the route details panel,
    // as well as the current app version.
    var body: some View {
-      VStack(alignment: .leading) {
+      VStack(alignment: .leading, spacing: 0) {
          HStack(spacing: 0) {
             routeSelector
                .padding()
@@ -69,6 +69,7 @@ struct NavBar: View {
             routeDetails
                .padding()
          }
+         Divider()
       }
       .frame(height: 120)
       .background(colorScheme == .dark ? Color(.systemGray5) : Color(.white))

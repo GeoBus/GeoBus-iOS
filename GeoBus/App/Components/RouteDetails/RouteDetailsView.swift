@@ -64,7 +64,7 @@ struct RouteDetailsView: View {
                .foregroundColor(Color(.secondaryLabel))
             Spacer()
          }
-         Text(routesController.selectedRouteVariant?.name ?? "-")
+         Text(routesController.selectedVariant?.name ?? "-")
             .font(.body)
             .fontWeight(.bold)
             .lineLimit(2)

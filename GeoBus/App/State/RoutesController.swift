@@ -14,20 +14,17 @@ import Combine
 class RoutesController: ObservableObject {
 
    /* MARK: - Variables */
-   
-   private var endpoint = "https://gateway.carris.pt/gateway/xtranpassengerapi/api/v2.10/Routes"
 
    @Stored(in: .routesStore) var allRoutes
+
+   @Published var state: Appstate.State = .idle
 
    @Published var favorites: [Route] = []
 
    @Published var selectedRoute: Route?
-   @Published var selectedRouteVariant: RouteVariant?
-   @Published var selectedRouteVariantStop: RouteVariantStop?
+   @Published var selectedVariant: Variant?
 
-
-   @StoredValue(key: "lastUpdatedRoutes")
-   var lastUpdateRoutes: String? = nil
+   @StoredValue(key: "lastUpdatedRoutes") var lastUpdateRoutes: String? = nil
 
 
 
@@ -43,19 +40,28 @@ class RoutesController: ObservableObject {
 
 
 
-   /* MARK: - Select Route */
+   /* MARK: - Selectors */
+   
+   // Getters and Setters for published and private variables.
 
-   // Discover the Route kind by analysing the route number.
+   private func set(state: Appstate.State) {
+      self.state = state
+   }
 
    private func select(route: Route) {
-      DispatchQueue.main.async {
-         self.selectedRoute = route
-         self.select(variant: route.variants[0])
+      self.selectedRoute = route
+      self.select(variant: route.variants[0])
+   }
+
+   func select(route routeNumber: String) {
+      let route = self.findRoute(by: routeNumber)
+      if (route != nil) {
+         self.select(route: route!)
       }
    }
 
-   func select(byRouteNumber routeNumber: String) -> Bool {
-      let route = findRoute(by: routeNumber)
+   func select(route routeNumber: String, returnResult: Bool) -> Bool {
+      let route = self.findRoute(by: routeNumber)
       if (route != nil) {
          self.select(route: route!)
          return true
@@ -64,62 +70,46 @@ class RoutesController: ObservableObject {
       }
    }
 
-   func select(variant: RouteVariant) {
-      DispatchQueue.main.async {
-         self.selectedRouteVariant = variant
-      }
-   }
 
-   func select(stop: RouteVariantStop) {
-      DispatchQueue.main.async {
-         self.selectedRouteVariantStop = stop
-      }
-   }
-
-   func deselectStop() {
-      DispatchQueue.main.async {
-         self.selectedRouteVariantStop = nil
-      }
+   func select(variant: Variant) {
+      self.selectedVariant = variant
    }
 
 
 
-   /* MARK: - Find Route by RouteNumber */
+   /* MARK: - Check for Updates from Carris API */
 
-   // This function searches for the provided routeNumber in all routes array,
-   // and returns it if found. If not found, returns nil.
+   // This function decides whether to update available routes
+   // if they are outdated. For now, do this once a day.
 
-   func findRoute(by routeNumber: String) -> Route? {
+   func update() async {
 
-      // Find index of route matching requested routeNumber
-      let indexOfRouteInArray = allRoutes.firstIndex(where: { (route) -> Bool in
-         route.number == routeNumber // test if this is the item we're looking for
-      }) ?? -1 // If the item does not exist, return default value -1
+      let formatter = ISO8601DateFormatter()
 
-      // If a match is found...
-      if (indexOfRouteInArray > 0) {
-         return allRoutes[indexOfRouteInArray]
+      if (lastUpdateRoutes != nil && allRoutes.count > 0) {
+
+         // Calculate time interval
+         let formattedDateObj = formatter.date(from: lastUpdateRoutes!)
+         let secondsPassed = Int(formattedDateObj?.timeIntervalSinceNow ?? -1)
+
+         if ( (secondsPassed * -1) > (86400 * 5) ) { // 1 day = 86400 seconds
+            await fetchRoutesFromAPI()
+            let timestamp = formatter.string(from: Date.now)
+            $lastUpdateRoutes.set(timestamp)
+         }
+
       } else {
-         return nil
+         await fetchRoutesFromAPI()
+         let timestamp = formatter.string(from: Date.now)
+         $lastUpdateRoutes.set(timestamp)
       }
 
-   }
-
-
-
-   /* MARK: - Get Terminal Stop Name for Variant */
-
-   // This function returns the provided variant's terminal stop for the provided direction.
-
-   func getTerminalStopNameForVariant(variant: RouteVariant, direction: RouteVariantDirection) -> String {
-      switch direction {
-         case .circular:
-            return variant.circItinerary?.first?.name ?? "-"
-         case .ascending:
-            return variant.upItinerary?.last?.name ?? (variant.upItinerary?.first?.name ?? "-")
-         case .descending:
-            return variant.downItinerary?.last?.name ?? (variant.downItinerary?.first?.name ?? "-")
+      // Do the following in the main thread
+      // because this is an async function.
+      DispatchQueue.main.async {
+         self.retrieveFavorites()
       }
+
    }
 
 
@@ -133,13 +123,14 @@ class RoutesController: ObservableObject {
       // Get from iCloud
       let iCloudKeyStore = NSUbiquitousKeyValueStore()
       iCloudKeyStore.synchronize()
+
       let savedFavorites = iCloudKeyStore.array(forKey: "favoriteRoutes") as? [String] ?? []
 
       // Save to array
       for routeNumber in savedFavorites {
          let route = findRoute(by: routeNumber)
          if (route != nil) {
-            self.favorites.append(route!)
+            favorites.append(route!)
          }
       }
 
@@ -172,15 +163,30 @@ class RoutesController: ObservableObject {
 
    func toggleFavorite(route: Route) {
 
-      if let index = favorites.firstIndex(of: route) {
-         favorites.remove(at: index)
+      if let index = self.favorites.firstIndex(of: route) {
+         self.favorites.remove(at: index)
       } else {
-         favorites.append(route)
+         self.favorites.append(route)
       }
 
       saveFavorites()
 
    }
+
+
+
+   /* MARK: - Reorder Favorites */
+
+   // This function marks a route as favorite if it is not,
+
+   func reorderFavorites(fromOffsets: IndexSet, toOffset: Int) {
+
+      self.favorites.move(fromOffsets: fromOffsets, toOffset: toOffset)
+
+      saveFavorites()
+
+   }
+
 
 
    /* MARK: - Is Favourite */
@@ -193,25 +199,6 @@ class RoutesController: ObservableObject {
 
 
 
-   /* MARK: - Update Available Routes from Carris API */
-
-   // This function decides whether to update available routes
-   // if they are outdated. For now, do this once a day.
-
-   func start() async {
-
-      if (lastUpdateRoutes != nil) {
-         // Check for time difference. Once a day sounds OK
-      }
-
-      retrieveFavorites()
-      
-      await fetchRoutesFromAPI()
-
-   }
-
-
-
    /* MARK: - Fetch & Format Routes From Carris API */
 
    // This function first fetches the Routes List,
@@ -220,14 +207,13 @@ class RoutesController: ObservableObject {
    // the details for each route. Here, we only care about the publicy available routes.
    // After, for each route, it's details are formatted and transformed into a Route.
 
-   @MainActor
    func fetchRoutesFromAPI() async {
 
       appstate.change(to: .loading)
 
       do {
          // Request API Routes List
-         var requestAPIRoutesList = URLRequest(url: URL(string: endpoint)!)
+         var requestAPIRoutesList = URLRequest(url: URL(string: "https://gateway.carris.pt/gateway/xtranpassengerapi/api/v2.10/Routes")!)
          requestAPIRoutesList.addValue("application/json", forHTTPHeaderField: "Content-Type")
          requestAPIRoutesList.addValue("application/json", forHTTPHeaderField: "Accept")
          requestAPIRoutesList.setValue("Bearer \(authentication.authToken ?? "invalid_token")", forHTTPHeaderField: "Authorization")
@@ -258,7 +244,7 @@ class RoutesController: ObservableObject {
             if (availableRoute.isPublicVisible) {
 
                // Request Route Detail for .routeNumber
-               var requestAPIRouteDetail = URLRequest(url: URL(string: endpoint + "/\(availableRoute.routeNumber)")!)
+               var requestAPIRouteDetail = URLRequest(url: URL(string: "https://gateway.carris.pt/gateway/xtranpassengerapi/api/v2.10/Routes/\(availableRoute.routeNumber)")!)
                requestAPIRouteDetail.addValue("application/json", forHTTPHeaderField: "Content-Type")
                requestAPIRouteDetail.addValue("application/json", forHTTPHeaderField: "Accept")
                requestAPIRouteDetail.setValue("Bearer \(authentication.authToken ?? "invalid_token")", forHTTPHeaderField: "Authorization")
@@ -280,7 +266,7 @@ class RoutesController: ObservableObject {
                let decodedAPIRouteDetail = try JSONDecoder().decode(APIRoute.self, from: rawDataAPIRouteDetail)
 
                // Define a temporary variable to store formatted route variants
-               var formattedRouteVariants: [RouteVariant] = []
+               var formattedRouteVariants: [Variant] = []
 
                // For each variant in route,
                // check if it is currently active, format it
@@ -337,10 +323,10 @@ class RoutesController: ObservableObject {
 
    // Parse and simplify the data model for variants
 
-   func formatRawRouteVariant(rawVariant: APIRouteVariant, isCircular: Bool) -> RouteVariant {
+   func formatRawRouteVariant(rawVariant: APIRouteVariant, isCircular: Bool) -> Variant {
 
       // Create a temporary variable to store the final RouteVariant
-      var formattedVariant = RouteVariant(
+      var formattedVariant = Variant(
          number: rawVariant.variantNumber,
          isCircular: isCircular,
          upItinerary: nil,
@@ -363,7 +349,7 @@ class RoutesController: ObservableObject {
 
             // Append new values to the temporary variable property directly
             formattedVariant.upItinerary!.append(
-               RouteVariantStop(
+               Stop(
                   orderInRoute: rawConnection.orderNum,
                   publicId: rawConnection.busStop.publicId,
                   name: rawConnection.busStop.name,
@@ -392,7 +378,7 @@ class RoutesController: ObservableObject {
 
             // Append new values to the temporary variable property directly
             formattedVariant.downItinerary!.append(
-               RouteVariantStop(
+               Stop(
                   orderInRoute: rawConnection.orderNum,
                   publicId: rawConnection.busStop.publicId,
                   name: rawConnection.busStop.name,
@@ -421,7 +407,7 @@ class RoutesController: ObservableObject {
 
             // Append new values to the temporary variable property directly
             formattedVariant.circItinerary!.append(
-               RouteVariantStop(
+               Stop(
                   orderInRoute: rawConnection.orderNum,
                   publicId: rawConnection.busStop.publicId,
                   name: rawConnection.busStop.name,
@@ -450,5 +436,47 @@ class RoutesController: ObservableObject {
       return formattedVariant
 
    }
+
+
+
+   /* MARK: - Find Route by RouteNumber */
+
+   // This function searches for the provided routeNumber in all routes array,
+   // and returns it if found. If not found, returns nil.
+
+   func findRoute(by routeNumber: String) -> Route? {
+
+      // Find index of route matching requested routeNumber
+      let indexOfRouteInArray = allRoutes.firstIndex(where: { (route) -> Bool in
+         route.number == routeNumber // test if this is the item we're looking for
+      }) ?? -1 // If the item does not exist, return default value -1
+
+      // If a match is found...
+      if (indexOfRouteInArray > 0) {
+         return allRoutes[indexOfRouteInArray]
+      } else {
+         return nil
+      }
+
+   }
+
+
+
+   /* MARK: - Get Terminal Stop Name for Variant */
+
+   // This function returns the provided variant's terminal stop for the provided direction.
+
+   func getTerminalStopNameForVariant(variant: Variant, direction: Direction) -> String {
+      switch direction {
+         case .circular:
+            return variant.circItinerary?.first?.name ?? "-"
+         case .ascending:
+            return variant.upItinerary?.last?.name ?? (variant.upItinerary?.first?.name ?? "-")
+         case .descending:
+            return variant.downItinerary?.last?.name ?? (variant.downItinerary?.first?.name ?? "-")
+      }
+   }
+
+
 
 }

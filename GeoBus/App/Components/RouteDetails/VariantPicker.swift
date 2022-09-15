@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct RouteVariantPicker: View {
+struct VariantPicker: View {
 
    @EnvironmentObject var routesController: RoutesController
 
@@ -18,19 +18,19 @@ struct RouteVariantPicker: View {
 
          HStack(spacing: 10) {
 
-            RouteVariantWarning(qty: routesController.selectedRoute?.variants.count ?? 0)
+            VariantWarning(qty: routesController.selectedRoute?.variants.count ?? 0)
 
             ForEach(routesController.selectedRoute!.variants) { variant in
 
                Button(action: {
                   self.routesController.select(variant: variant)
                }) {
-                  RouteVariantButton(
+                  VariantButton(
                      variantName: variant.name,
-                     isSelected: routesController.selectedRouteVariant == variant
+                     isSelected: routesController.selectedVariant == variant
                   )
                }
-               .disabled(routesController.selectedRouteVariant == variant)
+               .disabled(routesController.selectedVariant == variant)
             }
 
          }

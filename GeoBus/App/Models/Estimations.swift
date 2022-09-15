@@ -1,5 +1,5 @@
 //
-//  Vehicle.swift
+//  Estimations.swift
 //  GeoBus
 //
 //  Created by João on 16/04/2020.

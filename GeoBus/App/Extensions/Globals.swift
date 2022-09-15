@@ -52,6 +52,23 @@ class Globals {
 
    }
 
+
+   func getLastSeenTime(since lastGpsTime: String) -> Int {
+
+      let formatter = DateFormatter()
+      formatter.locale = Locale(identifier: "en_US_POSIX")
+      formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+
+      let now = Date()
+      let estimation = formatter.date(from: lastGpsTime) ?? now
+
+      let seconds = now.timeIntervalSince(estimation)
+
+      return Int(seconds)
+
+   }
+
+
    func getBackgroundColor(for routeNumber: String) -> Color {
       let routeKind = getKind(by: routeNumber)
       switch routeKind {

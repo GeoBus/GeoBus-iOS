@@ -1,5 +1,5 @@
 //
-//  AuthorizationResponse.swift
+//  Auth.swift
 //  GeoBus
 //
 //  Created by João on 09/09/2022.

@@ -34,8 +34,8 @@ struct GeoBusApp: App {
                   routesController.receive(state: appstate, auth: authentication)
                   vehiclesController.receive(state: appstate, auth: authentication)
                   estimationsController.receive(state: appstate, auth: authentication)
-                  // Update available routes
-                  await routesController.start()
+//                  // Update available routes
+                  await routesController.update()
                }
             })
             .onReceive(timer) { event in

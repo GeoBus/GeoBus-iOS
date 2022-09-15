@@ -1,5 +1,5 @@
 //
-//  VehicleStores.swift
+//  Storage.swift
 //  GeoBus
 //
 //  Created by João de Vasconcelos on 10/09/2022.

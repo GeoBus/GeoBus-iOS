@@ -57,21 +57,21 @@ struct RouteDetailsSheet: View {
 
       VStack(spacing: 15) {
 
-         if (routesController.selectedRouteVariant!.isCircular) {
+         if (routesController.selectedVariant!.isCircular) {
             RouteCircularVariantInfo()
-            StopsList(stops: routesController.selectedRouteVariant!.circItinerary!)
+            StopsList(stops: routesController.selectedVariant!.circItinerary!)
 
          } else {
             Picker("Direction", selection: $routeDirectionPicker) {
-               Text("to: \(routesController.getTerminalStopNameForVariant(variant: routesController.selectedRouteVariant!, direction: .ascending))").tag(0)
-               Text("to: \(routesController.getTerminalStopNameForVariant(variant: routesController.selectedRouteVariant!, direction: .descending))").tag(1)
+               Text("to: \(routesController.getTerminalStopNameForVariant(variant: routesController.selectedVariant!, direction: .ascending))").tag(0)
+               Text("to: \(routesController.getTerminalStopNameForVariant(variant: routesController.selectedVariant!, direction: .descending))").tag(1)
             }
             .pickerStyle(SegmentedPickerStyle())
 
             if (self.routeDirectionPicker == 0) {
-               StopsList(stops: routesController.selectedRouteVariant!.upItinerary ?? [])
+               StopsList(stops: routesController.selectedVariant!.upItinerary ?? [])
             } else {
-               StopsList(stops: routesController.selectedRouteVariant!.downItinerary ?? [])
+               StopsList(stops: routesController.selectedVariant!.downItinerary ?? [])
             }
          }
 
@@ -88,7 +88,7 @@ struct RouteDetailsSheet: View {
                .padding(.horizontal)
             Divider()
             if (routesController.selectedRoute!.variants.count > 1) {
-               RouteVariantPicker()
+               VariantPicker()
                Divider()
             }
             stopsList

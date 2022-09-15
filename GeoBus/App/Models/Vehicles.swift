@@ -1,5 +1,5 @@
 //
-//  Vehicle.swift
+//  Vehicles.swift
 //  GeoBus
 //
 //  Created by João on 16/04/2020.
@@ -50,9 +50,9 @@ struct APIVehicleDetail: Codable {
 
 // Data model adjusted for the app.
 
-struct Vehicle: Codable, Equatable, Identifiable {
-   let busNumber: Int
-   let plateNumber: String
+struct VehicleSummary: Codable, Equatable, Identifiable {
+   let busNumber: String
+   let state: String
    let routeNumber: String
    let kind: Kind
    let lat: Double
@@ -60,12 +60,23 @@ struct Vehicle: Codable, Equatable, Identifiable {
    let previousLatitude: Double?
    let previousLongitude: Double?
    let lastGpsTime: String
-   let lastStopOnVoyageName: String
-   let lastSeenTime: Int
    let angleInRadians: Double
 
    var id: String {
-      return String(describing: UUID())
+      return self.busNumber
    }
    
+}
+
+
+struct VehicleDetails: Codable, Equatable, Identifiable {
+   let busNumber: String
+   let vehiclePlate: String
+   let lastStopOnVoyageName: String
+
+   var id: String {
+//      return self.busNumber + self.lastStopOnVoyageName
+      return UUID().uuidString
+   }
+
 }

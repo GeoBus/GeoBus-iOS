@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct RouteVariantWarning: View {
+struct VariantWarning: View {
   
   var qty: Int
   

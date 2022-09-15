@@ -10,13 +10,19 @@ import SwiftUI
 
 struct StopsList: View {
 
-   @State var stops: [RouteVariantStop] = []
+   @State var stops: [Stop] = []
 
 
    var body: some View {
       VStack(alignment: .leading, spacing: 15) {
          ForEach(stops) { stop in
-            StopDetails(canToggle: true, stop: stop)
+            StopDetailsView(
+               canToggle: true,
+               publicId: stop.publicId,
+               direction: stop.direction,
+               orderInRoute: stop.orderInRoute,
+               name: stop.name
+            )
          }
       }
    }

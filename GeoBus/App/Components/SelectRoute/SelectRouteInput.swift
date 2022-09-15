@@ -33,7 +33,7 @@ struct SelectRouteInput: View {
                .frame(width: 120)
 
             Button(action: {
-               let success = self.routesController.select(byRouteNumber: self.routeNumber.uppercased())
+               let success = self.routesController.select(route: self.routeNumber.uppercased(), returnResult: true)
                if success {
                   vehiclesController.set(route: self.routeNumber.uppercased())
                   self.showSelectRouteSheet = false

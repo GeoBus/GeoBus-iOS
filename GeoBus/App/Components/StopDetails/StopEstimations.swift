@@ -10,25 +10,10 @@ import SwiftUI
 
 struct StopEstimations: View {
 
-   @EnvironmentObject var estimationsController: EstimationsController
+   let estimations: [Estimation]?
+   
 
-   let timer = Timer.publish(every: 20 /* seconds */, on: .main, in: .common).autoconnect()
-
-   let publicId: String
-
-   @State var isLoading: Bool = true
-   @State var estimations: [Estimation] = []
-
-
-   func getEstimationsFromController() {
-      Task {
-         self.estimations = await estimationsController.get(for: self.publicId)
-         self.isLoading = false
-      }
-   }
-
-
-   var staticHeader: some View {
+   var fixedInfo: some View {
       HStack {
          Text("Next on this stop:")
             .font(Font.system(size: 10, weight: .bold, design: .default) )
@@ -46,12 +31,13 @@ struct StopEstimations: View {
          Text("Loading...")
             .font(Font.system(size: 13, weight: .medium, design: .default) )
             .foregroundColor(Color(.tertiaryLabel))
+         Spacer()
       }
    }
 
    var estimationsList: some View {
-      VStack(spacing: 18) {
-         ForEach(estimations) { estimation in
+      VStack(spacing: 12) {
+         ForEach(estimations!) { estimation in
             HStack {
                RouteBadgePill(routeNumber: estimation.routeNumber)
                Text("to")
@@ -82,23 +68,15 @@ struct StopEstimations: View {
 
 
    var body: some View {
-      VStack(alignment: .leading, spacing: 15) {
-         staticHeader
-         if (isLoading) {
+      VStack(alignment: .leading, spacing: 10) {
+         fixedInfo
+         if (estimations == nil) {
             loadingScreen
+         } else if (estimations!.count > 0) {
+            estimationsList
          } else {
-            if (estimations.count > 0) {
-               estimationsList
-            } else {
-               noResultsScreen
-            }
+            noResultsScreen
          }
-      }
-      .onAppear() {
-         self.getEstimationsFromController()
-      }
-      .onReceive(timer) { event in
-         self.getEstimationsFromController()
       }
    }
 

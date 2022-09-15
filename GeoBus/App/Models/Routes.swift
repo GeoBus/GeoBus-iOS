@@ -64,17 +64,18 @@ struct APIRouteVariantItineraryConnectionBusStop: Decodable {
 
 // Data models adjusted for the app.
 
-enum RouteVariantDirection: Codable {
+enum Direction: Codable {
    case ascending
    case descending
    case circular
 }
 
+
 struct Route: Codable, Equatable, Identifiable {
    let number: String
    let name: String
    let kind: Kind
-   let variants: [RouteVariant]
+   var variants: [Variant]
 
    var id: String {
       return self.number
@@ -82,27 +83,27 @@ struct Route: Codable, Equatable, Identifiable {
 
 }
 
-struct RouteVariant: Codable, Equatable, Identifiable {
+
+struct Variant: Codable, Equatable, Identifiable {
    let number: Int
    var name: String = ""
    let isCircular: Bool
-   var upItinerary, downItinerary, circItinerary: [RouteVariantStop]?
+   var upItinerary, downItinerary, circItinerary: [Stop]?
 
    var id: String {
       return self.name
    }
-
 }
 
-struct RouteVariantStop: Codable, Equatable, Identifiable {
+
+struct Stop: Codable, Equatable, Identifiable {
    let orderInRoute: Int
    let publicId: String
    let name: String
-   let direction: RouteVariantDirection
+   let direction: Direction
    let lat, lng: Double
 
    var id: String {
       return self.publicId //UUID().uuidString
    }
-
 }

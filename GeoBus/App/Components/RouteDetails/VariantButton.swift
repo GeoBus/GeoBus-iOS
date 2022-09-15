@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct RouteVariantButton: View {
+struct VariantButton: View {
 
    @Environment(\.colorScheme) var colorScheme: ColorScheme
 

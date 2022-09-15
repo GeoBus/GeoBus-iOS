@@ -35,7 +35,7 @@ struct SetOfRoutes: View {
          LazyVGrid(columns: [.init(.adaptive(minimum: 60, maximum: 100), spacing: 15)], spacing: 15) {
             ForEach(routes) { route in
                Button(action: {
-                  _ = self.routesController.select(byRouteNumber: route.number)
+                  self.routesController.select(route: route.number)
                   self.vehiclesController.set(route: route.number)
                   self.showSelectRouteSheet = false
                }){
