@@ -10,6 +10,8 @@ import SwiftUI
 
 struct StopEstimations: View {
 
+   @EnvironmentObject var appstate: Appstate
+
    let estimations: [Estimation]?
    
 
@@ -66,16 +68,26 @@ struct StopEstimations: View {
          .foregroundColor(Color(.secondaryLabel))
    }
 
+   var errorScreen: some View {
+      Text("Carris API is unavailable.")
+         .font(Font.system(size: 13, weight: .medium, design: .default) )
+         .foregroundColor(Color(.secondaryLabel))
+   }
+
 
    var body: some View {
       VStack(alignment: .leading, spacing: 10) {
          fixedInfo
-         if (estimations == nil) {
+         if (appstate.estimations == .idle && estimations != nil) {
+            if (estimations!.count > 0) {
+               estimationsList
+            } else {
+               noResultsScreen
+            }
+         } else if (appstate.estimations == .loading) {
             loadingScreen
-         } else if (estimations!.count > 0) {
-            estimationsList
          } else {
-            noResultsScreen
+            errorScreen
          }
       }
    }

@@ -209,7 +209,7 @@ class RoutesController: ObservableObject {
 
    func fetchRoutesFromAPI() async {
 
-      appstate.change(to: .loading)
+      appstate.change(to: .loading, for: .routes)
 
       do {
          // Request API Routes List
@@ -229,7 +229,7 @@ class RoutesController: ObservableObject {
             return
          } else if (responseAPIRoutesList?.statusCode != 200) {
             print(responseAPIRoutesList as Any)
-            throw Appstate.APIError.undefined
+            throw Appstate.CarrisAPIError.unavailable
          }
 
          let decodedAPIRoutesList = try JSONDecoder().decode([APIRoutesList].self, from: rawDataAPIRoutesList)
@@ -260,7 +260,7 @@ class RoutesController: ObservableObject {
                   return
                } else if (responseAPIRouteDetail?.statusCode != 200) {
                   print(responseAPIRouteDetail as Any)
-                  throw Appstate.APIError.undefined
+                  throw Appstate.CarrisAPIError.unavailable
                }
 
                let decodedAPIRouteDetail = try JSONDecoder().decode(APIRoute.self, from: rawDataAPIRouteDetail)
@@ -306,10 +306,10 @@ class RoutesController: ObservableObject {
 
          print("Route Fetching Complete")
 
-         appstate.change(to: .idle)
+         appstate.change(to: .idle, for: .routes)
 
       } catch {
-         appstate.change(to: .error)
+         appstate.change(to: .error, for: .routes)
          print("************")
          print("Error: \(error)")
          print("************")

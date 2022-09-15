@@ -42,10 +42,20 @@ struct RouteDetailsView: View {
             Text("Connection Error")
                .font(Font.system(size: 15, weight: .bold, design: .default))
                .foregroundColor(Color(.systemRed))
-            Text("Service may be unavailable.")
-               .font(Font.system(size: 12, weight: .medium, design: .default))
-               .foregroundColor(Color(.tertiaryLabel))
-            Text("Click here to retry ↺")
+            Text("Carris API is unavailable.")
+               .font(Font.system(size: 12, weight: .bold, design: .default))
+               .foregroundColor(Color(.secondaryLabel))
+         }
+         Spacer()
+      }
+   }
+
+   var updatingRoutesScreen: some View {
+      HStack {
+         VStack(alignment: .leading, spacing: 10) {
+            Text("Updating Routes...")
+               .font(Font.system(size: 15, weight: .bold, design: .default))
+            Text("Please wait a few seconds.")
                .font(Font.system(size: 12, weight: .bold, design: .default))
                .foregroundColor(Color(.secondaryLabel))
          }
@@ -77,7 +87,9 @@ struct RouteDetailsView: View {
    // The final view where screens are composed based on appstate
    var body: some View {
       VStack {
-         if (appstate.current == .error) {
+         if (appstate.routes == .loading) {
+            updatingRoutesScreen
+         } else if (appstate.global == .error) {
             connectionError
          } else if (routesController.selectedRoute != nil) {
             selectedRouteDetails

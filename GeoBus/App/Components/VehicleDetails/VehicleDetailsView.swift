@@ -11,6 +11,7 @@ import Combine
 
 struct VehicleDetailsView: View {
 
+   @EnvironmentObject var appstate: Appstate
    @EnvironmentObject var vehiclesController: VehiclesController
 
    let refreshTimer = Timer.publish(every: 20 /* seconds */, on: .main, in: .common).autoconnect()
@@ -43,7 +44,7 @@ struct VehicleDetailsView: View {
    }
 
    var errorScreen: some View {
-      Text("An error occurred while fetching vehicle details.")
+      Text("Carris API is unavailable.")
          .font(Font.system(size: 13, weight: .medium, design: .default) )
          .foregroundColor(Color(.secondaryLabel))
    }
@@ -89,14 +90,14 @@ struct VehicleDetailsView: View {
 
    var body: some View {
       VStack(alignment: .leading, spacing: 0) {
-         if (vehicleDetails == nil) {
-            loadingScreen
-               .padding()
-         } else if (vehicleDetails != nil) {
+         if (appstate.vehicles == .idle && vehicleDetails != nil) {
             vehicleDetailsHeader
                .padding()
             Divider()
             vehicleDetailsScreen
+               .padding()
+         } else if (appstate.vehicles == .loading) {
+            loadingScreen
                .padding()
          } else {
             errorScreen

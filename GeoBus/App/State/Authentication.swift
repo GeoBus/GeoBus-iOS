@@ -60,7 +60,7 @@ class Authentication: ObservableObject {
 
    func authenticate() async {
 
-      appstate.change(to: .loading)
+      appstate.change(to: .loading, for: .auth)
 
       if (refreshToken != nil) {
          do {
@@ -90,15 +90,17 @@ class Authentication: ObservableObject {
                await self.authenticate()
                retries -= 1
                return
+            } else {
+               throw Appstate.CarrisAPIError.unauthorized
             }
          } catch {
-            appstate.change(to: .error)
+            appstate.change(to: .error, for: .auth)
             print("Unkown Error")
             return
          }
       }
 
-      appstate.change(to: .idle)
+      appstate.change(to: .idle, for: .auth)
 
    }
 

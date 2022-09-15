@@ -31,8 +31,11 @@ struct About: View {
          AboutButton(icon: Image(systemName: "envelope.fill"), text: Text("Send an Email"), link: "mailto:contact@joao.earth")
          AboutButton(icon: Image(systemName: "globe"), text: Text("Visit the Website"), link: "https://joao.earth")
 
+         Disclaimer()
+            .padding(.top, 15)
+
          AppVersion()
-            .padding(.top  )
+            .padding(.top, 20)
 
       }
       .padding(.horizontal)

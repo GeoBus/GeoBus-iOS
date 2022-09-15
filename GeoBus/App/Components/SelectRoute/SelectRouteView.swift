@@ -18,10 +18,10 @@ struct SelectRouteView: View {
 
       ZStack {
 
-         if (appstate.current == .loading) {
+         if (appstate.global == .loading) {
             LoadingView()
 
-         } else if (appstate.current == .error) {
+         } else if (appstate.global == .error) {
             RoundedRectangle(cornerRadius: 10)
                .fill(Color(.systemRed).opacity(0.5))
             Image(systemName: "wifi.exclamationmark")

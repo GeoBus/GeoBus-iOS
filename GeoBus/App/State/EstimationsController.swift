@@ -14,8 +14,6 @@ class EstimationsController: ObservableObject {
 
    /* MARK: - Variables */
 
-   @Published var state: Appstate.State = .idle
-
    @Published var estimations: [Estimation] = []
 
 
@@ -32,16 +30,6 @@ class EstimationsController: ObservableObject {
 
 
 
-   /* MARK: - Selectors */
-
-   // Getters and Setters for published and private variables.
-
-   private func set(state: Appstate.State) {
-      self.state = state
-   }
-
-
-
    /* MARK: - Get Estimations */
 
    // This function calls the API to retrieve estimations for the provided stop 'publicId'.
@@ -49,7 +37,7 @@ class EstimationsController: ObservableObject {
 
    func get(for publicId: String) async -> [Estimation] {
 
-      self.set(state: .loading)
+      appstate.change(to: .loading, for: .estimations)
 
       do {
          // Request API Routes List
@@ -68,7 +56,7 @@ class EstimationsController: ObservableObject {
             }
          } else if (responseAPIEstimations?.statusCode != 200) {
             print(responseAPIEstimations as Any)
-            throw Appstate.APIError.undefined
+            throw Appstate.CarrisAPIError.unavailable
          }
 
          let decodedAPIEstimations = try JSONDecoder().decode([APIEstimation].self, from: rawDataAPIEstimations)
@@ -93,13 +81,13 @@ class EstimationsController: ObservableObject {
 
          }
 
-         self.set(state: .idle)
+         appstate.change(to: .idle, for: .estimations)
 
          // Return the formatted estimations.
          return tempAllEstimations
 
       } catch {
-         self.set(state: .error)
+         appstate.change(to: .error, for: .estimations)
          print("ERROR IN ESTIMATIONS: \(error)")
          return []
       }

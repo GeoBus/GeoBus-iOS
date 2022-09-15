@@ -17,12 +17,8 @@ class VehiclesController: ObservableObject {
    private var endpoint = "https://gateway.carris.pt/gateway/xtranpassengerapi/api/v2.10/vehicleStatuses/routeNumber/"
 
    private var routeNumber: String?
-   
-   @Published var state: Appstate.State = .idle
 
    @Published var vehicles: [VehicleSummary] = []
-
-//   @Published var selectedVehicle: VehicleSummary?
    
    
    
@@ -41,10 +37,6 @@ class VehiclesController: ObservableObject {
    /* MARK: - Selectors */
 
    // Getters and Setters for published and private variables.
-   
-   private func set(state: Appstate.State) {
-      self.state = state
-   }
 
    func set(route: String) {
       Task {
@@ -68,7 +60,7 @@ class VehiclesController: ObservableObject {
       // Check if there is a routeNumber selected
       if (routeNumber != nil) {
          
-         self.set(state: .loading)
+         appstate.change(to: .loading, for: .vehicles)
 
          do {
             // Request API Routes List
@@ -88,7 +80,7 @@ class VehiclesController: ObservableObject {
                return
             } else if (responseAPIVehiclesList?.statusCode != 200) {
                print(responseAPIVehiclesList as Any)
-               throw Appstate.APIError.undefined
+               throw Appstate.CarrisAPIError.unavailable
             }
 
             let decodedAPIVehiclesList = try JSONDecoder().decode([APIVehicleSummary].self, from: rawDataAPIVehiclesList)
@@ -134,10 +126,10 @@ class VehiclesController: ObservableObject {
             // Publish the formatted vehicles, replacing the old ones.
             self.vehicles = tempAllVehicles
 
-            self.set(state: .idle)
+            appstate.change(to: .idle, for: .vehicles)
 
          } catch {
-            self.set(state: .error)
+            appstate.change(to: .error, for: .vehicles)
             print("ERROR IN VEHICLES: \(error)")
             return
          }
@@ -159,7 +151,7 @@ class VehiclesController: ObservableObject {
 
    func fetchVehicleDetailsFromAPI(for busNumber: String) async -> VehicleDetails? {
 
-      self.set(state: .loading)
+      appstate.change(to: .loading, for: .vehicles)
 
       do {
 
@@ -180,7 +172,7 @@ class VehiclesController: ObservableObject {
             return nil
          } else if (responseAPIVehicleDetail?.statusCode != 200) {
             print(responseAPIVehicleDetail as Any)
-            throw Appstate.APIError.undefined
+            throw Appstate.CarrisAPIError.unavailable
          }
 
          let decodedAPIVehicleDetail = try JSONDecoder().decode(APIVehicleDetail.self, from: rawDataAPIVehicleDetail)
@@ -193,12 +185,12 @@ class VehiclesController: ObservableObject {
             lastStopOnVoyageName: decodedAPIVehicleDetail.lastStopOnVoyageName ?? "-"
          )
 
-         self.set(state: .idle)
+         appstate.change(to: .idle, for: .vehicles)
 
          return result
 
       } catch {
-         self.set(state: .error)
+         appstate.change(to: .error, for: .vehicles)
          print("ERROR IN VEHICLE DETAILS: \(error)")
          return nil
       }

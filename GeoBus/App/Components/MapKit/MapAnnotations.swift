@@ -96,11 +96,10 @@ struct StopAnnotationView: View {
                orderInRoute: stop.orderInRoute,
                name: stop.name
             )
-            .padding(.bottom, 30)
-            Text("Disclaimer")
-               .font(.system(size: 10, weight: .medium, design: .default))
-               .foregroundColor(Color(.tertiaryLabel))
+            .padding(.bottom, 20)
+            Disclaimer()
                .padding(.horizontal)
+               .padding(.bottom, 10)
          }
          .readSize { size in
             viewSize = size
@@ -154,11 +153,10 @@ struct VehicleAnnotationView: View {
                routeNumber: vehicle.routeNumber,
                lastGpsTime: vehicle.lastGpsTime
             )
-            .padding(.bottom, 30)
-            Text("Disclaimer")
-               .font(.system(size: 10, weight: .medium, design: .default))
-               .foregroundColor(Color(.tertiaryLabel))
+            .padding(.bottom, 20)
+            Disclaimer()
                .padding(.horizontal)
+               .padding(.bottom, 10)
          }
          .readSize { size in
             viewSize = size

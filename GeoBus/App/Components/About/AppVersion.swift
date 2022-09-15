@@ -20,6 +20,7 @@ struct AppVersion: View {
          .foregroundColor(Color(.secondaryLabel))
          .padding(.vertical, 2)
          .padding(.horizontal, 7)
-         .background(RoundedRectangle(cornerRadius: 10).foregroundColor(colorScheme == .dark ? Color(.systemGray4) : Color(.systemGray6)))
+         .background(Color(.secondarySystemFill))
+         .cornerRadius(10)
    }
 }
