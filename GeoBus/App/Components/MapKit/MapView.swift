@@ -201,6 +201,10 @@ extension MapView {
       func updateVehicleAnnotations(for vehiclesList: [VehicleSummary]) {
 
          vehicleAnnotations = []
+         visibleAnnotations.append(contentsOf: stopAnnotations)
+         visibleAnnotations.append(contentsOf: vehicleAnnotations)
+
+         vehicleAnnotations = []
 
          for vehicle in vehiclesList {
             vehicleAnnotations.append(

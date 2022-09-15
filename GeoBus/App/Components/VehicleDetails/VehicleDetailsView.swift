@@ -90,7 +90,7 @@ struct VehicleDetailsView: View {
 
    var body: some View {
       VStack(alignment: .leading, spacing: 0) {
-         if (appstate.vehicles == .idle && vehicleDetails != nil) {
+         if (vehicleDetails != nil) {
             vehicleDetailsHeader
                .padding()
             Divider()

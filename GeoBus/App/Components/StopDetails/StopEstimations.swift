@@ -78,7 +78,7 @@ struct StopEstimations: View {
    var body: some View {
       VStack(alignment: .leading, spacing: 10) {
          fixedInfo
-         if (appstate.estimations == .idle && estimations != nil) {
+         if (estimations != nil) {
             if (estimations!.count > 0) {
                estimationsList
             } else {

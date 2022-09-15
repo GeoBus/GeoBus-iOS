@@ -41,6 +41,7 @@ class VehiclesController: ObservableObject {
    func set(route: String) {
       Task {
          self.routeNumber = route
+         self.vehicles.removeAll()
          await self.fetchVehiclesFromAPI()
       }
    }
