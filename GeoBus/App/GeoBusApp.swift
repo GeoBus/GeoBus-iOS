@@ -17,7 +17,7 @@ struct GeoBusApp: App {
    @StateObject private var vehiclesController = VehiclesController()
    @StateObject private var estimationsController = EstimationsController()
 
-   let timer = Timer.publish(every: 20 /* seconds */, on: .main, in: .common).autoconnect()
+   let refreshVehiclesTimer = Timer.publish(every: 20 /* seconds */, on: .main, in: .common).autoconnect()
 
    var body: some Scene {
       WindowGroup {
@@ -38,7 +38,7 @@ struct GeoBusApp: App {
                   await routesController.update()
                }
             })
-            .onReceive(timer) { event in
+            .onReceive(refreshVehiclesTimer) { event in
                Task {
                   // Update vehicles on timer call
                   await vehiclesController.fetchVehiclesFromAPI()
