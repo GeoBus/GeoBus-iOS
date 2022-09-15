@@ -9,7 +9,7 @@ import SwiftUI
 
 struct Disclaimer: View {
    var body: some View {
-      Text("Disclaimer")
+      Text("Live data is provided by Carris free of charge.")
          .font(.system(size: 10, weight: .medium, design: .default))
          .foregroundColor(Color(.tertiaryLabel))
    }

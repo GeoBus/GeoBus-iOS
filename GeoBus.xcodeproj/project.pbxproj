@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -65,6 +65,11 @@
 		CFAF0E7A28CE84F400DDAD5B /* MapAnnotations.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAF0E7928CE84F400DDAD5B /* MapAnnotations.swift */; };
 		CFC80FCC28D2C2FF003D059D /* DragAndDrop.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC80FCB28D2C2FF003D059D /* DragAndDrop.swift */; };
 		CFDC15EF28D292FB00A4BE49 /* ViewSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDC15EE28D292FB00A4BE49 /* ViewSize.swift */; };
+		CFEF85C228D34E4F00A29526 /* crowdin.yml in Resources */ = {isa = PBXBuildFile; fileRef = CFEF85C128D34E4F00A29526 /* crowdin.yml */; };
+		CFEF85C528D34E6300A29526 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = CFEF85C328D34E6300A29526 /* README.md */; };
+		CFEF85C628D34E6300A29526 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = CFEF85C428D34E6300A29526 /* LICENSE */; };
+		CFEF85CB28D34FBB00A29526 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CFEF85C928D34FBB00A29526 /* Localizable.strings */; };
+		CFEF85CC28D34FBB00A29526 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CFEF85CA28D34FBB00A29526 /* InfoPlist.strings */; };
 		CFF71E7028CCC47200C498FE /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = CFF71E6F28CCC47200C498FE /* Lottie */; };
 /* End PBXBuildFile section */
 
@@ -119,9 +124,7 @@
 		CF47994C28D3315E00B56D4B /* Appstate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Appstate.swift; sourceTree = "<group>"; };
 		CF47994E28D33E1900B56D4B /* Disclaimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Disclaimer.swift; sourceTree = "<group>"; };
 		CF548FF528D14BA400668CB6 /* VehicleIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleIdentifier.swift; sourceTree = "<group>"; };
-		CF6478F428D108EF00C70691 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		CF6478F628D108F600C70691 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
-		CF6478F828D108FA00C70691 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CF6478FA28D108FD00C70691 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		CF6478FC28D112E800C70691 /* VehicleDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleDetailsView.swift; sourceTree = "<group>"; };
 		CFAF0E7528CE586300DDAD5B /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
@@ -130,6 +133,13 @@
 		CFAF0E7B28CEC78C00DDAD5B /* GeoBus.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GeoBus.entitlements; sourceTree = "<group>"; };
 		CFC80FCB28D2C2FF003D059D /* DragAndDrop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragAndDrop.swift; sourceTree = "<group>"; };
 		CFDC15EE28D292FB00A4BE49 /* ViewSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewSize.swift; sourceTree = "<group>"; };
+		CFEF85C128D34E4F00A29526 /* crowdin.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = crowdin.yml; sourceTree = "<group>"; };
+		CFEF85C328D34E6300A29526 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		CFEF85C428D34E6300A29526 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		CFEF85C928D34FBB00A29526 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		CFEF85CA28D34FBB00A29526 /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
+		CFEF85CD28D3500000A29526 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		CFEF85CE28D3500400A29526 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -227,6 +237,9 @@
 			isa = PBXGroup;
 			children = (
 				CF181FE428CCB7D600248F72 /* GeoBus */,
+				CFEF85C428D34E6300A29526 /* LICENSE */,
+				CFEF85C328D34E6300A29526 /* README.md */,
+				CFEF85C128D34E4F00A29526 /* crowdin.yml */,
 				CF181FE328CCB7D600248F72 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -244,9 +257,10 @@
 			children = (
 				CFAF0E7B28CEC78C00DDAD5B /* GeoBus.entitlements */,
 				CF181FF328CCB87400248F72 /* App */,
-				CF181FE928CCB7D700248F72 /* Assets.xcassets */,
+				CFEF85C728D34F0500A29526 /* Strings */,
 				CF6478F528D108EF00C70691 /* InfoPlist.strings */,
 				CF6478F928D108FA00C70691 /* Localizable.strings */,
+				CF181FE928CCB7D700248F72 /* Assets.xcassets */,
 				CF181FEB28CCB7D700248F72 /* Preview Content */,
 			);
 			path = GeoBus;
@@ -346,6 +360,15 @@
 			path = VehicleDetails;
 			sourceTree = "<group>";
 		};
+		CFEF85C728D34F0500A29526 /* Strings */ = {
+			isa = PBXGroup;
+			children = (
+				CFEF85C928D34FBB00A29526 /* Localizable.strings */,
+				CFEF85CA28D34FBB00A29526 /* InfoPlist.strings */,
+			);
+			path = Strings;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -386,13 +409,13 @@
 				};
 			};
 			buildConfigurationList = CF181FDD28CCB7D600248F72 /* Build configuration list for PBXProject "GeoBus" */;
-			compatibilityVersion = "Xcode 13.0";
+			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
-				Base,
 				"pt-PT",
+				nl,
 			);
 			mainGroup = CF181FD928CCB7D600248F72;
 			packageReferences = (
@@ -414,8 +437,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				CF18202528CCBBBE00248F72 /* estimated-icon.json in Resources */,
+				CFEF85CB28D34FBB00A29526 /* Localizable.strings in Resources */,
 				CF6478F328D108EF00C70691 /* InfoPlist.strings in Resources */,
+				CFEF85CC28D34FBB00A29526 /* InfoPlist.strings in Resources */,
+				CFEF85C528D34E6300A29526 /* README.md in Resources */,
+				CFEF85C228D34E4F00A29526 /* crowdin.yml in Resources */,
 				CF181FED28CCB7D700248F72 /* Preview Assets.xcassets in Resources */,
+				CFEF85C628D34E6300A29526 /* LICENSE in Resources */,
 				CF18202628CCBBBE00248F72 /* live-icon.json in Resources */,
 				CF6478F728D108FA00C70691 /* Localizable.strings in Resources */,
 				CF18202428CCBBBE00248F72 /* circular-loader-white.json in Resources */,
@@ -489,8 +517,8 @@
 		CF6478F528D108EF00C70691 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				CF6478F428D108EF00C70691 /* en */,
 				CF6478F628D108F600C70691 /* pt-PT */,
+				CFEF85CD28D3500000A29526 /* nl */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -498,8 +526,8 @@
 		CF6478F928D108FA00C70691 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				CF6478F828D108FA00C70691 /* en */,
 				CF6478FA28D108FD00C70691 /* pt-PT */,
+				CFEF85CE28D3500400A29526 /* nl */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";

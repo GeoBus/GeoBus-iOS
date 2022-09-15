@@ -14,15 +14,15 @@ struct About: View {
 
       VStack(alignment: .leading, spacing: 10) {
 
-         Text("AboutTitle")
+         Text("Olá!")
             .font(.title)
             .fontWeight(.bold)
             .padding()
 
-         Text("AboutParagraph")
+         Text("If you need help with GeoBus, or have ideas to improve it, please send me an Email or a message on Twitter.")
             .padding(.horizontal)
 
-         Text("AboutCallout")
+         Text("I'll be delighted to know your opinion.")
             .fontWeight(.bold)
             .padding()
 
@@ -32,9 +32,11 @@ struct About: View {
          AboutButton(icon: Image(systemName: "globe"), text: Text("Visit the Website"), link: "https://joao.earth")
 
          Disclaimer()
+            .padding(.horizontal)
             .padding(.top, 15)
 
          AppVersion()
+            .padding(.horizontal)
             .padding(.top, 20)
 
       }
