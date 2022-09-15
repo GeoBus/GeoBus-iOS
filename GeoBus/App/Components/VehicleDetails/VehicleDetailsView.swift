@@ -21,7 +21,7 @@ struct VehicleDetailsView: View {
    let lastGpsTime: String
 
    @State var vehicleDetails: VehicleDetails? = nil
-   @State var lastSeenTime: Int = 0
+   @State var lastSeenTime: String = "-"
 
 
    func getVehicleDetailsFromController() {
@@ -72,14 +72,14 @@ struct VehicleDetailsView: View {
             Image(systemName: "antenna.radiowaves.left.and.right")
                .font(.system(size: 12, weight: .bold, design: .default))
                .foregroundColor(Color(.secondaryLabel))
-            Text("GPS updated \(lastSeenTime) seconds ago")
+            Text("GPS updated \(lastSeenTime) ago")
                .font(.system(size: 12, weight: .bold, design: .default))
                .foregroundColor(Color(.secondaryLabel))
                .onAppear() {
-                  self.lastSeenTime = Globals().getLastSeenTime(since: lastGpsTime)
+                  self.lastSeenTime = Globals().getLastSeenTimeString(for: lastGpsTime)
                }
                .onReceive(lastSeenTimeTimer) { event in
-                  self.lastSeenTime = Globals().getLastSeenTime(since: lastGpsTime)
+                  self.lastSeenTime = Globals().getLastSeenTimeString(for: lastGpsTime)
                }
             Spacer()
          }
