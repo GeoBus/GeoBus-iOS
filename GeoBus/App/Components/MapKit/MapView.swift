@@ -53,6 +53,7 @@ struct MapView: View {
    var centerMapOnUserLocationButton: some View {
       VStack {
          Image(systemName: "location.fill")
+            .foregroundColor(Color(.systemBlue))
             .padding()
             .background(colorScheme == .dark ? Color(.systemGray5) : Color(.white))
             .cornerRadius(10)
@@ -66,11 +67,15 @@ struct MapView: View {
       VStack {
          Spacer()
          centerMapOnUserLocationButton
-            .onTapGesture(count: 2) {
-               self.mapController.centerMapOnUserLocation(andZoom: true)
-            }
-            .onTapGesture(count: 1) {
+            .onTapGesture() {
+               TapticEngine.impact.feedback(.medium)
                self.mapController.centerMapOnUserLocation(andZoom: false)
+            }
+            .onLongPressGesture() {
+               TapticEngine.impact.feedback(.medium)
+               TapticEngine.impact.feedback(.medium, withDelay: 0.2)
+               TapticEngine.impact.feedback(.medium, withDelay: 0.4)
+               self.mapController.centerMapOnUserLocation(andZoom: true)
             }
             .alert(isPresented: $mapController.showLocationNotAllowedAlert, content: {
                Alert(

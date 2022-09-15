@@ -61,6 +61,12 @@ open class TapticEngine {
          generator.prepare()
       }
 
+      public func feedback(_ style: ImpactStyle, withDelay: Double) {
+         DispatchQueue.main.asyncAfter(deadline: .now() + withDelay) {
+            self.feedback(style)
+         }
+      }
+
       public func prepare(_ style: ImpactStyle) {
          guard #available(iOS 10.0, *) else { return }
 
