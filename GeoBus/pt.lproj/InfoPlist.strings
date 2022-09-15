@@ -3,6 +3,6 @@
 /* Bundle name */
 "CFBundleName" = "GeoBus";
 /* Privacy - Location Usage Description */
-"NSLocationUsageDescription" = "A sua localização será utilizada apenas para mostrar onde se encontra no mapa.";
+"NSLocationUsageDescription" = "Your location will only be used to show you where you are on the map.";
 /* Privacy - Location When In Use Usage Description */
-"NSLocationWhenInUseUsageDescription" = "A sua localização será utilizada apenas para mostrar onde se encontra no mapa.";
+"NSLocationWhenInUseUsageDescription" = "Your location will only be used to show you where you are on the map.";
