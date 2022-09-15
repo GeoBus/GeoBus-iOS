@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		CF05F61A28CD09A000B4AD58 /* NavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF05F61928CD09A000B4AD58 /* NavBar.swift */; };
 		CF05F62028CD337200B4AD58 /* AppVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF05F61F28CD337200B4AD58 /* AppVersion.swift */; };
-		CF05F62428CD5FA800B4AD58 /* Appstate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF05F62328CD5FA800B4AD58 /* Appstate.swift */; };
 		CF181FE628CCB7D600248F72 /* GeoBusApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF181FE528CCB7D600248F72 /* GeoBusApp.swift */; };
 		CF181FE828CCB7D600248F72 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF181FE728CCB7D600248F72 /* ContentView.swift */; };
 		CF181FEA28CCB7D700248F72 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CF181FE928CCB7D700248F72 /* Assets.xcassets */; };
@@ -55,6 +54,7 @@
 		CF18208528CCBD3A00248F72 /* FavoriteRoutes.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF18207F28CCBD3A00248F72 /* FavoriteRoutes.swift */; };
 		CF18208728CCBD3A00248F72 /* SelectRouteInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF18208128CCBD3A00248F72 /* SelectRouteInput.swift */; };
 		CF18209B28CCBD5000248F72 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF18209A28CCBD5000248F72 /* MapView.swift */; };
+		CF47994D28D3315E00B56D4B /* Appstate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF47994C28D3315E00B56D4B /* Appstate.swift */; };
 		CF548FF328D129B000668CB6 /* VehicleDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF6478FC28D112E800C70691 /* VehicleDetailsView.swift */; };
 		CF548FF628D14BA400668CB6 /* VehicleIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF548FF528D14BA400668CB6 /* VehicleIdentifier.swift */; };
 		CF6478F328D108EF00C70691 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CF6478F528D108EF00C70691 /* InfoPlist.strings */; };
@@ -70,7 +70,6 @@
 /* Begin PBXFileReference section */
 		CF05F61928CD09A000B4AD58 /* NavBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBar.swift; sourceTree = "<group>"; };
 		CF05F61F28CD337200B4AD58 /* AppVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppVersion.swift; sourceTree = "<group>"; };
-		CF05F62328CD5FA800B4AD58 /* Appstate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Appstate.swift; sourceTree = "<group>"; };
 		CF181FE228CCB7D600248F72 /* GeoBus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GeoBus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF181FE528CCB7D600248F72 /* GeoBusApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoBusApp.swift; sourceTree = "<group>"; };
 		CF181FE728CCB7D600248F72 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -116,6 +115,7 @@
 		CF18207F28CCBD3A00248F72 /* FavoriteRoutes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteRoutes.swift; sourceTree = "<group>"; };
 		CF18208128CCBD3A00248F72 /* SelectRouteInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectRouteInput.swift; sourceTree = "<group>"; };
 		CF18209A28CCBD5000248F72 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		CF47994C28D3315E00B56D4B /* Appstate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Appstate.swift; sourceTree = "<group>"; };
 		CF548FF528D14BA400668CB6 /* VehicleIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleIdentifier.swift; sourceTree = "<group>"; };
 		CF6478F428D108EF00C70691 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		CF6478F628D108F600C70691 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
@@ -188,7 +188,7 @@
 			isa = PBXGroup;
 			children = (
 				CF181FFF28CCB9C500248F72 /* Storage.swift */,
-				CF05F62328CD5FA800B4AD58 /* Appstate.swift */,
+				CF47994C28D3315E00B56D4B /* Appstate.swift */,
 				CF181FF528CCB95300248F72 /* Authentication.swift */,
 				CF18200628CCBA3500248F72 /* RoutesController.swift */,
 				CF18202D28CCBC0100248F72 /* VehiclesController.swift */,
@@ -450,7 +450,6 @@
 				CFAF0E7A28CE84F400DDAD5B /* MapAnnotations.swift in Sources */,
 				CF548FF328D129B000668CB6 /* VehicleDetailsView.swift in Sources */,
 				CF18203028CCBC0B00248F72 /* EstimationsController.swift in Sources */,
-				CF05F62428CD5FA800B4AD58 /* Appstate.swift in Sources */,
 				CF18200928CCBA4600248F72 /* Routes.swift in Sources */,
 				CF18207928CCBD2300248F72 /* RouteDetailsVehiclesQuantity.swift in Sources */,
 				CF18201728CCBB5900248F72 /* LottieView.swift in Sources */,
@@ -472,6 +471,7 @@
 				CF18208528CCBD3A00248F72 /* FavoriteRoutes.swift in Sources */,
 				CF181FF628CCB95300248F72 /* Authentication.swift in Sources */,
 				CF18201D28CCBB8000248F72 /* EstimatedIcon.swift in Sources */,
+				CF47994D28D3315E00B56D4B /* Appstate.swift in Sources */,
 				CF18205128CCBCE900248F72 /* About.swift in Sources */,
 				CF18201B28CCBB7100248F72 /* LiveIcon.swift in Sources */,
 				CFDC15EF28D292FB00A4BE49 /* ViewSize.swift in Sources */,
