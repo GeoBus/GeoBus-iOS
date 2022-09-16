@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct SelectRouteInput: View {
+struct SearchStopInput: View {
 
    @Environment(\.colorScheme) var colorScheme: ColorScheme
 
@@ -20,42 +20,42 @@ struct SelectRouteInput: View {
 
    @State var showErrorLabel: Bool = false
 
-   @State var routeNumber = ""
+   @State var stopPublicId = ""
 
    var body: some View {
       VStack {
          HStack {
-            TextField("_ _ _", text: self.$routeNumber)
-               .font(.system(size: 40, weight: .bold, design: .default))
+            TextField("_ _ _", text: self.$stopPublicId)
+               .font(.system(size: 30, weight: .bold, design: .default))
                .multilineTextAlignment(.center)
                .padding()
-               .background(colorScheme == .dark ? Color(.secondarySystemBackground) : Color(.systemBackground))
+               .background(colorScheme == .dark ? Color(.secondarySystemBackground) : Color(.secondarySystemFill))
                .cornerRadius(10)
-               .frame(width: 120)
+               .frame(width: 150)
 
             Button(action: {
-               let success = self.routesController.select(route: self.routeNumber.uppercased(), returnResult: true)
+               let success = self.stopsController.select(stop: self.stopPublicId.uppercased(), returnResult: true)
                if success {
-                  vehiclesController.set(route: self.routeNumber.uppercased())
-                  stopsController.deselect()
                   self.showSheet = false
+                  routesController.deselect()
+                  vehiclesController.deselect()
                } else {
                   self.showErrorLabel = true
                }
             }) {
                Text("Locate")
                   .font(.system(size: 40, weight: .bold, design: .default))
-                  .foregroundColor(routeNumber.count > 2 ? Color(.white) : Color(.secondaryLabel))
+                  .foregroundColor(stopPublicId.count > 2 ? Color(.white) : Color(.secondaryLabel))
             }
-            .disabled(routeNumber.count == 0)
+            .disabled(stopPublicId.count == 0)
             .frame(maxWidth: .infinity)
             .padding()
-            .background(routeNumber.count > 2 ? Color(.systemBlue) : (colorScheme == .dark ? Color(.secondarySystemBackground) : Color(.systemBackground)) )
+            .background(stopPublicId.count > 2 ? Color(.systemBlue) : (colorScheme == .dark ? Color(.secondarySystemBackground) : Color(.systemBackground)) )
             .cornerRadius(10)
          }
 
-         if (showErrorLabel && routeNumber.count > 0) {
-            Text("The route you entered is not available.")
+         if (showErrorLabel && stopPublicId.count > 0) {
+            Text("The stop you entered is not available.")
                .font(.body)
                .fontWeight(.bold)
                .multilineTextAlignment(.center)
@@ -64,10 +64,10 @@ struct SelectRouteInput: View {
          }
 
          VStack {
-            Text("Choose a Route Number")
+            Text("Choose a Stop Number")
                .font(.body)
                .multilineTextAlignment(.center)
-            Text("(ex: 28E or 758)")
+            Text("(ex: 10706)")
                .font(.footnote)
                .multilineTextAlignment(.center)
          }

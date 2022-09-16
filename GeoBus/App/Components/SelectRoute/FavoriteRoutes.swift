@@ -12,6 +12,7 @@ struct FavoriteRoutes: View {
 
    @Environment(\.colorScheme) var colorScheme: ColorScheme
 
+   @EnvironmentObject var stopsController: StopsController
    @EnvironmentObject var routesController: RoutesController
    @EnvironmentObject var vehiclesController: VehiclesController
 
@@ -37,6 +38,7 @@ struct FavoriteRoutes: View {
             LazyVGrid(columns: [.init(.adaptive(minimum: 60, maximum: 100), spacing: 15)], spacing: 15) {
                ForEach(routes) { route in
                   Button(action: {
+                     self.stopsController.deselect()
                      self.routesController.select(route: route.number)
                      self.vehiclesController.set(route: route.number)
                      self.showSelectRouteSheet = false

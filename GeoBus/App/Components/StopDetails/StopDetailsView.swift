@@ -19,9 +19,9 @@ struct StopDetailsView: View {
 
    let canToggle: Bool
    let publicId: String
-   let direction: Direction
-   let orderInRoute: Int
    let name: String
+   let orderInRoute: Int?
+   let direction: Direction?
 
    @State private var isOpen = false
    @State private var estimations: [Estimation]? = nil
@@ -44,8 +44,10 @@ struct StopDetailsView: View {
                   Image("OrangeCircle")
                case .circular:
                   Image("BlueCircle")
+               case .none:
+                  Image("BlueCircle")
             }
-            Text(String(orderInRoute))
+            Text(String(orderInRoute ?? 0))
                .font(.caption)
                .fontWeight(.bold)
                .foregroundColor(Color(.white))

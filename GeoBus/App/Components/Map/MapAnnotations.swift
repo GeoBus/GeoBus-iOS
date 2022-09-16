@@ -9,15 +9,6 @@ import Foundation
 import MapKit
 import SwiftUI
 
-struct NewGenericMapAnnotation: Identifiable {
-   let id = UUID()
-   let location: CLLocationCoordinate2D
-
-   init(lat: Double, lng: Double) {
-      self.location = CLLocationCoordinate2D(latitude: lat, longitude: lng)
-   }
-}
-
 
 struct GenericMapAnnotation: Identifiable {
 
@@ -28,6 +19,7 @@ struct GenericMapAnnotation: Identifiable {
    enum Format {
       case stop
       case vehicle
+      case singleStop
    }
 
    // For Stops
@@ -67,8 +59,6 @@ struct StopAnnotationView: View {
 
 
    var body: some View {
-      // Wrap the marker image in a View to configure
-      // touch target size and action on tap in one place.
       Button(action: {
          self.isPresented = true
          TapticEngine.impact.feedback(.light)
@@ -83,6 +73,8 @@ struct StopAnnotationView: View {
                   Image("OrangeArrowDown")
                case .circular:
                   Image("BlueArrowRight")
+               case .none:
+                  Image("BlueArrowRight")
             }
          }
       }
@@ -92,9 +84,9 @@ struct StopAnnotationView: View {
             StopDetailsView(
                canToggle: false,
                publicId: stop.publicId,
-               direction: stop.direction,
+               name: stop.name,
                orderInRoute: stop.orderInRoute,
-               name: stop.name
+               direction: stop.direction
             )
             .padding(.bottom, 20)
             Disclaimer()
@@ -123,8 +115,6 @@ struct VehicleAnnotationView: View {
 
 
    var body: some View {
-      // Wrap the marker image in a View to configure
-      // touch target size and action on tap in one place.
       Button(action: {
          self.isPresented = true
          TapticEngine.impact.feedback(.light)

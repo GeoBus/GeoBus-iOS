@@ -12,12 +12,14 @@ struct SetOfRoutes: View {
 
    @Environment(\.colorScheme) var colorScheme: ColorScheme
 
+   @EnvironmentObject var stopsController: StopsController
+   @EnvironmentObject var routesController: RoutesController
+   @EnvironmentObject var vehiclesController: VehiclesController
+
    var title: Text
    var kind: Kind
 
-   @Binding var showSelectRouteSheet: Bool
-   @EnvironmentObject var routesController: RoutesController
-   @EnvironmentObject var vehiclesController: VehiclesController
+   @Binding var showSheet: Bool
    @State private var routes: [Route] = []
 
    var body: some View {
@@ -37,7 +39,8 @@ struct SetOfRoutes: View {
                Button(action: {
                   self.routesController.select(route: route.number)
                   self.vehiclesController.set(route: route.number)
-                  self.showSelectRouteSheet = false
+                  self.stopsController.deselect()
+                  self.showSheet = false
                }){
                   RouteBadgeSquare(routeNumber: route.number)
                }

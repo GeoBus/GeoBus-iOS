@@ -36,7 +36,7 @@ struct NavBar: View {
          SelectRouteView()
       }
       .sheet(isPresented: $showSelectRouteSheet) {
-         SelectRouteSheet(showSelectRouteSheet: self.$showSelectRouteSheet)
+         SelectRouteSheet(isPresentingSheet: self.$showSelectRouteSheet)
       }
    }
 
