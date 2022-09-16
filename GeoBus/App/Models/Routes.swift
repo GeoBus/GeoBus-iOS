@@ -47,15 +47,7 @@ struct APIRouteVariantItinerary: Decodable {
 
 struct APIRouteVariantItineraryConnection: Decodable {
    let id, distance, orderNum: Int
-   let busStop: APIRouteVariantItineraryConnectionBusStop
-}
-
-struct APIRouteVariantItineraryConnectionBusStop: Decodable {
-   let id: Int
-   let name, publicId: String
-   let lat, lng: Double
-   let isPublicVisible: Bool
-   let timestamp: String
+   let busStop: APIStop
 }
 
 
@@ -92,18 +84,5 @@ struct Variant: Codable, Equatable, Identifiable {
 
    var id: String {
       return self.name
-   }
-}
-
-
-struct Stop: Codable, Equatable, Identifiable {
-   let orderInRoute: Int
-   let publicId: String
-   let name: String
-   let direction: Direction
-   let lat, lng: Double
-
-   var id: String {
-      return self.publicId //UUID().uuidString
    }
 }

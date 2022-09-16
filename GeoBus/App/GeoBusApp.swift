@@ -12,7 +12,9 @@ import SwiftUI
 struct GeoBusApp: App {
 
    @StateObject private var appstate = Appstate()
+   @StateObject private var mapController = MapController()
    @StateObject private var authentication = Authentication()
+   @StateObject private var stopsController = StopsController()
    @StateObject private var routesController = RoutesController()
    @StateObject private var vehiclesController = VehiclesController()
    @StateObject private var estimationsController = EstimationsController()
@@ -23,7 +25,9 @@ struct GeoBusApp: App {
       WindowGroup {
          ContentView()
             .environmentObject(appstate)
+            .environmentObject(mapController)
             .environmentObject(authentication)
+            .environmentObject(stopsController)
             .environmentObject(routesController)
             .environmentObject(vehiclesController)
             .environmentObject(estimationsController)
@@ -31,10 +35,12 @@ struct GeoBusApp: App {
                Task {
                   // Pass references to Controllers
                   authentication.receive(state: appstate)
+                  stopsController.receive(state: appstate, auth: authentication)
                   routesController.receive(state: appstate, auth: authentication)
                   vehiclesController.receive(state: appstate, auth: authentication)
                   estimationsController.receive(state: appstate, auth: authentication)
-//                  // Update available routes
+                  // Update available stops & routes
+                  await stopsController.update()
                   await routesController.update()
                }
             })

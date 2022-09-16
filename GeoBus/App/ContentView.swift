@@ -13,10 +13,25 @@ struct ContentView: View {
    var body: some View {
 
       VStack(alignment: .trailing, spacing: 0) {
-         MapView()
-            .edgesIgnoringSafeArea(.vertical)
+
+         ZStack(alignment: .topTrailing) {
+
+            MapView()
+               .edgesIgnoringSafeArea(.vertical)
+
+            VStack(spacing: 15) {
+               InfoSheet()
+               Spacer()
+               StopSearch()
+               UserLocation()
+            }
+            .padding()
+
+         }
+
          NavBar()
             .edgesIgnoringSafeArea(.vertical)
+         
       }
 
    }

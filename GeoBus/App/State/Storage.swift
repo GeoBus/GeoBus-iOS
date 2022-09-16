@@ -12,3 +12,9 @@ extension Store where Item == Route {
       storage: SQLiteStorageEngine.default(appendingPath: "Routes")
    )
 }
+
+extension Store where Item == Stop {
+   static let stopsStore = Store<Stop>(
+      storage: SQLiteStorageEngine.default(appendingPath: "Stops")
+   )
+}

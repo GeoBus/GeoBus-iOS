@@ -110,6 +110,9 @@
 "This route may have %lld alternative paths." = "Esta carreira pode ter %lld caminhos alternativos.";
 
 /* No comment provided by engineer. */
+"This will only happen once." = "Só é preciso fazer isto uma vez.";
+
+/* No comment provided by engineer. */
 "to" = "para";
 
 /* No comment provided by engineer. */
@@ -141,3 +144,4 @@
 
 /* No comment provided by engineer. */
 "You have to allow location access so that GeoBus can show where you are on the map." = "É necessário permitir o acesso à localização para que o GeoBus consiga mostrar onde se encontra no mapa.";
+

@@ -46,6 +46,11 @@ class VehiclesController: ObservableObject {
       }
    }
 
+   func deselect() {
+      self.routeNumber = nil
+      self.vehicles.removeAll()
+   }
+
 
    
    /* MARK: - Fetch Vehicles Summary from API */

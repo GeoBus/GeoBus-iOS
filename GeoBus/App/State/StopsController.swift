@@ -1,0 +1,296 @@
+//
+//  RoutesController.swift
+//  GeoBus
+//
+//  Created by João de Vasconcelos on 08/09/2022.
+//  Copyright © 2022 João de Vasconcelos. All rights reserved.
+//
+
+import Foundation
+import Boutique
+import Combine
+
+@MainActor
+class StopsController: ObservableObject {
+
+   /* MARK: - Variables */
+
+   @Stored(in: .stopsStore) var allStops
+
+   @Published var favorites: [Stop] = []
+
+   @Published var selectedStop: Stop?
+
+   @StoredValue(key: "lastUpdatedStops") var lastUpdatedStops: String? = nil
+
+
+
+   /* MARK: - RECEIVE APPSTATE & AUTHENTICATION */
+
+   var appstate = Appstate()
+   var authentication = Authentication()
+
+   func receive(state: Appstate, auth: Authentication) {
+      self.appstate = state
+      self.authentication = auth
+   }
+
+
+
+   /* MARK: - Selectors */
+   
+   // Getters and Setters for published and private variables.
+
+   private func select(stop: Stop) {
+      self.selectedStop = stop
+   }
+
+   func select(stop stopPublicId: String) {
+      let stop = self.findStop(by: stopPublicId)
+      if (stop != nil) {
+         self.select(stop: stop!)
+      }
+   }
+
+   func select(stop stopPublicId: String, returnResult: Bool) -> Bool {
+      let stop = self.findStop(by: stopPublicId)
+      if (stop != nil) {
+         self.select(stop: stop!)
+         return true
+      } else {
+         return false
+      }
+   }
+
+
+   func deselect() {
+      self.selectedStop = nil
+   }
+
+
+
+   /* MARK: - Check for Updates from Carris API */
+
+   // This function decides whether to update available routes
+   // if they are outdated. For now, do this once a day.
+
+   func update() async {
+
+      let formatter = ISO8601DateFormatter()
+
+      if (lastUpdatedStops != nil || allStops.count > 0) {
+
+         // Calculate time interval
+         let formattedDateObj = formatter.date(from: lastUpdatedStops!)
+         let secondsPassed = Int(formattedDateObj?.timeIntervalSinceNow ?? -1)
+
+         if ( (secondsPassed * -1) > (86400 * 5) ) { // 86400 seconds * 5 = 5 days
+            await fetchStopsFromAPI()
+            let timestamp = formatter.string(from: Date.now)
+            $lastUpdatedStops.set(timestamp)
+         }
+
+      } else {
+         appstate.change(to: .loading, for: .stops)
+         await fetchStopsFromAPI()
+         let timestamp = formatter.string(from: Date.now)
+         $lastUpdatedStops.set(timestamp)
+      }
+
+      // Do the following in the main thread
+      // because this is an async function.
+      DispatchQueue.main.async {
+         self.retrieveFavorites()
+      }
+
+   }
+
+
+
+   /* MARK: - Retrieve Favourite Routes from iCloud KVS */
+
+   // This function retrieves favorites from iCloud Key-Value-Storage.
+
+   func retrieveFavorites() {
+
+      // Get from iCloud
+      let iCloudKeyStore = NSUbiquitousKeyValueStore()
+      iCloudKeyStore.synchronize()
+
+      let savedFavorites = iCloudKeyStore.array(forKey: "favoriteStops") as? [String] ?? []
+
+      // Save to array
+      for stopPublicId in savedFavorites {
+         let stop = findStop(by: stopPublicId)
+         if (stop != nil) {
+            favorites.append(stop!)
+         }
+      }
+
+   }
+
+
+
+   /* MARK: - Save Favorite Routes to iCloud KVS */
+
+   // This function saves a representation of the routes stored in the favorites array
+   // to iCloud Key-Value-Store. This function should be called whenever a change
+   // in favorites occurs, to ensure consistency across devices.
+
+   func saveFavorites() {
+      var favoritesToSave: [String] = []
+      for favStop in favorites {
+         favoritesToSave.append(favStop.publicId)
+      }
+      let iCloudKeyStore = NSUbiquitousKeyValueStore()
+      iCloudKeyStore.set(favoritesToSave, forKey: "favoriteStops")
+      iCloudKeyStore.synchronize()
+   }
+
+
+
+   /* MARK: - Toggle Route as Favorite */
+
+   // This function marks a route as favorite if it is not,
+   // and removes it from favorites if it is.
+
+   func toggleFavorite(stop: Stop) {
+
+      if let index = self.favorites.firstIndex(of: stop) {
+         self.favorites.remove(at: index)
+      } else {
+         self.favorites.append(stop)
+      }
+
+      saveFavorites()
+
+   }
+
+
+
+   /* MARK: - Reorder Favorites */
+
+   // This function marks a route as favorite if it is not,
+
+   func reorderFavorites(fromOffsets: IndexSet, toOffset: Int) {
+
+      self.favorites.move(fromOffsets: fromOffsets, toOffset: toOffset)
+
+      saveFavorites()
+
+   }
+
+
+
+   /* MARK: - Is Favourite */
+
+   // This function checks if a route is marked as favorite.
+
+   func isFavourite(stop: Stop) -> Bool {
+      return favorites.contains(stop)
+   }
+
+
+
+   /* MARK: - Fetch & Format Stops From Carris API */
+
+   // This function first fetches the Routes List,
+   // which is an object that contains all the available routes from the API.
+   // The information for each Route is very short, so it is necessary to retrieve
+   // the details for each route. Here, we only care about the publicy available routes.
+   // After, for each route, it's details are formatted and transformed into a Route.
+
+   func fetchStopsFromAPI() async {
+
+      appstate.change(to: .loading, for: .stops)
+
+      print("Fetching Stops: Starting...")
+
+      do {
+         // Request API Routes List
+         var requestAPIStopsList = URLRequest(url: URL(string: "https://gateway.carris.pt/gateway/xtranpassengerapi/api/v2.10/busstops")!)
+         requestAPIStopsList.addValue("application/json", forHTTPHeaderField: "Content-Type")
+         requestAPIStopsList.addValue("application/json", forHTTPHeaderField: "Accept")
+         requestAPIStopsList.setValue("Bearer \(authentication.authToken ?? "invalid_token")", forHTTPHeaderField: "Authorization")
+         let (rawDataAPIStopsList, rawResponseAPIStopsList) = try await URLSession.shared.data(for: requestAPIStopsList)
+         let responseAPIStopsList = rawResponseAPIStopsList as? HTTPURLResponse
+
+         // Check status of response
+         if (responseAPIStopsList?.statusCode == 401) {
+            Task {
+               await self.authentication.authenticate()
+               await self.fetchStopsFromAPI()
+            }
+            return
+         } else if (responseAPIStopsList?.statusCode != 200) {
+            print(responseAPIStopsList as Any)
+            throw Appstate.CarrisAPIError.unavailable
+         }
+
+         let decodedAPIStopsList = try JSONDecoder().decode([APIStop].self, from: rawDataAPIStopsList)
+
+         // Define a temporary variable to store routes
+         // before saving them to the device storage.
+         var tempAllStops: [Stop] = []
+
+         // For each available route in the API,
+         for availableStop in decodedAPIStopsList {
+            if (availableStop.isPublicVisible) {
+               // Save the formatted route object in the allRoutes temporary variable
+               tempAllStops.append(Stop(
+                  publicId: availableStop.publicId,
+                  name: availableStop.name,
+                  lat: availableStop.lat,
+                  lng: availableStop.lng,
+                  orderInRoute: nil,
+                  direction: nil
+               ))
+            }
+         }
+
+         // Finally, save the temporary variables into storage,
+         // while removing the previous, old ones.
+         try await self.$allStops
+            .removeAll()
+            .add(tempAllStops)
+            .run()
+
+         print("Fetching Stops: Complete!")
+
+         appstate.change(to: .idle, for: .stops)
+
+      } catch {
+         appstate.change(to: .error, for: .stops)
+         print("Fetching Stops: Error!")
+         print(error)
+         print("************")
+      }
+
+   }
+
+
+
+   /* MARK: - Find Stop by Public ID */
+
+   // This function searches for the provided routeNumber in all routes array,
+   // and returns it if found. If not found, returns nil.
+
+   func findStop(by stopPublicId: String) -> Stop? {
+
+      // Find index of route matching requested routeNumber
+      let indexOfStopInArray = allStops.firstIndex(where: { (stop) -> Bool in
+         stop.publicId == stopPublicId // test if this is the item we're looking for
+      }) ?? nil // If the item does not exist, return default value -1
+
+      // If a match is found...
+      if (indexOfStopInArray != nil) {
+         return allStops[indexOfStopInArray!]
+      } else {
+         return nil
+      }
+
+   }
+
+
+
+}

@@ -14,7 +14,7 @@ struct SelectRouteSheet: View {
 
    @EnvironmentObject var routesController: RoutesController
 
-   @Binding var showSelectRouteSheet: Bool
+   @Binding var isPresentingSheet: Bool
 
 
    var body: some View {
@@ -23,19 +23,19 @@ struct SelectRouteSheet: View {
          
          VStack {
 
-            SheetHeader(title: Text("Find Routes"), toggle: $showSelectRouteSheet)
+            SheetHeader(title: Text("Find Routes"), toggle: $isPresentingSheet)
 
-            SelectRouteInput(showSelectRouteSheet: self.$showSelectRouteSheet)
+            SelectRouteInput(showSheet: $isPresentingSheet)
                .padding(.horizontal)
 
             Divider()
 
             VStack {
-               FavoriteRoutes(showSelectRouteSheet: $showSelectRouteSheet)
-               SetOfRoutes(title: Text("Trams"), kind: .tram, showSelectRouteSheet: $showSelectRouteSheet)
-               SetOfRoutes(title: Text("Neighborhood Buses"), kind: .neighborhood, showSelectRouteSheet: $showSelectRouteSheet)
-               SetOfRoutes(title: Text("Night Buses"), kind: .night, showSelectRouteSheet: $showSelectRouteSheet)
-               SetOfRoutes(title: Text("Regular Service"), kind: .regular, showSelectRouteSheet: $showSelectRouteSheet)
+               FavoriteRoutes(showSelectRouteSheet: $isPresentingSheet)
+               SetOfRoutes(title: Text("Trams"), kind: .tram, showSheet: $isPresentingSheet)
+               SetOfRoutes(title: Text("Neighborhood Buses"), kind: .neighborhood, showSheet: $isPresentingSheet)
+               SetOfRoutes(title: Text("Night Buses"), kind: .night, showSheet: $isPresentingSheet)
+               SetOfRoutes(title: Text("Regular Service"), kind: .regular, showSheet: $isPresentingSheet)
             }
 
             About()

@@ -12,6 +12,7 @@ class Appstate: ObservableObject {
    @Published var global: State = .idle
 
    @Published var auth: State = .idle
+   @Published var stops: State = .idle
    @Published var routes: State = .idle
    @Published var vehicles: State = .idle
    @Published var estimations: State = .idle
@@ -24,6 +25,7 @@ class Appstate: ObservableObject {
 
    enum Module {
       case auth
+      case stops
       case routes
       case vehicles
       case estimations
@@ -40,6 +42,8 @@ class Appstate: ObservableObject {
          switch module {
             case .auth:
                self.auth = newState
+            case .stops:
+               self.stops = newState
             case .routes:
                self.routes = newState
             case .vehicles:
@@ -48,7 +52,7 @@ class Appstate: ObservableObject {
                self.estimations = newState
          }
          // Change state of global module
-         if (self.auth == .idle && self.routes == .idle && self.vehicles == .idle) {
+         if (self.auth == .idle && self.stops == .idle && self.routes == .idle && self.vehicles == .idle) {
             // Only count auth, routes and vehicles for idle global state
             self.global = .idle
          } else if (self.auth == .loading || self.routes == .loading || self.vehicles == .loading) {

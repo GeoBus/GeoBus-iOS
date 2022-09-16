@@ -12,6 +12,7 @@ struct NavBar: View {
 
    @Environment(\.colorScheme) var colorScheme: ColorScheme
 
+   @EnvironmentObject var appstate: Appstate
    @EnvironmentObject var routesController: RoutesController
 
    @State var showSelectRouteSheet: Bool = false
@@ -25,13 +26,17 @@ struct NavBar: View {
          // What happens when button is tapped
          if (routesController.allRoutes.count > 0) {
             self.showSelectRouteSheet = true
+         } else if (appstate.global == .error) {
+            Task {
+               await routesController.update()
+            }
          }
       }) {
          // What is shown as the button view
          SelectRouteView()
       }
       .sheet(isPresented: $showSelectRouteSheet) {
-         SelectRouteSheet(showSelectRouteSheet: self.$showSelectRouteSheet)
+         SelectRouteSheet(isPresentingSheet: self.$showSelectRouteSheet)
       }
    }
 
@@ -43,9 +48,11 @@ struct NavBar: View {
          // What happens when button is tapped
          if (routesController.selectedRoute != nil) {
             self.showRouteDetailsSheet = true
+         } else if (routesController.allRoutes.count > 0) {
+            self.showSelectRouteSheet = true
          } else {
-            if (routesController.allRoutes.count > 0) {
-               self.showSelectRouteSheet = true
+            Task {
+               await routesController.update()
             }
          }
       }) {

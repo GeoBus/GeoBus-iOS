@@ -19,9 +19,9 @@ struct StopsList: View {
             StopDetailsView(
                canToggle: true,
                publicId: stop.publicId,
-               direction: stop.direction,
+               name: stop.name,
                orderInRoute: stop.orderInRoute,
-               name: stop.name
+               direction: stop.direction
             )
          }
       }

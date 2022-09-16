@@ -17,14 +17,12 @@ class RoutesController: ObservableObject {
 
    @Stored(in: .routesStore) var allRoutes
 
-   @Published var state: Appstate.State = .idle
-
    @Published var favorites: [Route] = []
 
    @Published var selectedRoute: Route?
    @Published var selectedVariant: Variant?
 
-   @StoredValue(key: "lastUpdatedRoutes") var lastUpdateRoutes: String? = nil
+   @StoredValue(key: "lastUpdatedRoutes") var lastUpdatedRoutes: String? = nil
 
 
 
@@ -43,10 +41,6 @@ class RoutesController: ObservableObject {
    /* MARK: - Selectors */
    
    // Getters and Setters for published and private variables.
-
-   private func set(state: Appstate.State) {
-      self.state = state
-   }
 
    private func select(route: Route) {
       self.selectedRoute = route
@@ -76,6 +70,12 @@ class RoutesController: ObservableObject {
    }
 
 
+   func deselect() {
+      self.selectedRoute = nil
+      self.selectedVariant = nil
+   }
+
+
 
    /* MARK: - Check for Updates from Carris API */
 
@@ -86,23 +86,23 @@ class RoutesController: ObservableObject {
 
       let formatter = ISO8601DateFormatter()
 
-      if (lastUpdateRoutes != nil || allRoutes.count > 0) {
+      if (lastUpdatedRoutes != nil || allRoutes.count > 0) {
 
          // Calculate time interval
-         let formattedDateObj = formatter.date(from: lastUpdateRoutes!)
+         let formattedDateObj = formatter.date(from: lastUpdatedRoutes!)
          let secondsPassed = Int(formattedDateObj?.timeIntervalSinceNow ?? -1)
 
          if ( (secondsPassed * -1) > (86400 * 5) ) { // 86400 seconds * 5 = 5 days
             await fetchRoutesFromAPI()
             let timestamp = formatter.string(from: Date.now)
-            $lastUpdateRoutes.set(timestamp)
+            $lastUpdatedRoutes.set(timestamp)
          }
 
       } else {
          appstate.change(to: .loading, for: .routes)
          await fetchRoutesFromAPI()
          let timestamp = formatter.string(from: Date.now)
-         $lastUpdateRoutes.set(timestamp)
+         $lastUpdatedRoutes.set(timestamp)
       }
 
       // Do the following in the main thread
@@ -353,19 +353,19 @@ class RoutesController: ObservableObject {
             // Append new values to the temporary variable property directly
             formattedVariant.upItinerary!.append(
                Stop(
-                  orderInRoute: rawConnection.orderNum,
                   publicId: rawConnection.busStop.publicId,
                   name: rawConnection.busStop.name,
-                  direction: .ascending,
                   lat: rawConnection.busStop.lat,
-                  lng: rawConnection.busStop.lng
+                  lng: rawConnection.busStop.lng,
+                  orderInRoute: rawConnection.orderNum,
+                  direction: .ascending
                )
             )
 
          }
 
          // Sort the stops
-         formattedVariant.upItinerary!.sort(by: { $0.orderInRoute < $1.orderInRoute })
+         formattedVariant.upItinerary!.sort(by: { $0.orderInRoute! < $1.orderInRoute! })
 
       }
 
@@ -382,19 +382,19 @@ class RoutesController: ObservableObject {
             // Append new values to the temporary variable property directly
             formattedVariant.downItinerary!.append(
                Stop(
-                  orderInRoute: rawConnection.orderNum,
                   publicId: rawConnection.busStop.publicId,
                   name: rawConnection.busStop.name,
-                  direction: .descending,
                   lat: rawConnection.busStop.lat,
-                  lng: rawConnection.busStop.lng
+                  lng: rawConnection.busStop.lng,
+                  orderInRoute: rawConnection.orderNum,
+                  direction: .descending
                )
             )
 
          }
 
          // Sort the stops
-         formattedVariant.downItinerary!.sort(by: { $0.orderInRoute < $1.orderInRoute })
+         formattedVariant.downItinerary!.sort(by: { $0.orderInRoute! < $1.orderInRoute! })
 
       }
 
@@ -411,19 +411,19 @@ class RoutesController: ObservableObject {
             // Append new values to the temporary variable property directly
             formattedVariant.circItinerary!.append(
                Stop(
-                  orderInRoute: rawConnection.orderNum,
                   publicId: rawConnection.busStop.publicId,
                   name: rawConnection.busStop.name,
-                  direction: .circular,
                   lat: rawConnection.busStop.lat,
-                  lng: rawConnection.busStop.lng
+                  lng: rawConnection.busStop.lng,
+                  orderInRoute: rawConnection.orderNum,
+                  direction: .circular
                )
             )
 
          }
 
          // Sort the stops
-         formattedVariant.circItinerary!.sort(by: { $0.orderInRoute < $1.orderInRoute })
+         formattedVariant.circItinerary!.sort(by: { $0.orderInRoute! < $1.orderInRoute! })
 
       }
 
@@ -452,11 +452,11 @@ class RoutesController: ObservableObject {
       // Find index of route matching requested routeNumber
       let indexOfRouteInArray = allRoutes.firstIndex(where: { (route) -> Bool in
          route.number == routeNumber // test if this is the item we're looking for
-      }) ?? -1 // If the item does not exist, return default value -1
+      }) ?? nil // If the item does not exist, return default value nil
 
       // If a match is found...
-      if (indexOfRouteInArray > 0) {
-         return allRoutes[indexOfRouteInArray]
+      if (indexOfRouteInArray != nil) {
+         return allRoutes[indexOfRouteInArray!]
       } else {
          return nil
       }
