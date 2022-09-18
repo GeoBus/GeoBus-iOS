@@ -1,5 +1,5 @@
 //
-//  Routes.swift
+//  Stops.swift
 //  GeoBus
 //
 //  Created by João de Vasconcelos on 09/09/2022.
@@ -24,7 +24,7 @@ struct APIStop: Decodable {
 
 
 
-/* MARK: - Route */
+/* MARK: - Stop */
 
 // Data models adjusted for the app.
 
