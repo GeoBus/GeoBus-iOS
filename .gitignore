@@ -91,3 +91,7 @@ iOSInjectionProject/
 
 # Finder
 **/.DS_Store
+
+# App Secrets
+Secrets.xcconfig
+
