@@ -104,7 +104,7 @@
 "Locate" = "Localizar";
 
 /* No comment provided by engineer. */
-"Neighborhood Buses" = "Bens de Vizinhança";
+"Neighborhood Buses" = "Carreiras de Bairro";
 
 /* No comment provided by engineer. */
 "Next on this stop:" = "Em seguida, nesta parada:";
@@ -119,13 +119,13 @@
 "Olá 👋" = "Olá 👋";
 
 /* No comment provided by engineer. */
-"Olá!" = "Ósseo!";
+"Olá!" = "Olá!";
 
 /* No comment provided by engineer. */
-"Open to Feedback" = "Open to Feedback";
+"Open to Feedback" = "Sugestões?";
 
 /* No comment provided by engineer. */
-"P" = "PT";
+"P" = "P";
 
 /* No comment provided by engineer. */
 "Please try again." = "Por favor tente novamente.";
@@ -170,19 +170,19 @@
 "Sometimes their service is unavailable or changes unexpectedly. In this situations, the only option is to wait and try again later." = "Por vezes o serviço da Carris fica indisponível ou muda inesperadamente. Nestas situações, a única opção é esperar e tentar novamente mais tarde.";
 
 /* No comment provided by engineer. */
-"Spread the Love" = "Spread the Love";
+"Spread the Love" = "Compartilhe o amor";
 
 /* No comment provided by engineer. */
 "Thanks for giving GeoBus a try!" = "Obrigado por experimentar o GeoBus!";
 
 /* No comment provided by engineer. */
-"The more people using it the more likely it will keep working." = "The more people using it the more likely it will keep working.";
+"The more people using it the more likely it will keep working." = "Quanto mais pessoas utilizarem, maior será a probabilidade de continuar a funcionar.";
 
 /* No comment provided by engineer. */
 "The route you entered is not available." = "A rota que você inseriu não está disponível.";
 
 /* No comment provided by engineer. */
-"The stop you entered is not available." = "O ponto que você inseriu não está disponível.";
+"The stop you entered is not available." = "A paragem que inserida não está disponível.";
 
 /* No comment provided by engineer. */
 "This is a circular route." = "Esta é uma rota circular.";
@@ -197,7 +197,7 @@
 "This should take less than a minute and only happens this once." = "Isto deve demorar menos de um minuto e só acontece uma vez.";
 
 /* No comment provided by engineer. */
-"This will only happen once." = "Isso só acontecerá uma vez.";
+"This will only happen once." = "Isto só acontecerá uma vez.";
 
 /* No comment provided by engineer. */
 "to" = "para";
@@ -206,7 +206,7 @@
 "to: %@" = "para: %@";
 
 /* No comment provided by engineer. */
-"Trams" = "Ceifadores";
+"Trams" = "Elétricos";
 
 /* No comment provided by engineer. */
 "Try Again" = "Tente Novamente";
@@ -221,7 +221,7 @@
 "Up to Date" = "Atualizado";
 
 /* No comment provided by engineer. */
-"Updating Routes..." = "Atualizando saídas...";
+"Updating Routes..." = "A actualizar carreiras...";
 
 /* No comment provided by engineer. */
 "v%@-%@" = "v%@-%@";
@@ -239,7 +239,7 @@
 "You have no favorite routes." = "Você não tem rotas favoritas.";
 
 /* No comment provided by engineer. */
-"You have to allow location access so that GeoBus can show where you are on the map." = "Você tem que permitir acesso à localização para que GeoBus possa mostrar onde você está no mapa.";
+"You have to allow location access so that GeoBus can show where you are on the map." = "É necessário permitir acesso à localização para que o GeoBus possa mostrar onde se encontra no mapa.";
 
 /* No comment provided by engineer. */
 "Your Location" = "A Sua Localização";
