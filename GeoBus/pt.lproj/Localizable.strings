@@ -35,7 +35,7 @@
 "Choose a Route Number" = "Escolha uma Carreira";
 
 /* No comment provided by engineer. */
-"Choose a Stop Number" = "Escolha um número de parada";
+"Choose a Stop Number" = "Escolha o número da paragem";
 
 /* No comment provided by engineer. */
 "Close" = "Fechar";
@@ -50,13 +50,13 @@
 "Estimated" = "Estimado";
 
 /* No comment provided by engineer. */
-"Favorite Routes" = "Favoritas";
+"Favorite Routes" = "Favoritos";
 
 /* No comment provided by engineer. */
-"Find Routes" = "Encontrar Carreiras";
+"Find Routes" = "Localizar Carreiras";
 
 /* No comment provided by engineer. */
-"Find Stops" = "Localizar Paradas";
+"Find Stops" = "Localizar Paragens";
 
 /* No comment provided by engineer. */
 "GeoBus can show you where you are in the map, if you allow it." = "O GeoBus pode mostrar a sua localização no mapa, se o permitir.";
@@ -71,7 +71,7 @@
 "GPS updated %@ ago" = "GPS atualizado há %@";
 
 /* No comment provided by engineer. */
-"I'll be delighted to know your opinion." = "Gostava muito de saber a sua opinião.";
+"I'll be delighted to know your opinion." = "Gostaria de saber a sua opinião.";
 
 /* No comment provided by engineer. */
 "I'll do my best to keep the app working flawlessly for as long as possible." = "Farei o possível para manter a app a funcionar pelo máximo de tempo possível.";
@@ -89,16 +89,16 @@
 "It's probably because their servers are down. In this case, the best option is to wait and try again later :/" = "Provavelmente os servidores estão indisponíveis. Neste caso, a melhor opção é esperar e tentar novamente mais tarde :/";
 
 /* No comment provided by engineer. */
-"Live" = "Publicado";
+"Live" = "Live";
 
 /* No comment provided by engineer. */
 "Live Data" = "Tempo Real";
 
 /* No comment provided by engineer. */
-"Live data is provided by Carris free of charge." = "Os dados ao vivo são fornecidos pelo Carris gratuitamente.";
+"Live data is provided by Carris free of charge." = "Os são fornecidos pelo Carris gratuitamente em directo.";
 
 /* No comment provided by engineer. */
-"Loading..." = "Carregandochar@@0";
+"Loading..." = "Carregando...";
 
 /* No comment provided by engineer. */
 "Locate" = "Localizar";
