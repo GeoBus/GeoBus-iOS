@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Boutique
 
 class Authentication: ObservableObject {
 
@@ -30,17 +29,26 @@ class Authentication: ObservableObject {
 
    private var retries = 3
 
-   @StoredValue(key: "endpoint")
-   var endpoint: String? = nil
+   @Published var endpoint: String? = nil
+   @Published var apiKey: String? = nil
+   @Published var refreshToken: String? = nil
+   @Published var authToken: String? = nil
 
-   @StoredValue(key: "apiKey")
-   var apiKey: String? = nil
 
-   @StoredValue(key: "authToken")
-   var authToken: String? = nil
+   init() {
+      self.endpoint = UserDefaults.standard.string(forKey: "auth_endpoint")
+      self.apiKey = UserDefaults.standard.string(forKey: "auth_apiKey")
+      self.refreshToken = UserDefaults.standard.string(forKey: "auth_refreshToken")
+      self.authToken = UserDefaults.standard.string(forKey: "auth_authToken")
+   }
 
-   @StoredValue(key: "refreshToken")
-   var refreshToken: String? = nil
+
+   func saveCredentials() {
+      UserDefaults.standard.set(endpoint, forKey: "auth_endpoint")
+      UserDefaults.standard.set(apiKey, forKey: "auth_apiKey")
+      UserDefaults.standard.set(refreshToken, forKey: "auth_refreshToken")
+      UserDefaults.standard.set(authToken, forKey: "auth_authToken")
+   }
 
 
 
@@ -68,7 +76,7 @@ class Authentication: ObservableObject {
             try await fetchAuthorization(token: refreshToken!, type: "refresh")
          } catch {
             print("Clearing saved refreshToken...")
-            self.$refreshToken.reset()
+            self.refreshToken = nil
             await self.authenticate()
             return
          }
@@ -78,7 +86,7 @@ class Authentication: ObservableObject {
             try await fetchAuthorization(token: apiKey!, type: "apikey")
          } catch {
             print("Clearing saved apiKey...")
-            self.$apiKey.reset()
+            self.apiKey = nil
             await self.authenticate()
             return
          }
@@ -100,6 +108,8 @@ class Authentication: ObservableObject {
          }
       }
 
+      saveCredentials()
+
       appstate.change(to: .idle, for: .auth)
 
    }
@@ -117,8 +127,10 @@ class Authentication: ObservableObject {
 
       let (rawCredential, _) = try await URLSession.shared.data(for: request)
       let decodedCredential = try JSONDecoder().decode(APICredential.self, from: rawCredential)
-      self.$endpoint.set(decodedCredential.endpoint)
-      self.$apiKey.set(decodedCredential.token)
+      DispatchQueue.main.async {
+         self.endpoint = decodedCredential.endpoint
+         self.apiKey = decodedCredential.token
+      }
 
    }
 
@@ -139,8 +151,10 @@ class Authentication: ObservableObject {
 
       let parsedAuthorization = try JSONDecoder().decode(APIAuthorization.self, from: data)
 
-      self.$refreshToken.set(parsedAuthorization.refreshToken)
-      self.$authToken.set(parsedAuthorization.authorizationToken)
+      DispatchQueue.main.async {
+         self.refreshToken = parsedAuthorization.refreshToken
+         self.authToken = parsedAuthorization.authorizationToken
+      }
 
    }
 

@@ -23,16 +23,8 @@ struct NavBar: View {
    // Depending on the state, the button conveys different information.
    var routeSelector: some View {
       Button(action: {
-         // What happens when button is tapped
-         if (routesController.allRoutes.count > 0) {
-            self.showSelectRouteSheet = true
-         } else if (appstate.global == .error) {
-            Task {
-               await routesController.update()
-            }
-         }
+         self.showSelectRouteSheet = true
       }) {
-         // What is shown as the button view
          SelectRouteView()
       }
       .sheet(isPresented: $showSelectRouteSheet) {
@@ -45,18 +37,12 @@ struct NavBar: View {
    // then it acts as button to choose a route.
    var routeDetails: some View {
       Button(action: {
-         // What happens when button is tapped
          if (routesController.selectedRoute != nil) {
             self.showRouteDetailsSheet = true
-         } else if (routesController.allRoutes.count > 0) {
-            self.showSelectRouteSheet = true
          } else {
-            Task {
-               await routesController.update()
-            }
+            self.showSelectRouteSheet = true
          }
       }) {
-         // What is shown as the button view
          RouteDetailsView()
       }
       .sheet(isPresented: $showRouteDetailsSheet) {

@@ -25,17 +25,19 @@ struct AboutButton: View {
             self.icon
                .renderingMode(.template)
                .font(Font.system(size: 25))
-               .frame(width: 35, alignment: .center)
+               .foregroundColor(Color(.systemOrange))
             self.text
+               .font(Font.system(size: 18, weight: .medium))
                .padding(.leading, 5)
+               .foregroundColor(Color(.systemOrange))
             Spacer()
             Image(systemName: "arrow.up.right.square")
                .font(Font.system(size: 25))
-               .foregroundColor(Color(.secondaryLabel).opacity(0.25))
+               .foregroundColor(Color(.systemOrange).opacity(0.5))
          }
          .padding()
-         .padding(.vertical, 2)
-         .background(colorScheme == .dark ? Color(.secondarySystemBackground) : Color(.systemBackground))
+         .frame(maxWidth: .infinity)
+         .background(Color(.systemOrange).opacity(0.05))
          .cornerRadius(10)
       }
    }

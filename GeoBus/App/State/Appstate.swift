@@ -8,6 +8,8 @@
 import Foundation
 
 class Appstate: ObservableObject {
+
+   /* MARK: - State */
    
    @Published var global: State = .idle
 
@@ -52,14 +54,14 @@ class Appstate: ObservableObject {
                self.estimations = newState
          }
          // Change state of global module
-         if (self.auth == .idle && self.stops == .idle && self.routes == .idle && self.vehicles == .idle) {
-            // Only count auth, routes and vehicles for idle global state
+         if (self.auth == .idle && self.vehicles == .idle) {
+            // Only count auth and vehicles for idle global state
             self.global = .idle
-         } else if (self.auth == .loading || self.routes == .loading || self.vehicles == .loading) {
-            // Only count auth, routes and vehicles for loading global state
+         } else if (self.auth == .loading || self.vehicles == .loading) {
+            // Only count auth and vehicles for loading global state
             self.global = .loading
-         } else if (self.auth == .error || self.routes == .error || self.vehicles == .error) {
-            // Only count auth, routes and vehicles for error global state
+         } else if (self.auth == .error || self.vehicles == .error) {
+            // Only count auth and vehicles for error global state
             self.global = .error
          }
       }

@@ -15,11 +15,11 @@ import CoreLocation
 // Schema is available at https://joaodcp.github.io/Carris-API
 
 struct APIStop: Decodable {
-   let id: Int
-   let name, publicId: String
-   let lat, lng: Double
-   let isPublicVisible: Bool
-   let timestamp: String
+   let id: Int?
+   let name, publicId: String?
+   let lat, lng: Double?
+   let isPublicVisible: Bool?
+   let timestamp: String?
 }
 
 

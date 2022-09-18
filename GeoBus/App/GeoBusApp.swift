@@ -32,17 +32,15 @@ struct GeoBusApp: App {
             .environmentObject(vehiclesController)
             .environmentObject(estimationsController)
             .onAppear(perform: {
-               Task {
-                  // Pass references to Controllers
-                  authentication.receive(state: appstate)
-                  stopsController.receive(state: appstate, auth: authentication)
-                  routesController.receive(state: appstate, auth: authentication)
-                  vehiclesController.receive(state: appstate, auth: authentication)
-                  estimationsController.receive(state: appstate, auth: authentication)
-                  // Update available stops & routes
-                  await stopsController.update()
-                  await routesController.update()
-               }
+               // Pass references to Controllers
+               authentication.receive(state: appstate)
+               stopsController.receive(state: appstate, auth: authentication)
+               routesController.receive(state: appstate, auth: authentication)
+               vehiclesController.receive(state: appstate, auth: authentication)
+               estimationsController.receive(state: appstate, auth: authentication)
+               // Update available stops & routes
+               stopsController.update()
+               routesController.update()
             })
             .onReceive(refreshVehiclesTimer) { event in
                Task {

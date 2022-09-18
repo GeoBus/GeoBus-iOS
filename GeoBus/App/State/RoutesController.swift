@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Boutique
 import Combine
 
 @MainActor
@@ -15,14 +14,38 @@ class RoutesController: ObservableObject {
 
    /* MARK: - Variables */
 
-   @Stored(in: .routesStore) var allRoutes
+   private let storageKeyForAllRoutes: String = "routes_allRoutes"
+   @Published var allRoutes: [Route] = []
 
+   private let storageKeyForLastUpdatedRoutes: String = "routes_lastUpdatedRoutes"
+   private var lastUpdatedRoutes: String? = nil
+
+   private let storageKeyForFavoriteRoutes: String = "routes_favoriteRoutes"
    @Published var favorites: [Route] = []
 
    @Published var selectedRoute: Route?
    @Published var selectedVariant: Variant?
 
-   @StoredValue(key: "lastUpdatedRoutes") var lastUpdatedRoutes: String? = nil
+   @Published var totalRoutesLeftToUpdate: Int? = nil
+
+
+
+   /* MARK: - INITIALIZER */
+
+   // Retrieve data from UserDefaults on init.
+
+   init() {
+      // Unwrap and Decode all stops
+      if let unwrappedAllRoutes = UserDefaults.standard.data(forKey: storageKeyForAllRoutes) {
+         if let decodedAllRoutes = try? JSONDecoder().decode([Route].self, from: unwrappedAllRoutes) {
+            self.allRoutes = decodedAllRoutes
+         }
+      }
+      // Unwrap lastUpdatedStops timestamp
+      if let unwrappedLastUpdatedRoutes = UserDefaults.standard.string(forKey: storageKeyForLastUpdatedRoutes) {
+         self.lastUpdatedRoutes = unwrappedLastUpdatedRoutes
+      }
+   }
 
 
 
@@ -82,34 +105,32 @@ class RoutesController: ObservableObject {
    // This function decides whether to update available routes
    // if they are outdated. For now, do this once a day.
 
-   func update() async {
+   func update(forced: Bool = false) {
 
       let formatter = ISO8601DateFormatter()
 
-      if (lastUpdatedRoutes != nil || allRoutes.count > 0) {
-
+      if (lastUpdatedRoutes == nil || allRoutes.isEmpty || forced) {
+         Task {
+            await fetchRoutesFromAPI()
+            let timestamp = formatter.string(from: Date.now)
+            UserDefaults.standard.set(timestamp, forKey: storageKeyForLastUpdatedRoutes)
+         }
+      } else {
          // Calculate time interval
          let formattedDateObj = formatter.date(from: lastUpdatedRoutes!)
          let secondsPassed = Int(formattedDateObj?.timeIntervalSinceNow ?? -1)
 
          if ( (secondsPassed * -1) > (86400 * 5) ) { // 86400 seconds * 5 = 5 days
-            await fetchRoutesFromAPI()
-            let timestamp = formatter.string(from: Date.now)
-            $lastUpdatedRoutes.set(timestamp)
+            Task {
+               await fetchRoutesFromAPI()
+               let timestamp = formatter.string(from: Date.now)
+               UserDefaults.standard.set(timestamp, forKey: storageKeyForLastUpdatedRoutes)
+            }
          }
-
-      } else {
-         appstate.change(to: .loading, for: .routes)
-         await fetchRoutesFromAPI()
-         let timestamp = formatter.string(from: Date.now)
-         $lastUpdatedRoutes.set(timestamp)
       }
 
-      // Do the following in the main thread
-      // because this is an async function.
-      DispatchQueue.main.async {
-         self.retrieveFavorites()
-      }
+      // Retrieve favorites at app launch
+      self.retrieveFavorites()
 
    }
 
@@ -125,7 +146,7 @@ class RoutesController: ObservableObject {
       let iCloudKeyStore = NSUbiquitousKeyValueStore()
       iCloudKeyStore.synchronize()
 
-      let savedFavorites = iCloudKeyStore.array(forKey: "favoriteRoutes") as? [String] ?? []
+      let savedFavorites = iCloudKeyStore.array(forKey: storageKeyForFavoriteRoutes) as? [String] ?? []
 
       // Save to array
       for routeNumber in savedFavorites {
@@ -151,7 +172,7 @@ class RoutesController: ObservableObject {
          favoritesToSave.append(favRoute.number)
       }
       let iCloudKeyStore = NSUbiquitousKeyValueStore()
-      iCloudKeyStore.set(favoritesToSave, forKey: "favoriteRoutes")
+      iCloudKeyStore.set(favoritesToSave, forKey: storageKeyForFavoriteRoutes)
       iCloudKeyStore.synchronize()
    }
 
@@ -225,10 +246,8 @@ class RoutesController: ObservableObject {
 
          // Check status of response
          if (responseAPIRoutesList?.statusCode == 401) {
-            Task {
-               await self.authentication.authenticate()
-               await self.fetchRoutesFromAPI()
-            }
+            await self.authentication.authenticate()
+            await self.fetchRoutesFromAPI()
             return
          } else if (responseAPIRoutesList?.statusCode != 200) {
             print(responseAPIRoutesList as Any)
@@ -237,6 +256,10 @@ class RoutesController: ObservableObject {
 
          let decodedAPIRoutesList = try JSONDecoder().decode([APIRoutesList].self, from: rawDataAPIRoutesList)
 
+
+         self.totalRoutesLeftToUpdate = decodedAPIRoutesList.count
+
+
          // Define a temporary variable to store routes
          // before saving them to the device storage.
          var tempAllRoutes: [Route] = []
@@ -244,10 +267,12 @@ class RoutesController: ObservableObject {
          // For each available route in the API,
          for availableRoute in decodedAPIRoutesList {
 
-            if (availableRoute.isPublicVisible) {
+            if (availableRoute.isPublicVisible ?? false) {
+
+               print("Route: Route.\(String(describing: availableRoute.routeNumber)) starting...")
 
                // Request Route Detail for .routeNumber
-               var requestAPIRouteDetail = URLRequest(url: URL(string: "https://gateway.carris.pt/gateway/xtranpassengerapi/api/v2.10/Routes/\(availableRoute.routeNumber)")!)
+               var requestAPIRouteDetail = URLRequest(url: URL(string: "https://gateway.carris.pt/gateway/xtranpassengerapi/api/v2.10/Routes/\(availableRoute.routeNumber ?? "invalid-route-number")")!)
                requestAPIRouteDetail.addValue("application/json", forHTTPHeaderField: "Content-Type")
                requestAPIRouteDetail.addValue("application/json", forHTTPHeaderField: "Accept")
                requestAPIRouteDetail.setValue("Bearer \(authentication.authToken ?? "invalid_token")", forHTTPHeaderField: "Authorization")
@@ -266,6 +291,7 @@ class RoutesController: ObservableObject {
                   throw Appstate.CarrisAPIError.unavailable
                }
 
+
                let decodedAPIRouteDetail = try JSONDecoder().decode(APIRoute.self, from: rawDataAPIRouteDetail)
 
                // Define a temporary variable to store formatted route variants
@@ -274,12 +300,12 @@ class RoutesController: ObservableObject {
                // For each variant in route,
                // check if it is currently active, format it
                // and append the result to the temporary variable.
-               for apiRouteVariant in decodedAPIRouteDetail.variants {
-                  if (apiRouteVariant.isActive) {
+               for apiRouteVariant in decodedAPIRouteDetail.variants ?? [] {
+                  if (apiRouteVariant.isActive ?? false) {
                      formattedRouteVariants.append(
                         formatRawRouteVariant(
                            rawVariant: apiRouteVariant,
-                           isCircular: decodedAPIRouteDetail.isCirc
+                           isCircular: decodedAPIRouteDetail.isCirc ?? false
                         )
                      )
                   }
@@ -287,14 +313,20 @@ class RoutesController: ObservableObject {
 
                // Build the formatted route object
                let formattedRoute = Route(
-                  number: decodedAPIRouteDetail.routeNumber,
-                  name: decodedAPIRouteDetail.name,
-                  kind: Globals().getKind(by: decodedAPIRouteDetail.routeNumber),
+                  number: decodedAPIRouteDetail.routeNumber ?? "-",
+                  name: decodedAPIRouteDetail.name ?? "-",
+                  kind: Globals().getKind(by: decodedAPIRouteDetail.routeNumber ?? "-"),
                   variants: formattedRouteVariants
                )
 
                // Save the formatted route object in the allRoutes temporary variable
                tempAllRoutes.append(formattedRoute)
+
+               self.totalRoutesLeftToUpdate! -= 1
+
+               print("Route: Route.\(String(describing: formattedRoute.number)) complete.")
+
+               try await Task.sleep(nanoseconds: 100_000_000)
 
             }
 
@@ -302,10 +334,11 @@ class RoutesController: ObservableObject {
 
          // Finally, save the temporary variables into storage,
          // while removing the previous, old ones.
-         try await self.$allRoutes
-            .removeAll()
-            .add(tempAllRoutes)
-            .run()
+         self.allRoutes.removeAll()
+         self.allRoutes.append(contentsOf: tempAllRoutes)
+         if let encodedAllRoutes = try? JSONEncoder().encode(self.allRoutes) {
+            UserDefaults.standard.set(encodedAllRoutes, forKey: storageKeyForAllRoutes)
+         }
 
          print("Fetching Routes: Complete!")
 
@@ -330,7 +363,7 @@ class RoutesController: ObservableObject {
 
       // Create a temporary variable to store the final RouteVariant
       var formattedVariant = Variant(
-         number: rawVariant.variantNumber,
+         number: rawVariant.variantNumber ?? -1,
          isCircular: isCircular,
          upItinerary: nil,
          downItinerary: nil,
@@ -348,15 +381,15 @@ class RoutesController: ObservableObject {
 
          // For each connection,
          // convert the nested objects into a simplified RouteStop object
-         for rawConnection in rawVariant.upItinerary!.connections {
+         for rawConnection in rawVariant.upItinerary!.connections ?? [] {
 
             // Append new values to the temporary variable property directly
             formattedVariant.upItinerary!.append(
                Stop(
-                  publicId: rawConnection.busStop.publicId,
-                  name: rawConnection.busStop.name,
-                  lat: rawConnection.busStop.lat,
-                  lng: rawConnection.busStop.lng,
+                  publicId: rawConnection.busStop?.publicId ?? "-",
+                  name: rawConnection.busStop?.name ?? "-",
+                  lat: rawConnection.busStop?.lat ?? 0,
+                  lng: rawConnection.busStop?.lng ?? 0,
                   orderInRoute: rawConnection.orderNum,
                   direction: .ascending
                )
@@ -377,15 +410,15 @@ class RoutesController: ObservableObject {
 
          // For each connection,
          // convert the nested objects into a simplified RouteStop object
-         for rawConnection in rawVariant.downItinerary!.connections {
+         for rawConnection in rawVariant.downItinerary!.connections ?? [] {
 
             // Append new values to the temporary variable property directly
             formattedVariant.downItinerary!.append(
                Stop(
-                  publicId: rawConnection.busStop.publicId,
-                  name: rawConnection.busStop.name,
-                  lat: rawConnection.busStop.lat,
-                  lng: rawConnection.busStop.lng,
+                  publicId: rawConnection.busStop?.publicId ?? "-",
+                  name: rawConnection.busStop?.name ?? "-",
+                  lat: rawConnection.busStop?.lat ?? 0,
+                  lng: rawConnection.busStop?.lng ?? 0,
                   orderInRoute: rawConnection.orderNum,
                   direction: .descending
                )
@@ -406,15 +439,15 @@ class RoutesController: ObservableObject {
 
          // For each connection,
          // convert the nested objects into a simplified RouteStop object
-         for rawConnection in rawVariant.circItinerary!.connections {
+         for rawConnection in rawVariant.circItinerary!.connections ?? [] {
 
             // Append new values to the temporary variable property directly
             formattedVariant.circItinerary!.append(
                Stop(
-                  publicId: rawConnection.busStop.publicId,
-                  name: rawConnection.busStop.name,
-                  lat: rawConnection.busStop.lat,
-                  lng: rawConnection.busStop.lng,
+                  publicId: rawConnection.busStop?.publicId ?? "-",
+                  name: rawConnection.busStop?.name ?? "-",
+                  lat: rawConnection.busStop?.lat ?? 0,
+                  lng: rawConnection.busStop?.lng ?? 0,
                   orderInRoute: rawConnection.orderNum,
                   direction: .circular
                )

@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Boutique
 import Combine
 
 @MainActor
@@ -15,13 +14,35 @@ class StopsController: ObservableObject {
 
    /* MARK: - Variables */
 
-   @Stored(in: .stopsStore) var allStops
+   private let storageKeyForAllStops: String = "stops_allStops"
+   @Published var allStops: [Stop] = []
 
+   private let storageKeyForLastUpdatedStops: String = "stops_lastUpdatedStops"
+   private var lastUpdatedStops: String? = nil
+
+   private let storageKeyForFavoriteStops: String = "stops_favoriteStops"
    @Published var favorites: [Stop] = []
 
    @Published var selectedStop: Stop?
 
-   @StoredValue(key: "lastUpdatedStops") var lastUpdatedStops: String? = nil
+
+
+   /* MARK: - INITIALIZER */
+
+   // Retrieve data from UserDefaults on init.
+
+   init() {
+      // Unwrap and Decode all stops
+      if let unwrappedAllStops = UserDefaults.standard.data(forKey: storageKeyForAllStops) {
+         if let decodedAllStops = try? JSONDecoder().decode([Stop].self, from: unwrappedAllStops) {
+            self.allStops = decodedAllStops
+         }
+      }
+      // Unwrap lastUpdatedStops timestamp
+      if let unwrappedLastUpdatedStops = UserDefaults.standard.string(forKey: storageKeyForLastUpdatedStops) {
+         self.lastUpdatedStops = unwrappedLastUpdatedStops
+      }
+   }
 
 
 
@@ -74,34 +95,32 @@ class StopsController: ObservableObject {
    // This function decides whether to update available routes
    // if they are outdated. For now, do this once a day.
 
-   func update() async {
+   func update(forced: Bool = false) {
 
       let formatter = ISO8601DateFormatter()
 
-      if (lastUpdatedStops != nil || allStops.count > 0) {
-
+      if (lastUpdatedStops == nil || allStops.isEmpty || forced) {
+         Task {
+            await fetchStopsFromAPI()
+            let timestamp = formatter.string(from: Date.now)
+            UserDefaults.standard.set(timestamp, forKey: storageKeyForLastUpdatedStops)
+         }
+      } else {
          // Calculate time interval
          let formattedDateObj = formatter.date(from: lastUpdatedStops!)
          let secondsPassed = Int(formattedDateObj?.timeIntervalSinceNow ?? -1)
 
          if ( (secondsPassed * -1) > (86400 * 5) ) { // 86400 seconds * 5 = 5 days
-            await fetchStopsFromAPI()
-            let timestamp = formatter.string(from: Date.now)
-            $lastUpdatedStops.set(timestamp)
+            Task {
+               await fetchStopsFromAPI()
+               let timestamp = formatter.string(from: Date.now)
+               UserDefaults.standard.set(timestamp, forKey: storageKeyForLastUpdatedStops)
+            }
          }
-
-      } else {
-         appstate.change(to: .loading, for: .stops)
-         await fetchStopsFromAPI()
-         let timestamp = formatter.string(from: Date.now)
-         $lastUpdatedStops.set(timestamp)
       }
 
-      // Do the following in the main thread
-      // because this is an async function.
-      DispatchQueue.main.async {
-         self.retrieveFavorites()
-      }
+      // Retrieve favorites at app launch
+      self.retrieveFavorites()
 
    }
 
@@ -117,7 +136,7 @@ class StopsController: ObservableObject {
       let iCloudKeyStore = NSUbiquitousKeyValueStore()
       iCloudKeyStore.synchronize()
 
-      let savedFavorites = iCloudKeyStore.array(forKey: "favoriteStops") as? [String] ?? []
+      let savedFavorites = iCloudKeyStore.array(forKey: storageKeyForFavoriteStops) as? [String] ?? []
 
       // Save to array
       for stopPublicId in savedFavorites {
@@ -143,7 +162,7 @@ class StopsController: ObservableObject {
          favoritesToSave.append(favStop.publicId)
       }
       let iCloudKeyStore = NSUbiquitousKeyValueStore()
-      iCloudKeyStore.set(favoritesToSave, forKey: "favoriteStops")
+      iCloudKeyStore.set(favoritesToSave, forKey: storageKeyForFavoriteStops)
       iCloudKeyStore.synchronize()
    }
 
@@ -235,13 +254,13 @@ class StopsController: ObservableObject {
 
          // For each available route in the API,
          for availableStop in decodedAPIStopsList {
-            if (availableStop.isPublicVisible) {
+            if (availableStop.isPublicVisible ?? false) {
                // Save the formatted route object in the allRoutes temporary variable
                tempAllStops.append(Stop(
-                  publicId: availableStop.publicId,
-                  name: availableStop.name,
-                  lat: availableStop.lat,
-                  lng: availableStop.lng,
+                  publicId: availableStop.publicId ?? "0",
+                  name: availableStop.name ?? "-",
+                  lat: availableStop.lat ?? 0,
+                  lng: availableStop.lng ?? 0,
                   orderInRoute: nil,
                   direction: nil
                ))
@@ -250,10 +269,11 @@ class StopsController: ObservableObject {
 
          // Finally, save the temporary variables into storage,
          // while removing the previous, old ones.
-         try await self.$allStops
-            .removeAll()
-            .add(tempAllStops)
-            .run()
+         self.allStops.removeAll()
+         self.allStops.append(contentsOf: tempAllStops)
+         if let encodedAllStops = try? JSONEncoder().encode(self.allStops) {
+            UserDefaults.standard.set(encodedAllStops, forKey: storageKeyForAllStops)
+         }
 
          print("Fetching Stops: Complete!")
 
