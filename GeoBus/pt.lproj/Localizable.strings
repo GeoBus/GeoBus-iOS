@@ -11,7 +11,7 @@
 "%lld active vehicles" = "%lld veículos ativos";
 
 /* No comment provided by engineer. */
-"%lld Routes left..." = "%lld Routes left...";
+"%lld Routes left..." = "Faltam %lld Carreira...";
 
 /* No comment provided by engineer. */
 "← Choose a Route" = "← Escolha uma Rota";
@@ -20,7 +20,7 @@
 "1 active vehicle" = "1 veículo ativo";
 
 /* No comment provided by engineer. */
-"All data is fetched directly from Carris servers in real time, free of charge." = "All data is fetched directly from Carris servers in real time, free of charge.";
+"All data is fetched directly from Carris servers in real time, free of charge." = "Toda a informação é obtida diretamente dos servidores da Carris em tempo real, gratuitamente.";
 
 /* No comment provided by engineer. */
 "Allow in Settings" = "Permitir nas Definições";
@@ -59,10 +59,10 @@
 "Find Stops" = "Localizar Paradas";
 
 /* No comment provided by engineer. */
-"GeoBus can show you where you are in the map, if you allow it." = "GeoBus can show you where you are in the map, if you allow it.";
+"GeoBus can show you where you are in the map, if you allow it." = "O GeoBus pode mostrar a sua localização no mapa, se o permitir.";
 
 /* No comment provided by engineer. */
-"GeoBus will keep them updated in the background automatically." = "GeoBus will keep them updated in the background automatically.";
+"GeoBus will keep them updated in the background automatically." = "O GeoBus irá mantê-las atualizadas automaticamente.";
 
 /* No comment provided by engineer. */
 "GitHub" = "GitHub";
@@ -74,10 +74,10 @@
 "I'll be delighted to know your opinion." = "Gostava muito de saber a sua opinião.";
 
 /* No comment provided by engineer. */
-"I'll do my best to keep the app working flawlessly for as long as possible." = "I'll do my best to keep the app working flawlessly for as long as possible.";
+"I'll do my best to keep the app working flawlessly for as long as possible." = "Farei o possível para manter a app a funcionar pelo máximo de tempo possível.";
 
 /* No comment provided by engineer. */
-"If the error persists, the only option is to wait and try again later. Unfortunately the app cannot function without this first step." = "If the error persists, the only option is to wait and try again later. Unfortunately the app cannot function without this first step.";
+"If the error persists, the only option is to wait and try again later. Unfortunately the app cannot function without this first step." = "Se o erro persistir, a única opção é esperar e tentar novamente mais tarde. Infelizmente a app não consegue funcionar sem este primeiro passo.";
 
 /* No comment provided by engineer. */
 "If you need help with GeoBus, or have ideas to improve it, please send me an Email or a message on Twitter." = "Se precisar de ajuda para utilizar o GeoBus, ou se tiver alguma ideia para o melhorar, por favor envie-me uma mensagem pelo Twitter ou um Email.";
@@ -86,13 +86,13 @@
 "in ±" = "em ±";
 
 /* No comment provided by engineer. */
-"It's probably because their servers are down. In this case, the best option is to wait and try again later :/" = "It's probably because their servers are down. In this case, the best option is to wait and try again later :/";
+"It's probably because their servers are down. In this case, the best option is to wait and try again later :/" = "Provavelmente os servidores estão indisponíveis. Neste caso, a melhor opção é esperar e tentar novamente mais tarde :/";
 
 /* No comment provided by engineer. */
 "Live" = "Publicado";
 
 /* No comment provided by engineer. */
-"Live Data" = "Live Data";
+"Live Data" = "Tempo Real";
 
 /* No comment provided by engineer. */
 "Live data is provided by Carris free of charge." = "Os dados ao vivo são fornecidos pelo Carris gratuitamente.";
@@ -128,19 +128,19 @@
 "P" = "PT";
 
 /* No comment provided by engineer. */
-"Please try again." = "Please try again.";
+"Please try again." = "Por favor tente novamente.";
 
 /* No comment provided by engineer. */
 "Please wait a few seconds." = "Por favor, aguarde alguns segundos.";
 
 /* No comment provided by engineer. */
-"Please wait a moment while routes and stops are synced with Carris." = "Please wait a moment while routes and stops are synced with Carris.";
+"Please wait a moment while routes and stops are synced with Carris." = "Por favor aguarde enquanto as carreiras e paragens são sincronizadas com a Carris.";
 
 /* No comment provided by engineer. */
-"Please wait..." = "Please wait...";
+"Please wait..." = "Por favor aguarde...";
 
 /* No comment provided by engineer. */
-"Pro tip: tap and hold the location button to zoom in to street level!" = "Pro tip: tap and hold the location button to zoom in to street level!";
+"Pro tip: tap and hold the location button to zoom in to street level!" = "Pro tip: mantenha o dedo no botão da localização para ampliar até o nível da rua!";
 
 /* No comment provided by engineer. */
 "Regular Service" = "Serviço Regular";
@@ -149,31 +149,31 @@
 "Route Details" = "Detalhes do itinerário";
 
 /* No comment provided by engineer. */
-"Routes and Stops are synced." = "Routes and Stops are synced.";
+"Routes and Stops are synced." = "Carreiras e Paragens estão sincronizadas.";
 
 /* No comment provided by engineer. */
 "Send an Email" = "Enviar um e-mail";
 
 /* No comment provided by engineer. */
-"Send me a message if you need help with GeoBus, or have any ideas to improve it." = "Send me a message if you need help with GeoBus, or have any ideas to improve it.";
+"Send me a message if you need help with GeoBus, or have any ideas to improve it." = "Envie-me uma mensagem se precisar de ajuda com o GeoBus, ou se tiver alguma ideia para o melhorar.";
 
 /* No comment provided by engineer. */
-"Service Unavailable" = "Service Unavailable";
+"Service Unavailable" = "Serviço Indisponível";
 
 /* No comment provided by engineer. */
-"Share GeoBus" = "Share GeoBus";
+"Share GeoBus" = "Partilhe o GeoBus";
 
 /* No comment provided by engineer. */
-"Share GeoBus with your friends and family!" = "Share GeoBus with your friends and family!";
+"Share GeoBus with your friends and family!" = "Partilhe o GeoBus com os seus amigos e família!";
 
 /* No comment provided by engineer. */
-"Sometimes their service is unavailable or changes unexpectedly. In this situations, the only option is to wait and try again later." = "Sometimes their service is unavailable or changes unexpectedly. In this situations, the only option is to wait and try again later.";
+"Sometimes their service is unavailable or changes unexpectedly. In this situations, the only option is to wait and try again later." = "Por vezes o serviço da Carris fica indisponível ou muda inesperadamente. Nestas situações, a única opção é esperar e tentar novamente mais tarde.";
 
 /* No comment provided by engineer. */
 "Spread the Love" = "Spread the Love";
 
 /* No comment provided by engineer. */
-"Thanks for giving GeoBus a try!" = "Thanks for giving GeoBus a try!";
+"Thanks for giving GeoBus a try!" = "Obrigado por experimentar o GeoBus!";
 
 /* No comment provided by engineer. */
 "The more people using it the more likely it will keep working." = "The more people using it the more likely it will keep working.";
@@ -191,10 +191,10 @@
 "This route may have %lld alternative paths." = "Esta rota pode ter %lld caminhos alternativos.";
 
 /* No comment provided by engineer. */
-"This should take about a minute." = "This should take about a minute.";
+"This should take about a minute." = "Isto deve demorar mais ou menos um minuto.";
 
 /* No comment provided by engineer. */
-"This should take less than a minute and only happens this once." = "This should take less than a minute and only happens this once.";
+"This should take less than a minute and only happens this once." = "Isto deve demorar menos de um minuto e só acontece uma vez.";
 
 /* No comment provided by engineer. */
 "This will only happen once." = "Isso só acontecerá uma vez.";
@@ -209,16 +209,16 @@
 "Trams" = "Ceifadores";
 
 /* No comment provided by engineer. */
-"Try Again" = "Try Again";
+"Try Again" = "Tente Novamente";
 
 /* No comment provided by engineer. */
 "Twitter" = "Twitter";
 
 /* No comment provided by engineer. */
-"Unfortunately it was not possible to retrieve information from Carris." = "Unfortunately it was not possible to retrieve information from Carris.";
+"Unfortunately it was not possible to retrieve information from Carris." = "Infelizmente, não foi possível obter informações da Carris.";
 
 /* No comment provided by engineer. */
-"Up to Date" = "Up to Date";
+"Up to Date" = "Atualizado";
 
 /* No comment provided by engineer. */
 "Updating Routes..." = "Atualizando saídas...";
@@ -242,7 +242,7 @@
 "You have to allow location access so that GeoBus can show where you are on the map." = "Você tem que permitir acesso à localização para que GeoBus possa mostrar onde você está no mapa.";
 
 /* No comment provided by engineer. */
-"Your Location" = "Your Location";
+"Your Location" = "A Sua Localização";
 
 /* No comment provided by engineer. */
-"Your privacy is respected, it will not leave your device or be sold to anyone." = "Your privacy is respected, it will not leave your device or be sold to anyone.";
+"Your privacy is respected, it will not leave your device or be sold to anyone." = "A sua privacidade é respeitada, não será enviada ou vendida a ninguém.";
