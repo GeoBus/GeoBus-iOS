@@ -35,13 +35,13 @@ class RoutesController: ObservableObject {
    // Retrieve data from UserDefaults on init.
 
    init() {
-      // Unwrap and Decode all stops
+      // Unwrap and Decode all stops from Storage
       if let unwrappedAllRoutes = UserDefaults.standard.data(forKey: storageKeyForAllRoutes) {
          if let decodedAllRoutes = try? JSONDecoder().decode([Route].self, from: unwrappedAllRoutes) {
             self.allRoutes = decodedAllRoutes
          }
       }
-      // Unwrap lastUpdatedStops timestamp
+      // Unwrap lastUpdatedStops timestamp from Storage
       if let unwrappedLastUpdatedRoutes = UserDefaults.standard.string(forKey: storageKeyForLastUpdatedRoutes) {
          self.lastUpdatedRoutes = unwrappedLastUpdatedRoutes
       }
@@ -103,7 +103,7 @@ class RoutesController: ObservableObject {
    /* MARK: - Check for Updates from Carris API */
 
    // This function decides whether to update available routes
-   // if they are outdated. For now, do this once a day.
+   // if they are outdated. For now, do this once every 5 days.
 
    func update(forced: Bool = false) {
       Task {

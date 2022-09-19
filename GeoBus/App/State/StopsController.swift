@@ -96,32 +96,30 @@ class StopsController: ObservableObject {
    // if they are outdated. For now, do this once a day.
 
    func update(forced: Bool = false) {
+      Task {
 
-      let formatter = ISO8601DateFormatter()
-
-      if (lastUpdatedStops == nil || allStops.isEmpty || forced) {
-         Task {
+         let formatter = ISO8601DateFormatter()
+         
+         if (lastUpdatedStops == nil || allStops.isEmpty || forced) {
             await fetchStopsFromAPI()
             let timestamp = formatter.string(from: Date.now)
             UserDefaults.standard.set(timestamp, forKey: storageKeyForLastUpdatedStops)
-         }
-      } else {
-         // Calculate time interval
-         let formattedDateObj = formatter.date(from: lastUpdatedStops!)
-         let secondsPassed = Int(formattedDateObj?.timeIntervalSinceNow ?? -1)
+         } else {
+            // Calculate time interval
+            let formattedDateObj = formatter.date(from: lastUpdatedStops!)
+            let secondsPassed = Int(formattedDateObj?.timeIntervalSinceNow ?? -1)
 
-         if ( (secondsPassed * -1) > (86400 * 5) ) { // 86400 seconds * 5 = 5 days
-            Task {
+            if ( (secondsPassed * -1) > (86400 * 5) ) { // 86400 seconds * 5 = 5 days
                await fetchStopsFromAPI()
                let timestamp = formatter.string(from: Date.now)
                UserDefaults.standard.set(timestamp, forKey: storageKeyForLastUpdatedStops)
             }
          }
+
+         // Retrieve favorites at app launch
+         self.retrieveFavorites()
+
       }
-
-      // Retrieve favorites at app launch
-      self.retrieveFavorites()
-
    }
 
 
