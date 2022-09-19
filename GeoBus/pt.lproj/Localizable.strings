@@ -14,10 +14,10 @@
 "%lld active vehicles" = "%lld veículos ativos";
 
 /* No comment provided by engineer. */
-"%lld Routes left..." = "Faltam %lld Carreira...";
+"%lld Routes left..." = "Faltam %lld Carreiras...";
 
 /* No comment provided by engineer. */
-"← Choose a Route" = "← Escolha uma Rota";
+"← Choose a Route" = "← Escolha uma Carreira";
 
 /* No comment provided by engineer. */
 "1 active vehicle" = "1 veículo ativo";
@@ -35,7 +35,7 @@
 "C" = "C";
 
 /* No comment provided by engineer. */
-"Carris API is unavailable." = "Carris API indisponível.";
+"Carris API is unavailable." = "O servidor da Carris está indisponível.";
 
 /* No comment provided by engineer. */
 "Choose a Route Number" = "Escolha uma Carreira";
@@ -50,13 +50,13 @@
 "Direction" = "Direção";
 
 /* No comment provided by engineer. */
-"Enter a Stop Number" = "Enter a Stop Number";
+"Enter a Stop Number" = "Introduza um Número de Paragem";
 
 /* No comment provided by engineer. */
 "Estimated" = "Estimado";
 
 /* No comment provided by engineer. */
-"Favorites" = "Favorites";
+"Favorites" = "Favoritas";
 
 /* No comment provided by engineer. */
 "Find Routes" = "Localizar Carreiras";
@@ -74,7 +74,7 @@
 "GPS updated %@ ago" = "GPS atualizado há %@";
 
 /* No comment provided by engineer. */
-"I'll be delighted to know your opinion." = "Gostaria de saber a sua opinião.";
+"I'll be delighted to know your opinion." = "Gostava muito de saber a sua opinião.";
 
 /* No comment provided by engineer. */
 "I'll do my best to keep the app working flawlessly for as long as possible." = "Farei o possível para manter a app a funcionar pelo máximo de tempo possível.";
@@ -95,10 +95,10 @@
 "Live Data" = "Tempo Real";
 
 /* No comment provided by engineer. */
-"Live data is provided by Carris free of charge." = "Os são fornecidos pelo Carris gratuitamente em directo.";
+"Live data is provided by Carris free of charge." = "Os dados em tempo real são fornecidos pela Carris gratuitamente.";
 
 /* No comment provided by engineer. */
-"Loading..." = "Carregando...";
+"Loading..." = "A Carregar...";
 
 /* No comment provided by engineer. */
 "Locate" = "Localizar";
@@ -107,13 +107,13 @@
 "Neighborhood Buses" = "Carreiras de Bairro";
 
 /* No comment provided by engineer. */
-"Next on this stop:" = "Em seguida, nesta parada:";
+"Next on this stop:" = "Próximos nesta paragem:";
 
 /* No comment provided by engineer. */
 "Night Buses" = "Veículos Noturnos";
 
 /* No comment provided by engineer. */
-"No estimations available for this stop." = "Não há estimativas disponíveis para esta parada.";
+"No estimations available for this stop." = "Nenhuma estimativa disponível para esta paragem.";
 
 /* No comment provided by engineer. */
 "Olá 👋" = "Olá 👋";
@@ -128,7 +128,7 @@
 "Please try again." = "Por favor tente novamente.";
 
 /* No comment provided by engineer. */
-"Please wait a few seconds." = "Por favor, aguarde alguns segundos.";
+"Please wait a few seconds." = "Por favor aguarde alguns segundos.";
 
 /* No comment provided by engineer. */
 "Please wait a moment while routes and stops are synced with Carris." = "Por favor aguarde enquanto as carreiras e paragens são sincronizadas com a Carris.";
@@ -143,16 +143,16 @@
 "Regular Service" = "Serviço Regular";
 
 /* No comment provided by engineer. */
-"Route Details" = "Detalhes do itinerário";
+"Route Details" = "Detalhes da Carreira";
 
 /* No comment provided by engineer. */
 "Routes and Stops are synced." = "Carreiras e Paragens estão sincronizadas.";
 
 /* No comment provided by engineer. */
-"Search Stop" = "Search Stop";
+"Search Stop" = "Procurar Paragens";
 
 /* No comment provided by engineer. */
-"Send an Email" = "Enviar um e-mail";
+"Send an Email" = "Enviar um Email";
 
 /* No comment provided by engineer. */
 "Send me a message if you need help with GeoBus, or have any ideas to improve it." = "Envie-me uma mensagem se precisar de ajuda com o GeoBus, ou se tiver alguma ideia para o melhorar.";
@@ -170,25 +170,25 @@
 "Sometimes their service is unavailable or changes unexpectedly. In this situations, the only option is to wait and try again later." = "Por vezes o serviço da Carris fica indisponível ou muda inesperadamente. Nestas situações, a única opção é esperar e tentar novamente mais tarde.";
 
 /* No comment provided by engineer. */
-"Spread the Love" = "Compartilhe o amor";
+"Spread the Love" = "Partilhe o Amor";
 
 /* No comment provided by engineer. */
-"Thanks for using GeoBus!" = "Thanks for using GeoBus!";
+"Thanks for using GeoBus!" = "Obrigado por utilizar o GeoBus!";
 
 /* No comment provided by engineer. */
 "The more people using it the more likely it will keep working." = "Quanto mais pessoas utilizarem, maior será a probabilidade de continuar a funcionar.";
 
 /* No comment provided by engineer. */
-"The route you entered is not available." = "A rota que você inseriu não está disponível.";
+"The route you entered is not available." = "A carreira que inseriu não está disponível.";
 
 /* No comment provided by engineer. */
-"The stop you entered is not available." = "A paragem que inserida não está disponível.";
+"The stop you entered is not available." = "A paragem que inseriu não está disponível.";
 
 /* No comment provided by engineer. */
-"This is a circular route." = "Esta é uma rota circular.";
+"This is a circular route." = "Esta é uma carreira circular.";
 
 /* No comment provided by engineer. */
-"This route may have %lld alternative paths." = "Esta rota pode ter %lld caminhos alternativos.";
+"This route may have %lld alternative paths." = "Esta carreira pode ter %lld caminhos alternativos.";
 
 /* No comment provided by engineer. */
 "This should take about a minute." = "Isto deve demorar mais ou menos um minuto.";
@@ -221,7 +221,7 @@
 "Up to Date" = "Atualizado";
 
 /* No comment provided by engineer. */
-"Updating Routes..." = "A actualizar carreiras...";
+"Updating Routes..." = "A Actualizar Carreiras...";
 
 /* No comment provided by engineer. */
 "v%@-%@" = "v%@-%@";
@@ -233,10 +233,10 @@
 "vehicles in circulation" = "veículos em circulação";
 
 /* No comment provided by engineer. */
-"Visit the Website" = "Visite o site";
+"Visit the Website" = "Visite o Site";
 
 /* No comment provided by engineer. */
-"You have no favorite routes." = "Você não tem rotas favoritas.";
+"You have no favorite routes." = "Não tem carreiras favoritas.";
 
 /* No comment provided by engineer. */
 "You have to allow location access so that GeoBus can show where you are on the map." = "É necessário permitir acesso à localização para que o GeoBus possa mostrar onde se encontra no mapa.";
