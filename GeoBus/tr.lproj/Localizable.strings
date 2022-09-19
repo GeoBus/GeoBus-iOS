@@ -8,13 +8,13 @@
 "(ex: 28E or 758)" = "(ex: 28E or 758)";
 
 /* No comment provided by engineer. */
-"(ex: C 10512)" = "(ex: C 10512)";
+"(ex: C 10512)" = "(ör: C 10512)";
 
 /* No comment provided by engineer. */
 "%lld active vehicles" = "%lld active vehicles";
 
 /* No comment provided by engineer. */
-"%lld Routes left..." = "%lld Routes left...";
+"%lld Routes left..." = "%lld Rota kaldı...";
 
 /* No comment provided by engineer. */
 "← Choose a Route" = "← Choose a Route";
@@ -62,7 +62,7 @@
 "Find Routes" = "Find Routes";
 
 /* No comment provided by engineer. */
-"GeoBus can show you where you are in the map, if you allow it." = "GeoBus can show you where you are in the map, if you allow it.";
+"GeoBus can show you where you are in the map, if you allow it." = "GeoBus, izin verirseniz haritada nerede olduğunuzu gösterebilir.";
 
 /* No comment provided by engineer. */
 "GeoBus will keep them updated in the background automatically." = "GeoBus will keep them updated in the background automatically.";
@@ -98,7 +98,7 @@
 "Live data is provided by Carris free of charge." = "Live data is provided by Carris free of charge.";
 
 /* No comment provided by engineer. */
-"Loading..." = "Loading...";
+"Loading..." = "Yükleniyor...";
 
 /* No comment provided by engineer. */
 "Neighborhood Buses" = "Neighborhood Buses";
