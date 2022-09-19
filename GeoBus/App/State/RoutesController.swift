@@ -106,32 +106,30 @@ class RoutesController: ObservableObject {
    // if they are outdated. For now, do this once a day.
 
    func update(forced: Bool = false) {
+      Task {
 
-      let formatter = ISO8601DateFormatter()
+         let formatter = ISO8601DateFormatter()
 
-      if (lastUpdatedRoutes == nil || allRoutes.isEmpty || forced) {
-         Task {
+         if (lastUpdatedRoutes == nil || allRoutes.isEmpty || forced) {
             await fetchRoutesFromAPI()
             let timestamp = formatter.string(from: Date.now)
             UserDefaults.standard.set(timestamp, forKey: storageKeyForLastUpdatedRoutes)
-         }
-      } else {
-         // Calculate time interval
-         let formattedDateObj = formatter.date(from: lastUpdatedRoutes!)
-         let secondsPassed = Int(formattedDateObj?.timeIntervalSinceNow ?? -1)
+         } else {
+            // Calculate time interval
+            let formattedDateObj = formatter.date(from: lastUpdatedRoutes!)
+            let secondsPassed = Int(formattedDateObj?.timeIntervalSinceNow ?? -1)
 
-         if ( (secondsPassed * -1) > (86400 * 5) ) { // 86400 seconds * 5 = 5 days
-            Task {
+            if ( (secondsPassed * -1) > (86400 * 5) ) { // 86400 seconds * 5 = 5 days
                await fetchRoutesFromAPI()
                let timestamp = formatter.string(from: Date.now)
                UserDefaults.standard.set(timestamp, forKey: storageKeyForLastUpdatedRoutes)
             }
          }
+
+         // Retrieve favorites at app launch
+         self.retrieveFavorites()
+
       }
-
-      // Retrieve favorites at app launch
-      self.retrieveFavorites()
-
    }
 
 
@@ -148,10 +146,14 @@ class RoutesController: ObservableObject {
 
       let savedFavorites = iCloudKeyStore.array(forKey: storageKeyForFavoriteRoutes) as? [String] ?? []
 
+      // Clear current favorites array
+      self.favorites.removeAll()
+
       // Save to array
       for routeNumber in savedFavorites {
          let route = findRoute(by: routeNumber)
          if (route != nil) {
+            print("GB: favorites: \(route!.number)")
             favorites.append(route!)
          }
       }
@@ -233,6 +235,7 @@ class RoutesController: ObservableObject {
 
    func fetchRoutesFromAPI() async {
 
+      self.appstate.capture(event: "Routes-Sync-START")
       appstate.change(to: .loading, for: .routes)
 
       print("Fetching Routes: Starting...")

@@ -221,6 +221,7 @@ class StopsController: ObservableObject {
 
    func fetchStopsFromAPI() async {
 
+      self.appstate.capture(event: "Stops-Sync-START")
       appstate.change(to: .loading, for: .stops)
 
       print("Fetching Stops: Starting...")
