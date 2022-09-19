@@ -30,11 +30,11 @@ struct MapView: View {
          MapAnnotation(coordinate: annotation.location) {
             switch (annotation.format) {
                case .stop:
-                  StopAnnotationView(stop: annotation.stop!)
+                  StopAnnotationView(stop: annotation.stop!, isPresentedOnAppear: false)
                case .vehicle:
-                  VehicleAnnotationView(vehicle: annotation.vehicle!)
+                  VehicleAnnotationView(vehicle: annotation.vehicle!, isPresentedOnAppear: false)
                case .singleStop:
-                  StopAnnotationView(stop: annotation.stop!, isPresented: true)
+                  StopAnnotationView(stop: annotation.stop!, isPresentedOnAppear: true)
             }
          }
 

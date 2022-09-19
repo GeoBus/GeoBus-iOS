@@ -12,6 +12,7 @@ struct SelectRouteInput: View {
 
    @Environment(\.colorScheme) var colorScheme: ColorScheme
 
+   @EnvironmentObject var appstate: Appstate
    @EnvironmentObject var stopsController: StopsController
    @EnvironmentObject var routesController: RoutesController
    @EnvironmentObject var vehiclesController: VehiclesController
@@ -26,18 +27,19 @@ struct SelectRouteInput: View {
       VStack {
          HStack {
             TextField("_ _ _", text: self.$routeNumber)
+               .keyboardType(.namePhonePad)
                .font(.system(size: 40, weight: .bold, design: .default))
                .multilineTextAlignment(.center)
                .padding()
-               .background(colorScheme == .dark ? Color(.secondarySystemBackground) : Color(.systemBackground))
+               .background(Color(.systemBackground))
                .cornerRadius(10)
-               .frame(width: 120)
 
             Button(action: {
                let success = self.routesController.select(route: self.routeNumber.uppercased(), returnResult: true)
                if success {
-                  vehiclesController.set(route: self.routeNumber.uppercased())
-                  stopsController.deselect()
+                  self.vehiclesController.set(route: self.routeNumber.uppercased())
+                  self.stopsController.deselect()
+                  self.appstate.capture(event: "Routes-Select-FromTextInput", properties: ["routeNumber": self.routeNumber.uppercased()])
                   self.showSheet = false
                } else {
                   self.showErrorLabel = true
@@ -46,10 +48,10 @@ struct SelectRouteInput: View {
                Text("Locate")
                   .font(.system(size: 40, weight: .bold, design: .default))
                   .foregroundColor(routeNumber.count > 2 ? Color(.white) : Color(.secondaryLabel))
+                  .padding(.horizontal, 5)
             }
-            .disabled(routeNumber.count == 0)
-            .frame(maxWidth: .infinity)
             .padding()
+            .disabled(routeNumber.count == 0)
             .background(routeNumber.count > 2 ? Color(.systemBlue) : (colorScheme == .dark ? Color(.secondarySystemBackground) : Color(.systemBackground)) )
             .cornerRadius(10)
          }

@@ -1,5 +1,5 @@
 //
-//  AboutButton.swift
+//  OpenExternalLinkButton.swift
 //  GeoBus
 //
 //  Created by João on 15/05/2020.
@@ -8,18 +8,23 @@
 
 import SwiftUI
 
-struct AboutButton: View {
+struct OpenExternalLinkButton: View {
 
    @Environment(\.colorScheme) var colorScheme: ColorScheme
+
+   @EnvironmentObject var appstate: Appstate
 
    let icon: Image
    let text: Text
    let link: String
+   let color: Color
 
    var body: some View {
       Button(action: {
-         guard let url = URL(string: self.link) else { return }
-         UIApplication.shared.open(url)
+         if let urlToOpen = URL(string: self.link) {
+            self.appstate.capture(event: "General-Contact-OpenLink", properties: ["URL": urlToOpen])
+            UIApplication.shared.open(urlToOpen)
+         }
       }) {
          HStack {
             self.icon
@@ -37,7 +42,7 @@ struct AboutButton: View {
          }
          .padding()
          .frame(maxWidth: .infinity)
-         .background(Color(.systemOrange).opacity(0.05))
+         .background(color.opacity(0.05))
          .cornerRadius(10)
       }
    }

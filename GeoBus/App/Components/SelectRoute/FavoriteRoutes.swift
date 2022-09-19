@@ -12,6 +12,7 @@ struct FavoriteRoutes: View {
 
    @Environment(\.colorScheme) var colorScheme: ColorScheme
 
+   @EnvironmentObject var appstate: Appstate
    @EnvironmentObject var stopsController: StopsController
    @EnvironmentObject var routesController: RoutesController
    @EnvironmentObject var vehiclesController: VehiclesController
@@ -25,7 +26,7 @@ struct FavoriteRoutes: View {
 
       VStack(spacing: 0) {
          
-         Text("Favorite Routes")
+         Text("Favorites")
             .font(.title)
             .fontWeight(.bold)
             .foregroundColor(Color(.label))
@@ -41,13 +42,14 @@ struct FavoriteRoutes: View {
                      self.stopsController.deselect()
                      self.routesController.select(route: route.number)
                      self.vehiclesController.set(route: route.number)
+                     self.appstate.capture(event: "Routes-Select-FromFavorites", properties: ["routeNumber": route.number])
                      self.showSelectRouteSheet = false
                   }){
                      RouteBadgeSquare(routeNumber: route.number)
                   }
                }
             }
-            .padding()
+            .padding(20)
             .onAppear(perform: {
                // Filter routes belonging to the provided Kind
                self.routes = self.routesController.favorites
@@ -58,13 +60,12 @@ struct FavoriteRoutes: View {
          } else {
 
             Text("You have no favorite routes.")
-               .padding()
+               .padding(20)
 
          }
 
       }
       .background(colorScheme == .dark ? Color(.secondarySystemBackground) : Color(.systemBackground))
       .cornerRadius(15)
-      .padding()
    }
 }

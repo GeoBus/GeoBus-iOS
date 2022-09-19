@@ -6,10 +6,33 @@
 //
 
 import Foundation
+import PostHog
 
 class Appstate: ObservableObject {
 
-   /* MARK: - State */
+   /* MARK: - ANALYTICS */
+
+   private var posthog: PHGPostHog?
+
+   func receive(analytics: PHGPostHog?) {
+      self.posthog = analytics
+   }
+
+   func capture(event: String) {
+      if (self.posthog != nil) {
+         self.posthog!.capture(event)
+      }
+   }
+
+   func capture(event: String, properties: [String : Any]) {
+      if (self.posthog != nil) {
+         self.posthog!.capture(event, properties: properties)
+      }
+   }
+
+
+
+   /* MARK: - STATE */
    
    @Published var global: State = .idle
 
@@ -66,5 +89,6 @@ class Appstate: ObservableObject {
          }
       }
    }
+
    
 }

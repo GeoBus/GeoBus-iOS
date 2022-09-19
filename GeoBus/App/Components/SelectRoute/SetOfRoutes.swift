@@ -12,6 +12,7 @@ struct SetOfRoutes: View {
 
    @Environment(\.colorScheme) var colorScheme: ColorScheme
 
+   @EnvironmentObject var appstate: Appstate
    @EnvironmentObject var stopsController: StopsController
    @EnvironmentObject var routesController: RoutesController
    @EnvironmentObject var vehiclesController: VehiclesController
@@ -40,13 +41,14 @@ struct SetOfRoutes: View {
                   self.routesController.select(route: route.number)
                   self.vehiclesController.set(route: route.number)
                   self.stopsController.deselect()
+                  self.appstate.capture(event: "Routes-Select-FromList", properties: ["routeNumber": route.number])
                   self.showSheet = false
                }){
                   RouteBadgeSquare(routeNumber: route.number)
                }
             }
          }
-         .padding()
+         .padding(20)
          .onAppear(perform: {
             // Filter routes belonging to the provided Kind
             self.routes = self.routesController.allRoutes.filter({
@@ -59,7 +61,6 @@ struct SetOfRoutes: View {
       }
       .background(colorScheme == .dark ? Color(.secondarySystemBackground) : Color(.systemBackground))
       .cornerRadius(15)
-      .padding()
 
    }
 

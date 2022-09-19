@@ -22,7 +22,6 @@ struct SheetHeader: View {
             .fontWeight(.bold)
         }
         .padding(25)
-        
       }
       title
         .font(.largeTitle)

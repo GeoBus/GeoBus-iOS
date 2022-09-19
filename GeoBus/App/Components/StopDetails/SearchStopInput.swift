@@ -12,45 +12,56 @@ struct SearchStopInput: View {
 
    @Environment(\.colorScheme) var colorScheme: ColorScheme
 
+   @EnvironmentObject var appstate: Appstate
    @EnvironmentObject var stopsController: StopsController
    @EnvironmentObject var routesController: RoutesController
    @EnvironmentObject var vehiclesController: VehiclesController
 
    @Binding var showSheet: Bool
+   @FocusState private var stopIdInputIsFocused: Bool
 
-   @State var showErrorLabel: Bool = false
+   @State private var showErrorLabel: Bool = false
 
-   @State var stopPublicId = ""
+   @State private var stopPublicId = ""
 
    var body: some View {
       VStack {
          HStack {
-            TextField("_ _ _", text: self.$stopPublicId)
-               .font(.system(size: 30, weight: .bold, design: .default))
-               .multilineTextAlignment(.center)
-               .padding()
-               .background(colorScheme == .dark ? Color(.secondarySystemBackground) : Color(.secondarySystemFill))
-               .cornerRadius(10)
-               .frame(width: 150)
+            HStack(spacing: 15) {
+               Text("C")
+                  .font(.system(size: 40, weight: .bold, design: .default))
+               TextField("_ _ _ _ _", text: self.$stopPublicId)
+                  .keyboardType(.numberPad)
+                  .font(.system(size: 40, weight: .bold, design: .default))
+                  .multilineTextAlignment(.leading)
+                  .focused($stopIdInputIsFocused)
+                  .onAppear {
+                     self.stopIdInputIsFocused = true
+                  }
+            }
+            .padding()
+            .padding(.horizontal, 5)
+            .background(colorScheme == .dark ? Color(.secondarySystemBackground) : Color(.systemBackground))
+            .cornerRadius(10)
 
             Button(action: {
                let success = self.stopsController.select(stop: self.stopPublicId.uppercased(), returnResult: true)
                if success {
                   self.showSheet = false
-                  routesController.deselect()
-                  vehiclesController.deselect()
+                  self.routesController.deselect()
+                  self.vehiclesController.deselect()
+                  self.appstate.capture(event: "Stops-Select-FromTextInput", properties: ["stopPublicId": self.stopPublicId.uppercased()])
                } else {
                   self.showErrorLabel = true
                }
             }) {
-               Text("Locate")
+               Image(systemName: "text.magnifyingglass")
                   .font(.system(size: 40, weight: .bold, design: .default))
                   .foregroundColor(stopPublicId.count > 2 ? Color(.white) : Color(.secondaryLabel))
             }
             .disabled(stopPublicId.count == 0)
-            .frame(maxWidth: .infinity)
             .padding()
-            .background(stopPublicId.count > 2 ? Color(.systemBlue) : (colorScheme == .dark ? Color(.secondarySystemBackground) : Color(.systemBackground)) )
+            .background(colorScheme == .dark ? Color(.secondarySystemBackground) : Color(.systemBackground))
             .cornerRadius(10)
          }
 
@@ -63,11 +74,11 @@ struct SearchStopInput: View {
                .padding()
          }
 
-         VStack {
-            Text("Choose a Stop Number")
+         VStack(spacing: 10) {
+            Text("Enter a Stop Number")
                .font(.body)
                .multilineTextAlignment(.center)
-            Text("(ex: 10706)")
+            Text("(ex: C 10512)")
                .font(.footnote)
                .multilineTextAlignment(.center)
          }

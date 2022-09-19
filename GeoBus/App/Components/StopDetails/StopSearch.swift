@@ -25,14 +25,20 @@ struct StopSearch: View {
             self.showSearchStopSheet = true
          }
          .sheet(isPresented: self.$showSearchStopSheet) {
-            VStack {
-               SheetHeader(title: Text("Find Stops"), toggle: $showSearchStopSheet)
-               SearchStopInput(showSheet: $showSearchStopSheet)
+            ScrollView() {
+               VStack {
+                  Text("Search Stop")
+                     .font(.largeTitle)
+                     .fontWeight(.bold)
+                     .padding(.vertical, 30)
+                  SearchStopInput(showSheet: $showSearchStopSheet)
+               }
+               .padding()
+               .readSize { size in
+                  viewSize = size
+               }
             }
-            .padding(.horizontal)
-            .readSize { size in
-               viewSize = size
-            }
+            .background(colorScheme == .dark ? Color(.systemBackground) : Color(.secondarySystemBackground))
             .presentationDetents([.height(viewSize.height)])
          }
    }

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct UserLocation: View {
 
+   @EnvironmentObject var appstate: Appstate
    @EnvironmentObject var mapController: MapController
 
    var body: some View {
@@ -16,12 +17,14 @@ struct UserLocation: View {
          .onTapGesture() {
             TapticEngine.impact.feedback(.medium)
             self.mapController.centerMapOnUserLocation(andZoom: false)
+            self.appstate.capture(event: "Location-Usage-Tap")
          }
          .onLongPressGesture() {
             TapticEngine.impact.feedback(.medium)
             TapticEngine.impact.feedback(.medium, withDelay: 0.2)
             TapticEngine.impact.feedback(.medium, withDelay: 0.4)
             self.mapController.centerMapOnUserLocation(andZoom: true)
+            self.appstate.capture(event: "Location-Usage-TapAndHold")
          }
          .alert(isPresented: $mapController.showLocationNotAllowedAlert, content: {
             Alert(
@@ -29,6 +32,7 @@ struct UserLocation: View {
                message: Text("You have to allow location access so that GeoBus can show where you are on the map."),
                primaryButton: .cancel(),
                secondaryButton: .default(Text("Allow in Settings")) {
+                  self.appstate.capture(event: "Location-Status-DeniedButWillOpenSettingsFromAlert")
                   UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
                }
             )

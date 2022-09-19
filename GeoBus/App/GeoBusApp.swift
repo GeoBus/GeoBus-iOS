@@ -7,9 +7,29 @@
 //
 
 import SwiftUI
+import PostHog
 
 @main
 struct GeoBusApp: App {
+
+   /* MARK: - POSTHOG ANALYTICS */
+
+   private let posthog: PHGPostHog?
+
+   init() {
+      if let posthogApiKey = Bundle.main.infoDictionary?["POSTHOG_API_KEY"] as? String {
+         let configuration = PHGPostHogConfiguration(apiKey: posthogApiKey)
+         configuration.captureApplicationLifecycleEvents = true;
+         configuration.recordScreenViews = true;
+         PHGPostHog.setup(with: configuration)
+         self.posthog = PHGPostHog.shared()
+      } else {
+         self.posthog = nil
+      }
+   }
+
+
+   /* MARK: - GEOBUS */
 
    @StateObject private var appstate = Appstate()
    @StateObject private var mapController = MapController()
@@ -33,6 +53,8 @@ struct GeoBusApp: App {
             .environmentObject(estimationsController)
             .onAppear(perform: {
                // Pass references to Controllers
+               appstate.receive(analytics: posthog)
+               mapController.receive(state: appstate)
                authentication.receive(state: appstate)
                stopsController.receive(state: appstate, auth: authentication)
                routesController.receive(state: appstate, auth: authentication)

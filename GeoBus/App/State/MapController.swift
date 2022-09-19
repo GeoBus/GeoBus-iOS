@@ -17,13 +17,22 @@ class MapController: ObservableObject {
       latitudinalMeters: 15000, longitudinalMeters: 15000
    )
 
-   private var hasAlreadyInitiatedLocationManager: Bool = false
    @Published var locationManager = CLLocationManager()
    @Published var showLocationNotAllowedAlert: Bool = false
 
    private var stopAnnotations: [GenericMapAnnotation] = []
    private var vehicleAnnotations: [GenericMapAnnotation] = []
    @Published var visibleAnnotations: [GenericMapAnnotation] = []
+
+
+
+   /* MARK: - RECEIVE APPSTATE & AUTHENTICATION */
+
+   var appstate = Appstate()
+
+   func receive(state: Appstate) {
+      self.appstate = state
+   }
 
 
 
@@ -38,12 +47,10 @@ class MapController: ObservableObject {
 
    func centerMapOnUserLocation(andZoom: Bool) {
 
-      if (!hasAlreadyInitiatedLocationManager) {
-         locationManager.requestWhenInUseAuthorization()
-         hasAlreadyInitiatedLocationManager = true
-      }
+      locationManager.requestWhenInUseAuthorization()
 
       if (locationManager.authorizationStatus == .authorizedWhenInUse) {
+         self.appstate.capture(event: "Location-Status-Allowed")
          if (andZoom) {
             self.moveMap(to: MKCoordinateRegion(
                center: locationManager.location?.coordinate ?? CLLocationCoordinate2D(),
@@ -56,6 +63,7 @@ class MapController: ObservableObject {
             ))
          }
       } else if (locationManager.authorizationStatus != .notDetermined) {
+         self.appstate.capture(event: "Location-Status-Denied")
          self.showLocationNotAllowedAlert = true
       }
 

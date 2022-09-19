@@ -15,12 +15,12 @@ struct ContentView: View {
       VStack(alignment: .trailing, spacing: 0) {
 
          ZStack(alignment: .topTrailing) {
-
+            
             MapView()
                .edgesIgnoringSafeArea(.vertical)
 
             VStack(spacing: 15) {
-               InfoSheet()
+               AboutGeoBus()
                Spacer()
                StopSearch()
                UserLocation()

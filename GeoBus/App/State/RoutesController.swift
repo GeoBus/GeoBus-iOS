@@ -187,8 +187,10 @@ class RoutesController: ObservableObject {
 
       if let index = self.favorites.firstIndex(of: route) {
          self.favorites.remove(at: index)
+         self.appstate.capture(event: "Routes-Details-RemoveFromFavorites", properties: ["routeNumber": route.number])
       } else {
          self.favorites.append(route)
+         self.appstate.capture(event: "Routes-Details-AddToFavorites", properties: ["routeNumber": route.number])
       }
 
       saveFavorites()
@@ -342,9 +344,11 @@ class RoutesController: ObservableObject {
 
          print("Fetching Routes: Complete!")
 
+         appstate.capture(event: "Routes-Sync-OK")
          appstate.change(to: .idle, for: .routes)
 
       } catch {
+         appstate.capture(event: "Routes-Sync-ERROR")
          appstate.change(to: .error, for: .routes)
          print("Fetching Routes: Error!")
          print(error)

@@ -21,7 +21,7 @@ struct SelectRouteSheet: View {
 
       ScrollView(.vertical, showsIndicators: true) {
          
-         VStack {
+         VStack(spacing: 30) {
 
             SheetHeader(title: Text("Find Routes"), toggle: $isPresentingSheet)
 
@@ -30,21 +30,27 @@ struct SelectRouteSheet: View {
 
             Divider()
 
-            VStack {
+            VStack(spacing: 30) {
                FavoriteRoutes(showSelectRouteSheet: $isPresentingSheet)
                SetOfRoutes(title: Text("Trams"), kind: .tram, showSheet: $isPresentingSheet)
                SetOfRoutes(title: Text("Neighborhood Buses"), kind: .neighborhood, showSheet: $isPresentingSheet)
                SetOfRoutes(title: Text("Night Buses"), kind: .night, showSheet: $isPresentingSheet)
                SetOfRoutes(title: Text("Regular Service"), kind: .regular, showSheet: $isPresentingSheet)
             }
+            .padding(.horizontal)
 
-            About()
+            Divider()
+
+            VStack(spacing: 30) {
+               ContactsCard()
+               AppVersion()
+            }
+            .padding(.horizontal)
 
          }
 
       }
       .background(colorScheme == .dark ? Color(.systemBackground) : Color(.secondarySystemBackground))
-      .edgesIgnoringSafeArea(.bottom)
 
    }
 

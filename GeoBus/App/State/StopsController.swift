@@ -277,10 +277,12 @@ class StopsController: ObservableObject {
 
          print("Fetching Stops: Complete!")
 
-         appstate.change(to: .idle, for: .stops)
+         self.appstate.capture(event: "Stops-Sync-OK")
+         self.appstate.change(to: .idle, for: .stops)
 
       } catch {
-         appstate.change(to: .error, for: .stops)
+         self.appstate.capture(event: "Stops-Sync-ERROR")
+         self.appstate.change(to: .error, for: .stops)
          print("Fetching Stops: Error!")
          print(error)
          print("************")
@@ -297,9 +299,11 @@ class StopsController: ObservableObject {
 
    func findStop(by stopPublicId: String) -> Stop? {
 
+      let parsedStopPublicId = Int(stopPublicId) ?? 0
+
       // Find index of route matching requested routeNumber
       let indexOfStopInArray = allStops.firstIndex(where: { (stop) -> Bool in
-         stop.publicId == stopPublicId // test if this is the item we're looking for
+         stop.publicId == String(parsedStopPublicId) // test if this is the item we're looking for
       }) ?? nil // If the item does not exist, return default value -1
 
       // If a match is found...

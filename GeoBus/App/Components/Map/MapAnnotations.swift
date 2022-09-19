@@ -54,13 +54,14 @@ struct StopAnnotationView: View {
 
    var stop: Stop
 
-   @State var isPresented: Bool = false
+   let isPresentedOnAppear: Bool
+   @State private var isPresented: Bool = false
    @State private var viewSize = CGSize()
 
 
    var body: some View {
       Button(action: {
-         self.isPresented = true
+         self.isPresented = !self.isPresented
          TapticEngine.impact.feedback(.light)
       }) {
          if (isPresented) {
@@ -79,6 +80,11 @@ struct StopAnnotationView: View {
          }
       }
       .frame(width: 40, height: 40, alignment: .center)
+      .onAppear() {
+         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.isPresented = self.isPresentedOnAppear
+         }
+      }
       .sheet(isPresented: $isPresented) {
          VStack(alignment: .leading) {
             StopDetailsView(
@@ -110,7 +116,8 @@ struct VehicleAnnotationView: View {
 
    let vehicle: VehicleSummary
 
-   @State var isPresented: Bool = false
+   let isPresentedOnAppear: Bool
+   @State private var isPresented: Bool = false
    @State private var viewSize = CGSize()
 
 

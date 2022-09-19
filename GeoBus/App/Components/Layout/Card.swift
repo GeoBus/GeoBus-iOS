@@ -9,6 +9,8 @@ import SwiftUI
 
 struct Card<Content: View>: View {
 
+   @Environment(\.colorScheme) var colorScheme: ColorScheme
+
    var content: () -> Content
    
    init(@ViewBuilder content: @escaping () -> Content) {
@@ -17,9 +19,9 @@ struct Card<Content: View>: View {
 
    var body: some View {
       VStack(spacing: 15, content: self.content)
-         .padding(25)
+         .padding(20)
          .frame(maxWidth: .infinity)
-         .background(Color(.systemBackground))
+         .background(colorScheme == .dark ? Color(.secondarySystemBackground) : Color(.systemBackground))
          .cornerRadius(20)
    }
 }

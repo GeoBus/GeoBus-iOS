@@ -9,8 +9,8 @@ import SwiftUI
 
 struct SquareButton: View {
 
-   let icon: String
-   let iconSize: CGFloat
+   private let icon: String
+   private let iconSize: CGFloat
 
    init(icon: String, size: CGFloat = 30) {
       self.icon = icon
