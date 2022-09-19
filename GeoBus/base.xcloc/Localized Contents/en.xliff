@@ -182,11 +182,6 @@
         <target>Loading...</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Locate" xml:space="preserve">
-        <source>Locate</source>
-        <target>Locate</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
       <trans-unit id="Neighborhood Buses" xml:space="preserve">
         <source>Neighborhood Buses</source>
         <target>Neighborhood Buses</target>

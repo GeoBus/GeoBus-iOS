@@ -31,7 +31,7 @@ struct SelectRouteInput: View {
                .font(.system(size: 40, weight: .bold, design: .default))
                .multilineTextAlignment(.center)
                .padding()
-               .background(Color(.systemBackground))
+               .background(colorScheme == .dark ? Color(.secondarySystemBackground) : Color(.systemBackground))
                .cornerRadius(10)
 
             Button(action: {
@@ -45,10 +45,9 @@ struct SelectRouteInput: View {
                   self.showErrorLabel = true
                }
             }) {
-               Text("Locate")
+               Image(systemName: "text.magnifyingglass")
                   .font(.system(size: 40, weight: .bold, design: .default))
                   .foregroundColor(routeNumber.count > 2 ? Color(.white) : Color(.secondaryLabel))
-                  .padding(.horizontal, 5)
             }
             .padding()
             .disabled(routeNumber.count == 0)

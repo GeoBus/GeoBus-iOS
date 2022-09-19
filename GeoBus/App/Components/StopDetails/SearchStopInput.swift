@@ -57,11 +57,11 @@ struct SearchStopInput: View {
             }) {
                Image(systemName: "text.magnifyingglass")
                   .font(.system(size: 40, weight: .bold, design: .default))
-                  .foregroundColor(stopPublicId.count > 2 ? Color(.white) : Color(.secondaryLabel))
+                  .foregroundColor(stopPublicId.count > 0 ? Color(.white) : Color(.secondaryLabel))
             }
             .disabled(stopPublicId.count == 0)
             .padding()
-            .background(colorScheme == .dark ? Color(.secondarySystemBackground) : Color(.systemBackground))
+            .background(stopPublicId.count > 0 ? Color(.systemBlue) : (colorScheme == .dark ? Color(.secondarySystemBackground) : Color(.systemBackground)) )
             .cornerRadius(10)
          }
 
