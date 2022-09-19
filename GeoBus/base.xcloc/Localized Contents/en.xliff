@@ -47,9 +47,9 @@
         <target>(ex: 28E or 758)</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="(ex: 10706)" xml:space="preserve">
-        <source>(ex: 10706)</source>
-        <target>(ex: 10706)</target>
+      <trans-unit id="(ex: C 10512)" xml:space="preserve">
+        <source>(ex: C 10512)</source>
+        <target>(ex: C 10512)</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="1 active vehicle" xml:space="preserve">
@@ -72,6 +72,11 @@
         <target>Allow in Settings</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="C" xml:space="preserve">
+        <source>C</source>
+        <target>C</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Carris API is unavailable." xml:space="preserve">
         <source>Carris API is unavailable.</source>
         <target>Carris API is unavailable.</target>
@@ -80,11 +85,6 @@
       <trans-unit id="Choose a Route Number" xml:space="preserve">
         <source>Choose a Route Number</source>
         <target>Choose a Route Number</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
-      <trans-unit id="Choose a Stop Number" xml:space="preserve">
-        <source>Choose a Stop Number</source>
-        <target>Choose a Stop Number</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Close" xml:space="preserve">
@@ -102,24 +102,24 @@
         <target>Direction</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Enter a Stop Number" xml:space="preserve">
+        <source>Enter a Stop Number</source>
+        <target>Enter a Stop Number</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Estimated" xml:space="preserve">
         <source>Estimated</source>
         <target>Estimated</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Favorite Routes" xml:space="preserve">
-        <source>Favorite Routes</source>
-        <target>Favorite Routes</target>
+      <trans-unit id="Favorites" xml:space="preserve">
+        <source>Favorites</source>
+        <target>Favorites</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Find Routes" xml:space="preserve">
         <source>Find Routes</source>
         <target>Find Routes</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
-      <trans-unit id="Find Stops" xml:space="preserve">
-        <source>Find Stops</source>
-        <target>Find Stops</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="GPS updated %@ ago" xml:space="preserve">
@@ -155,11 +155,6 @@
       <trans-unit id="If the error persists, the only option is to wait and try again later. Unfortunately the app cannot function without this first step." xml:space="preserve">
         <source>If the error persists, the only option is to wait and try again later. Unfortunately the app cannot function without this first step.</source>
         <target>If the error persists, the only option is to wait and try again later. Unfortunately the app cannot function without this first step.</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
-      <trans-unit id="If you need help with GeoBus, or have ideas to improve it, please send me an Email or a message on Twitter." xml:space="preserve">
-        <source>If you need help with GeoBus, or have ideas to improve it, please send me an Email or a message on Twitter.</source>
-        <target>If you need help with GeoBus, or have ideas to improve it, please send me an Email or a message on Twitter.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="It's probably because their servers are down. In this case, the best option is to wait and try again later :/" xml:space="preserve">
@@ -217,11 +212,6 @@
         <target>Olá 👋</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Olá!" xml:space="preserve">
-        <source>Olá!</source>
-        <target>Olá!</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
       <trans-unit id="Open to Feedback" xml:space="preserve">
         <source>Open to Feedback</source>
         <target>Open to Feedback</target>
@@ -272,6 +262,11 @@
         <target>Routes and Stops are synced.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Search Stop" xml:space="preserve">
+        <source>Search Stop</source>
+        <target>Search Stop</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Send an Email" xml:space="preserve">
         <source>Send an Email</source>
         <target>Send an Email</target>
@@ -307,9 +302,9 @@
         <target>Spread the Love</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Thanks for giving GeoBus a try!" xml:space="preserve">
-        <source>Thanks for giving GeoBus a try!</source>
-        <target>Thanks for giving GeoBus a try!</target>
+      <trans-unit id="Thanks for using GeoBus!" xml:space="preserve">
+        <source>Thanks for using GeoBus!</source>
+        <target>Thanks for using GeoBus!</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="The more people using it the more likely it will keep working." xml:space="preserve">
@@ -410,6 +405,11 @@
       <trans-unit id="_ _ _" xml:space="preserve">
         <source>_ _ _</source>
         <target>_ _ _</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="_ _ _ _ _" xml:space="preserve">
+        <source>_ _ _ _ _</source>
+        <target>_ _ _ _ _</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="in ±" xml:space="preserve">

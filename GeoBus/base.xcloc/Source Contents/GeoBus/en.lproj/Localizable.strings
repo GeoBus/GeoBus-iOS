@@ -2,10 +2,13 @@
 "_ _ _" = "_ _ _";
 
 /* No comment provided by engineer. */
+"_ _ _ _ _" = "_ _ _ _ _";
+
+/* No comment provided by engineer. */
 "(ex: 28E or 758)" = "(ex: 28E or 758)";
 
 /* No comment provided by engineer. */
-"(ex: 10706)" = "(ex: 10706)";
+"(ex: C 10512)" = "(ex: C 10512)";
 
 /* No comment provided by engineer. */
 "%lld active vehicles" = "%lld active vehicles";
@@ -29,13 +32,13 @@
 "Allow Location Access" = "Allow Location Access";
 
 /* No comment provided by engineer. */
+"C" = "C";
+
+/* No comment provided by engineer. */
 "Carris API is unavailable." = "Carris API is unavailable.";
 
 /* No comment provided by engineer. */
 "Choose a Route Number" = "Choose a Route Number";
-
-/* No comment provided by engineer. */
-"Choose a Stop Number" = "Choose a Stop Number";
 
 /* No comment provided by engineer. */
 "Close" = "Close";
@@ -47,16 +50,16 @@
 "Direction" = "Direction";
 
 /* No comment provided by engineer. */
+"Enter a Stop Number" = "Enter a Stop Number";
+
+/* No comment provided by engineer. */
 "Estimated" = "Estimated";
 
 /* No comment provided by engineer. */
-"Favorite Routes" = "Favorite Routes";
+"Favorites" = "Favorites";
 
 /* No comment provided by engineer. */
 "Find Routes" = "Find Routes";
-
-/* No comment provided by engineer. */
-"Find Stops" = "Find Stops";
 
 /* No comment provided by engineer. */
 "GeoBus can show you where you are in the map, if you allow it." = "GeoBus can show you where you are in the map, if you allow it.";
@@ -78,9 +81,6 @@
 
 /* No comment provided by engineer. */
 "If the error persists, the only option is to wait and try again later. Unfortunately the app cannot function without this first step." = "If the error persists, the only option is to wait and try again later. Unfortunately the app cannot function without this first step.";
-
-/* No comment provided by engineer. */
-"If you need help with GeoBus, or have ideas to improve it, please send me an Email or a message on Twitter." = "If you need help with GeoBus, or have ideas to improve it, please send me an Email or a message on Twitter.";
 
 /* No comment provided by engineer. */
 "in ±" = "in ±";
@@ -119,9 +119,6 @@
 "Olá 👋" = "Olá 👋";
 
 /* No comment provided by engineer. */
-"Olá!" = "Olá!";
-
-/* No comment provided by engineer. */
 "Open to Feedback" = "Open to Feedback";
 
 /* No comment provided by engineer. */
@@ -152,6 +149,9 @@
 "Routes and Stops are synced." = "Routes and Stops are synced.";
 
 /* No comment provided by engineer. */
+"Search Stop" = "Search Stop";
+
+/* No comment provided by engineer. */
 "Send an Email" = "Send an Email";
 
 /* No comment provided by engineer. */
@@ -173,7 +173,7 @@
 "Spread the Love" = "Spread the Love";
 
 /* No comment provided by engineer. */
-"Thanks for giving GeoBus a try!" = "Thanks for giving GeoBus a try!";
+"Thanks for using GeoBus!" = "Thanks for using GeoBus!";
 
 /* No comment provided by engineer. */
 "The more people using it the more likely it will keep working." = "The more people using it the more likely it will keep working.";
