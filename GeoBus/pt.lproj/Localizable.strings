@@ -2,10 +2,13 @@
 "_ _ _" = "_ _ _";
 
 /* No comment provided by engineer. */
+"_ _ _ _ _" = "_ _ _ _ _";
+
+/* No comment provided by engineer. */
 "(ex: 28E or 758)" = "(ex: 28E ou 758)";
 
 /* No comment provided by engineer. */
-"(ex: 10706)" = "(ex: 10706)";
+"(ex: C 10512)" = "(ex: C 10512)";
 
 /* No comment provided by engineer. */
 "%lld active vehicles" = "%lld veículos ativos";
@@ -29,13 +32,13 @@
 "Allow Location Access" = "Permitir Acesso à Localização";
 
 /* No comment provided by engineer. */
+"C" = "C";
+
+/* No comment provided by engineer. */
 "Carris API is unavailable." = "Carris API indisponível.";
 
 /* No comment provided by engineer. */
 "Choose a Route Number" = "Escolha uma Carreira";
-
-/* No comment provided by engineer. */
-"Choose a Stop Number" = "Escolha o número da paragem";
 
 /* No comment provided by engineer. */
 "Close" = "Fechar";
@@ -47,16 +50,16 @@
 "Direction" = "Direção";
 
 /* No comment provided by engineer. */
+"Enter a Stop Number" = "Enter a Stop Number";
+
+/* No comment provided by engineer. */
 "Estimated" = "Estimado";
 
 /* No comment provided by engineer. */
-"Favorite Routes" = "Favoritos";
+"Favorites" = "Favorites";
 
 /* No comment provided by engineer. */
 "Find Routes" = "Localizar Carreiras";
-
-/* No comment provided by engineer. */
-"Find Stops" = "Localizar Paragens";
 
 /* No comment provided by engineer. */
 "GeoBus can show you where you are in the map, if you allow it." = "O GeoBus pode mostrar a sua localização no mapa, se o permitir.";
@@ -78,9 +81,6 @@
 
 /* No comment provided by engineer. */
 "If the error persists, the only option is to wait and try again later. Unfortunately the app cannot function without this first step." = "Se o erro persistir, a única opção é esperar e tentar novamente mais tarde. Infelizmente a app não consegue funcionar sem este primeiro passo.";
-
-/* No comment provided by engineer. */
-"If you need help with GeoBus, or have ideas to improve it, please send me an Email or a message on Twitter." = "Se precisar de ajuda para utilizar o GeoBus, ou se tiver alguma ideia para o melhorar, por favor envie-me uma mensagem pelo Twitter ou um Email.";
 
 /* No comment provided by engineer. */
 "in ±" = "em ±";
@@ -119,9 +119,6 @@
 "Olá 👋" = "Olá 👋";
 
 /* No comment provided by engineer. */
-"Olá!" = "Olá!";
-
-/* No comment provided by engineer. */
 "Open to Feedback" = "Sugestões?";
 
 /* No comment provided by engineer. */
@@ -152,6 +149,9 @@
 "Routes and Stops are synced." = "Carreiras e Paragens estão sincronizadas.";
 
 /* No comment provided by engineer. */
+"Search Stop" = "Search Stop";
+
+/* No comment provided by engineer. */
 "Send an Email" = "Enviar um e-mail";
 
 /* No comment provided by engineer. */
@@ -173,7 +173,7 @@
 "Spread the Love" = "Compartilhe o amor";
 
 /* No comment provided by engineer. */
-"Thanks for giving GeoBus a try!" = "Obrigado por experimentar o GeoBus!";
+"Thanks for using GeoBus!" = "Thanks for using GeoBus!";
 
 /* No comment provided by engineer. */
 "The more people using it the more likely it will keep working." = "Quanto mais pessoas utilizarem, maior será a probabilidade de continuar a funcionar.";
