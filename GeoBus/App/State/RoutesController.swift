@@ -153,7 +153,6 @@ class RoutesController: ObservableObject {
       for routeNumber in savedFavorites {
          let route = findRoute(by: routeNumber)
          if (route != nil) {
-            print("GB: favorites: \(route!.number)")
             favorites.append(route!)
          }
       }
