@@ -63,9 +63,13 @@ struct GeoBusApp: App {
                // Update available stops & routes
                stopsController.update()
                routesController.update()
+               // Capture app open
+               appstate.capture(event: "GeoBus-App-Start")
             })
             .onReceive(refreshVehiclesTimer) { event in
                Task {
+                  // Capture session continuation
+                  appstate.capture(event: "GeoBus-App-SessionPing")
                   // Update vehicles on timer call
                   await vehiclesController.fetchVehiclesFromAPI()
                }
