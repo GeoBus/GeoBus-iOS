@@ -98,10 +98,10 @@
 "Live data is provided by Carris free of charge." = "Live data is provided by Carris free of charge.";
 
 /* No comment provided by engineer. */
-"Loading..." = "Loading...";
+"Loading..." = "Chargement en cours...";
 
 /* No comment provided by engineer. */
-"Neighborhood Buses" = "Neighborhood Buses";
+"Neighborhood Buses" = "Buses de quartier";
 
 /* No comment provided by engineer. */
 "Next on this stop:" = "Next on this stop:";
@@ -122,7 +122,7 @@
 "P" = "P";
 
 /* No comment provided by engineer. */
-"Please try again." = "Please try again.";
+"Please try again." = "Veuillez réessayer.";
 
 /* No comment provided by engineer. */
 "Please wait a few seconds." = "Please wait a few seconds.";
@@ -131,7 +131,7 @@
 "Please wait a moment while routes and stops are synced with Carris." = "Please wait a moment while routes and stops are synced with Carris.";
 
 /* No comment provided by engineer. */
-"Please wait..." = "Please wait...";
+"Please wait..." = "Attendez, s'il vous plaît...";
 
 /* No comment provided by engineer. */
 "Pro tip: tap and hold the location button to zoom in to street level!" = "Pro tip: tap and hold the location button to zoom in to street level!";
