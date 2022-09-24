@@ -1,0 +1,245 @@
+/* No comment provided by engineer. */
+"_ _ _" = "_ _ _";
+
+/* No comment provided by engineer. */
+"_ _ _ _ _" = "_ _ _ _ _";
+
+/* No comment provided by engineer. */
+"(ex: 28E or 758)" = "(例如：28E或758)";
+
+/* No comment provided by engineer. */
+"(ex: C 10512)" = "(ex: C 10512)";
+
+/* No comment provided by engineer. */
+"%lld active vehicles" = "%lld 现行车辆";
+
+/* No comment provided by engineer. */
+"%lld Routes left..." = "%lld 剩余路线...";
+
+/* No comment provided by engineer. */
+"← Choose a Route" = "← 选择路线";
+
+/* No comment provided by engineer. */
+"1 active vehicle" = "1辆现行车辆";
+
+/* No comment provided by engineer. */
+"All data is fetched directly from Carris servers in real time, free of charge." = "所有数据均直接从 Carris 服务器实时免费获取。";
+
+/* No comment provided by engineer. */
+"Allow in Settings" = "在设置中允许";
+
+/* No comment provided by engineer. */
+"Allow Location Access" = "允许位置访问";
+
+/* No comment provided by engineer. */
+"C" = "C";
+
+/* No comment provided by engineer. */
+"Carris API is unavailable." = "Carris API 不可用。";
+
+/* No comment provided by engineer. */
+"Choose a Route Number" = "选择路线号码";
+
+/* No comment provided by engineer. */
+"Close" = "关闭";
+
+/* No comment provided by engineer. */
+"Connection Error" = "连接错误";
+
+/* No comment provided by engineer. */
+"Direction" = "方向";
+
+/* No comment provided by engineer. */
+"Enter a Stop Number" = "输入一个停止号码";
+
+/* No comment provided by engineer. */
+"Estimated" = "估计值";
+
+/* No comment provided by engineer. */
+"Favorites" = "收藏";
+
+/* No comment provided by engineer. */
+"Find Routes" = "查找路线";
+
+/* No comment provided by engineer. */
+"GeoBus can show you where you are in the map, if you allow it." = "如果您允许，GeoBus 可以显示您在地图上的位置。";
+
+/* No comment provided by engineer. */
+"GeoBus will keep them updated in the background automatically." = "GeoBus 将在后台自动更新。";
+
+/* No comment provided by engineer. */
+"GitHub" = "GitHub";
+
+/* No comment provided by engineer. */
+"GPS updated %@ ago" = "GPS 更新于 %@ 前";
+
+/* No comment provided by engineer. */
+"I'll be delighted to know your opinion." = "我将很高兴能了解你们的意见。";
+
+/* No comment provided by engineer. */
+"I'll do my best to keep the app working flawlessly for as long as possible." = "我会尽最大努力使应用尽可能长久地正常运作。";
+
+/* No comment provided by engineer. */
+"If the error persists, the only option is to wait and try again later. Unfortunately the app cannot function without this first step." = "如果错误仍然存在，唯一的选择是请稍后再尝试。不幸的是，如果没有第一步，该应用程序将无法运行。";
+
+/* No comment provided by engineer. */
+"in ±" = "在 ±";
+
+/* No comment provided by engineer. */
+"It's probably because their servers are down. In this case, the best option is to wait and try again later :/" = "这可能是由于他们的服务器已经关闭。在这种情况下，最好的选择是等候，然后再试一次 :/";
+
+/* No comment provided by engineer. */
+"Live" = "实时显示";
+
+/* No comment provided by engineer. */
+"Live Data" = "实时数据";
+
+/* No comment provided by engineer. */
+"Live data is provided by Carris free of charge." = "由Carris免费提供实时数据。";
+
+/* No comment provided by engineer. */
+"Loading..." = "加载中...";
+
+/* No comment provided by engineer. */
+"Neighborhood Buses" = "街区公共汽车";
+
+/* No comment provided by engineer. */
+"Next on this stop:" = "下一站：";
+
+/* No comment provided by engineer. */
+"Night Buses" = "夜间公共汽车";
+
+/* No comment provided by engineer. */
+"No estimations available for this stop." = "没有关于此站的估计。";
+
+/* No comment provided by engineer. */
+"Olá 👋" = "你好👋";
+
+/* No comment provided by engineer. */
+"Open to Feedback" = "接受反馈";
+
+/* No comment provided by engineer. */
+"P" = "P";
+
+/* No comment provided by engineer. */
+"Please try again." = "请重试。";
+
+/* No comment provided by engineer. */
+"Please wait a few seconds." = "请稍候。";
+
+/* No comment provided by engineer. */
+"Please wait a moment while routes and stops are synced with Carris." = "请稍等，路线和站点正在与 Carris 同步。";
+
+/* No comment provided by engineer. */
+"Please wait..." = "请稍等...";
+
+/* No comment provided by engineer. */
+"Pro tip: tap and hold the location button to zoom in to street level!" = "专业提示：点击并按住位置按钮以放大到街道水平！";
+
+/* No comment provided by engineer. */
+"Regular Service" = "常规事务";
+
+/* No comment provided by engineer. */
+"Route Details" = "路线详细信息";
+
+/* No comment provided by engineer. */
+"Routes and Stops are synced." = "路线和站点已同步。";
+
+/* No comment provided by engineer. */
+"Search Stop" = "搜索站点";
+
+/* No comment provided by engineer. */
+"Send an Email" = "发送邮件";
+
+/* No comment provided by engineer. */
+"Send me a message if you need help with GeoBus, or have any ideas to improve it." = "如果您需要有关 GeoBus 的帮助，或者有任何改进它的想法，请给我发送消息。";
+
+/* No comment provided by engineer. */
+"Service Unavailable" = "服务不可用";
+
+/* No comment provided by engineer. */
+"Share GeoBus" = "分享GeoBus";
+
+/* No comment provided by engineer. */
+"Share GeoBus with your friends and family!" = "与您的朋友和家人分享GeoBus！";
+
+/* No comment provided by engineer. */
+"Sometimes their service is unavailable or changes unexpectedly. In this situations, the only option is to wait and try again later." = "有时他们的服务不可用或意外更改。 在这种情况下，唯一的选择是等待并稍后再试。";
+
+/* No comment provided by engineer. */
+"Spread the Love" = "传播喜爱";
+
+/* No comment provided by engineer. */
+"Thanks for using GeoBus!" = "感谢使用 GeoBus！";
+
+/* No comment provided by engineer. */
+"The more people using it the more likely it will keep working." = "使用该系统的人越多，它就越有可能继续工作。";
+
+/* No comment provided by engineer. */
+"The route you entered is not available." = "您输入的路线不可用。";
+
+/* No comment provided by engineer. */
+"The stop you entered is not available." = "您输入的站点不可用。";
+
+/* No comment provided by engineer. */
+"This is a circular route." = "这是一个循环路线。";
+
+/* No comment provided by engineer. */
+"This route may have %lld alternative paths." = "此路线可能有 %lld 个替代路线。";
+
+/* No comment provided by engineer. */
+"This should take about a minute." = "这大约需要一分钟。";
+
+/* No comment provided by engineer. */
+"This should take less than a minute and only happens this once." = "这将花费不到一分钟的时间，且只会发生一次。";
+
+/* No comment provided by engineer. */
+"This will only happen once." = "这只会发生一次。";
+
+/* No comment provided by engineer. */
+"to" = "到";
+
+/* No comment provided by engineer. */
+"to: %@" = "到: %@";
+
+/* No comment provided by engineer. */
+"Trams" = "电车";
+
+/* No comment provided by engineer. */
+"Try Again" = "重试";
+
+/* No comment provided by engineer. */
+"Twitter" = "推特";
+
+/* No comment provided by engineer. */
+"Unfortunately it was not possible to retrieve information from Carris." = "不幸的是，无法从 Carris 检索信息。";
+
+/* No comment provided by engineer. */
+"Up to Date" = "最新版本";
+
+/* No comment provided by engineer. */
+"Updating Routes..." = "正在更新路线...";
+
+/* No comment provided by engineer. */
+"v%@-%@" = "v%@-%@";
+
+/* No comment provided by engineer. */
+"vehicle in circulation" = "流通车辆";
+
+/* No comment provided by engineer. */
+"vehicles in circulation" = "流通车辆";
+
+/* No comment provided by engineer. */
+"Visit the Website" = "访问网站";
+
+/* No comment provided by engineer. */
+"You have no favorite routes." = "您没有收藏的路线。";
+
+/* No comment provided by engineer. */
+"You have to allow location access so that GeoBus can show where you are on the map." = "您必须允许位置访问，以便 GeoBus 可以显示您在地图上的位置。";
+
+/* No comment provided by engineer. */
+"Your Location" = "您的位置";
+
+/* No comment provided by engineer. */
+"Your privacy is respected, it will not leave your device or be sold to anyone." = "您的隐私受到尊重，它不会离开您的设备或出售给任何人。";
