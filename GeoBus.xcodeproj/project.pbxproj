@@ -148,6 +148,8 @@
 		CF82BB0828D7F19A007F0CDB /* LocationCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCard.swift; sourceTree = "<group>"; };
 		CF82BB0A28D7F1C6007F0CDB /* ShareCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareCard.swift; sourceTree = "<group>"; };
 		CF82BB0C28D7F202007F0CDB /* ContactsCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsCard.swift; sourceTree = "<group>"; };
+		CFADE6DA28DF83870027A03C /* zh */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh; path = zh.lproj/Localizable.strings; sourceTree = "<group>"; };
+		CFADE6DB28DF838A0027A03C /* zh */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh; path = zh.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		CFAF0E7528CE586300DDAD5B /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		CFAF0E7728CE84C200DDAD5B /* Vehicles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vehicles.swift; sourceTree = "<group>"; };
 		CFAF0E7928CE84F400DDAD5B /* MapAnnotations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAnnotations.swift; sourceTree = "<group>"; };
@@ -445,6 +447,7 @@
 				en,
 				pt,
 				tr,
+				zh,
 			);
 			mainGroup = CF181FD928CCB7D600248F72;
 			packageReferences = (
@@ -559,6 +562,7 @@
 			children = (
 				CFDD014128D502000070FE4B /* pt */,
 				CF18E50728DF15AA00EE243F /* tr */,
+				CFADE6DB28DF838A0027A03C /* zh */,
 			);
 			name = InfoPlist.strings;
 			path = GeoBus;
@@ -569,6 +573,7 @@
 			children = (
 				CFDD014428D502000070FE4B /* pt */,
 				CF18E50828DF15AE00EE243F /* tr */,
+				CFADE6DA28DF83870027A03C /* zh */,
 			);
 			name = Localizable.strings;
 			path = GeoBus;
