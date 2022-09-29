@@ -101,106 +101,106 @@
 "Loading..." = "Wird geladen...";
 
 /* No comment provided by engineer. */
-"Neighborhood Buses" = "Nachbarschafts-Busse";
+"Neighborhood Buses" = "Lokale-Busse";
 
 /* No comment provided by engineer. */
-"Next on this stop:" = "Als nächstes an diesem Stop:";
+"Next on this stop:" = "Als Nächstes:";
 
 /* No comment provided by engineer. */
 "Night Buses" = "Nachtbusse";
 
 /* No comment provided by engineer. */
-"No estimations available for this stop." = "Keine Einschätzungen für diesen Stop.";
+"No estimations available for this stop." = "Im Moment ist keine Vorhersage für diese Haltestelle möglich.";
 
 /* No comment provided by engineer. */
-"Olá 👋" = "Ola<unk> 👋";
+"Olá 👋" = "Olá 👋";
 
 /* No comment provided by engineer. */
-"Open to Feedback" = "Für Feedback öffnen";
+"Open to Feedback" = "Deine Meinung zählt";
 
 /* No comment provided by engineer. */
 "P" = "P";
 
 /* No comment provided by engineer. */
-"Please try again." = "Bitte versuchen Sie es erneut.";
+"Please try again." = "Bitte versuchen sie es erneut.";
 
 /* No comment provided by engineer. */
-"Please wait a few seconds." = "Bitte warten Sie ein paar Sekunden.";
+"Please wait a few seconds." = "Bitte warten sie einen Augenblick.";
 
 /* No comment provided by engineer. */
-"Please wait a moment while routes and stops are synced with Carris." = "Bitte warten Sie einen Augenblick, während Routen und Stationen mit Carris synchronisiert werden.";
+"Please wait a moment while routes and stops are synced with Carris." = "Bitte warten sie einen Augenblick, während Routen und Haltestellen mit Carris synchronisiert werden.";
 
 /* No comment provided by engineer. */
 "Please wait..." = "Bitte warten...";
 
 /* No comment provided by engineer. */
-"Pro tip: tap and hold the location button to zoom in to street level!" = "Pro-Tipp: Tippen und halten Sie die Positionstaste um in die Straße zu zoomen!";
+"Pro tip: tap and hold the location button to zoom in to street level!" = "Pro-Tipp: Tippen und halten sie die Positionstaste um in die Straße zu zoomen!";
 
 /* No comment provided by engineer. */
-"Regular Service" = "Regulärer Dienst";
+"Regular Service" = "Linienbusse";
 
 /* No comment provided by engineer. */
-"Route Details" = "Routendetails";
+"Route Details" = "Streckendetails";
 
 /* No comment provided by engineer. */
-"Routes and Stops are synced." = "Routen und Stops werden synchronisiert.";
+"Routes and Stops are synced." = "Strecken und Haltestellen werden synchronisiert.";
 
 /* No comment provided by engineer. */
-"Search Stop" = "Suche Stopp";
+"Search Stop" = "Haltestelle finden";
 
 /* No comment provided by engineer. */
 "Send an Email" = "E-Mail senden";
 
 /* No comment provided by engineer. */
-"Send me a message if you need help with GeoBus, or have any ideas to improve it." = "Sende mir eine Nachricht, wenn du Hilfe bei GeoBus benötigst oder Ideen hast, um es zu verbessern.";
+"Send me a message if you need help with GeoBus, or have any ideas to improve it." = "Schick mir eine Nachricht, wenn du Hilfe bei GeoBus benötigst oder Ideen hast, um es zu verbessern.";
 
 /* No comment provided by engineer. */
 "Service Unavailable" = "Dienst nicht verfügbar";
 
 /* No comment provided by engineer. */
-"Share GeoBus" = "Share GeoBus";
+"Share GeoBus" = "GeoBus teilen";
 
 /* No comment provided by engineer. */
-"Share GeoBus with your friends and family!" = "Teilen Sie GeoBus mit Ihren Freunden und Familie!";
+"Share GeoBus with your friends and family!" = "Teilen sie GeoBus mit Freunden und Familie!";
 
 /* No comment provided by engineer. */
-"Sometimes their service is unavailable or changes unexpectedly. In this situations, the only option is to wait and try again later." = "Manchmal ist ihr Dienst nicht verfügbar oder ändert sich unerwartet. In diesen Situationen besteht die einzige Möglichkeit zu warten und später erneut zu versuchen.";
+"Sometimes their service is unavailable or changes unexpectedly. In this situations, the only option is to wait and try again later." = "Manchmal ist deren Dienst nicht verfügbar oder ändert sich unerwartet. In diesen Situationen besteht die einzige Möglichkeit darin, zu warten und es später erneut zu versuchen.";
 
 /* No comment provided by engineer. */
-"Spread the Love" = "Verbreiten Sie die Liebe";
+"Spread the Love" = "Spread the Love";
 
 /* No comment provided by engineer. */
-"Thanks for using GeoBus!" = "Vielen Dank für die Verwendung von GeoBus!";
+"Thanks for using GeoBus!" = "Dank das sie GeoBus nutzen!";
 
 /* No comment provided by engineer. */
-"The more people using it the more likely it will keep working." = "Je mehr Menschen es nutzen, desto wahrscheinlicher wird es weiterarbeiten.";
+"The more people using it the more likely it will keep working." = "Um so mehr wir sind um so besser wird es funktionieren.";
 
 /* No comment provided by engineer. */
-"The route you entered is not available." = "Die eingegebene Route ist nicht verfügbar.";
+"The route you entered is not available." = "Die eingegebene Strecke ist nicht verfügbar.";
 
 /* No comment provided by engineer. */
 "The stop you entered is not available." = "Die eingegebene Haltestelle ist nicht verfügbar.";
 
 /* No comment provided by engineer. */
-"This is a circular route." = "Dies ist ein kreisförmiger Weg.";
+"This is a circular route." = "Dies ist eine Ring-Verbindung.";
 
 /* No comment provided by engineer. */
-"This route may have %lld alternative paths." = "Diese Route kann %lld alternative Pfade haben.";
+"This route may have %lld alternative paths." = "Diese Strecke kann %lld alternative Verbindungen haben.";
 
 /* No comment provided by engineer. */
 "This should take about a minute." = "Das sollte etwa eine Minute dauern.";
 
 /* No comment provided by engineer. */
-"This should take less than a minute and only happens this once." = "Dies sollte weniger als eine Minute dauern, und dies geschieht nur einmal.";
+"This should take less than a minute and only happens this once." = "Dies sollte einmalig, weniger als eine Minute dauern.";
 
 /* No comment provided by engineer. */
 "This will only happen once." = "Das wird nur einmal geschehen.";
 
 /* No comment provided by engineer. */
-"to" = "zu";
+"to" = "nach";
 
 /* No comment provided by engineer. */
-"to: %@" = "an: %@";
+"to: %@" = "nach: %@";
 
 /* No comment provided by engineer. */
 "Trams" = "Straßenbahnen";
@@ -215,31 +215,31 @@
 "Unfortunately it was not possible to retrieve information from Carris." = "Leider war es nicht möglich, Informationen von Carris abzurufen.";
 
 /* No comment provided by engineer. */
-"Up to Date" = "Aktuell";
+"Up to Date" = "Up to Date";
 
 /* No comment provided by engineer. */
-"Updating Routes..." = "Aktualisiere Routes...";
+"Updating Routes..." = "Aktualisiere Strecken...";
 
 /* No comment provided by engineer. */
 "v%@-%@" = "v%@-%@";
 
 /* No comment provided by engineer. */
-"vehicle in circulation" = "Fahrzeug im Umlauf";
+"vehicle in circulation" = "Fahrzeug im Einsatz";
 
 /* No comment provided by engineer. */
-"vehicles in circulation" = "im Umlauf befindliche Fahrzeuge";
+"vehicles in circulation" = "Fahrzeuge im Einsatz";
 
 /* No comment provided by engineer. */
 "Visit the Website" = "Besuchen Sie die Website";
 
 /* No comment provided by engineer. */
-"You have no favorite routes." = "Sie haben keine Lieblings-Routen.";
+"You have no favorite routes." = "Sie haben keine Lieblings-Strecken.";
 
 /* No comment provided by engineer. */
-"You have to allow location access so that GeoBus can show where you are on the map." = "Sie müssen den Standortzugriff erlauben, damit GeoBus zeigen kann, wo Sie sich auf der Karte befinden.";
+"You have to allow location access so that GeoBus can show where you are on the map." = "Sie müssen den Standortzugriff erlauben, damit GeoBus ihnen zeigen kann, wo sie sich auf der Karte befinden.";
 
 /* No comment provided by engineer. */
 "Your Location" = "Ihr Standort";
 
 /* No comment provided by engineer. */
-"Your privacy is respected, it will not leave your device or be sold to anyone." = "Ihre Privatsphäre wird respektiert, es wird Ihr Gerät nicht verlassen oder an niemanden verkauft.";
+"Your privacy is respected, it will not leave your device or be sold to anyone." = "Ihre Privatsphäre wird respektiert, wir geben und verkaufen keine Daten an Dritte weiter.";
