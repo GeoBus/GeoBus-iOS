@@ -5,10 +5,10 @@
 "_ _ _ _ _" = "_ _ _ _ _";
 
 /* No comment provided by engineer. */
-"(ex: 28E or 758)" = "(z. B.: 28E oder 758)";
+"(ex: 28E or 758)" = "(z. B. 28E oder 758)";
 
 /* No comment provided by engineer. */
-"(ex: C 10512)" = "(ex: C 10512)";
+"(ex: C 10512)" = "(z. B. C 10512)";
 
 /* No comment provided by engineer. */
 "%lld active vehicles" = "%lld aktive Fahrzeuge";
