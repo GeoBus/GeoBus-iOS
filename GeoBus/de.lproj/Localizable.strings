@@ -65,7 +65,7 @@
 "GeoBus can show you where you are in the map, if you allow it." = "GeoBus kann ihnen zeigen, wo sie sich auf der Karte befinden, wenn sie es zulassen.";
 
 /* No comment provided by engineer. */
-"GeoBus will keep them updated in the background automatically." = "GeoBus hält sie automatisch im Hintergrund auf dem Laufenden.";
+"GeoBus will keep them updated in the background automatically." = "GeoBus hält sie automatisch auf dem Laufenden.";
 
 /* No comment provided by engineer. */
 "GitHub" = "GitHub";
@@ -74,19 +74,19 @@
 "GPS updated %@ ago" = "GPS vor %@ aktualisiert";
 
 /* No comment provided by engineer. */
-"I'll be delighted to know your opinion." = "Ich freue mich, Ihre Meinung zu erfahren.";
+"I'll be delighted to know your opinion." = "Ich freue mich über Ihre Meinung.";
 
 /* No comment provided by engineer. */
-"I'll do my best to keep the app working flawlessly for as long as possible." = "Ich werde mein Bestes tun, um die App so lange wie möglich einwandfrei zu funktionieren.";
+"I'll do my best to keep the app working flawlessly for as long as possible." = "Ich werde mein Bestes tun, um die einwandfreie Funktion der App so lange wie möglich sicherzustellen.";
 
 /* No comment provided by engineer. */
-"If the error persists, the only option is to wait and try again later. Unfortunately the app cannot function without this first step." = "Wenn der Fehler weiterhin besteht, besteht die einzige Option darin, zu warten und später erneut zu versuchen. Leider kann die App ohne diesen ersten Schritt nicht funktionieren.";
+"If the error persists, the only option is to wait and try again later. Unfortunately the app cannot function without this first step." = "Wenn der Fehler weiterhin besteht, versuchen sie es später erneut. Leider funktioniert die App ohne diesen ersten Schritt nicht.";
 
 /* No comment provided by engineer. */
-"in ±" = "in ±";
+"in ±" = "in ca.";
 
 /* No comment provided by engineer. */
-"It's probably because their servers are down. In this case, the best option is to wait and try again later :/" = "Wahrscheinlich weil ihre Server nicht erreichbar sind. In diesem Fall ist es am besten, zu warten und später erneut zu versuchen. :/";
+"It's probably because their servers are down. In this case, the best option is to wait and try again later :/" = "Wahrscheinlich, weil deren Server nicht erreichbar sind. In diesem Fall ist es das Beste, wenn sie es zu einem anderen Zeitpunkt erneut versuchen. :/";
 
 /* No comment provided by engineer. */
 "Live" = "Live";
