@@ -154,6 +154,8 @@
 		CFAF0E7728CE84C200DDAD5B /* Vehicles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vehicles.swift; sourceTree = "<group>"; };
 		CFAF0E7928CE84F400DDAD5B /* MapAnnotations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAnnotations.swift; sourceTree = "<group>"; };
 		CFAF0E7B28CEC78C00DDAD5B /* GeoBus.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GeoBus.entitlements; sourceTree = "<group>"; };
+		CFC7104A28E6297C0006E7F5 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		CFC7104B28E629800006E7F5 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		CFC80FCB28D2C2FF003D059D /* DragAndDrop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragAndDrop.swift; sourceTree = "<group>"; };
 		CFDC15EE28D292FB00A4BE49 /* ViewSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewSize.swift; sourceTree = "<group>"; };
 		CFDD014128D502000070FE4B /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -448,6 +450,7 @@
 				pt,
 				tr,
 				"zh-Hans",
+				de,
 			);
 			mainGroup = CF181FD928CCB7D600248F72;
 			packageReferences = (
@@ -563,6 +566,7 @@
 				CFDD014128D502000070FE4B /* pt */,
 				CF18E50728DF15AA00EE243F /* tr */,
 				CFADE6DD28DF84460027A03C /* zh-Hans */,
+				CFC7104B28E629800006E7F5 /* de */,
 			);
 			name = InfoPlist.strings;
 			path = GeoBus;
@@ -574,6 +578,7 @@
 				CFDD014428D502000070FE4B /* pt */,
 				CF18E50828DF15AE00EE243F /* tr */,
 				CFADE6DC28DF84420027A03C /* zh-Hans */,
+				CFC7104A28E6297C0006E7F5 /* de */,
 			);
 			name = Localizable.strings;
 			path = GeoBus;
