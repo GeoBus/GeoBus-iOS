@@ -5,97 +5,97 @@
 "_ _ _ _ _" = "_ _ _ _ _";
 
 /* No comment provided by engineer. */
-"(ex: 28E or 758)" = "(ex: 28E or 758)";
+"(ex: 28E or 758)" = "(ex: 28E ou 758)";
 
 /* No comment provided by engineer. */
 "(ex: C 10512)" = "(ex: C 10512)";
 
 /* No comment provided by engineer. */
-"%lld active vehicles" = "%lld active vehicles";
+"%lld active vehicles" = "%lld véhicules actifs";
 
 /* No comment provided by engineer. */
-"%lld Routes left..." = "%lld Routes left...";
+"%lld Routes left..." = "%lld Routes restantes...";
 
 /* No comment provided by engineer. */
-"← Choose a Route" = "← Choose a Route";
+"← Choose a Route" = "★ Choisissez une route";
 
 /* No comment provided by engineer. */
-"1 active vehicle" = "1 active vehicle";
+"1 active vehicle" = "1 véhicule actif";
 
 /* No comment provided by engineer. */
-"All data is fetched directly from Carris servers in real time, free of charge." = "All data is fetched directly from Carris servers in real time, free of charge.";
+"All data is fetched directly from Carris servers in real time, free of charge." = "Toutes les données sont récupérées directement sur les serveurs de Carris en temps réel, gratuitement.";
 
 /* No comment provided by engineer. */
-"Allow in Settings" = "Allow in Settings";
+"Allow in Settings" = "Autoriser dans les paramètres";
 
 /* No comment provided by engineer. */
-"Allow Location Access" = "Allow Location Access";
+"Allow Location Access" = "Autoriser l'accès à la localisation";
 
 /* No comment provided by engineer. */
 "C" = "C";
 
 /* No comment provided by engineer. */
-"Carris API is unavailable." = "Carris API is unavailable.";
+"Carris API is unavailable." = "L'API Carris n'est pas disponible.";
 
 /* No comment provided by engineer. */
-"Choose a Route Number" = "Choose a Route Number";
+"Choose a Route Number" = "Choisissez un numéro de route";
 
 /* No comment provided by engineer. */
-"Close" = "Close";
+"Close" = "Fermer";
 
 /* No comment provided by engineer. */
-"Connection Error" = "Connection Error";
+"Connection Error" = "Erreur de connexion";
 
 /* No comment provided by engineer. */
-"Direction" = "Direction";
+"Direction" = "Orientation";
 
 /* No comment provided by engineer. */
-"Enter a Stop Number" = "Enter a Stop Number";
+"Enter a Stop Number" = "Entrez un numéro d'arrêt";
 
 /* No comment provided by engineer. */
-"Estimated" = "Estimated";
+"Estimated" = "Estimé";
 
 /* No comment provided by engineer. */
-"Favorites" = "Favorites";
+"Favorites" = "Favoris";
 
 /* No comment provided by engineer. */
-"Find Routes" = "Find Routes";
+"Find Routes" = "Trouver des itinéraires";
 
 /* No comment provided by engineer. */
-"GeoBus can show you where you are in the map, if you allow it." = "GeoBus can show you where you are in the map, if you allow it.";
+"GeoBus can show you where you are in the map, if you allow it." = "Géobus peut vous montrer où vous êtes sur la carte, si vous l'autorisez.";
 
 /* No comment provided by engineer. */
-"GeoBus will keep them updated in the background automatically." = "GeoBus will keep them updated in the background automatically.";
+"GeoBus will keep them updated in the background automatically." = "Géobus les gardera automatiquement à jour en arrière-plan.";
 
 /* No comment provided by engineer. */
 "GitHub" = "GitHub";
 
 /* No comment provided by engineer. */
-"GPS updated %@ ago" = "GPS updated %@ ago";
+"GPS updated %@ ago" = "GPS mis à jour il y a %@";
 
 /* No comment provided by engineer. */
-"I'll be delighted to know your opinion." = "I'll be delighted to know your opinion.";
+"I'll be delighted to know your opinion." = "« Je serai ravi de connaître votre opinion. »";
 
 /* No comment provided by engineer. */
-"I'll do my best to keep the app working flawlessly for as long as possible." = "I'll do my best to keep the app working flawlessly for as long as possible.";
+"I'll do my best to keep the app working flawlessly for as long as possible." = "Je ferai de mon mieux pour que l'application fonctionne parfaitement, aussi longtemps que possible.";
 
 /* No comment provided by engineer. */
-"If the error persists, the only option is to wait and try again later. Unfortunately the app cannot function without this first step." = "If the error persists, the only option is to wait and try again later. Unfortunately the app cannot function without this first step.";
+"If the error persists, the only option is to wait and try again later. Unfortunately the app cannot function without this first step." = "Si l'erreur persiste, la seule option est d'attendre et de réessayer plus tard. Malheureusement, l'application ne peut pas fonctionner sans cette première étape.";
 
 /* No comment provided by engineer. */
-"in ±" = "in ±";
+"in ±" = "en ±";
 
 /* No comment provided by engineer. */
-"It's probably because their servers are down. In this case, the best option is to wait and try again later :/" = "It's probably because their servers are down. In this case, the best option is to wait and try again later :/";
+"It's probably because their servers are down. In this case, the best option is to wait and try again later :/" = "C'est probablement parce que leurs serveurs sont en panne. Dans ce cas, la meilleure option est d'attendre et de réessayer plus tard :/";
 
 /* No comment provided by engineer. */
-"Live" = "Live";
+"Live" = "En direct";
 
 /* No comment provided by engineer. */
-"Live Data" = "Live Data";
+"Live Data" = "Données en direct";
 
 /* No comment provided by engineer. */
-"Live data is provided by Carris free of charge." = "Live data is provided by Carris free of charge.";
+"Live data is provided by Carris free of charge." = "Les données en direct sont fournies gratuitement par Carris.";
 
 /* No comment provided by engineer. */
 "Loading..." = "Chargement en cours...";
@@ -104,19 +104,19 @@
 "Neighborhood Buses" = "Buses de quartier";
 
 /* No comment provided by engineer. */
-"Next on this stop:" = "Next on this stop:";
+"Next on this stop:" = "Suivant à cet arrêt:";
 
 /* No comment provided by engineer. */
-"Night Buses" = "Night Buses";
+"Night Buses" = "Bus de la nuit";
 
 /* No comment provided by engineer. */
-"No estimations available for this stop." = "No estimations available for this stop.";
+"No estimations available for this stop." = "Aucune estimation disponible pour cet arrêt.";
 
 /* No comment provided by engineer. */
-"Olá 👋" = "Olá 👋";
+"Olá 👋" = "Olá 👋";
 
 /* No comment provided by engineer. */
-"Open to Feedback" = "Open to Feedback";
+"Open to Feedback" = "Ouvert à la rétroaction";
 
 /* No comment provided by engineer. */
 "P" = "P";
@@ -125,121 +125,121 @@
 "Please try again." = "Veuillez réessayer.";
 
 /* No comment provided by engineer. */
-"Please wait a few seconds." = "Please wait a few seconds.";
+"Please wait a few seconds." = "Veuillez patienter quelques secondes.";
 
 /* No comment provided by engineer. */
-"Please wait a moment while routes and stops are synced with Carris." = "Please wait a moment while routes and stops are synced with Carris.";
+"Please wait a moment while routes and stops are synced with Carris." = "Veuillez patienter un instant pendant que les trajets et les arrêts sont synchronisés avec Carris.";
 
 /* No comment provided by engineer. */
 "Please wait..." = "Attendez, s'il vous plaît...";
 
 /* No comment provided by engineer. */
-"Pro tip: tap and hold the location button to zoom in to street level!" = "Pro tip: tap and hold the location button to zoom in to street level!";
+"Pro tip: tap and hold the location button to zoom in to street level!" = "Astuce Pro : appuyez et maintenez le bouton de localisation pour zoomer au niveau de la rue!";
 
 /* No comment provided by engineer. */
-"Regular Service" = "Regular Service";
+"Regular Service" = "Service régulier";
 
 /* No comment provided by engineer. */
-"Route Details" = "Route Details";
+"Route Details" = "Détails de la route";
 
 /* No comment provided by engineer. */
-"Routes and Stops are synced." = "Routes and Stops are synced.";
+"Routes and Stops are synced." = "Les routes et arrêts sont synchronisés.";
 
 /* No comment provided by engineer. */
-"Search Stop" = "Search Stop";
+"Search Stop" = "Arrêt de recherche";
 
 /* No comment provided by engineer. */
-"Send an Email" = "Send an Email";
+"Send an Email" = "Envoyer un e-mail";
 
 /* No comment provided by engineer. */
-"Send me a message if you need help with GeoBus, or have any ideas to improve it." = "Send me a message if you need help with GeoBus, or have any ideas to improve it.";
+"Send me a message if you need help with GeoBus, or have any ideas to improve it." = "Envoyez-moi un message si vous avez besoin d'aide avec GeoBus, ou si vous avez des idées pour l'améliorer.";
 
 /* No comment provided by engineer. */
-"Service Unavailable" = "Service Unavailable";
+"Service Unavailable" = "Service indisponible";
 
 /* No comment provided by engineer. */
 "Share GeoBus" = "Share GeoBus";
 
 /* No comment provided by engineer. */
-"Share GeoBus with your friends and family!" = "Share GeoBus with your friends and family!";
+"Share GeoBus with your friends and family!" = "Partagez GeoBus avec vos amis et votre famille!";
 
 /* No comment provided by engineer. */
-"Sometimes their service is unavailable or changes unexpectedly. In this situations, the only option is to wait and try again later." = "Sometimes their service is unavailable or changes unexpectedly. In this situations, the only option is to wait and try again later.";
+"Sometimes their service is unavailable or changes unexpectedly. In this situations, the only option is to wait and try again later." = "Parfois, leur service est indisponible ou change de façon inattendue. Dans ce cas, la seule option est d'attendre et de réessayer plus tard.";
 
 /* No comment provided by engineer. */
-"Spread the Love" = "Spread the Love";
+"Spread the Love" = "Répandez l’Amour";
 
 /* No comment provided by engineer. */
-"Thanks for using GeoBus!" = "Thanks for using GeoBus!";
+"Thanks for using GeoBus!" = "Merci d'utiliser GeoBus!";
 
 /* No comment provided by engineer. */
-"The more people using it the more likely it will keep working." = "The more people using it the more likely it will keep working.";
+"The more people using it the more likely it will keep working." = "Plus il y a de personnes qui l'utilisent, plus il y a de chances que cela continue à fonctionner.";
 
 /* No comment provided by engineer. */
-"The route you entered is not available." = "The route you entered is not available.";
+"The route you entered is not available." = "L'itinéraire que vous avez saisi n'est pas disponible.";
 
 /* No comment provided by engineer. */
-"The stop you entered is not available." = "The stop you entered is not available.";
+"The stop you entered is not available." = "L'arrêt que vous avez entré n'est pas disponible.";
 
 /* No comment provided by engineer. */
-"This is a circular route." = "This is a circular route.";
+"This is a circular route." = "Il s'agit d'une route circulaire.";
 
 /* No comment provided by engineer. */
-"This route may have %lld alternative paths." = "This route may have %lld alternative paths.";
+"This route may have %lld alternative paths." = "Cette route peut avoir %lld chemins alternatifs.";
 
 /* No comment provided by engineer. */
-"This should take about a minute." = "This should take about a minute.";
+"This should take about a minute." = "Cela devrait prendre environ une minute.";
 
 /* No comment provided by engineer. */
-"This should take less than a minute and only happens this once." = "This should take less than a minute and only happens this once.";
+"This should take less than a minute and only happens this once." = "Cela devrait prendre moins d'une minute et ne se produire qu'une seule fois.";
 
 /* No comment provided by engineer. */
-"This will only happen once." = "This will only happen once.";
+"This will only happen once." = "Cela ne se fera qu'une seule fois.";
 
 /* No comment provided by engineer. */
-"to" = "to";
+"to" = "à";
 
 /* No comment provided by engineer. */
-"to: %@" = "to: %@";
+"to: %@" = "à: %@";
 
 /* No comment provided by engineer. */
 "Trams" = "Trams";
 
 /* No comment provided by engineer. */
-"Try Again" = "Try Again";
+"Try Again" = "Réessayez";
 
 /* No comment provided by engineer. */
 "Twitter" = "Twitter";
 
 /* No comment provided by engineer. */
-"Unfortunately it was not possible to retrieve information from Carris." = "Unfortunately it was not possible to retrieve information from Carris.";
+"Unfortunately it was not possible to retrieve information from Carris." = "Malheureusement, il n'a pas été possible de récupérer des informations de Carris.";
 
 /* No comment provided by engineer. */
-"Up to Date" = "Up to Date";
+"Up to Date" = "À jour";
 
 /* No comment provided by engineer. */
-"Updating Routes..." = "Updating Routes...";
+"Updating Routes..." = "Mise à jour des itinéraires...";
 
 /* No comment provided by engineer. */
 "v%@-%@" = "v%@-%@";
 
 /* No comment provided by engineer. */
-"vehicle in circulation" = "vehicle in circulation";
+"vehicle in circulation" = "véhicule en circulation";
 
 /* No comment provided by engineer. */
-"vehicles in circulation" = "vehicles in circulation";
+"vehicles in circulation" = "véhicules en circulation";
 
 /* No comment provided by engineer. */
-"Visit the Website" = "Visit the Website";
+"Visit the Website" = "Visitez le site Web";
 
 /* No comment provided by engineer. */
-"You have no favorite routes." = "You have no favorite routes.";
+"You have no favorite routes." = "Vous n'avez pas d'itinéraires favoris.";
 
 /* No comment provided by engineer. */
-"You have to allow location access so that GeoBus can show where you are on the map." = "You have to allow location access so that GeoBus can show where you are on the map.";
+"You have to allow location access so that GeoBus can show where you are on the map." = "Vous devez autoriser l'accès à la localisation pour que GeoBus puisse montrer où vous êtes sur la carte.";
 
 /* No comment provided by engineer. */
-"Your Location" = "Your Location";
+"Your Location" = "Votre Localisation";
 
 /* No comment provided by engineer. */
-"Your privacy is respected, it will not leave your device or be sold to anyone." = "Your privacy is respected, it will not leave your device or be sold to anyone.";
+"Your privacy is respected, it will not leave your device or be sold to anyone." = "Votre vie privée est respectée, elle ne quittera pas votre appareil ou ne sera vendue à personne.";
