@@ -1,0 +1,8 @@
+/* Bundle display name */
+"CFBundleDisplayName" = "GeoBus";
+/* Bundle name */
+"CFBundleName" = "GeoBus";
+/* Privacy - Location Usage Description */
+"NSLocationUsageDescription" = "Twoja lokalizacja będzie używana tylko do określenia twojego położenia na mapie.";
+/* Privacy - Location When In Use Usage Description */
+"NSLocationWhenInUseUsageDescription" = "Twoja lokalizacja będzie używana tylko do określenia twojego położenia na mapie.";
