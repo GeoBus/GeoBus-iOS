@@ -14,7 +14,7 @@
 "%lld active vehicles" = "%lld aktive Fahrzeuge";
 
 /* No comment provided by engineer. */
-"%lld Routes left..." = "%lld Routen übrig...";
+"%lld Routes left..." = "Noch %lld Routen zu laden.";
 
 /* No comment provided by engineer. */
 "← Choose a Route" = "← Route wählen";
@@ -23,10 +23,10 @@
 "1 active vehicle" = "1 aktives Fahrzeug";
 
 /* No comment provided by engineer. */
-"All data is fetched directly from Carris servers in real time, free of charge." = "Alle Daten werden direkt von Carris-Servern in Echtzeit abgerufen.";
+"All data is fetched directly from Carris servers in real time, free of charge." = "Alle Daten werden kostenfrei vom Carris-Server in Echtzeit abgerufen.";
 
 /* No comment provided by engineer. */
-"Allow in Settings" = "In Einstellungen erlauben";
+"Allow in Settings" = "In Einstellungen verwalten";
 
 /* No comment provided by engineer. */
 "Allow Location Access" = "Standortzugriff erlauben";
@@ -35,10 +35,10 @@
 "C" = "C";
 
 /* No comment provided by engineer. */
-"Carris API is unavailable." = "Carris-API ist nicht verfügbar.";
+"Carris API is unavailable." = "Carris-Server ist nicht verfügbar.";
 
 /* No comment provided by engineer. */
-"Choose a Route Number" = "Wählen Sie eine Routennummer";
+"Choose a Route Number" = "Wählen Sie eine Route";
 
 /* No comment provided by engineer. */
 "Close" = "Schließen";
@@ -50,19 +50,19 @@
 "Direction" = "Richtung";
 
 /* No comment provided by engineer. */
-"Enter a Stop Number" = "Stopnummer eingeben";
+"Enter a Stop Number" = "Nummer der Haltestelle eingeben";
 
 /* No comment provided by engineer. */
-"Estimated" = "Geschätzt";
+"Estimated" = "voraussichtlich";
 
 /* No comment provided by engineer. */
 "Favorites" = "Favoriten";
 
 /* No comment provided by engineer. */
-"Find Routes" = "Routen finden";
+"Find Routes" = "Route finden";
 
 /* No comment provided by engineer. */
-"GeoBus can show you where you are in the map, if you allow it." = "GeoBus kann Ihnen zeigen, wo Sie sich auf der Karte befinden, wenn Sie es zulassen.";
+"GeoBus can show you where you are in the map, if you allow it." = "GeoBus kann ihnen zeigen, wo sie sich auf der Karte befinden, wenn sie es zulassen.";
 
 /* No comment provided by engineer. */
 "GeoBus will keep them updated in the background automatically." = "GeoBus hält sie automatisch im Hintergrund auf dem Laufenden.";
