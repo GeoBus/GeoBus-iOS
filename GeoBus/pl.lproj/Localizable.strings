@@ -5,58 +5,58 @@
 "_ _ _ _ _" = "_ _ _ _ _";
 
 /* No comment provided by engineer. */
-"(ex: 28E or 758)" = "(ex: 28E or 758)";
+"(ex: 28E or 758)" = "(np. 28E lub 758)";
 
 /* No comment provided by engineer. */
-"(ex: C 10512)" = "(ex: C 10512)";
+"(ex: C 10512)" = "(np. C 10512)";
 
 /* No comment provided by engineer. */
-"%lld active vehicles" = "%lld active vehicles";
+"%lld active vehicles" = "%lld aktywnych pojazdów";
 
 /* No comment provided by engineer. */
-"%lld Routes left..." = "%lld Routes left...";
+"%lld Routes left..." = "Pozostało %lld tras...";
 
 /* No comment provided by engineer. */
-"← Choose a Route" = "← Choose a Route";
+"← Choose a Route" = "← Wybierz trasę";
 
 /* No comment provided by engineer. */
-"1 active vehicle" = "1 active vehicle";
+"1 active vehicle" = "1 aktywny pojazd";
 
 /* No comment provided by engineer. */
-"All data is fetched directly from Carris servers in real time, free of charge." = "All data is fetched directly from Carris servers in real time, free of charge.";
+"All data is fetched directly from Carris servers in real time, free of charge." = "Wszystkie dane są pobierane bezpośrednio z serwerów Carris w czasie realnym, bezpłatnie.";
 
 /* No comment provided by engineer. */
-"Allow in Settings" = "Allow in Settings";
+"Allow in Settings" = "Zezwól w Ustawieniach";
 
 /* No comment provided by engineer. */
-"Allow Location Access" = "Allow Location Access";
+"Allow Location Access" = "Zezwól na dostęp do lokalizacji";
 
 /* No comment provided by engineer. */
 "C" = "C";
 
 /* No comment provided by engineer. */
-"Carris API is unavailable." = "Carris API is unavailable.";
+"Carris API is unavailable." = "Carris API jest niedostępny.";
 
 /* No comment provided by engineer. */
-"Choose a Route Number" = "Choose a Route Number";
+"Choose a Route Number" = "Wybierz numer trasy";
 
 /* No comment provided by engineer. */
-"Close" = "Close";
+"Close" = "Zamknij";
 
 /* No comment provided by engineer. */
-"Connection Error" = "Connection Error";
+"Connection Error" = "Błąd połączenia";
 
 /* No comment provided by engineer. */
-"Direction" = "Direction";
+"Direction" = "Kierunek";
 
 /* No comment provided by engineer. */
-"Enter a Stop Number" = "Enter a Stop Number";
+"Enter a Stop Number" = "Wprowadź numer przystanku";
 
 /* No comment provided by engineer. */
-"Estimated" = "Estimated";
+"Estimated" = "Szacowany";
 
 /* No comment provided by engineer. */
-"Favorites" = "Favorites";
+"Favorites" = "Ulubione";
 
 /* No comment provided by engineer. */
 "Find Routes" = "Find Routes";
