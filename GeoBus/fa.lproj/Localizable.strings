@@ -5,241 +5,241 @@
 "_ _ _ _ _" = "_ _ _ _ _";
 
 /* No comment provided by engineer. */
-"(ex: 28E or 758)" = "(ex: 28E or 758)";
+"(ex: 28E or 758)" = "(مثال: 28E یا 758)";
 
 /* No comment provided by engineer. */
-"(ex: C 10512)" = "(ex: C 10512)";
+"(ex: C 10512)" = "(مثال: C 10512)";
 
 /* No comment provided by engineer. */
-"%lld active vehicles" = "%lld active vehicles";
+"%lld active vehicles" = "%lld وسایل نقلیه فعال";
 
 /* No comment provided by engineer. */
-"%lld Routes left..." = "%lld Routes left...";
+"%lld Routes left..." = "%lld مسیرهای باقی مانده ...";
 
 /* No comment provided by engineer. */
-"← Choose a Route" = "← Choose a Route";
+"← Choose a Route" = "یک مسیر انتخاب کنید";
 
 /* No comment provided by engineer. */
-"1 active vehicle" = "1 active vehicle";
+"1 active vehicle" = "۱ وسیله نقلیه فعال";
 
 /* No comment provided by engineer. */
-"All data is fetched directly from Carris servers in real time, free of charge." = "All data is fetched directly from Carris servers in real time, free of charge.";
+"All data is fetched directly from Carris servers in real time, free of charge." = "تمام داده ها مستقیماً از سرورهای Carris در زمان واقعی و رایگان دریافت می شوند.";
 
 /* No comment provided by engineer. */
-"Allow in Settings" = "Allow in Settings";
+"Allow in Settings" = "در تنظیمات اجازه دسترسی بدهید";
 
 /* No comment provided by engineer. */
-"Allow Location Access" = "Allow Location Access";
+"Allow Location Access" = "به دسترسی موقعیت مکانی اجازه بدهید";
 
 /* No comment provided by engineer. */
 "C" = "C";
 
 /* No comment provided by engineer. */
-"Carris API is unavailable." = "Carris API is unavailable.";
+"Carris API is unavailable." = "Carris API در دسترس نمیباشد";
 
 /* No comment provided by engineer. */
-"Choose a Route Number" = "Choose a Route Number";
+"Choose a Route Number" = "لطفا شماره مسیر را انتخاب کنید ";
 
 /* No comment provided by engineer. */
-"Close" = "Close";
+"Close" = "بستن";
 
 /* No comment provided by engineer. */
-"Connection Error" = "Connection Error";
+"Connection Error" = "خطای اتصال";
 
 /* No comment provided by engineer. */
-"Direction" = "Direction";
+"Direction" = "مسیر";
 
 /* No comment provided by engineer. */
-"Enter a Stop Number" = "Enter a Stop Number";
+"Enter a Stop Number" = "یک شماره توقف وارد کنید";
 
 /* No comment provided by engineer. */
-"Estimated" = "Estimated";
+"Estimated" = "تخمینی";
 
 /* No comment provided by engineer. */
-"Favorites" = "Favorites";
+"Favorites" = "مورد علاقه ها";
 
 /* No comment provided by engineer. */
-"Find Routes" = "Find Routes";
+"Find Routes" = "مسیرها را پیدا کنید";
 
 /* No comment provided by engineer. */
-"GeoBus can show you where you are in the map, if you allow it." = "GeoBus can show you where you are in the map, if you allow it.";
+"GeoBus can show you where you are in the map, if you allow it." = "اگر اجازه دهید GeoBus می تواند به شما نشان دهد که در نقشه کجا هستید.";
 
 /* No comment provided by engineer. */
-"GeoBus will keep them updated in the background automatically." = "GeoBus will keep them updated in the background automatically.";
+"GeoBus will keep them updated in the background automatically." = "GeoBus آنها را به طور خودکار در پس زمینه به روز نگه می دارد.";
 
 /* No comment provided by engineer. */
-"GitHub" = "GitHub";
+"GitHub" = "Github";
 
 /* No comment provided by engineer. */
-"GPS updated %@ ago" = "GPS updated %@ ago";
+"GPS updated %@ ago" = "GPS %@ پیش به‌روزرسانی شد";
 
 /* No comment provided by engineer. */
-"I'll be delighted to know your opinion." = "I'll be delighted to know your opinion.";
+"I'll be delighted to know your opinion." = "خوشحال میشم نظر شما رو بدونم.";
 
 /* No comment provided by engineer. */
-"I'll do my best to keep the app working flawlessly for as long as possible." = "I'll do my best to keep the app working flawlessly for as long as possible.";
+"I'll do my best to keep the app working flawlessly for as long as possible." = "تمام تلاشم را می‌کنم تا برنامه تا زمانی که ممکن است بدون نقص کار کند.";
 
 /* No comment provided by engineer. */
-"If the error persists, the only option is to wait and try again later. Unfortunately the app cannot function without this first step." = "If the error persists, the only option is to wait and try again later. Unfortunately the app cannot function without this first step.";
+"If the error persists, the only option is to wait and try again later. Unfortunately the app cannot function without this first step." = "اگر خطا ادامه داشت، تنها گزینه این است که صبر کنید و بعداً دوباره امتحان کنید. متأسفانه برنامه بدون این مرحله اول نمی تواند کار کند.";
 
 /* No comment provided by engineer. */
-"in ±" = "in ±";
+"in ±" = "در ±";
 
 /* No comment provided by engineer. */
-"It's probably because their servers are down. In this case, the best option is to wait and try again later :/" = "It's probably because their servers are down. In this case, the best option is to wait and try again later :/";
+"It's probably because their servers are down. In this case, the best option is to wait and try again later :/" = "احتمالاً به این دلیل است که سرورهای آنها از کار افتاده است. در این مورد، بهترین گزینه این است که صبر کنید و بعداً دوباره امتحان کنید";
 
 /* No comment provided by engineer. */
-"Live" = "Live";
+"Live" = "زنده";
 
 /* No comment provided by engineer. */
-"Live Data" = "Live Data";
+"Live Data" = "داده ی زنده";
 
 /* No comment provided by engineer. */
-"Live data is provided by Carris free of charge." = "Live data is provided by Carris free of charge.";
+"Live data is provided by Carris free of charge." = "داده های زنده توسط Carris به صورت رایگان ارائه می شود.";
 
 /* No comment provided by engineer. */
-"Loading..." = "Loading...";
+"Loading..." = "درحال بارگزاری...";
 
 /* No comment provided by engineer. */
-"Neighborhood Buses" = "Neighborhood Buses";
+"Neighborhood Buses" = "اتوبوس های محله";
 
 /* No comment provided by engineer. */
-"Next on this stop:" = "Next on this stop:";
+"Next on this stop:" = "توقف بعدی:";
 
 /* No comment provided by engineer. */
-"Night Buses" = "Night Buses";
+"Night Buses" = "اتوبوس های شبانه";
 
 /* No comment provided by engineer. */
-"No estimations available for this stop." = "No estimations available for this stop.";
+"No estimations available for this stop." = "هیچ تخمینی برای این ایستگاه در دسترس نمیباشد.";
 
 /* No comment provided by engineer. */
-"Olá 👋" = "Olá 👋";
+"Olá 👋" = "سلام 👋";
 
 /* No comment provided by engineer. */
-"Open to Feedback" = "Open to Feedback";
+"Open to Feedback" = "برای بازخورد باز کنید";
 
 /* No comment provided by engineer. */
-"P" = "P";
+"P" = "پ";
 
 /* No comment provided by engineer. */
-"Please try again." = "Please try again.";
+"Please try again." = "لطفا دوباره امتحان کنید.";
 
 /* No comment provided by engineer. */
-"Please wait a few seconds." = "Please wait a few seconds.";
+"Please wait a few seconds." = "لطفا چند ثانیه صبر کنید.";
 
 /* No comment provided by engineer. */
-"Please wait a moment while routes and stops are synced with Carris." = "Please wait a moment while routes and stops are synced with Carris.";
+"Please wait a moment while routes and stops are synced with Carris." = "لطفاً کمی صبر کنید تا مسیرها و توقف‌ها با Carris همگام شوند.";
 
 /* No comment provided by engineer. */
-"Please wait..." = "Please wait...";
+"Please wait..." = "لطفا صبر کنید...";
 
 /* No comment provided by engineer. */
-"Pro tip: tap and hold the location button to zoom in to street level!" = "Pro tip: tap and hold the location button to zoom in to street level!";
+"Pro tip: tap and hold the location button to zoom in to street level!" = "نکته حرفه ای: برای بزرگنمایی تا سطح خیابان، روی دکمه مکان ضربه بزنید و نگه دارید!";
 
 /* No comment provided by engineer. */
-"Regular Service" = "Regular Service";
+"Regular Service" = "سرویس منظم";
 
 /* No comment provided by engineer. */
-"Route Details" = "Route Details";
+"Route Details" = "جزئیات مسیر";
 
 /* No comment provided by engineer. */
-"Routes and Stops are synced." = "Routes and Stops are synced.";
+"Routes and Stops are synced." = "مسیرها و توقف ها همگام سازی شدند.";
 
 /* No comment provided by engineer. */
-"Search Stop" = "Search Stop";
+"Search Stop" = "جستجوی ایستگاه";
 
 /* No comment provided by engineer. */
-"Send an Email" = "Send an Email";
+"Send an Email" = "یک نامه ی پستی ارسال کنید";
 
 /* No comment provided by engineer. */
-"Send me a message if you need help with GeoBus, or have any ideas to improve it." = "Send me a message if you need help with GeoBus, or have any ideas to improve it.";
+"Send me a message if you need help with GeoBus, or have any ideas to improve it." = "اگر در مورد GeoBus به کمک نیاز دارید یا ایده ای برای بهبود آن دارید، به من پیام ارسال کنید.";
 
 /* No comment provided by engineer. */
-"Service Unavailable" = "Service Unavailable";
+"Service Unavailable" = "سرویس در دسترس نیست";
 
 /* No comment provided by engineer. */
-"Share GeoBus" = "Share GeoBus";
+"Share GeoBus" = "GeoBus را به اشتراک بگذارید";
 
 /* No comment provided by engineer. */
-"Share GeoBus with your friends and family!" = "Share GeoBus with your friends and family!";
+"Share GeoBus with your friends and family!" = "GeoBus را با دوستان و خانواده خود به اشتراک بگذارید!";
 
 /* No comment provided by engineer. */
-"Sometimes their service is unavailable or changes unexpectedly. In this situations, the only option is to wait and try again later." = "Sometimes their service is unavailable or changes unexpectedly. In this situations, the only option is to wait and try again later.";
+"Sometimes their service is unavailable or changes unexpectedly. In this situations, the only option is to wait and try again later." = "گاهی اوقات سرویس آنها در دسترس نیست یا به طور غیرمنتظره ای تغییر می کند. در این شرایط، تنها گزینه این است که صبر کنید و بعداً دوباره امتحان کنید.";
 
 /* No comment provided by engineer. */
-"Spread the Love" = "Spread the Love";
+"Spread the Love" = "عشق را گسترش دهید ";
 
 /* No comment provided by engineer. */
-"Thanks for using GeoBus!" = "Thanks for using GeoBus!";
+"Thanks for using GeoBus!" = "با تشکر از استفاده از GeoBus!";
 
 /* No comment provided by engineer. */
-"The more people using it the more likely it will keep working." = "The more people using it the more likely it will keep working.";
+"The more people using it the more likely it will keep working." = "هرچه افراد بیشتری از آن استفاده کنند، احتمال ادامه کار آن بیشتر است.";
 
 /* No comment provided by engineer. */
-"The route you entered is not available." = "The route you entered is not available.";
+"The route you entered is not available." = "مسیری که وارد کردید در دسترس نیست.";
 
 /* No comment provided by engineer. */
-"The stop you entered is not available." = "The stop you entered is not available.";
+"The stop you entered is not available." = "ایستگاهی که وارد کردید در دسترس نیست.";
 
 /* No comment provided by engineer. */
-"This is a circular route." = "This is a circular route.";
+"This is a circular route." = "این یک مسیر دایره ای است.";
 
 /* No comment provided by engineer. */
-"This route may have %lld alternative paths." = "This route may have %lld alternative paths.";
+"This route may have %lld alternative paths." = "این مسیر ممکن است %lld مسیر جایگزین داشته باشد.";
 
 /* No comment provided by engineer. */
-"This should take about a minute." = "This should take about a minute.";
+"This should take about a minute." = "این باید حدود یک دقیقه طول بکشد.";
 
 /* No comment provided by engineer. */
-"This should take less than a minute and only happens this once." = "This should take less than a minute and only happens this once.";
+"This should take less than a minute and only happens this once." = "این باید کمتر از یک دقیقه طول بکشد و فقط یک بار اتفاق می افتد.";
 
 /* No comment provided by engineer. */
-"This will only happen once." = "This will only happen once.";
+"This will only happen once." = "این فقط یک بار اتفاق می افتد.";
 
 /* No comment provided by engineer. */
-"to" = "to";
+"to" = "به";
 
 /* No comment provided by engineer. */
-"to: %@" = "to: %@";
+"to: %@" = "به: %@";
 
 /* No comment provided by engineer. */
-"Trams" = "Trams";
+"Trams" = "تراموا";
 
 /* No comment provided by engineer. */
-"Try Again" = "Try Again";
+"Try Again" = "دوباره امتحان کنید ";
 
 /* No comment provided by engineer. */
-"Twitter" = "Twitter";
+"Twitter" = "توییتر";
 
 /* No comment provided by engineer. */
-"Unfortunately it was not possible to retrieve information from Carris." = "Unfortunately it was not possible to retrieve information from Carris.";
+"Unfortunately it was not possible to retrieve information from Carris." = "متأسفانه امکان بازیابی اطلاعات از Carris وجود نداشت.";
 
 /* No comment provided by engineer. */
-"Up to Date" = "Up to Date";
+"Up to Date" = "به روز رسانی شده";
 
 /* No comment provided by engineer. */
-"Updating Routes..." = "Updating Routes...";
+"Updating Routes..." = "به روز رسانی مسیرها...";
 
 /* No comment provided by engineer. */
-"v%@-%@" = "v%@-%@";
+"v%@-%@" = "و%@-%@";
 
 /* No comment provided by engineer. */
 "vehicle in circulation" = "vehicle in circulation";
 
 /* No comment provided by engineer. */
-"vehicles in circulation" = "vehicles in circulation";
+"vehicles in circulation" = "وسایل نقلیه در گردش";
 
 /* No comment provided by engineer. */
-"Visit the Website" = "Visit the Website";
+"Visit the Website" = "به وب سایت سربزنید";
 
 /* No comment provided by engineer. */
-"You have no favorite routes." = "You have no favorite routes.";
+"You have no favorite routes." = "شما هیچ مسیر مورد علاقه ای ندارید.";
 
 /* No comment provided by engineer. */
-"You have to allow location access so that GeoBus can show where you are on the map." = "You have to allow location access so that GeoBus can show where you are on the map.";
+"You have to allow location access so that GeoBus can show where you are on the map." = "شما باید اجازه دسترسی به موقعیت مکانی را بدهید تا GeoBus بتواند مکان شما را روی نقشه نشان دهد.";
 
 /* No comment provided by engineer. */
-"Your Location" = "Your Location";
+"Your Location" = "موقعیت مکانی شما";
 
 /* No comment provided by engineer. */
-"Your privacy is respected, it will not leave your device or be sold to anyone." = "Your privacy is respected, it will not leave your device or be sold to anyone.";
+"Your privacy is respected, it will not leave your device or be sold to anyone." = "حریم خصوصی شما محترم است، دستگاه شما را ترک نمی کند و به کسی فروخته نمی شود.";
