@@ -38,7 +38,7 @@
 "Carris API is unavailable." = "Carris-Server ist nicht verfügbar.";
 
 /* No comment provided by engineer. */
-"Choose a Route Number" = "Wählen Sie eine Route";
+"Choose a Route Number" = "Wählen sie eine Route";
 
 /* No comment provided by engineer. */
 "Close" = "Schließen";
@@ -53,7 +53,7 @@
 "Enter a Stop Number" = "Nummer der Haltestelle eingeben";
 
 /* No comment provided by engineer. */
-"Estimated" = "voraussichtlich";
+"Estimated" = "Voraussichtlich";
 
 /* No comment provided by engineer. */
 "Favorites" = "Favoriten";
@@ -152,7 +152,7 @@
 "Send an Email" = "E-Mail senden";
 
 /* No comment provided by engineer. */
-"Send me a message if you need help with GeoBus, or have any ideas to improve it." = "Schick mir eine Nachricht, wenn du Hilfe bei GeoBus benötigst oder Ideen hast, um es zu verbessern.";
+"Send me a message if you need help with GeoBus, or have any ideas to improve it." = "Schicken sie mir eine Nachricht, wenn sie Hilfe bei GeoBus benötigen oder wenn sie Ideen haben, um es zu verbessern.";
 
 /* No comment provided by engineer. */
 "Service Unavailable" = "Dienst nicht verfügbar";
