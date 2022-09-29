@@ -5,241 +5,241 @@
 "_ _ _ _ _" = "_ _ _ _ _";
 
 /* No comment provided by engineer. */
-"(ex: 28E or 758)" = "(ex: 28E or 758)";
+"(ex: 28E or 758)" = "(наприклад: 28E або 758)";
 
 /* No comment provided by engineer. */
 "(ex: C 10512)" = "(ex: C 10512)";
 
 /* No comment provided by engineer. */
-"%lld active vehicles" = "%lld active vehicles";
+"%lld active vehicles" = "%lld активних автомобілів";
 
 /* No comment provided by engineer. */
-"%lld Routes left..." = "%lld Routes left...";
+"%lld Routes left..." = "%lld маршрутів вийшло...";
 
 /* No comment provided by engineer. */
-"← Choose a Route" = "← Choose a Route";
+"← Choose a Route" = "← Оберіть маршрут";
 
 /* No comment provided by engineer. */
-"1 active vehicle" = "1 active vehicle";
+"1 active vehicle" = "1 активний автомобіль";
 
 /* No comment provided by engineer. */
-"All data is fetched directly from Carris servers in real time, free of charge." = "All data is fetched directly from Carris servers in real time, free of charge.";
+"All data is fetched directly from Carris servers in real time, free of charge." = "Всі дані отримані безпосередньо з серверів Carris в реальному часі, безкоштовно від зарядки.";
 
 /* No comment provided by engineer. */
-"Allow in Settings" = "Allow in Settings";
+"Allow in Settings" = "Дозволити в налаштуваннях";
 
 /* No comment provided by engineer. */
-"Allow Location Access" = "Allow Location Access";
+"Allow Location Access" = "Дозволити доступ до місцезнаходження";
 
 /* No comment provided by engineer. */
-"C" = "C";
+"C" = "До";
 
 /* No comment provided by engineer. */
-"Carris API is unavailable." = "Carris API is unavailable.";
+"Carris API is unavailable." = "Carris API недоступний.";
 
 /* No comment provided by engineer. */
-"Choose a Route Number" = "Choose a Route Number";
+"Choose a Route Number" = "Вибрати номер маршруту";
 
 /* No comment provided by engineer. */
-"Close" = "Close";
+"Close" = "Закрити";
 
 /* No comment provided by engineer. */
-"Connection Error" = "Connection Error";
+"Connection Error" = "Помилка підключення";
 
 /* No comment provided by engineer. */
-"Direction" = "Direction";
+"Direction" = "Напрямок";
 
 /* No comment provided by engineer. */
-"Enter a Stop Number" = "Enter a Stop Number";
+"Enter a Stop Number" = "Введіть номер зупинки";
 
 /* No comment provided by engineer. */
-"Estimated" = "Estimated";
+"Estimated" = "За оцінками";
 
 /* No comment provided by engineer. */
-"Favorites" = "Favorites";
+"Favorites" = "Вподобання";
 
 /* No comment provided by engineer. */
-"Find Routes" = "Find Routes";
+"Find Routes" = "Знайти маршрути";
 
 /* No comment provided by engineer. */
-"GeoBus can show you where you are in the map, if you allow it." = "GeoBus can show you where you are in the map, if you allow it.";
+"GeoBus can show you where you are in the map, if you allow it." = "GeoBus може показати вам, де ви перебуваєте на мапі, якщо ви дозволяєте.";
 
 /* No comment provided by engineer. */
-"GeoBus will keep them updated in the background automatically." = "GeoBus will keep them updated in the background automatically.";
+"GeoBus will keep them updated in the background automatically." = "GeoBus буде тримати їх оновленнями у фоновому режимі.";
 
 /* No comment provided by engineer. */
 "GitHub" = "GitHub";
 
 /* No comment provided by engineer. */
-"GPS updated %@ ago" = "GPS updated %@ ago";
+"GPS updated %@ ago" = "Оновлено %@ тому";
 
 /* No comment provided by engineer. */
-"I'll be delighted to know your opinion." = "I'll be delighted to know your opinion.";
+"I'll be delighted to know your opinion." = "Я буду радий дізнатися вашу думку.";
 
 /* No comment provided by engineer. */
-"I'll do my best to keep the app working flawlessly for as long as possible." = "I'll do my best to keep the app working flawlessly for as long as possible.";
+"I'll do my best to keep the app working flawlessly for as long as possible." = "Я зроблю все можливе, щоб додаток працював бездоганно якомога довше.";
 
 /* No comment provided by engineer. */
-"If the error persists, the only option is to wait and try again later. Unfortunately the app cannot function without this first step." = "If the error persists, the only option is to wait and try again later. Unfortunately the app cannot function without this first step.";
+"If the error persists, the only option is to wait and try again later. Unfortunately the app cannot function without this first step." = "Якщо помилка повторюється, зачекайте будь ласка спробуйте пізніше. Нажаль, програма не зможе працювати без першого кроку.";
 
 /* No comment provided by engineer. */
-"in ±" = "in ±";
+"in ±" = "в класифікованих";
 
 /* No comment provided by engineer. */
-"It's probably because their servers are down. In this case, the best option is to wait and try again later :/" = "It's probably because their servers are down. In this case, the best option is to wait and try again later :/";
+"It's probably because their servers are down. In this case, the best option is to wait and try again later :/" = "Скоріш за все їх сервери відсутні. У такому випадку найкращий варіант - чекати та спробувати пізніше :/";
 
 /* No comment provided by engineer. */
-"Live" = "Live";
+"Live" = "Наживо";
 
 /* No comment provided by engineer. */
-"Live Data" = "Live Data";
+"Live Data" = "Живі дані";
 
 /* No comment provided by engineer. */
-"Live data is provided by Carris free of charge." = "Live data is provided by Carris free of charge.";
+"Live data is provided by Carris free of charge." = "Живі дані надаються Carris безкоштовно.";
 
 /* No comment provided by engineer. */
-"Loading..." = "Loading...";
+"Loading..." = "Завантажується...";
 
 /* No comment provided by engineer. */
-"Neighborhood Buses" = "Neighborhood Buses";
+"Neighborhood Buses" = "Сусіді Автобуси";
 
 /* No comment provided by engineer. */
-"Next on this stop:" = "Next on this stop:";
+"Next on this stop:" = "Далі при цій зупинці:";
 
 /* No comment provided by engineer. */
-"Night Buses" = "Night Buses";
+"Night Buses" = "Нічні буси";
 
 /* No comment provided by engineer. */
-"No estimations available for this stop." = "No estimations available for this stop.";
+"No estimations available for this stop." = "Немає оцінок, доступних на цю зупинку.";
 
 /* No comment provided by engineer. */
-"Olá 👋" = "Olá 👋";
+"Olá 👋" = "Ola<unk> 👋";
 
 /* No comment provided by engineer. */
-"Open to Feedback" = "Open to Feedback";
+"Open to Feedback" = "Відкрити для зворотнього зв'язку";
 
 /* No comment provided by engineer. */
-"P" = "P";
+"P" = "Пн";
 
 /* No comment provided by engineer. */
-"Please try again." = "Please try again.";
+"Please try again." = "Спробуйте ще раз.";
 
 /* No comment provided by engineer. */
-"Please wait a few seconds." = "Please wait a few seconds.";
+"Please wait a few seconds." = "Будь ласка, зачекайте кілька секунд.";
 
 /* No comment provided by engineer. */
-"Please wait a moment while routes and stops are synced with Carris." = "Please wait a moment while routes and stops are synced with Carris.";
+"Please wait a moment while routes and stops are synced with Carris." = "Зачекайте, поки маршрути і зупинки синхронізуються з Каррисом.";
 
 /* No comment provided by engineer. */
-"Please wait..." = "Please wait...";
+"Please wait..." = "Зачекайте будь ласка...";
 
 /* No comment provided by engineer. */
-"Pro tip: tap and hold the location button to zoom in to street level!" = "Pro tip: tap and hold the location button to zoom in to street level!";
+"Pro tip: tap and hold the location button to zoom in to street level!" = "Підказка: натисніть і утримуйте кнопку локації, щоб збільшити до рівня вулиці!";
 
 /* No comment provided by engineer. */
-"Regular Service" = "Regular Service";
+"Regular Service" = "Звичайний сервіс";
 
 /* No comment provided by engineer. */
-"Route Details" = "Route Details";
+"Route Details" = "Подробиці маршруту";
 
 /* No comment provided by engineer. */
-"Routes and Stops are synced." = "Routes and Stops are synced.";
+"Routes and Stops are synced." = "Маршрути та зупинки синхронізовані.";
 
 /* No comment provided by engineer. */
-"Search Stop" = "Search Stop";
+"Search Stop" = "Пошук зупинок";
 
 /* No comment provided by engineer. */
-"Send an Email" = "Send an Email";
+"Send an Email" = "Надіслати ел. листа";
 
 /* No comment provided by engineer. */
-"Send me a message if you need help with GeoBus, or have any ideas to improve it." = "Send me a message if you need help with GeoBus, or have any ideas to improve it.";
+"Send me a message if you need help with GeoBus, or have any ideas to improve it." = "Відправляйте мені повідомлення, якщо вам потрібна допомога з GeoBus, або ви маєте будь-які ідеї для вдосконалення.";
 
 /* No comment provided by engineer. */
-"Service Unavailable" = "Service Unavailable";
+"Service Unavailable" = "Сервіс недоступний";
 
 /* No comment provided by engineer. */
 "Share GeoBus" = "Share GeoBus";
 
 /* No comment provided by engineer. */
-"Share GeoBus with your friends and family!" = "Share GeoBus with your friends and family!";
+"Share GeoBus with your friends and family!" = "Діліться GeoBus з друзями та родиною!";
 
 /* No comment provided by engineer. */
-"Sometimes their service is unavailable or changes unexpectedly. In this situations, the only option is to wait and try again later." = "Sometimes their service is unavailable or changes unexpectedly. In this situations, the only option is to wait and try again later.";
+"Sometimes their service is unavailable or changes unexpectedly. In this situations, the only option is to wait and try again later." = "Іноді їх сервіс недоступний або несподівано змінюється. В цьому випадку єдиною опцією є чекати та спробуйте пізніше.";
 
 /* No comment provided by engineer. */
-"Spread the Love" = "Spread the Love";
+"Spread the Love" = "Поширюйте любов";
 
 /* No comment provided by engineer. */
-"Thanks for using GeoBus!" = "Thanks for using GeoBus!";
+"Thanks for using GeoBus!" = "Дякуємо за використання GeoBus!";
 
 /* No comment provided by engineer. */
-"The more people using it the more likely it will keep working." = "The more people using it the more likely it will keep working.";
+"The more people using it the more likely it will keep working." = "Чим більше людей використовують її, тим більше ймовірностей вона буде працювати.";
 
 /* No comment provided by engineer. */
-"The route you entered is not available." = "The route you entered is not available.";
+"The route you entered is not available." = "Обраний вами маршрут недоступний.";
 
 /* No comment provided by engineer. */
-"The stop you entered is not available." = "The stop you entered is not available.";
+"The stop you entered is not available." = "Зупинка введена вами недоступна.";
 
 /* No comment provided by engineer. */
-"This is a circular route." = "This is a circular route.";
+"This is a circular route." = "Це круговий маршрут.";
 
 /* No comment provided by engineer. */
-"This route may have %lld alternative paths." = "This route may have %lld alternative paths.";
+"This route may have %lld alternative paths." = "Цей маршрут може мати %lld альтернативних шляхів.";
 
 /* No comment provided by engineer. */
-"This should take about a minute." = "This should take about a minute.";
+"This should take about a minute." = "Це має зайняти близько хвилини.";
 
 /* No comment provided by engineer. */
-"This should take less than a minute and only happens this once." = "This should take less than a minute and only happens this once.";
+"This should take less than a minute and only happens this once." = "Це займе менше хвилини і тільки станеться цього разу.";
 
 /* No comment provided by engineer. */
-"This will only happen once." = "This will only happen once.";
+"This will only happen once." = "Це станеться лише один раз.";
 
 /* No comment provided by engineer. */
-"to" = "to";
+"to" = "по";
 
 /* No comment provided by engineer. */
-"to: %@" = "to: %@";
+"to: %@" = "до: %@";
 
 /* No comment provided by engineer. */
-"Trams" = "Trams";
+"Trams" = "Трамвай";
 
 /* No comment provided by engineer. */
-"Try Again" = "Try Again";
+"Try Again" = "Спробуйте ще раз";
 
 /* No comment provided by engineer. */
-"Twitter" = "Twitter";
+"Twitter" = "Твіттер";
 
 /* No comment provided by engineer. */
-"Unfortunately it was not possible to retrieve information from Carris." = "Unfortunately it was not possible to retrieve information from Carris.";
+"Unfortunately it was not possible to retrieve information from Carris." = "На жаль, отримання інформації з Керрізсу неможливе.";
 
 /* No comment provided by engineer. */
-"Up to Date" = "Up to Date";
+"Up to Date" = "Теперішня версія";
 
 /* No comment provided by engineer. */
-"Updating Routes..." = "Updating Routes...";
+"Updating Routes..." = "Оновлення маршрутів...";
 
 /* No comment provided by engineer. */
 "v%@-%@" = "v%@-%@";
 
 /* No comment provided by engineer. */
-"vehicle in circulation" = "vehicle in circulation";
+"vehicle in circulation" = "засіб в обігу";
 
 /* No comment provided by engineer. */
-"vehicles in circulation" = "vehicles in circulation";
+"vehicles in circulation" = "автомобілі в обігу";
 
 /* No comment provided by engineer. */
-"Visit the Website" = "Visit the Website";
+"Visit the Website" = "Відвідати веб-сайт";
 
 /* No comment provided by engineer. */
-"You have no favorite routes." = "You have no favorite routes.";
+"You have no favorite routes." = "У вас немає улюблених маршрутів.";
 
 /* No comment provided by engineer. */
-"You have to allow location access so that GeoBus can show where you are on the map." = "You have to allow location access so that GeoBus can show where you are on the map.";
+"You have to allow location access so that GeoBus can show where you are on the map." = "Ви повинні дозволити доступ до місцезнаходження, щоб GeoBus показав, де ви знаходитесь на карті.";
 
 /* No comment provided by engineer. */
-"Your Location" = "Your Location";
+"Your Location" = "Ваше місцезнаходження";
 
 /* No comment provided by engineer. */
-"Your privacy is respected, it will not leave your device or be sold to anyone." = "Your privacy is respected, it will not leave your device or be sold to anyone.";
+"Your privacy is respected, it will not leave your device or be sold to anyone." = "Ваша конфіденційність дотримується, вона не залишить ваш пристрій або не буде продана будь-кому.";
