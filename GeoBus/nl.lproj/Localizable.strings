@@ -5,241 +5,241 @@
 "_ _ _ _ _" = "_ _ _ _ _";
 
 /* No comment provided by engineer. */
-"(ex: 28E or 758)" = "(ex: 28E or 758)";
+"(ex: 28E or 758)" = "(bijv.: 28E of 758)";
 
 /* No comment provided by engineer. */
 "(ex: C 10512)" = "(ex: C 10512)";
 
 /* No comment provided by engineer. */
-"%lld active vehicles" = "%lld active vehicles";
+"%lld active vehicles" = "%lld actieve voertuigen";
 
 /* No comment provided by engineer. */
-"%lld Routes left..." = "%lld Routes left...";
+"%lld Routes left..." = "%lld Routes over...";
 
 /* No comment provided by engineer. */
-"← Choose a Route" = "← Choose a Route";
+"← Choose a Route" = "¦ Kies een route";
 
 /* No comment provided by engineer. */
-"1 active vehicle" = "1 active vehicle";
+"1 active vehicle" = "1 actief voertuig";
 
 /* No comment provided by engineer. */
-"All data is fetched directly from Carris servers in real time, free of charge." = "All data is fetched directly from Carris servers in real time, free of charge.";
+"All data is fetched directly from Carris servers in real time, free of charge." = "Alle gegevens worden in realtime rechtstreeks van de Carris servers opgehaald, kosteloos.";
 
 /* No comment provided by engineer. */
-"Allow in Settings" = "Allow in Settings";
+"Allow in Settings" = "Toestaan in Instellingen";
 
 /* No comment provided by engineer. */
-"Allow Location Access" = "Allow Location Access";
+"Allow Location Access" = "Locatietoegang toestaan";
 
 /* No comment provided by engineer. */
 "C" = "C";
 
 /* No comment provided by engineer. */
-"Carris API is unavailable." = "Carris API is unavailable.";
+"Carris API is unavailable." = "Carris API is niet beschikbaar.";
 
 /* No comment provided by engineer. */
-"Choose a Route Number" = "Choose a Route Number";
+"Choose a Route Number" = "Kies een routenummer";
 
 /* No comment provided by engineer. */
-"Close" = "Close";
+"Close" = "Afsluiten";
 
 /* No comment provided by engineer. */
-"Connection Error" = "Connection Error";
+"Connection Error" = "Verbindingsfout";
 
 /* No comment provided by engineer. */
-"Direction" = "Direction";
+"Direction" = "Richting";
 
 /* No comment provided by engineer. */
-"Enter a Stop Number" = "Enter a Stop Number";
+"Enter a Stop Number" = "Voer een Stop Nummer in";
 
 /* No comment provided by engineer. */
-"Estimated" = "Estimated";
+"Estimated" = "Geschat";
 
 /* No comment provided by engineer. */
-"Favorites" = "Favorites";
+"Favorites" = "Favorieten";
 
 /* No comment provided by engineer. */
-"Find Routes" = "Find Routes";
+"Find Routes" = "Zoek routes";
 
 /* No comment provided by engineer. */
-"GeoBus can show you where you are in the map, if you allow it." = "GeoBus can show you where you are in the map, if you allow it.";
+"GeoBus can show you where you are in the map, if you allow it." = "GeoBus kan je laten zien waar je bent in de kaart, als je het toestaat.";
 
 /* No comment provided by engineer. */
-"GeoBus will keep them updated in the background automatically." = "GeoBus will keep them updated in the background automatically.";
+"GeoBus will keep them updated in the background automatically." = "GeoBus zal ze automatisch op de achtergrond op de hoogte houden.";
 
 /* No comment provided by engineer. */
 "GitHub" = "GitHub";
 
 /* No comment provided by engineer. */
-"GPS updated %@ ago" = "GPS updated %@ ago";
+"GPS updated %@ ago" = "GPS bijgewerkt %@ geleden";
 
 /* No comment provided by engineer. */
-"I'll be delighted to know your opinion." = "I'll be delighted to know your opinion.";
+"I'll be delighted to know your opinion." = "Ik ben blij om je mening te horen.";
 
 /* No comment provided by engineer. */
-"I'll do my best to keep the app working flawlessly for as long as possible." = "I'll do my best to keep the app working flawlessly for as long as possible.";
+"I'll do my best to keep the app working flawlessly for as long as possible." = "Ik zal mijn best doen om de app zo lang mogelijk zonder problemen te laten werken.";
 
 /* No comment provided by engineer. */
-"If the error persists, the only option is to wait and try again later. Unfortunately the app cannot function without this first step." = "If the error persists, the only option is to wait and try again later. Unfortunately the app cannot function without this first step.";
+"If the error persists, the only option is to wait and try again later. Unfortunately the app cannot function without this first step." = "Als de fout zich blijft voordoen, is de enige optie wachten en het later opnieuw proberen. Helaas kan de app niet functioneren zonder deze eerste stap.";
 
 /* No comment provided by engineer. */
 "in ±" = "in ±";
 
 /* No comment provided by engineer. */
-"It's probably because their servers are down. In this case, the best option is to wait and try again later :/" = "It's probably because their servers are down. In this case, the best option is to wait and try again later :/";
+"It's probably because their servers are down. In this case, the best option is to wait and try again later :/" = "Het is waarschijnlijk omdat hun servers offline zijn. In dit geval is de beste optie om te wachten en het later opnieuw te proberen :/";
 
 /* No comment provided by engineer. */
-"Live" = "Live";
+"Live" = "Zichtbaar";
 
 /* No comment provided by engineer. */
-"Live Data" = "Live Data";
+"Live Data" = "Live data";
 
 /* No comment provided by engineer. */
-"Live data is provided by Carris free of charge." = "Live data is provided by Carris free of charge.";
+"Live data is provided by Carris free of charge." = "Live data wordt gratis door Carris aangeboden.";
 
 /* No comment provided by engineer. */
-"Loading..." = "Loading...";
+"Loading..." = "Laden...";
 
 /* No comment provided by engineer. */
-"Neighborhood Buses" = "Neighborhood Buses";
+"Neighborhood Buses" = "Buiging naburige buit";
 
 /* No comment provided by engineer. */
-"Next on this stop:" = "Next on this stop:";
+"Next on this stop:" = "Volgende op dit stop:";
 
 /* No comment provided by engineer. */
-"Night Buses" = "Night Buses";
+"Night Buses" = "Nacht doorsneden";
 
 /* No comment provided by engineer. */
-"No estimations available for this stop." = "No estimations available for this stop.";
+"No estimations available for this stop." = "Voor dit stopcontact zijn geen inschattingen beschikbaar.";
 
 /* No comment provided by engineer. */
-"Olá 👋" = "Olá 👋";
+"Olá 👋" = "Olaww👋";
 
 /* No comment provided by engineer. */
-"Open to Feedback" = "Open to Feedback";
+"Open to Feedback" = "Open voor feedback";
 
 /* No comment provided by engineer. */
 "P" = "P";
 
 /* No comment provided by engineer. */
-"Please try again." = "Please try again.";
+"Please try again." = "Probeer het opnieuw.";
 
 /* No comment provided by engineer. */
-"Please wait a few seconds." = "Please wait a few seconds.";
+"Please wait a few seconds." = "Wacht alstublieft een paar seconden.";
 
 /* No comment provided by engineer. */
-"Please wait a moment while routes and stops are synced with Carris." = "Please wait a moment while routes and stops are synced with Carris.";
+"Please wait a moment while routes and stops are synced with Carris." = "Wacht even terwijl routes en stops worden gesynchroniseerd met Carris.";
 
 /* No comment provided by engineer. */
-"Please wait..." = "Please wait...";
+"Please wait..." = "Een ogenblik geduld...";
 
 /* No comment provided by engineer. */
-"Pro tip: tap and hold the location button to zoom in to street level!" = "Pro tip: tap and hold the location button to zoom in to street level!";
+"Pro tip: tap and hold the location button to zoom in to street level!" = "Pro tip: tik en houd de locatie-knop ingedrukt om in te zoomen op straatniveau!";
 
 /* No comment provided by engineer. */
-"Regular Service" = "Regular Service";
+"Regular Service" = "Normale service";
 
 /* No comment provided by engineer. */
-"Route Details" = "Route Details";
+"Route Details" = "Details route";
 
 /* No comment provided by engineer. */
-"Routes and Stops are synced." = "Routes and Stops are synced.";
+"Routes and Stops are synced." = "Routes en Stops worden gesynchroniseerd.";
 
 /* No comment provided by engineer. */
-"Search Stop" = "Search Stop";
+"Search Stop" = "Zoek stop";
 
 /* No comment provided by engineer. */
-"Send an Email" = "Send an Email";
+"Send an Email" = "Stuur een e-mail";
 
 /* No comment provided by engineer. */
-"Send me a message if you need help with GeoBus, or have any ideas to improve it." = "Send me a message if you need help with GeoBus, or have any ideas to improve it.";
+"Send me a message if you need help with GeoBus, or have any ideas to improve it." = "Stuur me een bericht als je hulp nodig hebt met GeoBus, of als je ideeën hebt om het te verbeteren.";
 
 /* No comment provided by engineer. */
-"Service Unavailable" = "Service Unavailable";
+"Service Unavailable" = "Dienst niet beschikbaar";
 
 /* No comment provided by engineer. */
 "Share GeoBus" = "Share GeoBus";
 
 /* No comment provided by engineer. */
-"Share GeoBus with your friends and family!" = "Share GeoBus with your friends and family!";
+"Share GeoBus with your friends and family!" = "Deel GeoBus met je vrienden en familie!";
 
 /* No comment provided by engineer. */
-"Sometimes their service is unavailable or changes unexpectedly. In this situations, the only option is to wait and try again later." = "Sometimes their service is unavailable or changes unexpectedly. In this situations, the only option is to wait and try again later.";
+"Sometimes their service is unavailable or changes unexpectedly. In this situations, the only option is to wait and try again later." = "Soms is hun service niet beschikbaar of verandert ze onverwacht. In dit geval is de enige optie wachten en het later opnieuw proberen.";
 
 /* No comment provided by engineer. */
-"Spread the Love" = "Spread the Love";
+"Spread the Love" = "Verspreid de liefde";
 
 /* No comment provided by engineer. */
-"Thanks for using GeoBus!" = "Thanks for using GeoBus!";
+"Thanks for using GeoBus!" = "Bedankt voor het gebruiken van GeoBus!";
 
 /* No comment provided by engineer. */
-"The more people using it the more likely it will keep working." = "The more people using it the more likely it will keep working.";
+"The more people using it the more likely it will keep working." = "Hoe meer mensen het gebruiken, hoe waarschijnlijker het dat het zal blijven werken.";
 
 /* No comment provided by engineer. */
-"The route you entered is not available." = "The route you entered is not available.";
+"The route you entered is not available." = "De route die u hebt ingevoerd is niet beschikbaar.";
 
 /* No comment provided by engineer. */
-"The stop you entered is not available." = "The stop you entered is not available.";
+"The stop you entered is not available." = "De stop die u hebt ingevoerd is niet beschikbaar.";
 
 /* No comment provided by engineer. */
-"This is a circular route." = "This is a circular route.";
+"This is a circular route." = "Dit is een circulaire route.";
 
 /* No comment provided by engineer. */
-"This route may have %lld alternative paths." = "This route may have %lld alternative paths.";
+"This route may have %lld alternative paths." = "Deze route kan %lld alternatieve paden hebben.";
 
 /* No comment provided by engineer. */
-"This should take about a minute." = "This should take about a minute.";
+"This should take about a minute." = "Dat zou ongeveer een minuut moeten duren.";
 
 /* No comment provided by engineer. */
-"This should take less than a minute and only happens this once." = "This should take less than a minute and only happens this once.";
+"This should take less than a minute and only happens this once." = "Dit zou minder dan een minuut moeten duren en gebeurt dit maar eenmaal.";
 
 /* No comment provided by engineer. */
-"This will only happen once." = "This will only happen once.";
+"This will only happen once." = "Dit zal slechts één keer gebeuren.";
 
 /* No comment provided by engineer. */
-"to" = "to";
+"to" = "naar";
 
 /* No comment provided by engineer. */
-"to: %@" = "to: %@";
+"to: %@" = "Aan: %@";
 
 /* No comment provided by engineer. */
-"Trams" = "Trams";
+"Trams" = "Vuilen";
 
 /* No comment provided by engineer. */
-"Try Again" = "Try Again";
+"Try Again" = "Probeer opnieuw";
 
 /* No comment provided by engineer. */
 "Twitter" = "Twitter";
 
 /* No comment provided by engineer. */
-"Unfortunately it was not possible to retrieve information from Carris." = "Unfortunately it was not possible to retrieve information from Carris.";
+"Unfortunately it was not possible to retrieve information from Carris." = "Het was helaas niet mogelijk om informatie terug te krijgen bij Carris.";
 
 /* No comment provided by engineer. */
-"Up to Date" = "Up to Date";
+"Up to Date" = "Tot op heden";
 
 /* No comment provided by engineer. */
-"Updating Routes..." = "Updating Routes...";
+"Updating Routes..." = "Routes bijwerken...";
 
 /* No comment provided by engineer. */
 "v%@-%@" = "v%@-%@";
 
 /* No comment provided by engineer. */
-"vehicle in circulation" = "vehicle in circulation";
+"vehicle in circulation" = "voertuig in circulatie";
 
 /* No comment provided by engineer. */
-"vehicles in circulation" = "vehicles in circulation";
+"vehicles in circulation" = "voertuigen in het verkeer";
 
 /* No comment provided by engineer. */
-"Visit the Website" = "Visit the Website";
+"Visit the Website" = "Bezoek de website";
 
 /* No comment provided by engineer. */
-"You have no favorite routes." = "You have no favorite routes.";
+"You have no favorite routes." = "Je hebt geen favoriete routes.";
 
 /* No comment provided by engineer. */
-"You have to allow location access so that GeoBus can show where you are on the map." = "You have to allow location access so that GeoBus can show where you are on the map.";
+"You have to allow location access so that GeoBus can show where you are on the map." = "Je moet locatie toestaan zodat de GeoBus kan laten zien waar je op de kaart bent.";
 
 /* No comment provided by engineer. */
-"Your Location" = "Your Location";
+"Your Location" = "Uw locatie";
 
 /* No comment provided by engineer. */
-"Your privacy is respected, it will not leave your device or be sold to anyone." = "Your privacy is respected, it will not leave your device or be sold to anyone.";
+"Your privacy is respected, it will not leave your device or be sold to anyone." = "Uw privacy wordt gerespecteerd, het zal uw apparaat verlaten of aan niemand worden verkocht.";
