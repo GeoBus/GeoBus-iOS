@@ -4,6 +4,7 @@
 
 ## User settings
 xcuserdata/
+xcschemes/
 
 ## compatibility with Xcode 8 and earlier (ignoring not required starting Xcode 9)
 *.xcscmblueprint
@@ -94,4 +95,3 @@ iOSInjectionProject/
 
 # App Secrets
 Secrets.xcconfig
-GeoBus.xcodeproj/xcshareddata/xcschemes/GeoBus.xcscheme
