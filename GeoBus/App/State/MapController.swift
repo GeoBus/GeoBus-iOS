@@ -37,10 +37,8 @@ class MapController: ObservableObject {
 
 
    func moveMap(to newRegion: MKCoordinateRegion) {
-      DispatchQueue.main.async {
-         withAnimation(.easeIn(duration: 0.5)) {
-            self.region = newRegion
-         }
+      withAnimation(.easeIn(duration: 0.5)) {
+         self.region = newRegion
       }
    }
 
