@@ -15,7 +15,7 @@ struct StopDetailsView: View {
    
    @EnvironmentObject var estimationsController: EstimationsController
 
-   let refreshTimer = Timer.publish(every: 20 /* seconds */, on: .main, in: .common).autoconnect()
+   let refreshTimer = Timer.publish(every: 60 /* seconds */, on: .main, in: .common).autoconnect()
 
    let canToggle: Bool
    let publicId: String

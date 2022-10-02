@@ -54,6 +54,7 @@
 		CF47994F28D33E1900B56D4B /* Disclaimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF47994E28D33E1900B56D4B /* Disclaimer.swift */; };
 		CF548FF328D129B000668CB6 /* VehicleDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF6478FC28D112E800C70691 /* VehicleDetailsView.swift */; };
 		CF548FF628D14BA400668CB6 /* VehicleIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF548FF528D14BA400668CB6 /* VehicleIdentifier.swift */; };
+		CF69994C28E878ED00646582 /* EstimationsProviderCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF69994B28E878ED00646582 /* EstimationsProviderCard.swift */; };
 		CF6C917E28D3ED0A006C3F61 /* SquareButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF6C917D28D3ED0A006C3F61 /* SquareButton.swift */; };
 		CF6C918228D3F1C6006C3F61 /* MapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF6C918128D3F1C6006C3F61 /* MapController.swift */; };
 		CF6C918428D3F2C9006C3F61 /* UserLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF6C918328D3F2C9006C3F61 /* UserLocation.swift */; };
@@ -135,6 +136,7 @@
 		CF47994E28D33E1900B56D4B /* Disclaimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Disclaimer.swift; sourceTree = "<group>"; };
 		CF548FF528D14BA400668CB6 /* VehicleIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleIdentifier.swift; sourceTree = "<group>"; };
 		CF6478FC28D112E800C70691 /* VehicleDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleDetailsView.swift; sourceTree = "<group>"; };
+		CF69994B28E878ED00646582 /* EstimationsProviderCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EstimationsProviderCard.swift; sourceTree = "<group>"; };
 		CF6C917D28D3ED0A006C3F61 /* SquareButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareButton.swift; sourceTree = "<group>"; };
 		CF6C918128D3F1C6006C3F61 /* MapController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapController.swift; sourceTree = "<group>"; };
 		CF6C918328D3F2C9006C3F61 /* UserLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLocation.swift; sourceTree = "<group>"; };
@@ -391,6 +393,7 @@
 			children = (
 				CF6C918728D3FAF8006C3F61 /* AboutGeoBus.swift */,
 				CFDD014828D5114D0070FE4B /* SyncStatus.swift */,
+				CF69994B28E878ED00646582 /* EstimationsProviderCard.swift */,
 				CF82BB0628D7F166007F0CDB /* LiveDataCard.swift */,
 				CF82BB0828D7F19A007F0CDB /* LocationCard.swift */,
 				CF82BB0A28D7F1C6007F0CDB /* ShareCard.swift */,
@@ -518,6 +521,7 @@
 				CF6C918628D3F8C8006C3F61 /* StopSearch.swift in Sources */,
 				CF18207228CCBD2300248F72 /* VariantPicker.swift in Sources */,
 				CFAF0E7A28CE84F400DDAD5B /* MapAnnotations.swift in Sources */,
+				CF69994C28E878ED00646582 /* EstimationsProviderCard.swift in Sources */,
 				CF548FF328D129B000668CB6 /* VehicleDetailsView.swift in Sources */,
 				CF18203028CCBC0B00248F72 /* EstimationsController.swift in Sources */,
 				CF18200928CCBA4600248F72 /* Routes.swift in Sources */,
@@ -713,7 +717,7 @@
 				CODE_SIGN_ENTITLEMENTS = GeoBus/GeoBus.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2141;
+				CURRENT_PROJECT_VERSION = "2022.10.1-2";
 				DEVELOPMENT_ASSET_PATHS = "\"GeoBus/Preview Content\"";
 				DEVELOPMENT_TEAM = D7S2TY22W7;
 				ENABLE_PREVIEWS = YES;
@@ -732,7 +736,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.1.4;
+				MARKETING_VERSION = 2022.10.1;
 				PRODUCT_BUNDLE_IDENTIFIER = earth.joao.geobus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -753,7 +757,7 @@
 				CODE_SIGN_ENTITLEMENTS = GeoBus/GeoBus.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2141;
+				CURRENT_PROJECT_VERSION = "2022.10.1-2";
 				DEVELOPMENT_ASSET_PATHS = "\"GeoBus/Preview Content\"";
 				DEVELOPMENT_TEAM = D7S2TY22W7;
 				ENABLE_PREVIEWS = YES;
@@ -772,7 +776,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.1.4;
+				MARKETING_VERSION = 2022.10.1;
 				PRODUCT_BUNDLE_IDENTIFIER = earth.joao.geobus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

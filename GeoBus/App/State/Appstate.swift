@@ -60,6 +60,10 @@ class Appstate: ObservableObject {
       case unauthorized
       case unavailable
    }
+
+   enum CommunityAPIError: Error {
+      case unavailable
+   }
    
    func change(to newState: State, for module: Module) {
       DispatchQueue.main.async {

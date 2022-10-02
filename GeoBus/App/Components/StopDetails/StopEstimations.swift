@@ -40,24 +40,7 @@ struct StopEstimations: View {
    var estimationsList: some View {
       VStack(spacing: 12) {
          ForEach(estimations!) { estimation in
-            HStack {
-               RouteBadgePill(routeNumber: estimation.routeNumber)
-               Text("to")
-                  .font(.footnote)
-                  .foregroundColor(Color(.tertiaryLabel))
-               Text(estimation.destination)
-                  .font(.body)
-                  .fontWeight(.medium)
-                  .foregroundColor(Color(.label))
-               Spacer()
-               Text("in ±")
-                  .font(.footnote)
-                  .foregroundColor(Color(.tertiaryLabel))
-               Text(estimation.eta)
-                  .font(.body)
-                  .fontWeight(.medium)
-                  .foregroundColor(Color(.label))
-            }
+            StopEstimationRow(estimation: estimation)
          }
       }
    }
@@ -84,11 +67,50 @@ struct StopEstimations: View {
             } else {
                noResultsScreen
             }
-         } else if (appstate.estimations == .loading) {
-            loadingScreen
-         } else {
+         } else if (appstate.estimations == .error) {
             errorScreen
+         } else {
+            loadingScreen
          }
+      }
+   }
+
+}
+
+
+
+
+struct StopEstimationRow: View {
+
+   let estimation: Estimation
+   let estimatedTimeOfArrivalTimer = Timer.publish(every: 1 /* seconds */, on: .main, in: .common).autoconnect()
+
+   @State var estimatedTimeOfArrival: String = "..."
+
+   var body: some View {
+      HStack {
+         RouteBadgePill(routeNumber: estimation.routeNumber)
+         Text("to")
+            .font(.footnote)
+            .foregroundColor(Color(.tertiaryLabel))
+         Text(estimation.destination)
+            .font(.body)
+            .fontWeight(.medium)
+            .foregroundColor(Color(.label))
+         Spacer()
+         Text("in ±")
+            .font(.footnote)
+            .foregroundColor(Color(.tertiaryLabel))
+         Text(self.estimatedTimeOfArrival)
+            .font(.body)
+            .fontWeight(.medium)
+            .foregroundColor(Color(.label))
+            .onAppear() {
+               self.estimatedTimeOfArrival = Globals().getTimeString(for: estimation.eta, in: .future, style: .short, units: [.hour, .minute, .second])
+            }
+            .onReceive(estimatedTimeOfArrivalTimer) { event in
+               self.estimatedTimeOfArrival = Globals().getTimeString(for: estimation.eta, in: .future, style: .short, units: [.hour, .minute, .second])
+            }
       }
    }
 
