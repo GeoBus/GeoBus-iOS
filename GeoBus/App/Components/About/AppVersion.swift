@@ -11,11 +11,10 @@ struct AppVersion: View {
 
    @Environment(\.colorScheme) var colorScheme: ColorScheme
 
-   private let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "?"
    private let appBuild = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "?"
 
    var body: some View {
-      Text("v\(appVersion)-\(appBuild)")
+      Text(appBuild)
          .font(Font.system(size: 10, weight: .medium, design: .default) )
          .foregroundColor(Color(.secondaryLabel))
          .padding(.vertical, 2)
