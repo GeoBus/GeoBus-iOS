@@ -50,7 +50,11 @@ struct MapView: View {
          }
       }
       .onChange(of: vehiclesController.vehicles) { newVehiclesList in
-         mapController.updateAnnotations(with: newVehiclesList)
+         DispatchQueue.main.async {
+            withAnimation(.easeIn(duration: 5)) {
+               mapController.updateAnnotations(with: newVehiclesList)
+            }
+         }
       }
    }
 

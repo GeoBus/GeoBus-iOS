@@ -133,17 +133,33 @@ class MapController: ObservableObject {
 
    func updateAnnotations(with vehiclesList: [VehicleSummary]) {
 
-      vehicleAnnotations = []
+//      vehicleAnnotations = []
 
       for vehicle in vehiclesList {
-         vehicleAnnotations.append(
-            GenericMapAnnotation(lat: vehicle.lat, lng: vehicle.lng, format: .vehicle, vehicle: vehicle)
-         )
+         let indexOfVehicleAnnotation = visibleAnnotations.firstIndex {
+            $0.id == vehicle.busNumber
+         }
+
+         if (indexOfVehicleAnnotation != nil) {
+            self.visibleAnnotations[indexOfVehicleAnnotation!]
+
+//               .location = CLLocationCoordinate2D(
+//               latitude: vehicle.lat, longitude: vehicle.lng
+//            )
+         } else {
+            visibleAnnotations.append(GenericMapAnnotation(lat: vehicle.lat, lng: vehicle.lng, format: .vehicle, vehicle: vehicle))
+         }
       }
 
-      visibleAnnotations.removeAll()
-      visibleAnnotations.append(contentsOf: stopAnnotations)
-      visibleAnnotations.append(contentsOf: vehicleAnnotations)
+      //      for vehicle in vehiclesList {
+      //         vehicleAnnotations.append(
+//            GenericMapAnnotation(lat: vehicle.lat, lng: vehicle.lng, format: .vehicle, vehicle: vehicle)
+//         )
+//      }
+
+//      visibleAnnotations.removeAll()
+//      visibleAnnotations.append(contentsOf: stopAnnotations)
+//      visibleAnnotations.append(contentsOf: vehicleAnnotations)
 
    }
 

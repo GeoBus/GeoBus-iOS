@@ -26,7 +26,7 @@ struct APIStop: Decodable {
 
 /* MARK: - Stop */
 
-// Data models adjusted for the app.
+// Data model adjusted for the app.
 
 struct Stop: Codable, Equatable, Identifiable {
    let publicId: String
