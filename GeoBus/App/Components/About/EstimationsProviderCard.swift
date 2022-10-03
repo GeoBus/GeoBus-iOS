@@ -24,7 +24,8 @@ struct EstimationsProviderCard: View {
                .font(Font.system(size: 25))
                .foregroundColor(cardColor)
             Text("Community ETAs")
-               .font(Font.system(size: 18, weight: .medium))
+               .font(Font.system(size: 18, weight: .bold))
+               .foregroundColor(cardColor)
                .padding(.leading, 5)
          }
          .onAppear() {
