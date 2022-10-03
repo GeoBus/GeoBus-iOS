@@ -29,6 +29,7 @@ struct VariantPicker: View {
                      variantName: variant.name,
                      isSelected: routesController.selectedVariant == variant
                   )
+                  .padding(.vertical, 15)
                }
                .disabled(routesController.selectedVariant == variant)
             }

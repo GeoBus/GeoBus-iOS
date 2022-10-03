@@ -12,7 +12,6 @@ struct RouteBadgePill: View {
 
    let routeNumber: String
 
-
    var body: some View {
 
       VStack {

@@ -10,8 +10,6 @@ import SwiftUI
 
 struct VehicleIdentifier: View {
 
-   @Environment(\.colorScheme) var colorScheme: ColorScheme
-
    let busNumber: String
    let vehiclePlate: String
 

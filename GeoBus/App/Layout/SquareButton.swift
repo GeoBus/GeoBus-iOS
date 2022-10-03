@@ -20,7 +20,7 @@ struct SquareButton: View {
    var body: some View {
       ZStack {
          RoundedRectangle(cornerRadius: 10)
-            .fill(Color(.tertiarySystemBackground))
+            .fill(Color("BackgroundSecondary"))
             .shadow(radius: 2)
          Image(systemName: icon)
             .font(Font.system(size: iconSize, weight: .regular, design: .default))

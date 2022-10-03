@@ -10,8 +10,6 @@ import Combine
 
 struct NavBar: View {
 
-   @Environment(\.colorScheme) var colorScheme: ColorScheme
-
    @EnvironmentObject var appstate: Appstate
    @EnvironmentObject var routesController: RoutesController
 
@@ -65,7 +63,7 @@ struct NavBar: View {
          Divider()
       }
       .frame(height: 120)
-      .background(colorScheme == .dark ? Color(.systemGray5) : Color(.white))
+      .background(Color("BackgroundSecondary"))
    }
 
 }

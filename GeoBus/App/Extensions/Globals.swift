@@ -9,16 +9,7 @@ import Foundation
 import SwiftUI
 
 
-enum Kind: Codable, Equatable {
-   case tram
-   case neighborhood
-   case night
-   case elevator
-   case regular
-}
-
-
-class Globals {
+open class Globals {
 
    /* MARK: - Get Route Kind */
 
