@@ -40,6 +40,7 @@ struct APIRouteVariant: Decodable {
 }
 
 struct APIRouteVariantItinerary: Decodable {
+   let shape: String?
    let id: Int?
    let type: String?
    let connections: [APIRouteVariantItineraryConnection]?
@@ -68,11 +69,11 @@ struct Route: Codable, Equatable, Identifiable {
    let name: String
    let kind: Kind
    var variants: [Variant]
-
+   
    var id: String {
       return self.number
    }
-
+   
 }
 
 
@@ -81,7 +82,7 @@ struct Variant: Codable, Equatable, Identifiable {
    var name: String = ""
    let isCircular: Bool
    var upItinerary, downItinerary, circItinerary: [Stop]?
-
+   
    var id: String {
       return self.name
    }

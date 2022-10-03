@@ -36,6 +36,7 @@ struct Stop: Codable, Equatable, Identifiable {
    let direction: Direction?
 
    var id: String {
-      return self.publicId //UUID().uuidString
+      return self.publicId
+//      return UUID().uuidString
    }
 }
