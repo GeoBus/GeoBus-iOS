@@ -33,20 +33,18 @@ class MapController: ObservableObject {
    func receive(state: Appstate) {
       self.appstate = state
    }
-
-
-
+   
+   
+   
    func moveMap(to newRegion: MKCoordinateRegion) {
-      DispatchQueue.main.async {
-         withAnimation(.easeIn(duration: 0.5)) {
-            self.region = newRegion
-         }
+      withAnimation(.easeIn(duration: 0.5)) {
+         self.region = newRegion
       }
    }
-
-
+   
+   
    func centerMapOnUserLocation(andZoom: Bool) {
-
+      
       locationManager.requestWhenInUseAuthorization()
 
       if (locationManager.authorizationStatus == .authorizedWhenInUse) {
@@ -123,7 +121,6 @@ class MapController: ObservableObject {
 
       visibleAnnotations.removeAll()
       visibleAnnotations.append(contentsOf: stopAnnotations)
-      visibleAnnotations.append(contentsOf: vehicleAnnotations)
 
       zoomToFitMapAnnotations(annotations: visibleAnnotations)
 
@@ -153,24 +150,28 @@ class MapController: ObservableObject {
       guard annotations.count > 0 else {
          return
       }
-      var topLeftCoord: CLLocationCoordinate2D = CLLocationCoordinate2D()
-      topLeftCoord.latitude = -90
-      topLeftCoord.longitude = 180
-      var bottomRightCoord: CLLocationCoordinate2D = CLLocationCoordinate2D()
-      bottomRightCoord.latitude = 90
-      bottomRightCoord.longitude = -180
+      
+      var topLeftCoord = CLLocationCoordinate2D(latitude: -90, longitude: 180)
+      var bottomRightCoord = CLLocationCoordinate2D(latitude: 90, longitude: -180)
+      
       for annotation in annotations {
+         if (annotation.format == .vehicle) {
+            print("GBA: annptation is vehicle")
+         }
          topLeftCoord.longitude = fmin(topLeftCoord.longitude, annotation.location.longitude)
          topLeftCoord.latitude = fmax(topLeftCoord.latitude, annotation.location.latitude)
          bottomRightCoord.longitude = fmax(bottomRightCoord.longitude, annotation.location.longitude)
          bottomRightCoord.latitude = fmin(bottomRightCoord.latitude, annotation.location.latitude)
       }
+      
+      // The margin on the sides of the annotations
+      let spanMargin = 1.7
 
       var newRegion: MKCoordinateRegion = MKCoordinateRegion()
       newRegion.center.latitude = topLeftCoord.latitude - (topLeftCoord.latitude - bottomRightCoord.latitude) * 0.5
       newRegion.center.longitude = topLeftCoord.longitude + (bottomRightCoord.longitude - topLeftCoord.longitude) * 0.5
-      newRegion.span.latitudeDelta = fabs(topLeftCoord.latitude - bottomRightCoord.latitude) * 1.4
-      newRegion.span.longitudeDelta = fabs(bottomRightCoord.longitude - topLeftCoord.longitude) * 1.4
+      newRegion.span.latitudeDelta = fabs(topLeftCoord.latitude - bottomRightCoord.latitude) * spanMargin
+      newRegion.span.longitudeDelta = fabs(bottomRightCoord.longitude - topLeftCoord.longitude) * spanMargin
 
       self.moveMap(to: newRegion)
 
