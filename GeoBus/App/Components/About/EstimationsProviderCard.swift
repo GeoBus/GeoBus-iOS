@@ -23,7 +23,7 @@ struct EstimationsProviderCard: View {
                .renderingMode(.template)
                .font(Font.system(size: 25))
                .foregroundColor(cardColor)
-            Text("Community Times")
+            Text("Community ETAs")
                .font(Font.system(size: 18, weight: .medium))
                .padding(.leading, 5)
          }
@@ -76,6 +76,7 @@ struct EstimationsProviderCard: View {
             .font(.headline)
             .fontWeight(.semibold)
             .foregroundColor(Color(.secondaryLabel))
+          providerToggle
       }
    }
 
