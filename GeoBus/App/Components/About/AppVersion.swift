@@ -13,7 +13,7 @@ struct AppVersion: View {
    private let appBuild = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "?"
 
    var body: some View {
-      Text("v\(appVersion)-\(appBuild)")
+      Text(verbatim: "\(appVersion)-\(appBuild)")
          .font(Font.system(size: 10, weight: .medium, design: .default) )
          .foregroundColor(Color("LabelTertiary"))
          .padding(.vertical, 2)
