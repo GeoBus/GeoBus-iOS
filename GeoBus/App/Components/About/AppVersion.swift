@@ -9,17 +9,16 @@ import SwiftUI
 
 struct AppVersion: View {
 
-   @Environment(\.colorScheme) var colorScheme: ColorScheme
-
+   private let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "?"
    private let appBuild = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "?"
 
    var body: some View {
-      Text(appBuild)
+      Text(verbatim: "\(appVersion)-\(appBuild)")
          .font(Font.system(size: 10, weight: .medium, design: .default) )
-         .foregroundColor(Color(.secondaryLabel))
+         .foregroundColor(Color("LabelTertiary"))
          .padding(.vertical, 2)
          .padding(.horizontal, 7)
-         .background(Color(.secondarySystemFill))
+         .background(Color("BackgroundTertiary"))
          .cornerRadius(10)
    }
 }

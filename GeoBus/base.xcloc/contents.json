@@ -3,10 +3,10 @@
   "project" : "GeoBus.xcodeproj",
   "targetLocale" : "en",
   "toolInfo" : {
-    "toolBuildNumber" : "14A309",
+    "toolBuildNumber" : "14A400",
     "toolID" : "com.apple.dt.xcode",
     "toolName" : "Xcode",
-    "toolVersion" : "14.0"
+    "toolVersion" : "14.0.1"
   },
   "version" : "1.0"
 }

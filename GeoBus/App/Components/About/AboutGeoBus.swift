@@ -9,8 +9,6 @@ import SwiftUI
 
 struct AboutGeoBus: View {
 
-   @Environment(\.colorScheme) var colorScheme: ColorScheme
-
    @EnvironmentObject var appstate: Appstate
    @EnvironmentObject var stopsController: StopsController
    @EnvironmentObject var routesController: RoutesController
@@ -69,7 +67,7 @@ struct AboutGeoBus: View {
 
                }
             }
-            .background(colorScheme == .dark ? Color(.systemBackground) : Color(.secondarySystemBackground))
+            .background(Color("BackgroundPrimary"))
          })
 
    }

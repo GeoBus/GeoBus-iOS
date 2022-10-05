@@ -194,7 +194,6 @@
 				CF05F61828CD097700B4AD58 /* RouteDetails */,
 				CF18205228CCBCF400248F72 /* StopDetails */,
 				CF6478FB28D112CD00C70691 /* VehicleDetails */,
-				CF05F61C28CD1F2800B4AD58 /* Layout */,
 				CFF4875F28D3D35F00E2C13D /* About */,
 			);
 			path = Components;
@@ -318,6 +317,7 @@
 				CF05F62228CD5E5500B4AD58 /* Models */,
 				CF05F62128CD5DC700B4AD58 /* State */,
 				CF05F61628CD08D400B4AD58 /* Components */,
+				CF05F61C28CD1F2800B4AD58 /* Layout */,
 				CF18200C28CCBA7300248F72 /* Extensions */,
 				CF18201528CCBB4900248F72 /* Lottie */,
 			);
@@ -415,6 +415,7 @@
 				CF181FDE28CCB7D600248F72 /* Sources */,
 				CF181FDF28CCB7D600248F72 /* Frameworks */,
 				CF181FE028CCB7D600248F72 /* Resources */,
+				CFEA992628ED33AA00506B2F /* Set App Version and Build Number */,
 			);
 			buildRules = (
 			);
@@ -491,6 +492,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		CFEA992628ED33AA00506B2F /* Set App Version and Build Number */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Set App Version and Build Number";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# AS SEEN ON: https://medium.com/@SteveBarnegren/better-xcode-build-numbers-e999aac6254d\n\n# Set App Version to current date\nversionNumber=$(date \"+%Y.%m.%d\")\n/usr/libexec/PlistBuddy -c \"Set :CFBundleShortVersionString $versionNumber\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n\n# Set Build Number to current time\nbuildNumber=$(date \"+%H.%M\")\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		CF181FDE28CCB7D600248F72 /* Sources */ = {
@@ -718,7 +741,7 @@
 				CODE_SIGN_ENTITLEMENTS = GeoBus/GeoBus.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2422;
+        CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"GeoBus/Preview Content\"";
 				DEVELOPMENT_TEAM = D7S2TY22W7;
 				ENABLE_PREVIEWS = YES;
@@ -737,7 +760,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.4.2;
+        MARKETING_VERSION = 1;
 				PRODUCT_BUNDLE_IDENTIFIER = earth.joao.geobus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -758,7 +781,7 @@
 				CODE_SIGN_ENTITLEMENTS = GeoBus/GeoBus.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2422;
+        CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"GeoBus/Preview Content\"";
 				DEVELOPMENT_TEAM = D7S2TY22W7;
 				ENABLE_PREVIEWS = YES;
@@ -777,7 +800,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.4.2;
+        MARKETING_VERSION = 1;
 				PRODUCT_BUNDLE_IDENTIFIER = earth.joao.geobus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

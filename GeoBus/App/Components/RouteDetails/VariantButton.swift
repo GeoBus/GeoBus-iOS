@@ -10,8 +10,6 @@ import SwiftUI
 
 struct VariantButton: View {
 
-   @Environment(\.colorScheme) var colorScheme: ColorScheme
-
    var variantName: String
    var isSelected: Bool
 
@@ -23,7 +21,7 @@ struct VariantButton: View {
       }
       .padding()
       .foregroundColor(isSelected ? .white : Color(.secondaryLabel))
-      .background(isSelected ? Color(.systemBlue) : colorScheme == .dark ? Color(.secondarySystemBackground) : Color(.systemBackground) )
+      .background(isSelected ? Color(.systemBlue) : Color("BackgroundSecondary") )
       .cornerRadius(10)
    }
 }

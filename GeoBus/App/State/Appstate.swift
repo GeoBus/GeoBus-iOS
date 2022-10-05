@@ -9,33 +9,41 @@ import Foundation
 import PostHog
 
 class Appstate: ObservableObject {
-
+   
    /* MARK: - ANALYTICS */
-
+   
    private var posthog: PHGPostHog?
-
+   
    func receive(analytics: PHGPostHog?) {
       self.posthog = analytics
    }
-
+   
    func capture(event: String) {
-      if (self.posthog != nil) {
-         self.posthog!.capture(event)
+      if (_isDebugAssertConfiguration()) {
+         print("GB: Captured event '\(event)'")
+      } else {
+         if (self.posthog != nil) {
+            self.posthog!.capture(event)
+         }
       }
    }
-
+   
    func capture(event: String, properties: [String : Any]) {
-      if (self.posthog != nil) {
-         self.posthog!.capture(event, properties: properties)
+      if (_isDebugAssertConfiguration()) {
+         print("GB: Captured event '\(event)' with properties '\(properties)'")
+      } else {
+         if (self.posthog != nil) {
+            self.posthog!.capture(event, properties: properties)
+         }
       }
    }
-
-
-
+   
+   
+   
    /* MARK: - STATE */
    
    @Published var global: State = .idle
-
+   
    @Published var auth: State = .idle
    @Published var stops: State = .idle
    @Published var routes: State = .idle
@@ -47,7 +55,7 @@ class Appstate: ObservableObject {
       case loading
       case error
    }
-
+   
    enum Module {
       case auth
       case stops
@@ -93,6 +101,6 @@ class Appstate: ObservableObject {
          }
       }
    }
-
+   
    
 }

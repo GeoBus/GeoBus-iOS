@@ -10,8 +10,6 @@ import SwiftUI
 
 struct RouteDetailsVehiclesQuantity: View {
   
-  @Environment(\.colorScheme) var colorScheme: ColorScheme
-  
   var vehiclesQuantity: Int
   
   var body: some View {
@@ -40,7 +38,7 @@ struct RouteDetailsVehiclesQuantity: View {
     }
     .padding()
     .frame(maxWidth: .infinity, maxHeight: .infinity)
-    .background(colorScheme == .dark ? Color(.secondarySystemBackground) : Color(.systemBackground))
+    .background(Color("BackgroundSecondary"))
     .cornerRadius(10)
     
   }
