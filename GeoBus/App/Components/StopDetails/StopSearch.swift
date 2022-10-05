@@ -36,7 +36,7 @@ struct StopSearch: View {
                   viewSize = size
                }
             }
-            .background(Color("BackgroundSecondary"))
+            .background(Color("BackgroundPrimary"))
             .presentationDetents([.height(viewSize.height)])
          }
    }
