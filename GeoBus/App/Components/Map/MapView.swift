@@ -12,9 +12,7 @@ import MapKit
 import Combine
 
 struct MapView: View {
-   
-   @Environment(\.colorScheme) var colorScheme: ColorScheme
-   
+
    @EnvironmentObject var mapController: MapController
    @EnvironmentObject var stopsController: StopsController
    @EnvironmentObject var routesController: RoutesController

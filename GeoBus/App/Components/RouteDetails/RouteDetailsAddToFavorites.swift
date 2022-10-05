@@ -10,8 +10,6 @@ import SwiftUI
 
 struct RouteDetailsAddToFavorites: View {
 
-   @Environment(\.colorScheme) var colorScheme: ColorScheme
-
    @EnvironmentObject var routesController: RoutesController
 
 
@@ -24,7 +22,7 @@ struct RouteDetailsAddToFavorites: View {
       .frame(maxWidth: .infinity, maxHeight: .infinity)
       .background(routesController.isFavourite(route: routesController.selectedRoute!)
                   ? Color(.systemRed)
-                  : colorScheme == .dark ? Color(.secondarySystemBackground) : Color(.systemBackground)
+                  : Color("BackgroundSecondary")
       )
       .cornerRadius(10)
       .aspectRatio(1, contentMode: .fit)

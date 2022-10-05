@@ -9,8 +9,6 @@ import SwiftUI
 
 struct StopSearch: View {
 
-   @Environment(\.colorScheme) var colorScheme: ColorScheme
-
    @EnvironmentObject var mapController: MapController
    @EnvironmentObject var stopsController: StopsController
 
@@ -38,7 +36,7 @@ struct StopSearch: View {
                   viewSize = size
                }
             }
-            .background(colorScheme == .dark ? Color(.systemBackground) : Color(.secondarySystemBackground))
+            .background(Color("BackgroundPrimary"))
             .presentationDetents([.height(viewSize.height)])
          }
    }

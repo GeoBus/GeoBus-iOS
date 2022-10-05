@@ -10,8 +10,6 @@ import SwiftUI
 
 struct OpenExternalLinkButton: View {
 
-   @Environment(\.colorScheme) var colorScheme: ColorScheme
-
    @EnvironmentObject var appstate: Appstate
 
    let icon: Image

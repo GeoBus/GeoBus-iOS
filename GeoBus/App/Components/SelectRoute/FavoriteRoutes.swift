@@ -65,7 +65,7 @@ struct FavoriteRoutes: View {
          }
 
       }
-      .background(colorScheme == .dark ? Color(.secondarySystemBackground) : Color(.systemBackground))
+      .background(Color("BackgroundSecondary"))
       .cornerRadius(15)
    }
 }

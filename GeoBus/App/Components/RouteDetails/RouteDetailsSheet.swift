@@ -10,8 +10,6 @@ import SwiftUI
 
 struct RouteDetailsSheet: View {
 
-   @Environment(\.colorScheme) var colorScheme: ColorScheme
-
    @EnvironmentObject var routesController: RoutesController
    @EnvironmentObject var vehiclesController: VehiclesController
 
@@ -36,7 +34,7 @@ struct RouteDetailsSheet: View {
             Spacer()
          }
          .padding()
-         .background(colorScheme == .dark ? Color(.secondarySystemBackground) : Color(.systemBackground))
+         .background(Color("BackgroundSecondary"))
          .cornerRadius(10)
 
          HStack(spacing: 15) {
@@ -83,20 +81,20 @@ struct RouteDetailsSheet: View {
    var body: some View {
 
       ScrollView(.vertical, showsIndicators: true) {
-         VStack(spacing: 20) {
+         VStack(spacing: 5) {
             liveInfo
-               .padding(.horizontal)
+               .padding()
             Divider()
             if (routesController.selectedRoute!.variants.count > 1) {
                VariantPicker()
                Divider()
             }
             stopsList
-               .padding(.horizontal)
+               .padding()
          }
          .padding(.bottom, 30)
       }
-      .background(colorScheme == .dark ? Color(.systemBackground) : Color(.secondarySystemBackground))
+      .background(Color("BackgroundPrimary"))
 
    }
 
