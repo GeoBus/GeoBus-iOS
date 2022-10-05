@@ -9,6 +9,22 @@ import Foundation
 import SwiftUI
 
 
+
+//open class ExampleClass {
+//
+//   public static let variable: ExampleClass = .init()
+//
+//   public enum ExampleEnum {
+//      case primary, secondary, tertiary
+//   }
+//
+//   public func set(value example: ExampleEnum) -> ExampleEnum {
+//
+//   }
+//
+//}
+
+
 open class Globals {
 
    /* MARK: - Get Route Kind */
