@@ -52,7 +52,7 @@ class MapController: ObservableObject {
          if (andZoom) {
             self.moveMap(to: MKCoordinateRegion(
                center: locationManager.location?.coordinate ?? CLLocationCoordinate2D(),
-               latitudinalMeters: 350, longitudinalMeters: 350
+               latitudinalMeters: 400, longitudinalMeters: 400
             ))
          } else {
             self.moveMap(to: MKCoordinateRegion(
@@ -137,10 +137,10 @@ class MapController: ObservableObject {
             GenericMapAnnotation(lat: vehicle.lat, lng: vehicle.lng, format: .vehicle, vehicle: vehicle)
          )
       }
-
+      
       visibleAnnotations.removeAll()
-      visibleAnnotations.append(contentsOf: stopAnnotations)
       visibleAnnotations.append(contentsOf: vehicleAnnotations)
+      visibleAnnotations.append(contentsOf: stopAnnotations)
 
    }
 
@@ -155,9 +155,6 @@ class MapController: ObservableObject {
       var bottomRightCoord = CLLocationCoordinate2D(latitude: 90, longitude: -180)
       
       for annotation in annotations {
-         if (annotation.format == .vehicle) {
-            print("GBA: annptation is vehicle")
-         }
          topLeftCoord.longitude = fmin(topLeftCoord.longitude, annotation.location.longitude)
          topLeftCoord.latitude = fmax(topLeftCoord.latitude, annotation.location.latitude)
          bottomRightCoord.longitude = fmax(bottomRightCoord.longitude, annotation.location.longitude)
