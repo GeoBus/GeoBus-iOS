@@ -9,16 +9,23 @@ import Foundation
 import SwiftUI
 
 
-enum Kind: Codable, Equatable {
-   case tram
-   case neighborhood
-   case night
-   case elevator
-   case regular
-}
+
+//open class ExampleClass {
+//
+//   public static let variable: ExampleClass = .init()
+//
+//   public enum ExampleEnum {
+//      case primary, secondary, tertiary
+//   }
+//
+//   public func set(value example: ExampleEnum) -> ExampleEnum {
+//
+//   }
+//
+//}
 
 
-class Globals {
+open class Globals {
 
    /* MARK: - Get Route Kind */
 

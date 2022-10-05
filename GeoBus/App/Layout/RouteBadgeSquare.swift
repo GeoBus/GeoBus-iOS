@@ -12,7 +12,6 @@ struct RouteBadgeSquare: View {
 
    let routeNumber: String
 
-
    var body: some View {
 
       ZStack {

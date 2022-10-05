@@ -56,6 +56,15 @@ struct APIRouteVariantItineraryConnection: Decodable {
 
 // Data models adjusted for the app.
 
+enum Kind: Codable, Equatable {
+   case tram
+   case neighborhood
+   case night
+   case elevator
+   case regular
+}
+
+
 enum Direction: Codable {
    case ascending
    case descending

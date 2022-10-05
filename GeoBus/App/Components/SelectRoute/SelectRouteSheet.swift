@@ -10,8 +10,6 @@ import SwiftUI
 
 struct SelectRouteSheet: View {
 
-   @Environment(\.colorScheme) var colorScheme: ColorScheme
-
    @EnvironmentObject var routesController: RoutesController
 
    @Binding var isPresentingSheet: Bool
@@ -51,7 +49,7 @@ struct SelectRouteSheet: View {
          .padding(.bottom, 30)
 
       }
-      .background(colorScheme == .dark ? Color(.systemBackground) : Color(.secondarySystemBackground))
+      .background(Color("BackgroundPrimary"))
 
    }
 

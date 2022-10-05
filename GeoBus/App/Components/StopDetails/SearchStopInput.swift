@@ -10,8 +10,6 @@ import SwiftUI
 
 struct SearchStopInput: View {
 
-   @Environment(\.colorScheme) var colorScheme: ColorScheme
-
    @EnvironmentObject var appstate: Appstate
    @EnvironmentObject var stopsController: StopsController
    @EnvironmentObject var routesController: RoutesController
@@ -41,7 +39,7 @@ struct SearchStopInput: View {
             }
             .padding()
             .padding(.horizontal, 5)
-            .background(colorScheme == .dark ? Color(.secondarySystemBackground) : Color(.systemBackground))
+            .background(Color("BackgroundSecondary"))
             .cornerRadius(10)
 
             Button(action: {
@@ -61,7 +59,7 @@ struct SearchStopInput: View {
             }
             .disabled(stopPublicId.count == 0)
             .padding()
-            .background(stopPublicId.count > 0 ? Color(.systemBlue) : (colorScheme == .dark ? Color(.secondarySystemBackground) : Color(.systemBackground)) )
+            .background(stopPublicId.count > 0 ? Color(.systemBlue) : Color("BackgroundSecondary") )
             .cornerRadius(10)
          }
 

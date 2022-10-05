@@ -10,8 +10,6 @@ import SwiftUI
 
 struct SelectRouteInput: View {
 
-   @Environment(\.colorScheme) var colorScheme: ColorScheme
-
    @EnvironmentObject var appstate: Appstate
    @EnvironmentObject var stopsController: StopsController
    @EnvironmentObject var routesController: RoutesController
@@ -31,7 +29,7 @@ struct SelectRouteInput: View {
                .font(.system(size: 40, weight: .bold, design: .default))
                .multilineTextAlignment(.center)
                .padding()
-               .background(colorScheme == .dark ? Color(.secondarySystemBackground) : Color(.systemBackground))
+               .background(Color("BackgroundSecondary"))
                .cornerRadius(10)
 
             Button(action: {
@@ -51,7 +49,7 @@ struct SelectRouteInput: View {
             }
             .padding()
             .disabled(routeNumber.count == 0)
-            .background(routeNumber.count > 2 ? Color(.systemBlue) : (colorScheme == .dark ? Color(.secondarySystemBackground) : Color(.systemBackground)) )
+            .background(routeNumber.count > 2 ? Color(.systemBlue) : Color("BackgroundSecondary") )
             .cornerRadius(10)
          }
 
