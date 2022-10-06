@@ -24,26 +24,40 @@ class EstimationsController: ObservableObject {
    // Retrieve data from UserDefaults on init.
 
    init() {
-      // Unwrap and Decode all stops from Storage
-      if let unwrappedEstimationsProvider = UserDefaults.standard.string(forKey: storageKeyForEstimationsProvider) {
-         self.estimationsProvider = EstimationsProvider(rawValue: unwrappedEstimationsProvider) ?? .carris
-      }
+      self.getProviderFromStorage()
    }
 
 
 
    /* MARK: - RECEIVE APPSTATE & AUTHENTICATION */
 
-   var appstate = Appstate()
-   var authentication = Authentication()
+   private var appstate = Appstate()
+   private var authentication = Authentication()
 
-   func receive(state: Appstate, auth: Authentication) {
+   public func receive(state: Appstate, auth: Authentication) {
       self.appstate = state
       self.authentication = auth
    }
-
-
-   func setProvider(selection: EstimationsProvider) {
+   
+   
+   
+   /* MARK: - GET ESTIMATIONS PROVIDER FROM STORAGE */
+   
+   // Retrieve Estimations Provider from device storage.
+   
+   private func getProviderFromStorage() {
+      if let unwrappedEstimationsProvider = UserDefaults.standard.string(forKey: storageKeyForEstimationsProvider) {
+         self.estimationsProvider = EstimationsProvider(rawValue: unwrappedEstimationsProvider) ?? .carris
+      }
+   }
+   
+   
+   
+   /* MARK: - SET ESTIMATIONS PROVIDER */
+   
+   // Set Estimations Provider for current session and save it to device storage.
+   
+   public func setProvider(selection: EstimationsProvider) {
       self.estimationsProvider = selection
       UserDefaults.standard.set(estimationsProvider.rawValue, forKey: storageKeyForEstimationsProvider)
       print("Provider is \(selection)")
@@ -51,12 +65,11 @@ class EstimationsController: ObservableObject {
 
 
 
-   /* MARK: - Get Estimations */
+   /* MARK: - GET ESTIMATIONS */
 
-   // This function calls the API to retrieve estimations for the provided stop 'publicId'.
-   // It formats and returns the results to the caller.
+   // This function initiates the correct API calls according to the set Estimations provider.
 
-   func get(for publicId: String) async -> [Estimation] {
+   public func get(for publicId: String) async -> [Estimation] {
       switch estimationsProvider {
          case .carris:
             return await self.getCarrisEstimation(for: publicId)
@@ -66,12 +79,13 @@ class EstimationsController: ObservableObject {
    }
 
 
-   /* MARK: - Get Carris Estimations */
+   
+   /* MARK: - GET ESTIMATIONS › CARRIS */
 
-   // This function calls the API to retrieve estimations for the provided stop 'publicId'.
+   // This function calls Carris API to retrieve estimations for the given stop 'publicId'.
    // It formats and returns the results to the caller.
 
-   func getCarrisEstimation(for publicId: String) async -> [Estimation] {
+   private func getCarrisEstimation(for publicId: String) async -> [Estimation] {
 
       appstate.change(to: .loading, for: .estimations)
 
@@ -111,7 +125,7 @@ class EstimationsController: ObservableObject {
                   routeNumber: estimation.routeNumber ?? "-",
                   destination: estimation.destination ?? "-",
                   publicId: estimation.publicId ?? "-",
-                  eta: estimation.time ?? "" // Globals().getTimeString(for: estimation.time ?? "", in: .future, style: .short, units: [.hour, .minute])
+                  eta: estimation.time ?? ""
                )
             )
 
@@ -131,7 +145,7 @@ class EstimationsController: ObservableObject {
    }
 
 
-   /* MARK: - Get Community Estimations (WHILE API IS NOT FINAL) */
+   /* MARK: - GET ESTIMATIONS › COMMUNITY (WHILE API IS NOT FINAL) */
 
    // THIS IS NOT FINAL BECAUSE IT RELIES ON CARRIS API
    // CLOSE TO FINAL VERSION IS BELLOW IN COMMENTS
@@ -139,7 +153,7 @@ class EstimationsController: ObservableObject {
    // This function calls the API to retrieve estimations for the provided stop 'publicId'.
    // It formats and returns the results to the caller.
 
-   func getCommunityEstimation(for publicId: String) async -> [Estimation] {
+   private func getCommunityEstimation(for publicId: String) async -> [Estimation] {
 
       appstate.change(to: .loading, for: .estimations)
 
