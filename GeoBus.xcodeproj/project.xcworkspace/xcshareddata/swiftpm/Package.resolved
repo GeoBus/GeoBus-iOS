@@ -6,16 +6,7 @@
       "location" : "https://github.com/airbnb/lottie-ios",
       "state" : {
         "branch" : "master",
-        "revision" : "934954c378fbd49f3798931cd314740ff3176972"
-      }
-    },
-    {
-      "identity" : "push-notifications-swift",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/pusher/push-notifications-swift",
-      "state" : {
-        "revision" : "cff2308b83ee27e4cfa25e191e103dfe6d6d18d2",
-        "version" : "3.0.4"
+        "revision" : "e9dbb07d4ce0d41334c89ac4642e5fd5497ceaed"
       }
     },
     {
@@ -24,7 +15,7 @@
       "location" : "https://github.com/spacenation/swiftui-grid",
       "state" : {
         "branch" : "master",
-        "revision" : "a3441f80bd01029507bc19e463e7c7208ffcf3f9"
+        "revision" : "623f995c6ee0e5a5ed0e104d142daeae67b0ec92"
       }
     }
   ],

@@ -51,7 +51,6 @@
 		CF80B98F244CD6E900B921F2 /* StopAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF80B98E244CD6E900B921F2 /* StopAnnotationView.swift */; };
 		CF826C2624564DCE00886776 /* SelectedRouteScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF826C2524564DCE00886776 /* SelectedRouteScreen.swift */; };
 		CF85A3B2245E394C00A3D4F7 /* StopEstimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF85A3B1245E394C00A3D4F7 /* StopEstimations.swift */; };
-		CF97AC3724F96F890090E894 /* PushNotifications in Frameworks */ = {isa = PBXBuildFile; productRef = CF97AC3624F96F890090E894 /* PushNotifications */; };
 		CFB2E99C2451FD01006915E2 /* RouteVariant.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB2E99B2451FD01006915E2 /* RouteVariant.swift */; };
 		CFB4D0D92454C72D00D07534 /* TapticEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB4D0D82454C72D00D07534 /* TapticEngine.swift */; };
 		CFB4D0DB2454EDEE00D07534 /* UserManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB4D0DA2454EDEE00D07534 /* UserManagement.swift */; };
@@ -170,7 +169,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				CF1786D1244BFEBD005592F3 /* Grid in Frameworks */,
-				CF97AC3724F96F890090E894 /* PushNotifications in Frameworks */,
 				CF072366244A117A007AFAD2 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -463,7 +461,6 @@
 			packageProductDependencies = (
 				CF072365244A117A007AFAD2 /* Lottie */,
 				CF1786D0244BFEBD005592F3 /* Grid */,
-				CF97AC3624F96F890090E894 /* PushNotifications */,
 			);
 			productName = GeoBus;
 			productReference = CF072311244A10D3007AFAD2 /* GeoBus.app */;
@@ -497,7 +494,6 @@
 			packageReferences = (
 				CF072364244A117A007AFAD2 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 				CF1786CF244BFEBD005592F3 /* XCRemoteSwiftPackageReference "swiftui-grid" */,
-				CF97AC3524F96F890090E894 /* XCRemoteSwiftPackageReference "push-notifications-swift" */,
 			);
 			productRefGroup = CF072312244A10D3007AFAD2 /* Products */;
 			projectDirPath = "";
@@ -750,6 +746,7 @@
 				DEVELOPMENT_TEAM = D7S2TY22W7;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = GeoBus/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = GeoBus;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.7;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -774,6 +771,7 @@
 				DEVELOPMENT_TEAM = D7S2TY22W7;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = GeoBus/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = GeoBus;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.7;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -827,14 +825,6 @@
 				kind = branch;
 			};
 		};
-		CF97AC3524F96F890090E894 /* XCRemoteSwiftPackageReference "push-notifications-swift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/pusher/push-notifications-swift";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 3.0.4;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -847,11 +837,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CF1786CF244BFEBD005592F3 /* XCRemoteSwiftPackageReference "swiftui-grid" */;
 			productName = Grid;
-		};
-		CF97AC3624F96F890090E894 /* PushNotifications */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = CF97AC3524F96F890090E894 /* XCRemoteSwiftPackageReference "push-notifications-swift" */;
-			productName = PushNotifications;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
