@@ -8,7 +8,7 @@
 "(ex: 28E or 758)" = "(例如：28E或758)";
 
 /* No comment provided by engineer. */
-"(ex: C 10512)" = "（例如：C 10512）";
+"(ex: C 10512)" = "(ex: C 10512)";
 
 /* No comment provided by engineer. */
 "%lld active vehicles" = "%lld 现行车辆";
@@ -113,13 +113,13 @@
 "No estimations available for this stop." = "没有关于此站的估计。";
 
 /* No comment provided by engineer. */
-"Olá 👋" = "奥拉👋";
+"Olá 👋" = "Olá 👋";
 
 /* No comment provided by engineer. */
 "Open to Feedback" = "接受反馈";
 
 /* No comment provided by engineer. */
-"P" = "磷";
+"P" = "P";
 
 /* No comment provided by engineer. */
 "Please try again." = "请重试。";

@@ -8,7 +8,7 @@
 "(ex: 28E or 758)" = "(ex: 28E ou 758)";
 
 /* No comment provided by engineer. */
-"(ex: C 10512)" = "(ex : C 10512)";
+"(ex: C 10512)" = "(ex: C 10512)";
 
 /* No comment provided by engineer. */
 "%lld active vehicles" = "%lld véhicules actifs";
@@ -203,7 +203,7 @@
 "to: %@" = "à: %@";
 
 /* No comment provided by engineer. */
-"Trams" = "Tramways";
+"Trams" = "Trams";
 
 /* No comment provided by engineer. */
 "Try Again" = "Réessayez";

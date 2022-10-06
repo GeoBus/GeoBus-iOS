@@ -8,7 +8,7 @@
 "(ex: 28E or 758)" = "(наприклад: 28E або 758)";
 
 /* No comment provided by engineer. */
-"(ex: C 10512)" = "(наприклад: C 10512)";
+"(ex: C 10512)" = "(ex: C 10512)";
 
 /* No comment provided by engineer. */
 "%lld active vehicles" = "%lld активних автомобілів";
@@ -158,7 +158,7 @@
 "Service Unavailable" = "Сервіс недоступний";
 
 /* No comment provided by engineer. */
-"Share GeoBus" = "Поділіться GeoBus";
+"Share GeoBus" = "Share GeoBus";
 
 /* No comment provided by engineer. */
 "Share GeoBus with your friends and family!" = "Діліться GeoBus з друзями та родиною!";

@@ -8,7 +8,7 @@
 "(ex: 28E or 758)" = "(bijv.: 28E of 758)";
 
 /* No comment provided by engineer. */
-"(ex: C 10512)" = "(bijv. C 10512)";
+"(ex: C 10512)" = "(ex: C 10512)";
 
 /* No comment provided by engineer. */
 "%lld active vehicles" = "%lld actieve voertuigen";
@@ -158,7 +158,7 @@
 "Service Unavailable" = "Dienst niet beschikbaar";
 
 /* No comment provided by engineer. */
-"Share GeoBus" = "GeoBus delen";
+"Share GeoBus" = "Share GeoBus";
 
 /* No comment provided by engineer. */
 "Share GeoBus with your friends and family!" = "Deel GeoBus met je vrienden en familie!";
