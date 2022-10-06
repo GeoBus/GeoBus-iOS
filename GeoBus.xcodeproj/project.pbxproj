@@ -158,8 +158,6 @@
 		CFB5D46128EEFF2C002368BC /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CFB5D46228EEFF2D002368BC /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		CFC80FCB28D2C2FF003D059D /* DragAndDrop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragAndDrop.swift; sourceTree = "<group>"; };
-		CFCED4F228EF2DF700963640 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		CFCED4F328EF2DFB00963640 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CFDC15EE28D292FB00A4BE49 /* ViewSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewSize.swift; sourceTree = "<group>"; };
 		CFDD014828D5114D0070FE4B /* SyncStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncStatus.swift; sourceTree = "<group>"; };
 		CFDD014A28D535370070FE4B /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
@@ -588,7 +586,6 @@
 				CFB5D45C28EEFEA6002368BC /* pt */,
 				CFB5D46028EEFEF1002368BC /* zh-Hans */,
 				CFB5D46228EEFF2D002368BC /* tr */,
-				CFCED4F228EF2DF700963640 /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -600,7 +597,6 @@
 				CFB5D45B28EEFEA3002368BC /* pt */,
 				CFB5D45F28EEFEF1002368BC /* zh-Hans */,
 				CFB5D46128EEFF2C002368BC /* tr */,
-				CFCED4F328EF2DFB00963640 /* en */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
