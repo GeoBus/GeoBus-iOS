@@ -78,6 +78,10 @@ class MapController: ObservableObject {
    
    
    
+   /* MARK: - UPDATE ANNOTATIONS WITH SELECTED STOP */
+   
+   // .....
+   
    func updateAnnotations(with selectedStop: Stop) {
       
       stopAnnotations = []
@@ -97,8 +101,12 @@ class MapController: ObservableObject {
       zoomToFitMapAnnotations(annotations: visibleAnnotations)
       
    }
+
+
+
+   /* MARK: - UPDATE ANNOTATIONS WITH SELECTED VARIANT */
    
-   
+   // .....
    
    func updateAnnotations(with selectedVariant: Variant) {
       
@@ -169,9 +177,9 @@ class MapController: ObservableObject {
       // MISSING: Remove vehicles in visibleAnnotations that are not in the list
       
    }
-   
-   
-   
+
+
+
    /* MARK: - ZOOM MAP TO FIT ANNOTATIONS */
    
    // ......
