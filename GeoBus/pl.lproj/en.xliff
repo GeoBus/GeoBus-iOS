@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
+  <file original="GeoBus/en.lproj/InfoPlist.strings" source-language="en" target-language="pl" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.0.1" build-num="14A400"/>
+    </header>
+    <body>
+      <trans-unit id="CFBundleDisplayName" xml:space="preserve">
+        <source>GeoBus</source>
+        <target state="translated">GeoBus</target>
+        <note>Bundle display name</note>
+      </trans-unit>
+      <trans-unit id="CFBundleName" xml:space="preserve">
+        <source>GeoBus</source>
+        <target state="translated">GeoBus</target>
+        <note>Bundle name</note>
+      </trans-unit>
+      <trans-unit id="NSLocationUsageDescription" xml:space="preserve">
+        <source>Your location will only be used to show you where you are on the map.</source>
+        <target state="translated">Twoja lokalizacja będzie używana tylko do określenia twojego położenia na mapie.</target>
+        <note>Privacy - Location Usage Description</note>
+      </trans-unit>
+      <trans-unit id="NSLocationWhenInUseUsageDescription" xml:space="preserve">
+        <source>Your location will only be used to show you where you are on the map.</source>
+        <target state="translated">Twoja lokalizacja będzie używana tylko do określenia twojego położenia na mapie.</target>
+        <note>Privacy - Location When In Use Usage Description</note>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="GeoBus/en.lproj/Localizable.strings" source-language="en" target-language="pl" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.0.1" build-num="14A400"/>
+    </header>
+    <body>
+      <trans-unit id="%lld Routes left..." xml:space="preserve">
+        <source>%lld Routes left...</source>
+        <target state="translated">Pozostało %lld tras...</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="%lld active vehicles" xml:space="preserve">
+        <source>%lld active vehicles</source>
+        <target state="translated">%lld aktywnych pojazdów</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="(ex: 28E or 758)" xml:space="preserve">
+        <source>(ex: 28E or 758)</source>
+        <target state="translated">(np. 28E lub 758)</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="(ex: C 10512)" xml:space="preserve">
+        <source>(ex: C 10512)</source>
+        <target state="translated">(np. C 10512)</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="1 active vehicle" xml:space="preserve">
+        <source>1 active vehicle</source>
+        <target state="translated">1 aktywny pojazd</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="All data is fetched directly from Carris servers in real time, free of charge." xml:space="preserve">
+        <source>All data is fetched directly from Carris servers in real time, free of charge.</source>
+        <target state="translated">Wszystkie dane są pobierane bezpośrednio z serwerów Carris w czasie realnym, bezpłatnie.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Allow Location Access" xml:space="preserve">
+        <source>Allow Location Access</source>
+        <target state="translated">Zezwól na dostęp do lokalizacji</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Allow in Settings" xml:space="preserve">
+        <source>Allow in Settings</source>
+        <target state="translated">Zezwól w Ustawieniach</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="C" xml:space="preserve">
+        <source>C</source>
+        <target state="translated">C</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Carris API is unavailable." xml:space="preserve">
+        <source>Carris API is unavailable.</source>
+        <target state="translated">Carris API jest niedostępny.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Choose a Route Number" xml:space="preserve">
+        <source>Choose a Route Number</source>
+        <target state="translated">Wybierz numer trasy</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Close" xml:space="preserve">
+        <source>Close</source>
+        <target state="translated">Zamknij</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Connection Error" xml:space="preserve">
+        <source>Connection Error</source>
+        <target state="translated">Błąd połączenia</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Direction" xml:space="preserve">
+        <source>Direction</source>
+        <target state="translated">Kierunek</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Enter a Stop Number" xml:space="preserve">
+        <source>Enter a Stop Number</source>
+        <target state="translated">Wprowadź numer przystanku</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Estimated" xml:space="preserve">
+        <source>Estimated</source>
+        <target state="translated">Szacowany</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Favorites" xml:space="preserve">
+        <source>Favorites</source>
+        <target state="translated">Ulubione</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Find Routes" xml:space="preserve">
+        <source>Find Routes</source>
+        <target state="translated">Znajdź trasy</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="GPS updated %@ ago" xml:space="preserve">
+        <source>GPS updated %@ ago</source>
+        <target state="translated">GPS został zaktualizowany %@ temu</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="GeoBus can show you where you are in the map, if you allow it." xml:space="preserve">
+        <source>GeoBus can show you where you are in the map, if you allow it.</source>
+        <target state="translated">GeoBus może pokazać, gdzie znajdujesz się na mapie, jeśli zezwalasz.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="GeoBus will keep them updated in the background automatically." xml:space="preserve">
+        <source>GeoBus will keep them updated in the background automatically.</source>
+        <target state="translated">GeoBus będzie aktualizował je w tle automatycznie.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="GitHub" xml:space="preserve">
+        <source>GitHub</source>
+        <target state="translated">GitHub</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="I'll be delighted to know your opinion." xml:space="preserve">
+        <source>I'll be delighted to know your opinion.</source>
+        <target state="translated">Z przyjemnością poznam Twoją opinię.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="I'll do my best to keep the app working flawlessly for as long as possible." xml:space="preserve">
+        <source>I'll do my best to keep the app working flawlessly for as long as possible.</source>
+        <target state="translated">Zrobię wszystko, co w mojej mocy, aby aplikacja działała bezproblemowo tak długo, jak to możliwe.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="If the error persists, the only option is to wait and try again later. Unfortunately the app cannot function without this first step." xml:space="preserve">
+        <source>If the error persists, the only option is to wait and try again later. Unfortunately the app cannot function without this first step.</source>
+        <target state="translated">Jeżeli błąd się powtarza, jedyną opcją jest poczekać i spróbować ponownie później. Niestety aplikacja nie może działać bez tego pierwszego kroku.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="It's probably because their servers are down. In this case, the best option is to wait and try again later :/" xml:space="preserve">
+        <source>It's probably because their servers are down. In this case, the best option is to wait and try again later :/</source>
+        <target state="translated">Prawdopodobnie jest tak, ponieważ ich serwery są wyłączone. W tym przypadku najlepszym rozwiązaniem jest zaczekać i spróbować ponownie później :/</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Live" xml:space="preserve">
+        <source>Live</source>
+        <target state="translated">Na żywo</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Live Data" xml:space="preserve">
+        <source>Live Data</source>
+        <target state="translated">Dane na żywo</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Live data is provided by Carris free of charge." xml:space="preserve">
+        <source>Live data is provided by Carris free of charge.</source>
+        <target state="translated">Dane na żywo dostarczane są przez Carris nieodpłatnie.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Loading..." xml:space="preserve">
+        <source>Loading...</source>
+        <target state="translated">Ładowanie...</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Neighborhood Buses" xml:space="preserve">
+        <source>Neighborhood Buses</source>
+        <target state="translated">Linie strefowe</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Next on this stop:" xml:space="preserve">
+        <source>Next on this stop:</source>
+        <target state="translated">Następny na tym przystanku:</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Night Buses" xml:space="preserve">
+        <source>Night Buses</source>
+        <target state="translated">Autobusy nocne</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="No estimations available for this stop." xml:space="preserve">
+        <source>No estimations available for this stop.</source>
+        <target state="translated">Brak dostępnych szacunków dla tego przystanku.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Olá 👋" xml:space="preserve">
+        <source>Olá 👋</source>
+        <target state="translated">Cześć 👋</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Open to Feedback" xml:space="preserve">
+        <source>Open to Feedback</source>
+        <target state="translated">Otwarci na opinie</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="P" xml:space="preserve">
+        <source>P</source>
+        <target state="translated">P</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Please try again." xml:space="preserve">
+        <source>Please try again.</source>
+        <target state="translated">Spróbuj ponownie.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Please wait a few seconds." xml:space="preserve">
+        <source>Please wait a few seconds.</source>
+        <target state="translated">Proszę poczekać kilka sekund.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Please wait a moment while routes and stops are synced with Carris." xml:space="preserve">
+        <source>Please wait a moment while routes and stops are synced with Carris.</source>
+        <target state="translated">Poczekaj chwilę, aż trasy i przystanki zostaną zsynchronizowane z Carris.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Please wait..." xml:space="preserve">
+        <source>Please wait...</source>
+        <target state="translated">Proszę czekać...</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Pro tip: tap and hold the location button to zoom in to street level!" xml:space="preserve">
+        <source>Pro tip: tap and hold the location button to zoom in to street level!</source>
+        <target state="translated">Wskazówka: stuknij i przytrzymaj przycisk lokalizacji, aby powiększyć do poziomu ulicy!</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Regular Service" xml:space="preserve">
+        <source>Regular Service</source>
+        <target state="translated">Usługa standardowa</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Route Details" xml:space="preserve">
+        <source>Route Details</source>
+        <target state="translated">Szczegóły trasy</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Routes and Stops are synced." xml:space="preserve">
+        <source>Routes and Stops are synced.</source>
+        <target state="translated">Trasy i przystanki zostały zsynchronizowane.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Search Stop" xml:space="preserve">
+        <source>Search Stop</source>
+        <target state="translated">Wyszukaj przystanek</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Send an Email" xml:space="preserve">
+        <source>Send an Email</source>
+        <target state="translated">Wyślij e-mail</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Send me a message if you need help with GeoBus, or have any ideas to improve it." xml:space="preserve">
+        <source>Send me a message if you need help with GeoBus, or have any ideas to improve it.</source>
+        <target state="translated">Wyślij mi wiadomość, jeśli potrzebujesz pomocy z GeoBus, lub masz jakieś pomysły na jej ulepszenie.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Service Unavailable" xml:space="preserve">
+        <source>Service Unavailable</source>
+        <target state="translated">Usługa niedostępna</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Share GeoBus" xml:space="preserve">
+        <source>Share GeoBus</source>
+        <target state="translated">Share GeoBus</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Share GeoBus with your friends and family!" xml:space="preserve">
+        <source>Share GeoBus with your friends and family!</source>
+        <target state="translated">Podziel się GeoBus ze znajomymi i rodziną!</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Sometimes their service is unavailable or changes unexpectedly. In this situations, the only option is to wait and try again later." xml:space="preserve">
+        <source>Sometimes their service is unavailable or changes unexpectedly. In this situations, the only option is to wait and try again later.</source>
+        <target state="translated">Czasami ich usługa jest niedostępna lub nieoczekiwanie się zmieni. W tej sytuacji jedyną opcją jest poczekanie i próba ponownie później.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Spread the Love" xml:space="preserve">
+        <source>Spread the Love</source>
+        <target state="translated">Rozpowszechnij miłość</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Thanks for using GeoBus!" xml:space="preserve">
+        <source>Thanks for using GeoBus!</source>
+        <target state="translated">Dziękujemy za korzystanie z GeoBus!</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="The more people using it the more likely it will keep working." xml:space="preserve">
+        <source>The more people using it the more likely it will keep working.</source>
+        <target state="translated">Im więcej osób z niego korzysta, tym większe prawdopodobieństwo, że będzie nadal pracować.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="The route you entered is not available." xml:space="preserve">
+        <source>The route you entered is not available.</source>
+        <target state="translated">Podana trasa jest niedostępna.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="The stop you entered is not available." xml:space="preserve">
+        <source>The stop you entered is not available.</source>
+        <target state="translated">Wprowadzony stop nie jest dostępny.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="This is a circular route." xml:space="preserve">
+        <source>This is a circular route.</source>
+        <target state="translated">Jest to droga okrągła.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="This route may have %lld alternative paths." xml:space="preserve">
+        <source>This route may have %lld alternative paths.</source>
+        <target state="translated">Ta trasa może mieć %lld alternatywnych ścieżek.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="This should take about a minute." xml:space="preserve">
+        <source>This should take about a minute.</source>
+        <target state="translated">Powinno to zająć około minutę.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="This should take less than a minute and only happens this once." xml:space="preserve">
+        <source>This should take less than a minute and only happens this once.</source>
+        <target state="translated">Powinno to potrwać krócej niż minutę i to tylko jeden raz.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="This will only happen once." xml:space="preserve">
+        <source>This will only happen once.</source>
+        <target state="translated">Będzie to miało miejsce tylko raz.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Trams" xml:space="preserve">
+        <source>Trams</source>
+        <target state="translated">Trampy</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Try Again" xml:space="preserve">
+        <source>Try Again</source>
+        <target state="translated">Spróbuj ponownie</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Twitter" xml:space="preserve">
+        <source>Twitter</source>
+        <target state="translated">Twitter</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Unfortunately it was not possible to retrieve information from Carris." xml:space="preserve">
+        <source>Unfortunately it was not possible to retrieve information from Carris.</source>
+        <target state="translated">Niestety nie można było uzyskać informacji od Carris.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Up to Date" xml:space="preserve">
+        <source>Up to Date</source>
+        <target state="translated">Dotychczas</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Updating Routes..." xml:space="preserve">
+        <source>Updating Routes...</source>
+        <target state="translated">Aktualizowanie biegów...</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Visit the Website" xml:space="preserve">
+        <source>Visit the Website</source>
+        <target state="translated">Odwiedź stronę</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="You have no favorite routes." xml:space="preserve">
+        <source>You have no favorite routes.</source>
+        <target state="translated">Nie masz ulubionych tras.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="You have to allow location access so that GeoBus can show where you are on the map." xml:space="preserve">
+        <source>You have to allow location access so that GeoBus can show where you are on the map.</source>
+        <target state="translated">Musisz zezwolić na dostęp do lokalizacji, aby GeoBus mógł pokazać miejsce na mapie.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Your Location" xml:space="preserve">
+        <source>Your Location</source>
+        <target state="translated">Twoja lokalizacja</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Your privacy is respected, it will not leave your device or be sold to anyone." xml:space="preserve">
+        <source>Your privacy is respected, it will not leave your device or be sold to anyone.</source>
+        <target state="translated">Twoja prywatność jest respektowana, nie zostawia Twojego urządzenia ani nie zostanie sprzedana nikomu</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="_ _ _" xml:space="preserve">
+        <source>_ _ _</source>
+        <target state="translated">_ _ _</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="_ _ _ _ _" xml:space="preserve">
+        <source>_ _ _ _ _</source>
+        <target state="translated">_ _ _ _ _</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="in ±" xml:space="preserve">
+        <source>in ±</source>
+        <target state="translated">w ±</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="to" xml:space="preserve">
+        <source>to</source>
+        <target state="translated">do</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="to: %@" xml:space="preserve">
+        <source>to: %@</source>
+        <target state="translated">do: %@</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="vehicle in circulation" xml:space="preserve">
+        <source>vehicle in circulation</source>
+        <target state="translated">pojazd w obiegu</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="vehicles in circulation" xml:space="preserve">
+        <source>vehicles in circulation</source>
+        <target state="translated">pojazdy w ruchu</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="← Choose a Route" xml:space="preserve">
+        <source>← Choose a Route</source>
+        <target state="translated">← Wybierz trasę</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
