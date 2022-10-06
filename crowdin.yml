@@ -1,5 +1,5 @@
 project_id: 2
 api_token: 79c2e6c51241fae421d5a41eac589a174ca7692e1049fe763b42ceda4433fd0f1cbbf7f49f01d4b0
 files:
-  - source: /GeoBus/base.xcloc/Source Contents/GeoBus/en.lproj/*.strings
+  - source: /GeoBus/base.xcloc/Localized Contents/*.xliff
     translation: /GeoBus/%osx_code%/%original_file_name%
