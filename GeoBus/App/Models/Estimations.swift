@@ -25,8 +25,12 @@ enum EstimationsProvider: String {
 
 struct CarrisAPIEstimation: Decodable {
    let routeNumber: String?
+   let routeName: String?
    let destination: String?
    let time: String? // Expected time of arrival
+   let busNumber: String?
+   let plateNumber: String?
+   let voyageNumber: Int
    let publicId: String?
 }
 

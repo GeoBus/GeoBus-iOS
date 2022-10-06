@@ -110,6 +110,8 @@ class EstimationsController: ObservableObject {
          }
 
          let decodedCarrisAPIEstimations = try JSONDecoder().decode([CarrisAPIEstimation].self, from: rawDataCarrisAPIEstimations)
+         
+         print("GB1: \(decodedCarrisAPIEstimations)")
 
          // Define a temporary variable to store vehicles
          // before publishing and displaying them in the map.
