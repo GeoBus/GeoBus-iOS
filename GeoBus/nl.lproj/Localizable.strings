@@ -8,7 +8,7 @@
 "(ex: 28E or 758)" = "(bijv.: 28E of 758)";
 
 /* No comment provided by engineer. */
-"(ex: C 10512)" = "(ex: C 10512)";
+"(ex: C 10512)" = "(bijv. C 10512)";
 
 /* No comment provided by engineer. */
 "%lld active vehicles" = "%lld actieve voertuigen";
@@ -59,7 +59,7 @@
 "Favorites" = "Favorieten";
 
 /* No comment provided by engineer. */
-"Find Routes" = "Zoek routes";
+"Find Routes" = "Vind routes";
 
 /* No comment provided by engineer. */
 "GeoBus can show you where you are in the map, if you allow it." = "GeoBus kan je laten zien waar je bent in de kaart, als je het toestaat.";
@@ -158,7 +158,7 @@
 "Service Unavailable" = "Dienst niet beschikbaar";
 
 /* No comment provided by engineer. */
-"Share GeoBus" = "Share GeoBus";
+"Share GeoBus" = "GeoBus delen";
 
 /* No comment provided by engineer. */
 "Share GeoBus with your friends and family!" = "Deel GeoBus met je vrienden en familie!";
