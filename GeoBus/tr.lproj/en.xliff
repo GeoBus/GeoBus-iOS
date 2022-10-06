@@ -5,24 +5,24 @@
       <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.0.1" build-num="14A400"/>
     </header>
     <body>
-      <trans-unit id="CFBundleDisplayName" xml:space="preserve" approved="yes">
+      <trans-unit id="CFBundleDisplayName" xml:space="preserve">
         <source>GeoBus</source>
-        <target state="final">GeoBus</target>
+        <target state="needs-translation">GeoBus</target>
         <note>Bundle display name</note>
       </trans-unit>
-      <trans-unit id="CFBundleName" xml:space="preserve" approved="yes">
+      <trans-unit id="CFBundleName" xml:space="preserve">
         <source>GeoBus</source>
-        <target state="final">GeoBus</target>
+        <target state="needs-translation">GeoBus</target>
         <note>Bundle name</note>
       </trans-unit>
-      <trans-unit id="NSLocationUsageDescription" xml:space="preserve" approved="yes">
+      <trans-unit id="NSLocationUsageDescription" xml:space="preserve">
         <source>Your location will only be used to show you where you are on the map.</source>
-        <target state="final">Konumunuz sadece size haritada nerede olduğunuzu göstermek için kullanılacaktır.</target>
+        <target state="needs-translation">Your location will only be used to show you where you are on the map.</target>
         <note>Privacy - Location Usage Description</note>
       </trans-unit>
-      <trans-unit id="NSLocationWhenInUseUsageDescription" xml:space="preserve" approved="yes">
+      <trans-unit id="NSLocationWhenInUseUsageDescription" xml:space="preserve">
         <source>Your location will only be used to show you where you are on the map.</source>
-        <target state="final">Konumunuz sadece size haritada nerede olduğunuzu göstermek için kullanılacaktır.</target>
+        <target state="needs-translation">Your location will only be used to show you where you are on the map.</target>
         <note>Privacy - Location When In Use Usage Description</note>
       </trans-unit>
     </body>
@@ -32,409 +32,414 @@
       <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.0.1" build-num="14A400"/>
     </header>
     <body>
-      <trans-unit id="%lld Routes left..." xml:space="preserve" approved="yes">
+      <trans-unit id="%lld Routes left..." xml:space="preserve">
         <source>%lld Routes left...</source>
-        <target state="final">%lld Rota kaldı...</target>
+        <target state="needs-translation">%lld Routes left...</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="%lld active vehicles" xml:space="preserve" approved="yes">
+      <trans-unit id="%lld active vehicles" xml:space="preserve">
         <source>%lld active vehicles</source>
-        <target state="final">%lld aktif araç</target>
+        <target state="needs-translation">%lld active vehicles</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="(ex: 28E or 758)" xml:space="preserve" approved="yes">
+      <trans-unit id="(ex: 28E or 758)" xml:space="preserve">
         <source>(ex: 28E or 758)</source>
-        <target state="final">(ör: 28E or 758)</target>
+        <target state="needs-translation">(ex: 28E or 758)</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="(ex: C 10512)" xml:space="preserve" approved="yes">
+      <trans-unit id="(ex: C 10512)" xml:space="preserve">
         <source>(ex: C 10512)</source>
-        <target state="final">(ör: C 10512)</target>
+        <target state="needs-translation">(ex: C 10512)</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="1 active vehicle" xml:space="preserve" approved="yes">
+      <trans-unit id="1 active vehicle" xml:space="preserve">
         <source>1 active vehicle</source>
-        <target state="final">1 aktif araç</target>
+        <target state="needs-translation">1 active vehicle</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="All data is fetched directly from Carris servers in real time, free of charge." xml:space="preserve" approved="yes">
+      <trans-unit id="All data is fetched directly from Carris servers in real time, free of charge." xml:space="preserve">
         <source>All data is fetched directly from Carris servers in real time, free of charge.</source>
-        <target state="final">Tüm veriler doğrudan Carris sunucularından gerçek zamanlı ve ücretsiz olarak alınır.</target>
+        <target state="needs-translation">All data is fetched directly from Carris servers in real time, free of charge.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Allow Location Access" xml:space="preserve" approved="yes">
+      <trans-unit id="Allow Location Access" xml:space="preserve">
         <source>Allow Location Access</source>
-        <target state="final">Konum Erişimine İzin Ver</target>
+        <target state="needs-translation">Allow Location Access</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Allow in Settings" xml:space="preserve" approved="yes">
+      <trans-unit id="Allow in Settings" xml:space="preserve">
         <source>Allow in Settings</source>
-        <target state="final">Ayarlarda izin ver</target>
+        <target state="needs-translation">Allow in Settings</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="C" xml:space="preserve" approved="yes">
+      <trans-unit id="C" xml:space="preserve">
         <source>C</source>
-        <target state="final">C</target>
+        <target state="needs-translation">C</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Carris API is unavailable." xml:space="preserve" approved="yes">
+      <trans-unit id="Carris API is unavailable." xml:space="preserve">
         <source>Carris API is unavailable.</source>
-        <target state="final">Carris API kullanılamıyor.</target>
+        <target state="needs-translation">Carris API is unavailable.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Choose a Route Number" xml:space="preserve" approved="yes">
+      <trans-unit id="Choose a Route Number" xml:space="preserve">
         <source>Choose a Route Number</source>
-        <target state="final">Bir Rota Numarası Seç</target>
+        <target state="needs-translation">Choose a Route Number</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Close" xml:space="preserve" approved="yes">
+      <trans-unit id="Close" xml:space="preserve">
         <source>Close</source>
-        <target state="final">Kapat</target>
+        <target state="needs-translation">Close</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Connection Error" xml:space="preserve" approved="yes">
+      <trans-unit id="Connection Error" xml:space="preserve">
         <source>Connection Error</source>
-        <target state="final">Bağlantı Hatası</target>
+        <target state="needs-translation">Connection Error</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Direction" xml:space="preserve" approved="yes">
+      <trans-unit id="Direction" xml:space="preserve">
         <source>Direction</source>
-        <target state="final">İstikamet</target>
+        <target state="needs-translation">Direction</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Enter a Stop Number" xml:space="preserve" approved="yes">
+      <trans-unit id="Enter a Stop Number" xml:space="preserve">
         <source>Enter a Stop Number</source>
-        <target state="final">Bir Durak Numarası Giriniz</target>
+        <target state="needs-translation">Enter a Stop Number</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Estimated" xml:space="preserve" approved="yes">
+      <trans-unit id="Estimated" xml:space="preserve">
         <source>Estimated</source>
-        <target state="final">Tahmini</target>
+        <target state="needs-translation">Estimated</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Favorites" xml:space="preserve" approved="yes">
+      <trans-unit id="Favorites" xml:space="preserve">
         <source>Favorites</source>
-        <target state="final">Favoriler</target>
+        <target state="needs-translation">Favorites</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Find Routes" xml:space="preserve" approved="yes">
+      <trans-unit id="Find Routes" xml:space="preserve">
         <source>Find Routes</source>
-        <target state="final">Rotaları Bul</target>
+        <target state="needs-translation">Find Routes</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="GPS updated %@ ago" xml:space="preserve" approved="yes">
+      <trans-unit id="GPS updated %@ ago" xml:space="preserve">
         <source>GPS updated %@ ago</source>
-        <target state="final">GPS %@ önce güncellendi</target>
+        <target state="needs-translation">GPS updated %@ ago</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="GeoBus can show you where you are in the map, if you allow it." xml:space="preserve" approved="yes">
+      <trans-unit id="GeoBus can show you where you are in the map, if you allow it." xml:space="preserve">
         <source>GeoBus can show you where you are in the map, if you allow it.</source>
-        <target state="final">GeoBus, izin verirseniz haritada nerede olduğunuzu gösterebilir.</target>
+        <target state="needs-translation">GeoBus can show you where you are in the map, if you allow it.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="GeoBus will keep them updated in the background automatically." xml:space="preserve" approved="yes">
+      <trans-unit id="GeoBus will keep them updated in the background automatically." xml:space="preserve">
         <source>GeoBus will keep them updated in the background automatically.</source>
-        <target state="final">GeoBus bunları arka planda otomatik olarak güncel tutacaktır.</target>
+        <target state="needs-translation">GeoBus will keep them updated in the background automatically.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="GitHub" xml:space="preserve" approved="yes">
+      <trans-unit id="GitHub" xml:space="preserve">
         <source>GitHub</source>
-        <target state="final">GitHub</target>
+        <target state="needs-translation">GitHub</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="I'll be delighted to know your opinion." xml:space="preserve" approved="yes">
+      <trans-unit id="I'll be delighted to know your opinion." xml:space="preserve">
         <source>I'll be delighted to know your opinion.</source>
-        <target state="final">Fikrinizi öğrenmekten memnuniyet duyarım.</target>
+        <target state="needs-translation">I'll be delighted to know your opinion.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="I'll do my best to keep the app working flawlessly for as long as possible." xml:space="preserve" approved="yes">
+      <trans-unit id="I'll do my best to keep the app working flawlessly for as long as possible." xml:space="preserve">
         <source>I'll do my best to keep the app working flawlessly for as long as possible.</source>
-        <target state="final">Uygulamanın mümkün olduğunca uzun süre kusursuz çalışmasını sağlamak için elimden geleni yapacağım.</target>
+        <target state="needs-translation">I'll do my best to keep the app working flawlessly for as long as possible.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="If the error persists, the only option is to wait and try again later. Unfortunately the app cannot function without this first step." xml:space="preserve" approved="yes">
+      <trans-unit id="If the error persists, the only option is to wait and try again later. Unfortunately the app cannot function without this first step." xml:space="preserve">
         <source>If the error persists, the only option is to wait and try again later. Unfortunately the app cannot function without this first step.</source>
-        <target state="final">Hata devam ederse, tek seçenek beklemek ve daha sonra tekrar denemektir. Maalesef uygulama bu ilk adım olmadan çalışamaz.</target>
+        <target state="needs-translation">If the error persists, the only option is to wait and try again later. Unfortunately the app cannot function without this first step.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="It's probably because their servers are down. In this case, the best option is to wait and try again later :/" xml:space="preserve" approved="yes">
+      <trans-unit id="It's probably because their servers are down. In this case, the best option is to wait and try again later :/" xml:space="preserve">
         <source>It's probably because their servers are down. In this case, the best option is to wait and try again later :/</source>
-        <target state="final">Muhtemelen sunucuları kapalı olduğundandır. Bu durumda en iyi seçenek bekleyip daha sonra tekrar denemektir :/</target>
+        <target state="needs-translation">It's probably because their servers are down. In this case, the best option is to wait and try again later :/</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Live" xml:space="preserve" approved="yes">
+      <trans-unit id="Live" xml:space="preserve">
         <source>Live</source>
-        <target state="final">Canlı</target>
+        <target state="needs-translation">Live</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Live Data" xml:space="preserve" approved="yes">
+      <trans-unit id="Live Data" xml:space="preserve">
         <source>Live Data</source>
-        <target state="final">Canlı Data</target>
+        <target state="needs-translation">Live Data</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Live data is provided by Carris free of charge." xml:space="preserve" approved="yes">
+      <trans-unit id="Live data is provided by Carris free of charge." xml:space="preserve">
         <source>Live data is provided by Carris free of charge.</source>
-        <target state="final">Canlı veriler Carris tarafından ücretsiz olarak sağlanmaktadır.</target>
+        <target state="needs-translation">Live data is provided by Carris free of charge.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Loading..." xml:space="preserve" approved="yes">
+      <trans-unit id="Loading..." xml:space="preserve">
         <source>Loading...</source>
-        <target state="final">Yükleniyor...</target>
+        <target state="needs-translation">Loading...</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Neighborhood Buses" xml:space="preserve" approved="yes">
+      <trans-unit id="Neighborhood Buses" xml:space="preserve">
         <source>Neighborhood Buses</source>
-        <target state="final">Mahalle Otobüsleri</target>
+        <target state="needs-translation">Neighborhood Buses</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Next on this stop:" xml:space="preserve" approved="yes">
+      <trans-unit id="Next on this stop:" xml:space="preserve">
         <source>Next on this stop:</source>
-        <target state="final">Bu duraktaki sonraki araçlar:</target>
+        <target state="needs-translation">Next on this stop:</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Night Buses" xml:space="preserve" approved="yes">
+      <trans-unit id="Night Buses" xml:space="preserve">
         <source>Night Buses</source>
-        <target state="final">Gece otobüsleri</target>
+        <target state="needs-translation">Night Buses</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="No estimations available for this stop." xml:space="preserve" approved="yes">
+      <trans-unit id="No estimations available for this stop." xml:space="preserve">
         <source>No estimations available for this stop.</source>
-        <target state="final">Bu durak için herhangi bir tahmin yok.</target>
+        <target state="needs-translation">No estimations available for this stop.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Olá 👋" xml:space="preserve" approved="yes">
+      <trans-unit id="Olá 👋" xml:space="preserve">
         <source>Olá 👋</source>
-        <target state="final">Olá 👋</target>
+        <target state="needs-translation">Olá 👋</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Open to Feedback" xml:space="preserve" approved="yes">
+      <trans-unit id="Open to Feedback" xml:space="preserve">
         <source>Open to Feedback</source>
-        <target state="final">Geri Bildirime Açık</target>
+        <target state="needs-translation">Open to Feedback</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="P" xml:space="preserve" approved="yes">
+      <trans-unit id="P" xml:space="preserve">
         <source>P</source>
-        <target state="final">P</target>
+        <target state="needs-translation">P</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Please try again." xml:space="preserve" approved="yes">
+      <trans-unit id="Please try again." xml:space="preserve">
         <source>Please try again.</source>
-        <target state="final">Lütfen tekrar deneyiniz.</target>
+        <target state="needs-translation">Please try again.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Please wait a few seconds." xml:space="preserve" approved="yes">
+      <trans-unit id="Please wait a few seconds." xml:space="preserve">
         <source>Please wait a few seconds.</source>
-        <target state="final">Lütfen birkaç saniye bekleyiniz.</target>
+        <target state="needs-translation">Please wait a few seconds.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Please wait a moment while routes and stops are synced with Carris." xml:space="preserve" approved="yes">
+      <trans-unit id="Please wait a moment while routes and stops are synced with Carris." xml:space="preserve">
         <source>Please wait a moment while routes and stops are synced with Carris.</source>
-        <target state="final">Rotalar ve duraklar Carris ile senkronize edilirken lütfen biraz bekleyin.</target>
+        <target state="needs-translation">Please wait a moment while routes and stops are synced with Carris.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Please wait..." xml:space="preserve" approved="yes">
+      <trans-unit id="Please wait..." xml:space="preserve">
         <source>Please wait...</source>
-        <target state="final">Lütfen bekleyiniz...</target>
+        <target state="needs-translation">Please wait...</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Pro tip: tap and hold the location button to zoom in to street level!" xml:space="preserve" approved="yes">
+      <trans-unit id="Pro tip: tap and hold the location button to zoom in to street level!" xml:space="preserve">
         <source>Pro tip: tap and hold the location button to zoom in to street level!</source>
-        <target state="final">İpucu: Sokak seviyesine yakınlaştırmak için konum düğmesine dokunun ve basılı tutun!</target>
+        <target state="needs-translation">Pro tip: tap and hold the location button to zoom in to street level!</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Regular Service" xml:space="preserve" approved="yes">
+      <trans-unit id="Regular Service" xml:space="preserve">
         <source>Regular Service</source>
-        <target state="final">Düzenli Servis</target>
+        <target state="needs-translation">Regular Service</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Route Details" xml:space="preserve" approved="yes">
+      <trans-unit id="Route Details" xml:space="preserve">
         <source>Route Details</source>
-        <target state="final">Rota Detayları</target>
+        <target state="needs-translation">Route Details</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Routes and Stops are synced." xml:space="preserve" approved="yes">
+      <trans-unit id="Routes and Stops are synced." xml:space="preserve">
         <source>Routes and Stops are synced.</source>
-        <target state="final">Rotalar ve Duraklar senkronize edildi.</target>
+        <target state="needs-translation">Routes and Stops are synced.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Search Stop" xml:space="preserve" approved="yes">
+      <trans-unit id="Search Stop" xml:space="preserve">
         <source>Search Stop</source>
-        <target state="final">Durak Ara</target>
+        <target state="needs-translation">Search Stop</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Send an Email" xml:space="preserve" approved="yes">
+      <trans-unit id="Send an Email" xml:space="preserve">
         <source>Send an Email</source>
-        <target state="final">Email Gönder</target>
+        <target state="needs-translation">Send an Email</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Send me a message if you need help with GeoBus, or have any ideas to improve it." xml:space="preserve" approved="yes">
+      <trans-unit id="Send me a message if you need help with GeoBus, or have any ideas to improve it." xml:space="preserve">
         <source>Send me a message if you need help with GeoBus, or have any ideas to improve it.</source>
-        <target state="final">GeoBus ile ilgili yardıma ihtiyacınız varsa veya onu geliştirmek için herhangi bir fikriniz varsa bana bir mesaj gönderin.</target>
+        <target state="needs-translation">Send me a message if you need help with GeoBus, or have any ideas to improve it.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Service Unavailable" xml:space="preserve" approved="yes">
+      <trans-unit id="Service Unavailable" xml:space="preserve">
         <source>Service Unavailable</source>
-        <target state="final">Servis Kullanılamıyor</target>
+        <target state="needs-translation">Service Unavailable</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Share GeoBus" xml:space="preserve" approved="yes">
+      <trans-unit id="Share GeoBus" xml:space="preserve">
         <source>Share GeoBus</source>
-        <target state="final">GeoBus'u Paylaş</target>
+        <target state="needs-translation">Share GeoBus</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Share GeoBus with your friends and family!" xml:space="preserve" approved="yes">
+      <trans-unit id="Share GeoBus with your friends and family!" xml:space="preserve">
         <source>Share GeoBus with your friends and family!</source>
-        <target state="final">GeoBus'u arkadaşlarınız ve ailenizle paylaşın!</target>
+        <target state="needs-translation">Share GeoBus with your friends and family!</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Sometimes their service is unavailable or changes unexpectedly. In this situations, the only option is to wait and try again later." xml:space="preserve" approved="yes">
+      <trans-unit id="Sometimes their service is unavailable or changes unexpectedly. In this situations, the only option is to wait and try again later." xml:space="preserve">
         <source>Sometimes their service is unavailable or changes unexpectedly. In this situations, the only option is to wait and try again later.</source>
-        <target state="final">Bazen hizmetler kullanılamıyor veya beklenmedik bir şekilde değişiyor olabilir. Bu gibi durumlarda tek seçenek beklemek ve daha sonra tekrar denemektir.</target>
+        <target state="needs-translation">Sometimes their service is unavailable or changes unexpectedly. In this situations, the only option is to wait and try again later.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Spread the Love" xml:space="preserve" approved="yes">
+      <trans-unit id="Spread the Love" xml:space="preserve">
         <source>Spread the Love</source>
-        <target state="final">Aşkı Yay</target>
+        <target state="needs-translation">Spread the Love</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Thanks for using GeoBus!" xml:space="preserve" approved="yes">
+      <trans-unit id="TESTEST" xml:space="preserve">
+        <source>TESTEST</source>
+        <target state="needs-translation">TESTEST</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Thanks for using GeoBus!" xml:space="preserve">
         <source>Thanks for using GeoBus!</source>
-        <target state="final">GeoBus'u kullandığınız için teşekkürler!</target>
+        <target state="needs-translation">Thanks for using GeoBus!</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="The more people using it the more likely it will keep working." xml:space="preserve" approved="yes">
+      <trans-unit id="The more people using it the more likely it will keep working." xml:space="preserve">
         <source>The more people using it the more likely it will keep working.</source>
-        <target state="final">Ne kadar çok kişi kullanırsa, çalışmaya devam etme olasılığı o kadar artar.</target>
+        <target state="needs-translation">The more people using it the more likely it will keep working.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="The route you entered is not available." xml:space="preserve" approved="yes">
+      <trans-unit id="The route you entered is not available." xml:space="preserve">
         <source>The route you entered is not available.</source>
-        <target state="final">Girdiğiniz rota mevcut değil.</target>
+        <target state="needs-translation">The route you entered is not available.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="The stop you entered is not available." xml:space="preserve" approved="yes">
+      <trans-unit id="The stop you entered is not available." xml:space="preserve">
         <source>The stop you entered is not available.</source>
-        <target state="final">Girdiğiniz  durak mevcut değildir.</target>
+        <target state="needs-translation">The stop you entered is not available.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="This is a circular route." xml:space="preserve" approved="yes">
+      <trans-unit id="This is a circular route." xml:space="preserve">
         <source>This is a circular route.</source>
-        <target state="final">Bu bir ring hattır.</target>
+        <target state="needs-translation">This is a circular route.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="This route may have %lld alternative paths." xml:space="preserve" approved="yes">
+      <trans-unit id="This route may have %lld alternative paths." xml:space="preserve">
         <source>This route may have %lld alternative paths.</source>
-        <target state="final">Bu rotada %lld alternatif yol olabilir.</target>
+        <target state="needs-translation">This route may have %lld alternative paths.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="This should take about a minute." xml:space="preserve" approved="yes">
+      <trans-unit id="This should take about a minute." xml:space="preserve">
         <source>This should take about a minute.</source>
-        <target state="final">Bu yaklaşık bir dakika sürebilir.</target>
+        <target state="needs-translation">This should take about a minute.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="This should take less than a minute and only happens this once." xml:space="preserve" approved="yes">
+      <trans-unit id="This should take less than a minute and only happens this once." xml:space="preserve">
         <source>This should take less than a minute and only happens this once.</source>
-        <target state="final">Bu bir dakikadan az sürer ve bu yalnızca bir kez olur.</target>
+        <target state="needs-translation">This should take less than a minute and only happens this once.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="This will only happen once." xml:space="preserve" approved="yes">
+      <trans-unit id="This will only happen once." xml:space="preserve">
         <source>This will only happen once.</source>
-        <target state="final">Bu sadece bir kez olacak.</target>
+        <target state="needs-translation">This will only happen once.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Trams" xml:space="preserve" approved="yes">
+      <trans-unit id="Trams" xml:space="preserve">
         <source>Trams</source>
-        <target state="final">Tramvaylar</target>
+        <target state="needs-translation">Trams</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Try Again" xml:space="preserve" approved="yes">
+      <trans-unit id="Try Again" xml:space="preserve">
         <source>Try Again</source>
-        <target state="final">Tekrar Deneyiniz</target>
+        <target state="needs-translation">Try Again</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Twitter" xml:space="preserve" approved="yes">
+      <trans-unit id="Twitter" xml:space="preserve">
         <source>Twitter</source>
-        <target state="final">Twitter</target>
+        <target state="needs-translation">Twitter</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Unfortunately it was not possible to retrieve information from Carris." xml:space="preserve" approved="yes">
+      <trans-unit id="Unfortunately it was not possible to retrieve information from Carris." xml:space="preserve">
         <source>Unfortunately it was not possible to retrieve information from Carris.</source>
-        <target state="final">Maalesef Carris'ten bilgi almak mümkün olmadı.</target>
+        <target state="needs-translation">Unfortunately it was not possible to retrieve information from Carris.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Up to Date" xml:space="preserve" approved="yes">
+      <trans-unit id="Up to Date" xml:space="preserve">
         <source>Up to Date</source>
-        <target state="final">Güncel</target>
+        <target state="needs-translation">Up to Date</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Updating Routes..." xml:space="preserve" approved="yes">
+      <trans-unit id="Updating Routes..." xml:space="preserve">
         <source>Updating Routes...</source>
-        <target state="final">Rotaları Güncelliyor...</target>
+        <target state="needs-translation">Updating Routes...</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Visit the Website" xml:space="preserve" approved="yes">
+      <trans-unit id="Visit the Website" xml:space="preserve">
         <source>Visit the Website</source>
-        <target state="final">Web Sitesini Ziyaret Et</target>
+        <target state="needs-translation">Visit the Website</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="You have no favorite routes." xml:space="preserve" approved="yes">
+      <trans-unit id="You have no favorite routes." xml:space="preserve">
         <source>You have no favorite routes.</source>
-        <target state="final">Favori rotanız yok.</target>
+        <target state="needs-translation">You have no favorite routes.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="You have to allow location access so that GeoBus can show where you are on the map." xml:space="preserve" approved="yes">
+      <trans-unit id="You have to allow location access so that GeoBus can show where you are on the map." xml:space="preserve">
         <source>You have to allow location access so that GeoBus can show where you are on the map.</source>
-        <target state="final">GeoBus'un haritada nerede olduğunuzu gösterebilmesi için konum erişimine izin vermelisiniz.</target>
+        <target state="needs-translation">You have to allow location access so that GeoBus can show where you are on the map.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Your Location" xml:space="preserve" approved="yes">
+      <trans-unit id="Your Location" xml:space="preserve">
         <source>Your Location</source>
-        <target state="final">Lokasyonun</target>
+        <target state="needs-translation">Your Location</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Your privacy is respected, it will not leave your device or be sold to anyone." xml:space="preserve" approved="yes">
+      <trans-unit id="Your privacy is respected, it will not leave your device or be sold to anyone." xml:space="preserve">
         <source>Your privacy is respected, it will not leave your device or be sold to anyone.</source>
-        <target state="final">Gizliliğinize saygı duyulur, cihazınızdan ayrılmaz veya kimseye satılmaz.</target>
+        <target state="needs-translation">Your privacy is respected, it will not leave your device or be sold to anyone.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="_ _ _" xml:space="preserve" approved="yes">
+      <trans-unit id="_ _ _" xml:space="preserve">
         <source>_ _ _</source>
-        <target state="final">_ _ _</target>
+        <target state="needs-translation">_ _ _</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="_ _ _ _ _" xml:space="preserve" approved="yes">
+      <trans-unit id="_ _ _ _ _" xml:space="preserve">
         <source>_ _ _ _ _</source>
-        <target state="final">_ _ _ _ _</target>
+        <target state="needs-translation">_ _ _ _ _</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="in ±" xml:space="preserve" approved="yes">
+      <trans-unit id="in ±" xml:space="preserve">
         <source>in ±</source>
-        <target state="final">içinde</target>
+        <target state="needs-translation">in ±</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="to" xml:space="preserve" approved="yes">
+      <trans-unit id="to" xml:space="preserve">
         <source>to</source>
-        <target state="final">➨</target>
+        <target state="needs-translation">to</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="to: %@" xml:space="preserve" approved="yes">
+      <trans-unit id="to: %@" xml:space="preserve">
         <source>to: %@</source>
-        <target state="final">varış yeri: %@</target>
+        <target state="needs-translation">to: %@</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="vehicle in circulation" xml:space="preserve" approved="yes">
+      <trans-unit id="vehicle in circulation" xml:space="preserve">
         <source>vehicle in circulation</source>
-        <target state="final">dolaşımdaki araç</target>
+        <target state="needs-translation">vehicle in circulation</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="vehicles in circulation" xml:space="preserve" approved="yes">
+      <trans-unit id="vehicles in circulation" xml:space="preserve">
         <source>vehicles in circulation</source>
-        <target state="final">Dolaşımdaki Araçlar</target>
+        <target state="needs-translation">vehicles in circulation</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="← Choose a Route" xml:space="preserve" approved="yes">
+      <trans-unit id="← Choose a Route" xml:space="preserve">
         <source>← Choose a Route</source>
-        <target state="final">← Rota seç</target>
+        <target state="needs-translation">← Choose a Route</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
     </body>
