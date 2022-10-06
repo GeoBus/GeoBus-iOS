@@ -36,12 +36,21 @@ class MapController: ObservableObject {
    
    
    
+   /* MARK: - MOVE MAP TO NEW COORDINATE REGION */
+   
+   // Helper function to animate Map changing region.
+   
    func moveMap(to newRegion: MKCoordinateRegion) {
       withAnimation(.easeIn(duration: 0.5)) {
          self.region = newRegion
       }
    }
    
+   
+   
+   /* MARK: - CENTER MAP ON USER LOCATION */
+   
+   // .....
    
    func centerMapOnUserLocation(andZoom: Bool) {
       
@@ -69,6 +78,10 @@ class MapController: ObservableObject {
 
 
 
+   /* MARK: - UPDATE ANNOTATIONS WITH SELECTED STOP */
+   
+   // .....
+   
    func updateAnnotations(with selectedStop: Stop) {
 
       stopAnnotations = []
@@ -91,6 +104,10 @@ class MapController: ObservableObject {
 
 
 
+   /* MARK: - UPDATE ANNOTATIONS WITH SELECTED VARIANT */
+   
+   // .....
+   
    func updateAnnotations(with selectedVariant: Variant) {
 
       stopAnnotations = []
@@ -128,6 +145,10 @@ class MapController: ObservableObject {
 
 
 
+   /* MARK: - UPDATE ANNOTATIONS WITH VEHICLES LIST */
+   
+   // .....
+   
    func updateAnnotations(with vehiclesList: [VehicleSummary]) {
 
       vehicleAnnotations = []
@@ -146,6 +167,10 @@ class MapController: ObservableObject {
 
 
 
+   /* MARK: - ZOOM MAP TO FIT ANNOTATIONS */
+   
+   // ......
+   
    func zoomToFitMapAnnotations(annotations: [GenericMapAnnotation]) {
       guard annotations.count > 0 else {
          return
