@@ -59,9 +59,6 @@
 "Favorites" = "Вподобання";
 
 /* No comment provided by engineer. */
-"Find Routes" = "Знайти маршрути";
-
-/* No comment provided by engineer. */
 "GeoBus can show you where you are in the map, if you allow it." = "GeoBus може показати вам, де ви перебуваєте на мапі, якщо ви дозволяєте.";
 
 /* No comment provided by engineer. */
@@ -168,6 +165,9 @@
 
 /* No comment provided by engineer. */
 "Spread the Love" = "Поширюйте любов";
+
+/* No comment provided by engineer. */
+"TESTEST" = "ТЕСТ";
 
 /* No comment provided by engineer. */
 "Thanks for using GeoBus!" = "Дякуємо за використання GeoBus!";
