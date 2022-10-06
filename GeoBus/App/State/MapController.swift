@@ -36,12 +36,21 @@ class MapController: ObservableObject {
    
    
    
+   /* MARK: - MOVE MAP TO NEW COORDINATE REGION */
+   
+   // Helper function to animate Map changing region.
+   
    func moveMap(to newRegion: MKCoordinateRegion) {
       withAnimation(.easeIn(duration: 0.5)) {
          self.region = newRegion
       }
    }
    
+   
+   
+   /* MARK: - CENTER MAP ON USER LOCATION */
+   
+   // .....
    
    func centerMapOnUserLocation(andZoom: Bool) {
       
@@ -128,39 +137,44 @@ class MapController: ObservableObject {
    
    
    
+   /* MARK: - UPDATE VEHICLE ANNOTATIONS */
+   
+   // On receiving a new list of Vehicles, loop through each one
+   // to check if it is already present in the map. If it is, then update
+   // it's the coordinates. If it is not, add it to the list of visible annotations.
+   
    func updateAnnotations(with vehiclesList: [VehicleSummary]) {
       
-      //      vehicleAnnotations = []
-      
+      // Loop through the new list of vehicles
       for vehicle in vehiclesList {
+         
+         // Check if busNumber is already visible in the Map
          let indexOfVehicleAnnotation = visibleAnnotations.firstIndex {
             $0.id == vehicle.busNumber
          }
          
-         print("GB: Index is \(String(describing: indexOfVehicleAnnotation))")
-         
          if (indexOfVehicleAnnotation != nil) {
+            // If it is, update it's coordinates
             self.visibleAnnotations[indexOfVehicleAnnotation!].location = CLLocationCoordinate2D(
                latitude: vehicle.lat, longitude: vehicle.lng
             )
          } else {
+            // If it is not, add it to the map
             visibleAnnotations.append(GenericMapAnnotation(lat: vehicle.lat, lng: vehicle.lng, format: .vehicle, vehicle: vehicle))
          }
+         
       }
       
-      //      for vehicle in vehiclesList {
-      //         vehicleAnnotations.append(
-      //            GenericMapAnnotation(lat: vehicle.lat, lng: vehicle.lng, format: .vehicle, vehicle: vehicle)
-      //         )
-      //      }
       
-      //      visibleAnnotations.removeAll()
-      //      visibleAnnotations.append(contentsOf: stopAnnotations)
-      //      visibleAnnotations.append(contentsOf: vehicleAnnotations)
-
+      // MISSING: Remove vehicles in visibleAnnotations that are not in the list
+      
    }
    
    
+   
+   /* MARK: - ZOOM MAP TO FIT ANNOTATIONS */
+   
+   // ......
    
    func zoomToFitMapAnnotations(annotations: [GenericMapAnnotation]) {
       guard annotations.count > 0 else {

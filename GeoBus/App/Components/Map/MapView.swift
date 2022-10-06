@@ -29,12 +29,12 @@ struct MapView: View {
             let annotation = UpdatingMapAnnotation(coordinate: item.location, publisher: item.$location)
             ViewMapAnnotation(annotation: annotation) {
                switch (item.format) {
-               case .stop:
-                  StopAnnotationView(stop: item.stop!, isPresentedOnAppear: false)
-               case .vehicle:
-                  VehicleAnnotationView(vehicle: item.vehicle!, isPresentedOnAppear: false)
-               case .singleStop:
-                  StopAnnotationView(stop: item.stop!, isPresentedOnAppear: true)
+                  case .stop:
+                     StopAnnotationView(stop: item.stop!, isPresentedOnAppear: false)
+                  case .vehicle:
+                     VehicleAnnotationView(vehicle: item.vehicle!, isPresentedOnAppear: false)
+                  case .singleStop:
+                     StopAnnotationView(stop: item.stop!, isPresentedOnAppear: true)
                }
             }
          }
@@ -53,30 +53,7 @@ struct MapView: View {
          mapController.updateAnnotations(with: newVehiclesList)
       }
       
-      
-      //            Map(
-      //                coordinateRegion: $mapController.region,
-      //                interactionModes: [.all],
-      //                showsUserLocation: true,
-      //                annotationItems: mapController.visibleAnnotations
-      //            ) { annotation in
-      //
-//                      ViewMapAnnotation(coordinate: annotation.location) {
-//                          switch (annotation.format) {
-//                          case .stop:
-//                              StopAnnotationView(stop: annotation.stop!, isPresentedOnAppear: false)
-//                          case .vehicle:
-//                              VehicleAnnotationView(vehicle: annotation.vehicle!, isPresentedOnAppear: false)
-//                          case .singleStop:
-//                              StopAnnotationView(stop: annotation.stop!, isPresentedOnAppear: true)
-//                          }
-//                      }
-      //
-      //            }
-                  
-      
    }
-   
    
 }
 
