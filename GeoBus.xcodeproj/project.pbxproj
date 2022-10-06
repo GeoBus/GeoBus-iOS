@@ -164,6 +164,8 @@
 		CFDD014828D5114D0070FE4B /* SyncStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncStatus.swift; sourceTree = "<group>"; };
 		CFDD014A28D535370070FE4B /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		CFDD014C28D66D9B0070FE4B /* CloseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseButton.swift; sourceTree = "<group>"; };
+		CFEA992728EE6CAC00506B2F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		CFEA992828EE6CB000506B2F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CFEF85C128D34E4F00A29526 /* crowdin.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = crowdin.yml; sourceTree = "<group>"; };
 		CFEF85C328D34E6300A29526 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		CFEF85C428D34E6300A29526 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
@@ -452,6 +454,7 @@
 				tr,
 				"zh-Hans",
 				de,
+				Base,
 			);
 			mainGroup = CF181FD928CCB7D600248F72;
 			packageReferences = (
@@ -590,6 +593,7 @@
 				CF18E50728DF15AA00EE243F /* tr */,
 				CFADE6DD28DF84460027A03C /* zh-Hans */,
 				CFC7104B28E629800006E7F5 /* de */,
+				CFEA992728EE6CAC00506B2F /* en */,
 			);
 			name = InfoPlist.strings;
 			path = GeoBus;
@@ -602,6 +606,7 @@
 				CF18E50828DF15AE00EE243F /* tr */,
 				CFADE6DC28DF84420027A03C /* zh-Hans */,
 				CFC7104A28E6297C0006E7F5 /* de */,
+				CFEA992828EE6CB000506B2F /* en */,
 			);
 			name = Localizable.strings;
 			path = GeoBus;
