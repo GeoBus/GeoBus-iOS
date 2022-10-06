@@ -753,7 +753,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GeoBus/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = GeoBus;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.reference";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.navigation";
 				INFOPLIST_KEY_NSLocationUsageDescription = "Your location will only be used to show you where you are on the map.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Your location will only be used to show you where you are on the map.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -793,7 +793,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GeoBus/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = GeoBus;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.reference";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.navigation";
 				INFOPLIST_KEY_NSLocationUsageDescription = "Your location will only be used to show you where you are on the map.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Your location will only be used to show you where you are on the map.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
