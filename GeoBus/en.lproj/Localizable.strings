@@ -59,6 +59,9 @@
 "Favorites" = "Favorites";
 
 /* No comment provided by engineer. */
+"Find Routes" = "Find Routes";
+
+/* No comment provided by engineer. */
 "GeoBus can show you where you are in the map, if you allow it." = "GeoBus can show you where you are in the map, if you allow it.";
 
 /* No comment provided by engineer. */
@@ -167,9 +170,6 @@
 "Spread the Love" = "Spread the Love";
 
 /* No comment provided by engineer. */
-"TESTEST" = "TESTEST";
-
-/* No comment provided by engineer. */
 "Thanks for using GeoBus!" = "Thanks for using GeoBus!";
 
 /* No comment provided by engineer. */
@@ -240,4 +240,3 @@
 
 /* No comment provided by engineer. */
 "Your privacy is respected, it will not leave your device or be sold to anyone." = "Your privacy is respected, it will not leave your device or be sold to anyone.";
-
