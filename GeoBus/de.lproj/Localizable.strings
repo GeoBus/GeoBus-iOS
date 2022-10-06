@@ -59,9 +59,6 @@
 "Favorites" = "Favoriten";
 
 /* No comment provided by engineer. */
-"Find Routes" = "Route finden";
-
-/* No comment provided by engineer. */
 "GeoBus can show you where you are in the map, if you allow it." = "GeoBus kann ihnen zeigen, wo sie sich auf der Karte befinden, wenn sie es zulassen.";
 
 /* No comment provided by engineer. */
@@ -168,6 +165,9 @@
 
 /* No comment provided by engineer. */
 "Spread the Love" = "Spread the Love";
+
+/* No comment provided by engineer. */
+"TESTEST" = "TESTEN";
 
 /* No comment provided by engineer. */
 "Thanks for using GeoBus!" = "Dank das sie GeoBus nutzen!";
