@@ -68,7 +68,7 @@
 "GeoBus will keep them updated in the background automatically." = "O GeoBus irá mantê-las atualizadas automaticamente.";
 
 /* No comment provided by engineer. */
-"GitHub" = "GitHub";
+"GitHub" = "GitHubGenericName";
 
 /* No comment provided by engineer. */
 "GPS updated %@ ago" = "GPS atualizado há %@";
@@ -89,7 +89,7 @@
 "It's probably because their servers are down. In this case, the best option is to wait and try again later :/" = "Provavelmente os servidores estão indisponíveis. Neste caso, a melhor opção é esperar e tentar novamente mais tarde :/";
 
 /* No comment provided by engineer. */
-"Live" = "Live";
+"Live" = "Viver";
 
 /* No comment provided by engineer. */
 "Live Data" = "Tempo Real";
