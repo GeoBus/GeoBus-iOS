@@ -297,6 +297,11 @@
         <target state="needs-translation">Spread the Love</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="TESTEST" xml:space="preserve">
+        <source>TESTEST</source>
+        <target state="needs-translation">TESTEST</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Thanks for using GeoBus!" xml:space="preserve">
         <source>Thanks for using GeoBus!</source>
         <target state="needs-translation">Thanks for using GeoBus!</target>
