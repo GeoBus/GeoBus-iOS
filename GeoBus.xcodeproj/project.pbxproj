@@ -289,9 +289,9 @@
 			children = (
 				CFAF0E7B28CEC78C00DDAD5B /* GeoBus.entitlements */,
 				CF82BB0528D7D3EB007F0CDB /* Info.plist */,
+				CF181FF328CCB87400248F72 /* App */,
 				CFB5D45828EEFE6B002368BC /* Localizable.strings */,
 				CFB5D45528EEFE21002368BC /* InfoPlist.strings */,
-				CF181FF328CCB87400248F72 /* App */,
 				CF181FE928CCB7D700248F72 /* Assets.xcassets */,
 				CF181FEB28CCB7D700248F72 /* Preview Content */,
 			);
