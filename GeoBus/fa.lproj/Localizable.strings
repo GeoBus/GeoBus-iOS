@@ -1,8 +1,8 @@
 /* No comment provided by engineer. */
-"_ _ _" = "___";
+"_ _ _" = "_ _ _";
 
 /* No comment provided by engineer. */
-"_ _ _ _ _" = "_____";
+"_ _ _ _ _" = "_ _ _ _ _";
 
 /* No comment provided by engineer. */
 "(ex: 28E or 758)" = "(مثال: 28E یا 758)";
@@ -32,7 +32,7 @@
 "Allow Location Access" = "به دسترسی موقعیت مکانی اجازه بدهید";
 
 /* No comment provided by engineer. */
-"C" = "سی";
+"C" = "C";
 
 /* No comment provided by engineer. */
 "Carris API is unavailable." = "Carris API در دسترس نمیباشد";
