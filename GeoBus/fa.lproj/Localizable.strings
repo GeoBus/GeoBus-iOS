@@ -59,9 +59,6 @@
 "Favorites" = "مورد علاقه ها";
 
 /* No comment provided by engineer. */
-"Find Routes" = "مسیرها را پیدا کنید";
-
-/* No comment provided by engineer. */
 "GeoBus can show you where you are in the map, if you allow it." = "اگر اجازه دهید GeoBus می تواند به شما نشان دهد که در نقشه کجا هستید.";
 
 /* No comment provided by engineer. */
@@ -168,6 +165,9 @@
 
 /* No comment provided by engineer. */
 "Spread the Love" = "عشق را گسترش دهید ";
+
+/* No comment provided by engineer. */
+"TESTEST" = "تست";
 
 /* No comment provided by engineer. */
 "Thanks for using GeoBus!" = "با تشکر از استفاده از GeoBus!";
