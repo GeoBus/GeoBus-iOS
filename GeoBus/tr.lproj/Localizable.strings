@@ -59,6 +59,9 @@
 "Favorites" = "Favoriler";
 
 /* No comment provided by engineer. */
+"Find Routes" = "Rotaları Bul";
+
+/* No comment provided by engineer. */
 "GeoBus can show you where you are in the map, if you allow it." = "GeoBus, izin verirseniz haritada nerede olduğunuzu gösterebilir.";
 
 /* No comment provided by engineer. */
@@ -165,9 +168,6 @@
 
 /* No comment provided by engineer. */
 "Spread the Love" = "Aşkı Yay";
-
-/* No comment provided by engineer. */
-"TESTEST" = "TEST";
 
 /* No comment provided by engineer. */
 "Thanks for using GeoBus!" = "GeoBus'u kullandığınız için teşekkürler!";
