@@ -11,25 +11,25 @@ import SwiftUI
 
 @MainActor
 class MapController: ObservableObject {
-
+   
    @Published var region = MKCoordinateRegion(
       center: CLLocationCoordinate2D(latitude: 38.721917, longitude: -9.137732),
       latitudinalMeters: 15000, longitudinalMeters: 15000
    )
-
+   
    @Published var locationManager = CLLocationManager()
    @Published var showLocationNotAllowedAlert: Bool = false
-
+   
    private var stopAnnotations: [GenericMapAnnotation] = []
    private var vehicleAnnotations: [GenericMapAnnotation] = []
    @Published var visibleAnnotations: [GenericMapAnnotation] = []
-
-
-
+   
+   
+   
    /* MARK: - RECEIVE APPSTATE & AUTHENTICATION */
-
+   
    var appstate = Appstate()
-
+   
    func receive(state: Appstate) {
       self.appstate = state
    }
@@ -55,7 +55,7 @@ class MapController: ObservableObject {
    func centerMapOnUserLocation(andZoom: Bool) {
       
       locationManager.requestWhenInUseAuthorization()
-
+      
       if (locationManager.authorizationStatus == .authorizedWhenInUse) {
          self.appstate.capture(event: "Location-Status-Allowed")
          if (andZoom) {
@@ -73,19 +73,19 @@ class MapController: ObservableObject {
          self.appstate.capture(event: "Location-Status-Denied")
          self.showLocationNotAllowedAlert = true
       }
-
+      
    }
-
-
-
+   
+   
+   
    /* MARK: - UPDATE ANNOTATIONS WITH SELECTED STOP */
    
    // .....
    
    func updateAnnotations(with selectedStop: Stop) {
-
+      
       stopAnnotations = []
-
+      
       stopAnnotations.append(
          GenericMapAnnotation(
             lat: selectedStop.lat,
@@ -94,12 +94,12 @@ class MapController: ObservableObject {
             stop: selectedStop
          )
       )
-
+      
       visibleAnnotations.removeAll()
       visibleAnnotations.append(contentsOf: stopAnnotations)
-
+      
       zoomToFitMapAnnotations(annotations: visibleAnnotations)
-
+      
    }
 
 
@@ -109,9 +109,9 @@ class MapController: ObservableObject {
    // .....
    
    func updateAnnotations(with selectedVariant: Variant) {
-
+      
       stopAnnotations = []
-
+      
       if (selectedVariant.upItinerary != nil) {
          for stop in selectedVariant.upItinerary! {
             stopAnnotations.append(
@@ -119,7 +119,7 @@ class MapController: ObservableObject {
             )
          }
       }
-
+      
       if (selectedVariant.downItinerary != nil) {
          for stop in selectedVariant.downItinerary! {
             stopAnnotations.append(
@@ -127,7 +127,7 @@ class MapController: ObservableObject {
             )
          }
       }
-
+      
       if (selectedVariant.circItinerary != nil) {
          for stop in selectedVariant.circItinerary! {
             stopAnnotations.append(
@@ -135,34 +135,47 @@ class MapController: ObservableObject {
             )
          }
       }
-
-      visibleAnnotations.removeAll()
-      visibleAnnotations.append(contentsOf: stopAnnotations)
-
-      zoomToFitMapAnnotations(annotations: visibleAnnotations)
-
-   }
-
-
-
-   /* MARK: - UPDATE ANNOTATIONS WITH VEHICLES LIST */
-   
-   // .....
-   
-   func updateAnnotations(with vehiclesList: [VehicleSummary]) {
-
-      vehicleAnnotations = []
-
-      for vehicle in vehiclesList {
-         vehicleAnnotations.append(
-            GenericMapAnnotation(lat: vehicle.lat, lng: vehicle.lng, format: .vehicle, vehicle: vehicle)
-         )
-      }
       
       visibleAnnotations.removeAll()
-      visibleAnnotations.append(contentsOf: vehicleAnnotations)
       visibleAnnotations.append(contentsOf: stopAnnotations)
-
+      
+      zoomToFitMapAnnotations(annotations: visibleAnnotations)
+      
+   }
+   
+   
+   
+   /* MARK: - UPDATE VEHICLE ANNOTATIONS */
+   
+   // On receiving a new list of Vehicles, loop through each one
+   // to check if it is already present in the map. If it is, then update
+   // it's the coordinates. If it is not, add it to the list of visible annotations.
+   
+   func updateAnnotations(with vehiclesList: [VehicleSummary]) {
+      
+      // Loop through the new list of vehicles
+      for vehicle in vehiclesList {
+         
+         // Check if busNumber is already visible in the Map
+         let indexOfVehicleAnnotation = visibleAnnotations.firstIndex {
+            $0.id == vehicle.busNumber
+         }
+         
+         if (indexOfVehicleAnnotation != nil) {
+            // If it is, update it's coordinates
+            self.visibleAnnotations[indexOfVehicleAnnotation!].location = CLLocationCoordinate2D(
+               latitude: vehicle.lat, longitude: vehicle.lng
+            )
+         } else {
+            // If it is not, add it to the map
+            visibleAnnotations.append(GenericMapAnnotation(lat: vehicle.lat, lng: vehicle.lng, format: .vehicle, vehicle: vehicle))
+         }
+         
+      }
+      
+      
+      // MISSING: Remove vehicles in visibleAnnotations that are not in the list
+      
    }
 
 
@@ -194,9 +207,9 @@ class MapController: ObservableObject {
       newRegion.center.longitude = topLeftCoord.longitude + (bottomRightCoord.longitude - topLeftCoord.longitude) * 0.5
       newRegion.span.latitudeDelta = fabs(topLeftCoord.latitude - bottomRightCoord.latitude) * spanMargin
       newRegion.span.longitudeDelta = fabs(bottomRightCoord.longitude - topLeftCoord.longitude) * spanMargin
-
+      
       self.moveMap(to: newRegion)
-
+      
    }
-
+   
 }

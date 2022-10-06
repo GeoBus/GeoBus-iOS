@@ -69,6 +69,7 @@
 		CFAF0E7628CE586300DDAD5B /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAF0E7528CE586300DDAD5B /* Globals.swift */; };
 		CFAF0E7828CE84C200DDAD5B /* Vehicles.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAF0E7728CE84C200DDAD5B /* Vehicles.swift */; };
 		CFAF0E7A28CE84F400DDAD5B /* MapAnnotations.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAF0E7928CE84F400DDAD5B /* MapAnnotations.swift */; };
+		CFB16ADA28EA6F730095D2ED /* Map in Frameworks */ = {isa = PBXBuildFile; productRef = CFB16AD928EA6F730095D2ED /* Map */; };
 		CFB5D45728EEFE21002368BC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CFB5D45528EEFE21002368BC /* InfoPlist.strings */; };
 		CFB5D45A28EEFE6B002368BC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CFB5D45828EEFE6B002368BC /* Localizable.strings */; };
 		CFC80FCC28D2C2FF003D059D /* DragAndDrop.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC80FCB28D2C2FF003D059D /* DragAndDrop.swift */; };
@@ -179,6 +180,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CFB16ADA28EA6F730095D2ED /* Map in Frameworks */,
 				CFF71E7028CCC47200C498FE /* Lottie in Frameworks */,
 				CFFF2D3D28D7C99C00E035E0 /* PostHog in Frameworks */,
 			);
@@ -425,6 +427,7 @@
 			packageProductDependencies = (
 				CFF71E6F28CCC47200C498FE /* Lottie */,
 				CFFF2D3C28D7C99C00E035E0 /* PostHog */,
+				CFB16AD928EA6F730095D2ED /* Map */,
 			);
 			productName = GeoBus;
 			productReference = CF181FE228CCB7D600248F72 /* GeoBus.app */;
@@ -462,6 +465,7 @@
 			packageReferences = (
 				CFF71E6E28CCC47200C498FE /* XCRemoteSwiftPackageReference "lottie-ios" */,
 				CFFF2D3B28D7C99C00E035E0 /* XCRemoteSwiftPackageReference "posthog-ios" */,
+				CFB16AD828EA6F730095D2ED /* XCRemoteSwiftPackageReference "Map" */,
 			);
 			productRefGroup = CF181FE328CCB7D600248F72 /* Products */;
 			projectDirPath = "";
@@ -842,6 +846,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		CFB16AD828EA6F730095D2ED /* XCRemoteSwiftPackageReference "Map" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pauljohanneskraft/Map";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		CFF71E6E28CCC47200C498FE /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/airbnb/lottie-ios.git";
@@ -861,6 +873,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		CFB16AD928EA6F730095D2ED /* Map */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CFB16AD828EA6F730095D2ED /* XCRemoteSwiftPackageReference "Map" */;
+			productName = Map;
+		};
 		CFF71E6F28CCC47200C498FE /* Lottie */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = CFF71E6E28CCC47200C498FE /* XCRemoteSwiftPackageReference "lottie-ios" */;

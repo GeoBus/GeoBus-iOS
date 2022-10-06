@@ -10,10 +10,14 @@ import MapKit
 import SwiftUI
 
 
-struct GenericMapAnnotation: Identifiable {
+class GenericMapAnnotation: Identifiable, Equatable, ObservableObject {
+   static func == (lhs: GenericMapAnnotation, rhs: GenericMapAnnotation) -> Bool {
+      lhs.location.latitude == rhs.location.latitude && lhs.location.longitude == rhs.location.longitude
+   }
 
-   let id = UUID()
-   let location: CLLocationCoordinate2D
+
+   let id: String
+   @Published var location: CLLocationCoordinate2D
    let format: Format
 
    enum Format {
@@ -26,6 +30,7 @@ struct GenericMapAnnotation: Identifiable {
    var stop: Stop?
 
    init(lat: Double, lng: Double, format: Format, stop: Stop) {
+      self.id = UUID().uuidString //stop.publicId
       self.location = CLLocationCoordinate2D(latitude: lat, longitude: lng)
       self.format = format
       self.stop = stop
@@ -36,6 +41,7 @@ struct GenericMapAnnotation: Identifiable {
    var vehicle: VehicleSummary?
 
    init(lat: Double, lng: Double, format: Format, vehicle: VehicleSummary) {
+      self.id = vehicle.busNumber
       self.location = CLLocationCoordinate2D(latitude: lat, longitude: lng)
       self.format = format
       self.stop = nil

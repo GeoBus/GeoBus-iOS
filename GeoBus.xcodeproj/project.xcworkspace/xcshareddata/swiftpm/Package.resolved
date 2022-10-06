@@ -10,6 +10,15 @@
       }
     },
     {
+      "identity" : "map",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pauljohanneskraft/Map",
+      "state" : {
+        "branch" : "main",
+        "revision" : "3dbb081d903b46f64fa7149d93b848861a5cf66a"
+      }
+    },
+    {
       "identity" : "posthog-ios",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/PostHog/posthog-ios.git",

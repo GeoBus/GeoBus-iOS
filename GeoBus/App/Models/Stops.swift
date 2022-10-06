@@ -26,7 +26,7 @@ struct APIStop: Decodable {
 
 /* MARK: - Stop */
 
-// Data models adjusted for the app.
+// Data model adjusted for the app.
 
 struct Stop: Codable, Equatable, Identifiable {
    let publicId: String
@@ -36,6 +36,7 @@ struct Stop: Codable, Equatable, Identifiable {
    let direction: Direction?
 
    var id: String {
-      return self.publicId //UUID().uuidString
+      return self.publicId
+//      return UUID().uuidString
    }
 }
