@@ -88,9 +88,9 @@ struct StopEstimationRow: View {
    @State var estimatedTimeOfArrival: String = "..."
    
    var body: some View {
-      HStack {
+      HStack(spacing: 5) {
          RouteBadgePill(routeNumber: estimation.routeNumber)
-         Text("to")
+         Image(systemName: "arrow.forward")
             .font(.footnote)
             .foregroundColor(Color(.tertiaryLabel))
          Text(estimation.destination)
@@ -98,7 +98,7 @@ struct StopEstimationRow: View {
             .fontWeight(.medium)
             .foregroundColor(Color(.label))
          Spacer()
-         Text("in ±")
+         Image(systemName: "plusminus")
             .font(.footnote)
             .foregroundColor(Color(.tertiaryLabel))
          Text(self.estimatedTimeOfArrival)
@@ -106,10 +106,10 @@ struct StopEstimationRow: View {
             .fontWeight(.medium)
             .foregroundColor(Color(.label))
             .onAppear() {
-               self.estimatedTimeOfArrival = Globals().getTimeString(for: estimation.eta, in: .future, style: .short, units: [.hour, .minute, .second])
+               self.estimatedTimeOfArrival = Globals().getTimeString(for: estimation.eta, in: .future, style: .short, units: [.hour, .minute])
             }
             .onReceive(estimatedTimeOfArrivalTimer) { event in
-               self.estimatedTimeOfArrival = Globals().getTimeString(for: estimation.eta, in: .future, style: .short, units: [.hour, .minute, .second])
+               self.estimatedTimeOfArrival = Globals().getTimeString(for: estimation.eta, in: .future, style: .short, units: [.hour, .minute])
             }
       }
    }
