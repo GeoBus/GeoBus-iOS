@@ -13,8 +13,6 @@ import Combine
 class VehiclesController: ObservableObject {
    
    /* MARK: - Variables */
-   
-   private var endpoint = "https://gateway.carris.pt/gateway/xtranpassengerapi/api/v2.10/vehicleStatuses/routeNumber/"
 
    private var routeNumber: String?
 
@@ -70,7 +68,7 @@ class VehiclesController: ObservableObject {
 
          do {
             // Request API Routes List
-            var requestAPIVehiclesList = URLRequest(url: URL(string: endpoint + routeNumber!)!)
+            var requestAPIVehiclesList = URLRequest(url: URL(string: "https://gateway.carris.pt/gateway/xtranpassengerapi/api/v2.10/vehicleStatuses/routeNumber/\(routeNumber!)")!)
             requestAPIVehiclesList.addValue("application/json", forHTTPHeaderField: "Content-Type")
             requestAPIVehiclesList.addValue("application/json", forHTTPHeaderField: "Accept")
             requestAPIVehiclesList.setValue("Bearer \(authentication.authToken ?? "invalid_token")", forHTTPHeaderField: "Authorization")
@@ -101,7 +99,7 @@ class VehiclesController: ObservableObject {
 
                // Discard vehicles with outdated location,
                // here decided to be 180 seconds (3 minutes).
-               if (0 < 180) { // Globals().getLastSeenTime(since: vehicleSummary.lastGpsTime ?? "")
+               if (Globals().getLastSeenTime(since: vehicleSummary.lastGpsTime ?? "") < 180) {
 
                   // Format and append each vehicle
                   // to the temporary variable.
@@ -144,8 +142,7 @@ class VehiclesController: ObservableObject {
       
    }
 
-
-
+   
 
    /* MARK: - Fetch Vehicle Details from API */
 

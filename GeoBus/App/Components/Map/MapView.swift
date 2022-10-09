@@ -9,6 +9,7 @@
 import SwiftUI
 import MapKit
 
+
 struct MapView: View {
 
    @EnvironmentObject var mapController: MapController
@@ -51,6 +52,5 @@ struct MapView: View {
          mapController.updateAnnotations(with: newVehiclesList)
       }
    }
-
 
 }

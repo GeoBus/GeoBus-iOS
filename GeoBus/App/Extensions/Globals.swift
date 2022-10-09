@@ -107,6 +107,7 @@ open class Globals {
       case future
    }
 
+   
    func getTimeString(for isoDateString: String, in timeRelation: TimeRelativeToNow, style: DateComponentsFormatter.UnitsStyle, units: NSCalendar.Unit) -> String {
 
       // Setup Date Formatter
@@ -136,4 +137,21 @@ open class Globals {
       }
 
    }
+   
+   
+   func getLastSeenTime(since lastGpsTime: String) -> Int {
+      
+      let formatter = DateFormatter()
+      formatter.locale = Locale(identifier: "en_US_POSIX")
+      formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+      
+      let now = Date()
+      let estimation = formatter.date(from: lastGpsTime) ?? now
+      
+      let seconds = now.timeIntervalSince(estimation)
+      
+      return Int(seconds)
+      
+   }
+   
 }
