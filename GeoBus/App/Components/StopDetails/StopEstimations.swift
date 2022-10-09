@@ -9,12 +9,12 @@
 import SwiftUI
 
 struct StopEstimations: View {
-
+   
    @EnvironmentObject var appstate: Appstate
-
+   
    let estimations: [Estimation]?
    
-
+   
    var fixedInfo: some View {
       HStack {
          Text("Next on this stop:")
@@ -25,7 +25,7 @@ struct StopEstimations: View {
          EstimatedIcon()
       }
    }
-
+   
    var loadingScreen: some View {
       HStack(spacing: 3) {
          ProgressView()
@@ -36,7 +36,7 @@ struct StopEstimations: View {
          Spacer()
       }
    }
-
+   
    var estimationsList: some View {
       VStack(spacing: 12) {
          ForEach(estimations!) { estimation in
@@ -44,20 +44,20 @@ struct StopEstimations: View {
          }
       }
    }
-
+   
    var noResultsScreen: some View {
       Text("No estimations available for this stop.")
          .font(Font.system(size: 13, weight: .medium, design: .default) )
          .foregroundColor(Color(.secondaryLabel))
    }
-
+   
    var errorScreen: some View {
       Text("Carris API is unavailable.")
          .font(Font.system(size: 13, weight: .medium, design: .default) )
          .foregroundColor(Color(.secondaryLabel))
    }
-
-
+   
+   
    var body: some View {
       VStack(alignment: .leading, spacing: 10) {
          fixedInfo
@@ -74,19 +74,19 @@ struct StopEstimations: View {
          }
       }
    }
-
+   
 }
 
 
 
 
 struct StopEstimationRow: View {
-
+   
    let estimation: Estimation
    let estimatedTimeOfArrivalTimer = Timer.publish(every: 1 /* seconds */, on: .main, in: .common).autoconnect()
-
+   
    @State var estimatedTimeOfArrival: String = "..."
-
+   
    var body: some View {
       HStack {
          RouteBadgePill(routeNumber: estimation.routeNumber)
@@ -113,5 +113,5 @@ struct StopEstimationRow: View {
             }
       }
    }
-
+   
 }
