@@ -80,7 +80,7 @@ struct GeoBusApp: App {
                   // Capture session continuation
                   appstate.capture(event: "GeoBus-App-SessionPing")
                   // Update vehicles on timer call
-                  await vehiclesController.fetchVehiclesFromAPI()
+                  await vehiclesController.fetchVehiclesFromCarrisAPI()
                }
             }
       }

@@ -40,7 +40,7 @@ class VehiclesController: ObservableObject {
       Task {
          self.routeNumber = route
          self.vehicles.removeAll()
-         await self.fetchVehiclesFromAPI()
+         await self.fetchVehiclesFromCarrisAPI()
       }
    }
 
@@ -59,7 +59,7 @@ class VehiclesController: ObservableObject {
    // them in the annotations array. It must have @objc flag because Timer
    // is written in Objective-C.
 
-   func fetchVehiclesFromAPI() async {
+   func fetchVehiclesFromCarrisAPI() async {
       
       // Check if there is a routeNumber selected
       if (routeNumber != nil) {
@@ -79,7 +79,7 @@ class VehiclesController: ObservableObject {
             if (responseAPIVehiclesList?.statusCode == 401) {
                Task {
                   await self.authentication.authenticate()
-                  await self.fetchVehiclesFromAPI()
+                  await self.fetchVehiclesFromCarrisAPI()
                }
                return
             } else if (responseAPIVehiclesList?.statusCode != 200) {
@@ -87,7 +87,7 @@ class VehiclesController: ObservableObject {
                throw Appstate.CarrisAPIError.unavailable
             }
 
-            let decodedAPIVehiclesList = try JSONDecoder().decode([APIVehicleSummary].self, from: rawDataAPIVehiclesList)
+            let decodedAPIVehiclesList = try JSONDecoder().decode([CarrisAPIVehicleSummary].self, from: rawDataAPIVehiclesList)
 
 
             // Define a temporary variable to store vehicles
@@ -152,7 +152,7 @@ class VehiclesController: ObservableObject {
    // them in the annotations array. It must have @objc flag because Timer
    // is written in Objective-C.
 
-   func fetchVehicleDetailsFromAPI(for busNumber: String) async -> VehicleDetails? {
+   func fetchVehicleDetailsFromCarrisAPI(for busNumber: String) async -> VehicleDetails? {
 
       appstate.change(to: .loading, for: .vehicles)
 
@@ -170,7 +170,7 @@ class VehiclesController: ObservableObject {
          if (responseAPIVehicleDetail?.statusCode == 401) {
             Task {
                await self.authentication.authenticate()
-               await self.fetchVehiclesFromAPI()
+               return await self.fetchVehicleDetailsFromCarrisAPI(for: busNumber)
             }
             return nil
          } else if (responseAPIVehicleDetail?.statusCode != 200) {
@@ -178,7 +178,7 @@ class VehiclesController: ObservableObject {
             throw Appstate.CarrisAPIError.unavailable
          }
 
-         let decodedAPIVehicleDetail = try JSONDecoder().decode(APIVehicleDetail.self, from: rawDataAPIVehicleDetail)
+         let decodedAPIVehicleDetail = try JSONDecoder().decode(CarrisAPIVehicleDetail.self, from: rawDataAPIVehicleDetail)
 
          // Format and append each vehicle
          // to the temporary variable.

@@ -27,7 +27,7 @@ struct VehicleDetailsView: View {
 
    func getVehicleDetailsFromController() {
       Task {
-         self.vehicleDetails = await vehiclesController.fetchVehicleDetailsFromAPI(for: self.busNumber)
+         self.vehicleDetails = await vehiclesController.fetchVehicleDetailsFromCarrisAPI(for: self.busNumber)
       }
    }
 
