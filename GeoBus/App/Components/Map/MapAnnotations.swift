@@ -11,37 +11,37 @@ import SwiftUI
 
 
 struct GenericMapAnnotation: Identifiable {
-
+   
    let id = UUID()
    let location: CLLocationCoordinate2D
    let format: Format
-
+   
    enum Format {
       case stop
       case vehicle
       case singleStop
    }
-
+   
    // For Stops
    var stop: Stop?
-
+   
    init(lat: Double, lng: Double, format: Format, stop: Stop) {
       self.location = CLLocationCoordinate2D(latitude: lat, longitude: lng)
       self.format = format
       self.stop = stop
       self.vehicle = nil
    }
-
+   
    // For Vehicles
    var vehicle: VehicleSummary?
-
+   
    init(lat: Double, lng: Double, format: Format, vehicle: VehicleSummary) {
       self.location = CLLocationCoordinate2D(latitude: lat, longitude: lng)
       self.format = format
       self.stop = nil
       self.vehicle = vehicle
    }
-
+   
 }
 
 
@@ -51,14 +51,14 @@ struct GenericMapAnnotation: Identifiable {
 
 
 struct StopAnnotationView: View {
-
+   
    var stop: Stop
-
+   
    let isPresentedOnAppear: Bool
    @State private var isPresented: Bool = false
    @State private var viewSize = CGSize()
-
-
+   
+   
    var body: some View {
       Button(action: {
          self.isPresented = !self.isPresented
@@ -105,7 +105,7 @@ struct StopAnnotationView: View {
          .presentationDetents([.height(viewSize.height)])
       }
    }
-
+   
 }
 
 
@@ -113,14 +113,14 @@ struct StopAnnotationView: View {
 
 
 struct VehicleAnnotationView: View {
-
+   
    let vehicle: VehicleSummary
-
+   
    let isPresentedOnAppear: Bool
    @State private var isPresented: Bool = false
    @State private var viewSize = CGSize()
-
-
+   
+   
    var body: some View {
       Button(action: {
          self.isPresented = true
@@ -161,5 +161,5 @@ struct VehicleAnnotationView: View {
          .presentationDetents([.height(viewSize.height)])
       }
    }
-
+   
 }
