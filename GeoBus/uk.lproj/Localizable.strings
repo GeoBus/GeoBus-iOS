@@ -8,7 +8,7 @@
 "(ex: 28E or 758)" = "(наприклад: 28E або 758)";
 
 /* No comment provided by engineer. */
-"(ex: C 10512)" = "(ex: C 10512)";
+"(ex: C 10512)" = "(наприклад: C 10512)";
 
 /* No comment provided by engineer. */
 "%lld active vehicles" = "%lld активних автомобілів";
@@ -59,7 +59,7 @@
 "Favorites" = "Вподобання";
 
 /* No comment provided by engineer. */
-"Find Routes" = "Знайти маршрути";
+"Find Routes" = "Знайдіть маршрути";
 
 /* No comment provided by engineer. */
 "GeoBus can show you where you are in the map, if you allow it." = "GeoBus може показати вам, де ви перебуваєте на мапі, якщо ви дозволяєте.";
@@ -158,7 +158,7 @@
 "Service Unavailable" = "Сервіс недоступний";
 
 /* No comment provided by engineer. */
-"Share GeoBus" = "Share GeoBus";
+"Share GeoBus" = "Поділіться GeoBus";
 
 /* No comment provided by engineer. */
 "Share GeoBus with your friends and family!" = "Діліться GeoBus з друзями та родиною!";
@@ -219,9 +219,6 @@
 
 /* No comment provided by engineer. */
 "Updating Routes..." = "Оновлення маршрутів...";
-
-/* No comment provided by engineer. */
-"v%@-%@" = "v%@-%@";
 
 /* No comment provided by engineer. */
 "vehicle in circulation" = "засіб в обігу";

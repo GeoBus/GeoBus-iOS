@@ -8,7 +8,7 @@
 "(ex: 28E or 758)" = "(es: 28E o 758)";
 
 /* No comment provided by engineer. */
-"(ex: C 10512)" = "(ex: C 10512)";
+"(ex: C 10512)" = "(es: C 10512)";
 
 /* No comment provided by engineer. */
 "%lld active vehicles" = "%lld veicoli attivi";
@@ -59,7 +59,7 @@
 "Favorites" = "Preferiti";
 
 /* No comment provided by engineer. */
-"Find Routes" = "Trova Itinerari";
+"Find Routes" = "Trova percorsi";
 
 /* No comment provided by engineer. */
 "GeoBus can show you where you are in the map, if you allow it." = "GeoBus può mostrarti dove ti trovi nella mappa, se lo consenti.";
@@ -89,7 +89,7 @@
 "It's probably because their servers are down. In this case, the best option is to wait and try again later :/" = "Probabilmente perché i loro server sono giù. In questo caso, l'opzione migliore è aspettare e riprovare più tardi :/";
 
 /* No comment provided by engineer. */
-"Live" = "Live";
+"Live" = "Abitare";
 
 /* No comment provided by engineer. */
 "Live Data" = "Dati Live";
@@ -113,7 +113,7 @@
 "No estimations available for this stop." = "Nessuna stima disponibile per questo stop.";
 
 /* No comment provided by engineer. */
-"Olá 👋" = "Olá 👋";
+"Olá 👋" = "Olà 👋";
 
 /* No comment provided by engineer. */
 "Open to Feedback" = "Apri a Feedback";
@@ -158,7 +158,7 @@
 "Service Unavailable" = "Servizio Non Disponibile";
 
 /* No comment provided by engineer. */
-"Share GeoBus" = "Share GeoBus";
+"Share GeoBus" = "Condividi GeoBus";
 
 /* No comment provided by engineer. */
 "Share GeoBus with your friends and family!" = "Condividi GeoBus con i tuoi amici e la tua famiglia!";
@@ -219,9 +219,6 @@
 
 /* No comment provided by engineer. */
 "Updating Routes..." = "Aggiornamento Itinerari...";
-
-/* No comment provided by engineer. */
-"v%@-%@" = "v%@-%@";
 
 /* No comment provided by engineer. */
 "vehicle in circulation" = "veicolo in circolazione";
