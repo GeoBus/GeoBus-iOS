@@ -12,10 +12,11 @@ import Combine
 @MainActor
 class VehiclesController: ObservableObject {
    
-   /* MARK: - Variables */
+   /* MARK: - VARIABLES */
 
    private var routeNumber: String?
 
+   @Published var allVehicles: [Vehicle] = []
    @Published var vehicles: [VehicleSummary] = []
    
    
@@ -32,7 +33,7 @@ class VehiclesController: ObservableObject {
 
 
 
-   /* MARK: - Selectors */
+   /* MARK: - SELECTORS */
 
    // Getters and Setters for published and private variables.
 
@@ -51,7 +52,7 @@ class VehiclesController: ObservableObject {
 
 
    
-   /* MARK: - Fetch Vehicles Summary from API */
+   /* MARK: - FETCH VEHICLES SUMMARY FROM CARRIS API */
    
    // This function calls the GeoBus API and receives vehicle metadata,
    // including positions, for the set route number, while storing them
@@ -105,7 +106,7 @@ class VehiclesController: ObservableObject {
                   // to the temporary variable.
                   tempAllVehicles.append(
                      VehicleSummary(
-                        busNumber: String(vehicleSummary.busNumber ?? -1),
+                        busNumber: vehicleSummary.busNumber ?? -1,
                         state: vehicleSummary.state ?? "",
                         routeNumber: vehicleSummary.routeNumber ?? "-",
                         kind: Globals().getKind(by: vehicleSummary.routeNumber ?? "-"),
@@ -144,7 +145,7 @@ class VehiclesController: ObservableObject {
 
    
 
-   /* MARK: - Fetch Vehicle Details from API */
+   /* MARK: - FETCH VEHICLE DETAILS FROM CARRIS API */
 
    // This function calls the GeoBus API and receives vehicle metadata,
    // including positions, for the set route number, while storing them
@@ -152,7 +153,7 @@ class VehiclesController: ObservableObject {
    // them in the annotations array. It must have @objc flag because Timer
    // is written in Objective-C.
 
-   func fetchVehicleDetailsFromCarrisAPI(for busNumber: String) async -> VehicleDetails? {
+   func fetchVehicleDetailsFromCarrisAPI(for busNumber: Int) async -> VehicleDetails? {
 
       appstate.change(to: .loading, for: .vehicles)
 
@@ -202,6 +203,9 @@ class VehiclesController: ObservableObject {
    
    
    
+   /* MARK: - CALCULATE ANGLE IN RADIANS FOR VEHICLE DIRECTION */
+   
+   // This function calls the GeoBus API and receives vehicle metadata,
    
    func getAngleInRadians(prevLat: Double, prevLng: Double, currLat: Double, currLng: Double) -> Double {
       // and return response to the caller
@@ -219,6 +223,341 @@ class VehiclesController: ObservableObject {
       return teta - (.pi / 2) // Correction cuz Apple rotates clockwise
       
    }
+   
+   
+   
+   /* MARK: - FETCH VEHICLE FROM COMMUNITY API */
+   
+   // This function calls the GeoBus API and receives vehicle metadata,
+   // including positions, for the set route number, while storing them
+   // in the vehicles array. It also formats VehicleAnnotations and stores
+   // them in the annotations array. It must have @objc flag because Timer
+   // is written in Objective-C.
+   
+   func fetchVehicleFromCommunityAPI(for busNumber: Int) async -> VehicleDetails? {
+      
+      appstate.change(to: .loading, for: .vehicles)
+      
+      do {
+         
+         // Request Vehicle Detail (SGO)
+         var requestAPIVehicleDetail = URLRequest(url: URL(string: "https://gateway.carris.pt/gateway/xtranpassengerapi/api/v2.10/SGO/busNumber/\(busNumber)")!)
+         requestAPIVehicleDetail.addValue("application/json", forHTTPHeaderField: "Content-Type")
+         requestAPIVehicleDetail.addValue("application/json", forHTTPHeaderField: "Accept")
+         requestAPIVehicleDetail.setValue("Bearer \(authentication.authToken ?? "invalid_token")", forHTTPHeaderField: "Authorization")
+         let (rawDataAPIVehicleDetail, rawResponseAPIVehicleDetail) = try await URLSession.shared.data(for: requestAPIVehicleDetail)
+         let responseAPIVehicleDetail = rawResponseAPIVehicleDetail as? HTTPURLResponse
+         
+         // Check status of response
+         if (responseAPIVehicleDetail?.statusCode == 401) {
+            Task {
+               await self.authentication.authenticate()
+               return await self.fetchVehicleDetailsFromCarrisAPI(for: busNumber)
+            }
+            return nil
+         } else if (responseAPIVehicleDetail?.statusCode != 200) {
+            print(responseAPIVehicleDetail as Any)
+            throw Appstate.CarrisAPIError.unavailable
+         }
+         
+         let decodedAPIVehicleDetail = try JSONDecoder().decode(CarrisAPIVehicleDetail.self, from: rawDataAPIVehicleDetail)
+         
+         // Format and append each vehicle
+         // to the temporary variable.
+         let result = VehicleDetails(
+            busNumber: busNumber,
+            vehiclePlate: decodedAPIVehicleDetail.vehiclePlate ?? "",
+            lastStopOnVoyageName: decodedAPIVehicleDetail.lastStopOnVoyageName ?? "-"
+         )
+         
+         appstate.change(to: .idle, for: .vehicles)
+         
+         return result
+         
+      } catch {
+         appstate.change(to: .error, for: .vehicles)
+         print("ERROR IN VEHICLE DETAILS: \(error)")
+         return nil
+      }
+      
+   }
+   
+   
+   
+   
+   //
+   //
+   //
+   //
+   // N E W  V E R S I O N
+   //
+   //
+   //
+   //
+   
+   
+   
+   
+   
+   /* MARK: - UPDATE VEHICLES LIST */
+   
+   // This function decides whether to update available routes
+   
+   func update(forced: Bool = false) {
+      Task {
+         await fetchVehiclesListFromCarrisAPI_NEW()
+      }
+   }
+   
+   
+   
+   
+
+   
+   
+   
+   /* MARK: - FETCH VEHICLES SUMMARY FROM CARRIS API */
+   
+   // This function calls the GeoBus API and receives vehicle metadata,
+   // including positions, for the set route number, while storing them
+   // in the vehicles array. It also formats VehicleAnnotations and stores
+   // them in the annotations array. It must have @objc flag because Timer
+   // is written in Objective-C.
+   
+   func fetchVehiclesListFromCarrisAPI_NEW() async {
+      
+      appstate.change(to: .loading, for: .vehicles)
+      
+      do {
+         // Request all Vehicles from API
+         var requestCarrisAPIVehiclesList = URLRequest(url: URL(string: "https://gateway.carris.pt/gateway/xtranpassengerapi/api/v2.10/vehicleStatuses")!) // /routeNumber/\(routeNumber!)
+         requestCarrisAPIVehiclesList.addValue("application/json", forHTTPHeaderField: "Content-Type")
+         requestCarrisAPIVehiclesList.addValue("application/json", forHTTPHeaderField: "Accept")
+         requestCarrisAPIVehiclesList.setValue("Bearer \(authentication.authToken ?? "invalid_token")", forHTTPHeaderField: "Authorization")
+         let (rawDataCarrisAPIVehiclesList, rawResponseCarrisAPIVehiclesList) = try await URLSession.shared.data(for: requestCarrisAPIVehiclesList)
+         let responseCarrisAPIVehiclesList = rawResponseCarrisAPIVehiclesList as? HTTPURLResponse
+         
+         // Check status of response
+         if (responseCarrisAPIVehiclesList?.statusCode == 401) {
+            await self.authentication.authenticate()
+            await self.fetchVehiclesListFromCarrisAPI_NEW()
+            return
+         } else if (responseCarrisAPIVehiclesList?.statusCode != 200) {
+            print(responseCarrisAPIVehiclesList as Any)
+            throw Appstate.CarrisAPIError.unavailable
+         }
+         
+         let decodedCarrisAPIVehiclesList = try JSONDecoder().decode([CarrisAPIVehicleSummary].self, from: rawDataCarrisAPIVehiclesList)
+         
+         
+         for vehicleSummary in decodedCarrisAPIVehiclesList {
+            
+            let indexOfVehicleInArray = self.allVehicles.firstIndex(where: {
+               $0.id == vehicleSummary.busNumber
+            })
+            
+            if (indexOfVehicleInArray != nil) {
+               allVehicles[indexOfVehicleInArray!].routeNumber = vehicleSummary.routeNumber ?? "-"
+               allVehicles[indexOfVehicleInArray!].kind = Globals().getKind(by: vehicleSummary.routeNumber ?? "-")
+               allVehicles[indexOfVehicleInArray!].lat = vehicleSummary.lat ?? 0
+               allVehicles[indexOfVehicleInArray!].lng = vehicleSummary.lng ?? 0
+               allVehicles[indexOfVehicleInArray!].previousLatitude = vehicleSummary.previousLatitude ?? 0
+               allVehicles[indexOfVehicleInArray!].previousLongitude = vehicleSummary.previousLongitude ?? 0
+               allVehicles[indexOfVehicleInArray!].lastGpsTime = vehicleSummary.lastGpsTime ?? ""
+               allVehicles[indexOfVehicleInArray!].angleInRadians = self.getAngleInRadians(
+                  prevLat: vehicleSummary.previousLatitude ?? 0,
+                  prevLng: vehicleSummary.previousLongitude ?? 0,
+                  currLat: vehicleSummary.lat ?? 0,
+                  currLng: vehicleSummary.lng ?? 0
+               )
+            } else {
+               self.allVehicles.append(
+                  Vehicle(
+                     busNumber: vehicleSummary.busNumber ?? 0,
+                     routeNumber: vehicleSummary.routeNumber ?? "-",
+                     kind: Globals().getKind(by: vehicleSummary.routeNumber ?? "-"),
+                     lat: vehicleSummary.lat ?? 0,
+                     lng: vehicleSummary.lng ?? 0,
+                     previousLatitude: vehicleSummary.previousLatitude ?? 0,
+                     previousLongitude: vehicleSummary.previousLongitude ?? 0,
+                     lastGpsTime: vehicleSummary.lastGpsTime ?? "",
+                     angleInRadians: self.getAngleInRadians(
+                        prevLat: vehicleSummary.previousLatitude ?? 0,
+                        prevLng: vehicleSummary.previousLongitude ?? 0,
+                        currLat: vehicleSummary.lat ?? 0,
+                        currLng: vehicleSummary.lng ?? 0
+                     )
+                  )
+               )
+            }
+            
+         }
+         
+         appstate.change(to: .idle, for: .vehicles)
+         
+      } catch {
+         appstate.change(to: .error, for: .vehicles)
+         print("ERROR IN VEHICLES: \(error)")
+         return
+      }
+      
+   }
+   
+   
+   
+   
+   /* MARK: - REQUEST TO UPDATE EXISTING VEHICLE */
+   
+   // This function calls the GeoBus API and receives vehicle metadata,
+   
+   enum VehicleUpdateScope {
+      case detail
+      case community
+   }
+   
+   
+   func updateVehicle(id busNumber: Int, for scope: VehicleUpdateScope) {
+      
+      // 1. Get Vehicle from array
+      guard let indexOfVehicleInArray = allVehicles.firstIndex(where: { $0.id == busNumber }) else {
+         return
+      }
+      
+      switch scope {
+            
+         case .detail:
+            Task {
+               let carrisAPIVehicleDetail = await fetchVehicleDetailsFromCarrisAPI_NEW(for: busNumber)
+               allVehicles[indexOfVehicleInArray].vehiclePlate = carrisAPIVehicleDetail?.vehiclePlate ?? "-"
+               allVehicles[indexOfVehicleInArray].lastStopOnVoyageName = carrisAPIVehicleDetail?.lastStopOnVoyageName ?? "-"
+            }
+            
+         case .community:
+            Task {
+               let communityAPIVehicle = await fetchVehicleFromCommunityAPI_NEW(for: busNumber)
+               print(communityAPIVehicle ?? "")
+               // allVehicles[indexOfVehicleInArray].vehiclePlate = communityAPIVehicle?.vehiclePlate ?? "-"
+            }
+            
+      }
+      
+   }
+   
+   
+   
+   /* MARK: - FETCH VEHICLE DETAILS FROM CARRIS API */
+   
+   // This function calls the GeoBus API and receives vehicle metadata,
+   // including positions, for the set route number, while storing them
+   // in the vehicles array. It also formats VehicleAnnotations and stores
+   // them in the annotations array. It must have @objc flag because Timer
+   // is written in Objective-C.
+   
+   func fetchVehicleDetailsFromCarrisAPI_NEW(for busNumber: Int) async -> CarrisAPIVehicleDetail? {
+      
+      appstate.change(to: .loading, for: .vehicles)
+      
+      do {
+         
+         // Request Vehicle Detail (SGO)
+         var requestCarrisAPIVehicleDetail = URLRequest(url: URL(string: "https://gateway.carris.pt/gateway/xtranpassengerapi/api/v2.10/SGO/busNumber/\(busNumber)")!)
+         requestCarrisAPIVehicleDetail.addValue("application/json", forHTTPHeaderField: "Content-Type")
+         requestCarrisAPIVehicleDetail.addValue("application/json", forHTTPHeaderField: "Accept")
+         requestCarrisAPIVehicleDetail.setValue("Bearer \(authentication.authToken ?? "invalid_token")", forHTTPHeaderField: "Authorization")
+         let (rawDataCarrisAPIVehicleDetail, rawResponseCarrisAPIVehicleDetail) = try await URLSession.shared.data(for: requestCarrisAPIVehicleDetail)
+         let responseCarrisAPIVehicleDetail = rawResponseCarrisAPIVehicleDetail as? HTTPURLResponse
+         
+         // Check status of response
+         if (responseCarrisAPIVehicleDetail?.statusCode == 401) {
+            Task {
+               await self.authentication.authenticate()
+               return await self.fetchVehicleDetailsFromCarrisAPI_NEW(for: busNumber)
+            }
+            return nil
+         } else if (responseCarrisAPIVehicleDetail?.statusCode != 200) {
+            print(responseCarrisAPIVehicleDetail as Any)
+            throw Appstate.CarrisAPIError.unavailable
+         }
+         
+         let decodedCarrisAPIVehicleDetail = try JSONDecoder().decode(CarrisAPIVehicleDetail.self, from: rawDataCarrisAPIVehicleDetail)
+         
+         appstate.change(to: .idle, for: .vehicles)
+         
+         return decodedCarrisAPIVehicleDetail
+         
+      } catch {
+         appstate.change(to: .error, for: .vehicles)
+         print("ERROR IN VEHICLE DETAILS: \(error)")
+         return nil
+      }
+      
+   }
+   
+   
+   
+   /* MARK: - FETCH VEHICLE FROM COMMUNITY API */
+   
+   // This function calls the GeoBus API and receives vehicle metadata,
+   // including positions, for the set route number, while storing them
+   // in the vehicles array. It also formats VehicleAnnotations and stores
+   // them in the annotations array. It must have @objc flag because Timer
+   // is written in Objective-C.
+   
+   func fetchVehicleFromCommunityAPI_NEW(for busNumber: Int) async -> CommunityAPIVehicle? {
+      
+      appstate.change(to: .loading, for: .vehicles)
+      
+      do {
+         
+         // Request Vehicle Detail (SGO)
+         var requestCommunityAPIVehicle = URLRequest(url: URL(string: "https://gateway.carris.pt/gateway/xtranpassengerapi/api/v2.10/SGO/busNumber/\(busNumber)")!)
+         requestCommunityAPIVehicle.addValue("application/json", forHTTPHeaderField: "Content-Type")
+         requestCommunityAPIVehicle.addValue("application/json", forHTTPHeaderField: "Accept")
+         requestCommunityAPIVehicle.setValue("Bearer \(authentication.authToken ?? "invalid_token")", forHTTPHeaderField: "Authorization")
+         let (rawDataCommunityAPIVehicle, rawResponseCommunityAPIVehicle) = try await URLSession.shared.data(for: requestCommunityAPIVehicle)
+         let responseCommunityAPIVehicle = rawResponseCommunityAPIVehicle as? HTTPURLResponse
+         
+         // Check status of response
+         if (responseCommunityAPIVehicle?.statusCode == 401) {
+            await self.authentication.authenticate()
+            return await self.fetchVehicleFromCommunityAPI_NEW(for: busNumber)
+         } else if (responseCommunityAPIVehicle?.statusCode != 200) {
+            print(responseCommunityAPIVehicle as Any)
+            throw Appstate.CommunityAPIError.unavailable
+         }
+         
+         let decodedCommunityAPIVehicle = try JSONDecoder().decode(CommunityAPIVehicle.self, from: rawDataCommunityAPIVehicle)
+         
+         appstate.change(to: .idle, for: .vehicles)
+         
+         return decodedCommunityAPIVehicle
+         
+      } catch {
+         appstate.change(to: .error, for: .vehicles)
+         print("ERROR IN 'fetchVehicleFromCommunityAPI_NEW': \(error)")
+         return nil
+      }
+      
+   }
+   
+   
+   
+   
+   
+   func getVehicle(by busNumber: Int) -> Vehicle? {
+      let indexInArray = self.allVehicles.firstIndex(where: {
+         $0.busNumber == busNumber
+      })
+      
+      if (indexInArray != nil) {
+         return allVehicles[indexInArray!]
+      } else {
+         return nil
+      }
+   }
+   
+   
+   
    
    
 }

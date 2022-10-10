@@ -125,6 +125,7 @@ class EstimationsController: ObservableObject {
                   routeNumber: estimation.routeNumber ?? "-",
                   destination: estimation.destination ?? "-",
                   publicId: estimation.publicId ?? "-",
+                  busNumber: estimation.busNumber ?? "-",
                   eta: estimation.time ?? ""
                )
             )
@@ -175,23 +176,22 @@ class EstimationsController: ObservableObject {
          var tempAllEstimations: [Estimation] = []
          
          // For each available vehicles in the API
-         for vehicle in decodedCommunityAPIVehicle {
+         for communityVehicle in decodedCommunityAPIVehicle {
             
             // If the vehicle is not expected to have arrived
-            if (!(vehicle.estimatedRecentlyArrived ?? false)) {
+            if (!(communityVehicle.estimatedRecentlyArrived ?? false)) {
                
-               let details = await VehiclesController().fetchVehicleDetailsFromCarrisAPI(for: "\(vehicle.busNumber ?? 0)")
-               
-               print("GB4: details: \(details)")
+               let carrisVehicleDetails = await VehiclesController().fetchVehicleDetailsFromCarrisAPI(for: communityVehicle.busNumber ?? 0)
                
                // Format and append each estimation
                // to the temporary variable.
                tempAllEstimations.append(
                   Estimation(
-                     routeNumber: vehicle.routeNumber ?? "-",
-                     destination: details?.lastStopOnVoyageName ?? "-",
+                     routeNumber: communityVehicle.routeNumber ?? "-",
+                     destination: carrisVehicleDetails?.lastStopOnVoyageName ?? "-",
                      publicId: publicId,
-                     eta: vehicle.estimatedTimeofArrivalCorrected ?? ""
+                     busNumber: String(communityVehicle.busNumber ?? 0),
+                     eta: communityVehicle.estimatedTimeofArrivalCorrected ?? ""
                   )
                )
                

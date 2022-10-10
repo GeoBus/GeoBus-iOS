@@ -10,14 +10,14 @@ import SwiftUI
 
 struct VehicleIdentifier: View {
 
-   let busNumber: String
+   let busNumber: Int
    let vehiclePlate: String
 
    @State var toggleIdentifier: Bool = false
 
 
    var busNumberView: some View {
-      Text(busNumber)
+      Text(String(busNumber))
          .font(Font.system(size: 12, weight: .bold, design: .monospaced) )
          .foregroundColor(.primary)
          .padding(.vertical, 2)
@@ -30,7 +30,7 @@ struct VehicleIdentifier: View {
    var licensePlateView: some View {
       HStack(spacing: 0) {
          ZStack {
-            Text("P")
+            Text(verbatim: "P")
                .font(.system(size: 8, weight: .bold, design: .monospaced))
                .foregroundColor(.white)
                .padding(.horizontal, 3)

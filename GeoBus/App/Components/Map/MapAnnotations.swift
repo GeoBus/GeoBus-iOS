@@ -13,7 +13,7 @@ import SwiftUI
 struct GenericMapAnnotation: Identifiable {
    
    let id = UUID()
-   let location: CLLocationCoordinate2D
+   var location: CLLocationCoordinate2D
    let format: Format
    
    enum Format {
@@ -30,16 +30,19 @@ struct GenericMapAnnotation: Identifiable {
       self.format = format
       self.stop = stop
       self.vehicle = nil
+      self.busNumber = nil
    }
    
    // For Vehicles
-   var vehicle: VehicleSummary?
+   var vehicle: Vehicle?
+   let busNumber: Int?
    
-   init(lat: Double, lng: Double, format: Format, vehicle: VehicleSummary) {
+   init(lat: Double, lng: Double, format: Format, busNumber: Int, vehicle: Vehicle) {
       self.location = CLLocationCoordinate2D(latitude: lat, longitude: lng)
       self.format = format
       self.stop = nil
       self.vehicle = vehicle
+      self.busNumber = busNumber
    }
    
 }
@@ -86,23 +89,7 @@ struct StopAnnotationView: View {
          }
       }
       .sheet(isPresented: $isPresented) {
-         VStack(alignment: .leading) {
-            StopDetailsView(
-               canToggle: false,
-               publicId: stop.publicId,
-               name: stop.name,
-               orderInRoute: stop.orderInRoute,
-               direction: stop.direction
-            )
-            .padding(.bottom, 20)
-            Disclaimer()
-               .padding(.horizontal)
-               .padding(.bottom, 10)
-         }
-         .readSize { size in
-            viewSize = size
-         }
-         .presentationDetents([.height(viewSize.height)])
+         StopDetailsView(stop: self.stop)
       }
    }
    
@@ -114,7 +101,7 @@ struct StopAnnotationView: View {
 
 struct VehicleAnnotationView: View {
    
-   let vehicle: VehicleSummary
+   let vehicle: Vehicle
    
    let isPresentedOnAppear: Bool
    @State private var isPresented: Bool = false
@@ -138,27 +125,16 @@ struct VehicleAnnotationView: View {
                   Image("RegularService-Active")
                case .regular:
                   Image("RegularService-Active")
+               case .none:
+                  Rectangle()
+                     .background(Color.clear)
             }
          }
       }
       .frame(width: 40, height: 40, alignment: .center)
-      .rotationEffect(.radians(vehicle.angleInRadians))
+      .rotationEffect(.radians(vehicle.angleInRadians ?? 0))
       .sheet(isPresented: $isPresented) {
-         VStack(alignment: .leading) {
-            VehicleDetailsView(
-               busNumber: vehicle.busNumber,
-               routeNumber: vehicle.routeNumber,
-               lastGpsTime: vehicle.lastGpsTime
-            )
-            .padding(.bottom, 20)
-            Disclaimer()
-               .padding(.horizontal)
-               .padding(.bottom, 10)
-         }
-         .readSize { size in
-            viewSize = size
-         }
-         .presentationDetents([.height(viewSize.height)])
+         VehicleInfoSheet(busNumber: vehicle.busNumber)
       }
    }
    

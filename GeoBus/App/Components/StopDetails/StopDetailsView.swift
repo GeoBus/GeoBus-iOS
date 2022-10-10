@@ -1,39 +1,71 @@
 //
-//  StopButton.swift
+//  StopDetailsView.swift
 //  GeoBus
 //
-//  Created by João on 22/04/2020.
-//  Copyright © 2020 João. All rights reserved.
+//  Created by João de Vasconcelos on 09/10/2022.
 //
 
 import SwiftUI
-import Combine
 
 struct StopDetailsView: View {
+   
+   let stop: Stop
+   
+   @State private var viewSize = CGSize()
+   
+    var body: some View {
+       VStack(alignment: .leading) {
+          StopDetailsView2(
+            canToggle: false,
+            publicId: stop.publicId,
+            name: stop.name,
+            orderInRoute: stop.orderInRoute,
+            direction: stop.direction
+          )
+          .padding(.bottom, 20)
+          Disclaimer()
+             .padding(.horizontal)
+             .padding(.bottom, 10)
+       }
+       .readSize { size in
+          viewSize = size
+       }
+       .presentationDetents([.height(viewSize.height)])
+    }
+}
 
+
+
+
+
+
+
+
+struct StopDetailsView2: View {
+   
    @Environment(\.colorScheme) var colorScheme: ColorScheme
    
    @EnvironmentObject var estimationsController: EstimationsController
-
+   
    let refreshTimer = Timer.publish(every: 60 /* seconds */, on: .main, in: .common).autoconnect()
-
+   
    let canToggle: Bool
    let publicId: String
    let name: String
    let orderInRoute: Int?
    let direction: Direction?
-
+   
    @State private var isOpen = false
    @State private var estimations: [Estimation]? = nil
-
-
+   
+   
    func getEstimationsFromController() {
       Task {
          self.estimations = await estimationsController.get(for: self.publicId)
       }
    }
-
-
+   
+   
    var fixedHeader: some View {
       HStack(spacing: 15) {
          ZStack {
@@ -66,9 +98,9 @@ struct StopDetailsView: View {
             .cornerRadius(10)
       }
    }
-
-
-
+   
+   
+   
    var content: some View {
       StopEstimations(estimations: self.estimations)
          .onAppear() {
@@ -80,8 +112,8 @@ struct StopDetailsView: View {
             self.getEstimationsFromController()
          }
    }
-
-
+   
+   
    var body: some View {
       VStack(spacing: 0) {
          // The header of the view is always visible
@@ -111,5 +143,5 @@ struct StopDetailsView: View {
          }
       }
    }
-
+   
 }

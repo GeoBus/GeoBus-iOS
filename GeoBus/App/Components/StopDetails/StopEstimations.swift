@@ -89,14 +89,7 @@ struct StopEstimationRow: View {
    
    var body: some View {
       HStack(spacing: 5) {
-         RouteBadgePill(routeNumber: estimation.routeNumber)
-         Image(systemName: "arrow.forward")
-            .font(.footnote)
-            .foregroundColor(Color(.tertiaryLabel))
-         Text(estimation.destination)
-            .font(.body)
-            .fontWeight(.medium)
-            .foregroundColor(Color(.label))
+         VehicleDestination(routeNumber: estimation.routeNumber, destination: estimation.destination)
          Spacer()
          Image(systemName: "plusminus")
             .font(.footnote)

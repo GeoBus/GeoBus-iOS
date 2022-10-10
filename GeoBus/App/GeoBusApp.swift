@@ -11,11 +11,11 @@ import PostHog
 
 @main
 struct GeoBusApp: App {
-
+   
    /* MARK: - POSTHOG ANALYTICS */
-
+   
    private let posthog: PHGPostHog?
-
+   
    init() {
       if let posthogApiKey = Bundle.main.infoDictionary?["POSTHOG_API_KEY"] as? String {
          let configuration = PHGPostHogConfiguration(apiKey: posthogApiKey)
@@ -36,10 +36,10 @@ struct GeoBusApp: App {
          self.posthog = nil
       }
    }
-
-
+   
+   
    /* MARK: - GEOBUS */
-
+   
    @StateObject private var appstate = Appstate()
    @StateObject private var mapController = MapController()
    @StateObject private var authentication = Authentication()
@@ -47,9 +47,9 @@ struct GeoBusApp: App {
    @StateObject private var routesController = RoutesController()
    @StateObject private var vehiclesController = VehiclesController()
    @StateObject private var estimationsController = EstimationsController()
-
+   
    let refreshVehiclesTimer = Timer.publish(every: 20 /* seconds */, on: .main, in: .common).autoconnect()
-
+   
    var body: some Scene {
       WindowGroup {
          ContentView()
@@ -62,26 +62,25 @@ struct GeoBusApp: App {
             .environmentObject(estimationsController)
             .onAppear(perform: {
                // Pass references to Controllers
-               appstate.receive(analytics: posthog)
-               mapController.receive(state: appstate)
-               authentication.receive(state: appstate)
-               stopsController.receive(state: appstate, auth: authentication)
-               routesController.receive(state: appstate, auth: authentication)
-               vehiclesController.receive(state: appstate, auth: authentication)
-               estimationsController.receive(state: appstate, auth: authentication)
+               self.appstate.receive(analytics: posthog)
+               self.mapController.receive(state: appstate)
+               self.authentication.receive(state: appstate)
+               self.stopsController.receive(state: appstate, auth: authentication)
+               self.routesController.receive(state: appstate, auth: authentication)
+               self.vehiclesController.receive(state: appstate, auth: authentication)
+               self.estimationsController.receive(state: appstate, auth: authentication)
                // Update available stops & routes
-               stopsController.update()
-               routesController.update()
+               self.stopsController.update()
+               self.routesController.update()
+               self.vehiclesController.update()
                // Capture app open
-               appstate.capture(event: "GeoBus-App-Start")
+               self.appstate.capture(event: "GeoBus-App-Start")
             })
             .onReceive(refreshVehiclesTimer) { event in
-               Task {
-                  // Capture session continuation
-                  appstate.capture(event: "GeoBus-App-SessionPing")
-                  // Update vehicles on timer call
-                  await vehiclesController.fetchVehiclesFromCarrisAPI()
-               }
+               // Capture session continuation
+               self.appstate.capture(event: "GeoBus-App-SessionPing")
+               // Update vehicles on timer call
+               self.vehiclesController.update()
             }
       }
    }

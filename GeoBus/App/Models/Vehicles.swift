@@ -97,8 +97,37 @@ struct CommunityAPIVehicle: Codable {
 
 // Data model adjusted for the app.
 
+struct Vehicle: Codable, Equatable, Identifiable, Hashable {
+   
+   let busNumber: Int
+   var id: Int {
+      return self.busNumber
+   }
+   
+   // Carris API › Vehicle Summary
+   var routeNumber: String?
+   var kind: Kind?
+   var lat: Double?
+   var lng: Double?
+   var previousLatitude: Double?
+   var previousLongitude: Double?
+   var lastGpsTime: String?
+   var angleInRadians: Double?
+   
+   // Carris API › Vehicle Details
+   var vehiclePlate: String?
+   var lastStopOnVoyageName: String?
+   
+   // Community API
+   // ...
+   
+}
+
+
+
+
 struct VehicleSummary: Codable, Equatable, Identifiable {
-   let busNumber: String
+   let busNumber: Int
    let state: String
    let routeNumber: String
    let kind: Kind
@@ -109,7 +138,7 @@ struct VehicleSummary: Codable, Equatable, Identifiable {
    let lastGpsTime: String
    let angleInRadians: Double
 
-   var id: String {
+   var id: Int {
       return self.busNumber
    }
    
@@ -117,7 +146,7 @@ struct VehicleSummary: Codable, Equatable, Identifiable {
 
 
 struct VehicleDetails: Codable, Equatable, Identifiable {
-   let busNumber: String
+   let busNumber: Int
    let vehiclePlate: String
    let lastStopOnVoyageName: String
 

@@ -40,16 +40,17 @@ struct MapView: View {
       }
       .onChange(of: stopsController.selectedStop) { newStop in
          if (newStop != nil) {
-            mapController.updateAnnotations(with: newStop!)
+            self.mapController.updateAnnotations(with: newStop!)
          }
       }
       .onChange(of: routesController.selectedVariant) { newVariant in
          if (newVariant != nil) {
-            mapController.updateAnnotations(with: newVariant!)
+            self.mapController.updateAnnotations(with: newVariant!)
+            self.mapController.updateAnnotations(with: vehiclesController.allVehicles, for: routesController.selectedRoute?.number)
          }
       }
-      .onChange(of: vehiclesController.vehicles) { newVehiclesList in
-         mapController.updateAnnotations(with: newVehiclesList)
+      .onChange(of: vehiclesController.allVehicles) { newVehiclesList in
+         self.mapController.updateAnnotations(with: newVehiclesList, for: routesController.selectedRoute?.number)
       }
    }
 
