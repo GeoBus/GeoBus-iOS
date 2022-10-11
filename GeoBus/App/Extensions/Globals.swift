@@ -154,4 +154,10 @@ open class Globals {
       
    }
    
+   
+   func getSecondsFromISO8601DateString(_ dateString: String) -> Int {
+      let formattedDateObject = ISO8601DateFormatter().date(from: dateString)
+      return Int(formattedDateObject?.timeIntervalSinceNow ?? -1)
+   }
+   
 }

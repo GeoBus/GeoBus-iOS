@@ -11,7 +11,7 @@ import SwiftUI
 struct VehicleIdentifier: View {
 
    let busNumber: Int
-   let vehiclePlate: String
+   let vehiclePlate: String?
 
    @State var toggleIdentifier: Bool = false
 
@@ -38,7 +38,7 @@ struct VehicleIdentifier: View {
          }
          .background(Color(.systemBlue))
          VStack {
-            Text(vehiclePlate)
+            Text(vehiclePlate!)
                .font(.system(size: 10, weight: .bold, design: .monospaced))
                .foregroundColor(.black)
                .padding(.horizontal, 5)
@@ -53,10 +53,7 @@ struct VehicleIdentifier: View {
    var body: some View {
       // If vehiclePlate is not available,
       // then show only the busNumber
-      if (vehiclePlate.isEmpty) {
-         busNumberView
-
-      } else {
+      if (vehiclePlate != nil) {
          // If both are available, allow them to be toggled
          VStack {
             if (toggleIdentifier) {
@@ -69,6 +66,9 @@ struct VehicleIdentifier: View {
             TapticEngine.impact.feedback(.light)
             self.toggleIdentifier = !toggleIdentifier
          }
+
+      } else {
+         busNumberView
       }
    }
 

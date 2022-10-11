@@ -191,7 +191,7 @@ class EstimationsController: ObservableObject {
                      destination: carrisVehicleDetails?.lastStopOnVoyageName ?? "-",
                      publicId: publicId,
                      busNumber: String(communityVehicle.busNumber ?? 0),
-                     eta: communityVehicle.estimatedTimeofArrivalCorrected ?? ""
+                     eta: "" // communityVehicle.estimatedTimeofArrivalCorrected ?? ""
                   )
                )
                

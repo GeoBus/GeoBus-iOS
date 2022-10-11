@@ -83,6 +83,10 @@
 		CFEF85C628D34E6300A29526 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = CFEF85C428D34E6300A29526 /* LICENSE */; };
 		CFF71E7028CCC47200C498FE /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = CFF71E6F28CCC47200C498FE /* Lottie */; };
 		CFFF2D3D28D7C99C00E035E0 /* PostHog in Frameworks */ = {isa = PBXBuildFile; productRef = CFFF2D3C28D7C99C00E035E0 /* PostHog */; };
+		CFFFAD7928F4AD0400DFD5FD /* TimeLeft.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFFAD7828F4AD0400DFD5FD /* TimeLeft.swift */; };
+		CFFFAD7B28F4D8D000DFD5FD /* StopIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFFAD7A28F4D8D000DFD5FD /* StopIcon.swift */; };
+		CFFFAD7D28F5040C00DFD5FD /* TheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFFAD7C28F5040C00DFD5FD /* TheManager.swift */; };
+		CFFFAD7F28F5928900DFD5FD /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFFAD7E28F5928900DFD5FD /* Network.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -176,6 +180,10 @@
 		CFEF85C328D34E6300A29526 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		CFEF85C428D34E6300A29526 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		CFFF2D3E28D7CEE300E035E0 /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
+		CFFFAD7828F4AD0400DFD5FD /* TimeLeft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeLeft.swift; sourceTree = "<group>"; };
+		CFFFAD7A28F4D8D000DFD5FD /* StopIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopIcon.swift; sourceTree = "<group>"; };
+		CFFFAD7C28F5040C00DFD5FD /* TheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheManager.swift; sourceTree = "<group>"; };
+		CFFFAD7E28F5928900DFD5FD /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -228,6 +236,8 @@
 				CF6C917D28D3ED0A006C3F61 /* SquareButton.swift */,
 				CF18204128CCBCC500248F72 /* RouteBadgePill.swift */,
 				CF18204228CCBCC500248F72 /* RouteBadgeSquare.swift */,
+				CFFFAD7828F4AD0400DFD5FD /* TimeLeft.swift */,
+				CFFFAD7A28F4D8D000DFD5FD /* StopIcon.swift */,
 				CF548FF528D14BA400668CB6 /* VehicleIdentifier.swift */,
 				CF03D6AD28F3B00F0077299B /* VehicleDestination.swift */,
 				CFDD014A28D535370070FE4B /* Card.swift */,
@@ -242,6 +252,7 @@
 				CF47994C28D3315E00B56D4B /* Appstate.swift */,
 				CF6C918128D3F1C6006C3F61 /* MapController.swift */,
 				CF181FF528CCB95300248F72 /* Authentication.swift */,
+				CFFFAD7C28F5040C00DFD5FD /* TheManager.swift */,
 				CF6C918928D4A88D006C3F61 /* StopsController.swift */,
 				CF18200628CCBA3500248F72 /* RoutesController.swift */,
 				CF18202D28CCBC0100248F72 /* VehiclesController.swift */,
@@ -256,6 +267,7 @@
 				CF181FFC28CCB99E00248F72 /* Auth.swift */,
 				CF6C918D28D4DABA006C3F61 /* Stops.swift */,
 				CF18200828CCBA4600248F72 /* Routes.swift */,
+				CFFFAD7E28F5928900DFD5FD /* Network.swift */,
 				CFAF0E7728CE84C200DDAD5B /* Vehicles.swift */,
 				CF18203C28CCBC6000248F72 /* Estimations.swift */,
 			);
@@ -529,6 +541,7 @@
 				CF18208428CCBD3A00248F72 /* SetOfRoutes.swift in Sources */,
 				CF521A0528F34F5300AD0B76 /* StopDetailsView.swift in Sources */,
 				CF82BB0728D7F167007F0CDB /* LiveDataCard.swift in Sources */,
+				CFFFAD7928F4AD0400DFD5FD /* TimeLeft.swift in Sources */,
 				CF82BB0D28D7F202007F0CDB /* ContactsCard.swift in Sources */,
 				CF18202E28CCBC0100248F72 /* VehiclesController.swift in Sources */,
 				CFC80FCC28D2C2FF003D059D /* DragAndDrop.swift in Sources */,
@@ -536,6 +549,7 @@
 				CF03D6AE28F3B00F0077299B /* VehicleDestination.swift in Sources */,
 				CF18207328CCBD2300248F72 /* VariantButton.swift in Sources */,
 				CF18209B28CCBD5000248F72 /* MapView.swift in Sources */,
+				CFFFAD7D28F5040C00DFD5FD /* TheManager.swift in Sources */,
 				CF18207428CCBD2300248F72 /* CircularVariantInfo.swift in Sources */,
 				CF18208228CCBD3A00248F72 /* SelectRouteView.swift in Sources */,
 				CF18208328CCBD3A00248F72 /* SelectRouteSheet.swift in Sources */,
@@ -555,10 +569,12 @@
 				CFAF0E7A28CE84F400DDAD5B /* MapAnnotations.swift in Sources */,
 				CF69994C28E878ED00646582 /* EstimationsProviderCard.swift in Sources */,
 				CF548FF328D129B000668CB6 /* VehicleDetailsView.swift in Sources */,
+				CFFFAD7B28F4D8D000DFD5FD /* StopIcon.swift in Sources */,
 				CF18203028CCBC0B00248F72 /* EstimationsController.swift in Sources */,
 				CF18200928CCBA4600248F72 /* Routes.swift in Sources */,
 				CF6C918A28D4A88D006C3F61 /* StopsController.swift in Sources */,
 				CF82BB0928D7F19A007F0CDB /* LocationCard.swift in Sources */,
+				CFFFAD7F28F5928900DFD5FD /* Network.swift in Sources */,
 				CF18207928CCBD2300248F72 /* RouteDetailsVehiclesQuantity.swift in Sources */,
 				CF18201728CCBB5900248F72 /* LottieView.swift in Sources */,
 				CF181FFD28CCB99E00248F72 /* Auth.swift in Sources */,

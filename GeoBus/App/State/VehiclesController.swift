@@ -299,20 +299,42 @@ class VehiclesController: ObservableObject {
    
    
    
-   /* MARK: - UPDATE VEHICLES LIST */
+   /* MARK: - UPDATE VEHICLES */
    
    // This function decides whether to update available routes
    
-   func update(forced: Bool = false) {
-      Task {
-         await fetchVehiclesListFromCarrisAPI_NEW()
-      }
+   enum VehicleUpdateScope {
+      case summary
+      case detail
+      case community
    }
    
-   
-   
-   
-
+   func update(scope: VehicleUpdateScope, for busNumber: Int? = nil) {
+      
+      switch scope {
+            
+         case .summary:
+            Task {
+               await fetchVehiclesListFromCarrisAPI_NEW()
+            }
+            
+         case .detail:
+            if (busNumber != nil) {
+               Task {
+                  await fetchVehicleDetailsFromCarrisAPI_NEW(for: busNumber!)
+               }
+            }
+            
+         case .community:
+            if (busNumber != nil) {
+               Task {
+                  await fetchVehicleFromCommunityAPI_NEW(for: busNumber!)
+               }
+            }
+            
+      }
+      
+   }
    
    
    
@@ -406,42 +428,7 @@ class VehiclesController: ObservableObject {
    
    
    
-   /* MARK: - REQUEST TO UPDATE EXISTING VEHICLE */
    
-   // This function calls the GeoBus API and receives vehicle metadata,
-   
-   enum VehicleUpdateScope {
-      case detail
-      case community
-   }
-   
-   
-   func updateVehicle(id busNumber: Int, for scope: VehicleUpdateScope) {
-      
-      // 1. Get Vehicle from array
-      guard let indexOfVehicleInArray = allVehicles.firstIndex(where: { $0.id == busNumber }) else {
-         return
-      }
-      
-      switch scope {
-            
-         case .detail:
-            Task {
-               let carrisAPIVehicleDetail = await fetchVehicleDetailsFromCarrisAPI_NEW(for: busNumber)
-               allVehicles[indexOfVehicleInArray].vehiclePlate = carrisAPIVehicleDetail?.vehiclePlate ?? "-"
-               allVehicles[indexOfVehicleInArray].lastStopOnVoyageName = carrisAPIVehicleDetail?.lastStopOnVoyageName ?? "-"
-            }
-            
-         case .community:
-            Task {
-               let communityAPIVehicle = await fetchVehicleFromCommunityAPI_NEW(for: busNumber)
-               print(communityAPIVehicle ?? "")
-               // allVehicles[indexOfVehicleInArray].vehiclePlate = communityAPIVehicle?.vehiclePlate ?? "-"
-            }
-            
-      }
-      
-   }
    
    
    
@@ -453,7 +440,12 @@ class VehiclesController: ObservableObject {
    // them in the annotations array. It must have @objc flag because Timer
    // is written in Objective-C.
    
-   func fetchVehicleDetailsFromCarrisAPI_NEW(for busNumber: Int) async -> CarrisAPIVehicleDetail? {
+   func fetchVehicleDetailsFromCarrisAPI_NEW(for busNumber: Int) async {
+      
+      // 1. Check if Vehicle exists in array
+      guard let indexOfVehicleInArray = allVehicles.firstIndex(where: { $0.id == busNumber }) else {
+         return
+      }
       
       appstate.change(to: .loading, for: .vehicles)
       
@@ -469,11 +461,9 @@ class VehiclesController: ObservableObject {
          
          // Check status of response
          if (responseCarrisAPIVehicleDetail?.statusCode == 401) {
-            Task {
-               await self.authentication.authenticate()
-               return await self.fetchVehicleDetailsFromCarrisAPI_NEW(for: busNumber)
-            }
-            return nil
+            await self.authentication.authenticate()
+            await self.fetchVehicleDetailsFromCarrisAPI_NEW(for: busNumber)
+            return
          } else if (responseCarrisAPIVehicleDetail?.statusCode != 200) {
             print(responseCarrisAPIVehicleDetail as Any)
             throw Appstate.CarrisAPIError.unavailable
@@ -481,14 +471,16 @@ class VehiclesController: ObservableObject {
          
          let decodedCarrisAPIVehicleDetail = try JSONDecoder().decode(CarrisAPIVehicleDetail.self, from: rawDataCarrisAPIVehicleDetail)
          
-         appstate.change(to: .idle, for: .vehicles)
+         // Update details of Vehicle
+         allVehicles[indexOfVehicleInArray].vehiclePlate = decodedCarrisAPIVehicleDetail.vehiclePlate ?? "-"
+         allVehicles[indexOfVehicleInArray].lastStopOnVoyageName = decodedCarrisAPIVehicleDetail.lastStopOnVoyageName ?? "-"
          
-         return decodedCarrisAPIVehicleDetail
+         appstate.change(to: .idle, for: .vehicles)
          
       } catch {
          appstate.change(to: .error, for: .vehicles)
          print("ERROR IN VEHICLE DETAILS: \(error)")
-         return nil
+         return
       }
       
    }
@@ -503,14 +495,19 @@ class VehiclesController: ObservableObject {
    // them in the annotations array. It must have @objc flag because Timer
    // is written in Objective-C.
    
-   func fetchVehicleFromCommunityAPI_NEW(for busNumber: Int) async -> CommunityAPIVehicle? {
+   func fetchVehicleFromCommunityAPI_NEW(for busNumber: Int) async {
+      
+      // 1. Check if Vehicle exists in array
+      guard let indexOfVehicleInArray = allVehicles.firstIndex(where: { $0.id == busNumber }) else {
+         return
+      }
       
       appstate.change(to: .loading, for: .vehicles)
       
       do {
          
          // Request Vehicle Detail (SGO)
-         var requestCommunityAPIVehicle = URLRequest(url: URL(string: "https://gateway.carris.pt/gateway/xtranpassengerapi/api/v2.10/SGO/busNumber/\(busNumber)")!)
+         var requestCommunityAPIVehicle = URLRequest(url: URL(string: "https://api.carril.workers.dev/estbus?busNumber=\(busNumber)")!)
          requestCommunityAPIVehicle.addValue("application/json", forHTTPHeaderField: "Content-Type")
          requestCommunityAPIVehicle.addValue("application/json", forHTTPHeaderField: "Accept")
          requestCommunityAPIVehicle.setValue("Bearer \(authentication.authToken ?? "invalid_token")", forHTTPHeaderField: "Authorization")
@@ -518,24 +515,22 @@ class VehiclesController: ObservableObject {
          let responseCommunityAPIVehicle = rawResponseCommunityAPIVehicle as? HTTPURLResponse
          
          // Check status of response
-         if (responseCommunityAPIVehicle?.statusCode == 401) {
-            await self.authentication.authenticate()
-            return await self.fetchVehicleFromCommunityAPI_NEW(for: busNumber)
-         } else if (responseCommunityAPIVehicle?.statusCode != 200) {
+         if (responseCommunityAPIVehicle?.statusCode != 200) {
             print(responseCommunityAPIVehicle as Any)
             throw Appstate.CommunityAPIError.unavailable
          }
          
-         let decodedCommunityAPIVehicle = try JSONDecoder().decode(CommunityAPIVehicle.self, from: rawDataCommunityAPIVehicle)
+         let decodedCommunityAPIVehicle = try JSONDecoder().decode([CommunityAPIVehicle].self, from: rawDataCommunityAPIVehicle)
+         
+         // Update details of Vehicle
+         allVehicles[indexOfVehicleInArray].estimatedTimeofArrivalCorrected = decodedCommunityAPIVehicle[0].estimatedTimeofArrivalCorrected
          
          appstate.change(to: .idle, for: .vehicles)
          
-         return decodedCommunityAPIVehicle
-         
       } catch {
          appstate.change(to: .error, for: .vehicles)
-         print("ERROR IN 'fetchVehicleFromCommunityAPI_NEW': \(error)")
-         return nil
+         print("GB: ERROR IN 'fetchVehicleFromCommunityAPI_NEW': \(error)")
+         return
       }
       
    }

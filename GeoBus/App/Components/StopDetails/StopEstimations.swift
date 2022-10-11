@@ -40,7 +40,11 @@ struct StopEstimations: View {
    var estimationsList: some View {
       VStack(spacing: 12) {
          ForEach(estimations!) { estimation in
-            StopEstimationRow(estimation: estimation)
+            HStack(spacing: 5) {
+               VehicleDestination(routeNumber: estimation.routeNumber, destination: estimation.destination)
+               Spacer()
+               TimeLeft(time: estimation.eta)
+            }
          }
       }
    }
@@ -78,33 +82,3 @@ struct StopEstimations: View {
 }
 
 
-
-
-struct StopEstimationRow: View {
-   
-   let estimation: Estimation
-   let estimatedTimeOfArrivalTimer = Timer.publish(every: 1 /* seconds */, on: .main, in: .common).autoconnect()
-   
-   @State var estimatedTimeOfArrival: String = "..."
-   
-   var body: some View {
-      HStack(spacing: 5) {
-         VehicleDestination(routeNumber: estimation.routeNumber, destination: estimation.destination)
-         Spacer()
-         Image(systemName: "plusminus")
-            .font(.footnote)
-            .foregroundColor(Color(.tertiaryLabel))
-         Text(self.estimatedTimeOfArrival)
-            .font(.body)
-            .fontWeight(.medium)
-            .foregroundColor(Color(.label))
-            .onAppear() {
-               self.estimatedTimeOfArrival = Globals().getTimeString(for: estimation.eta, in: .future, style: .short, units: [.hour, .minute])
-            }
-            .onReceive(estimatedTimeOfArrivalTimer) { event in
-               self.estimatedTimeOfArrival = Globals().getTimeString(for: estimation.eta, in: .future, style: .short, units: [.hour, .minute])
-            }
-      }
-   }
-   
-}

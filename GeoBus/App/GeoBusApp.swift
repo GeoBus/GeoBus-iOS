@@ -72,7 +72,7 @@ struct GeoBusApp: App {
                // Update available stops & routes
                self.stopsController.update()
                self.routesController.update()
-               self.vehiclesController.update()
+               self.vehiclesController.update(scope: .summary)
                // Capture app open
                self.appstate.capture(event: "GeoBus-App-Start")
             })
@@ -80,8 +80,9 @@ struct GeoBusApp: App {
                // Capture session continuation
                self.appstate.capture(event: "GeoBus-App-SessionPing")
                // Update vehicles on timer call
-               self.vehiclesController.update()
+               self.vehiclesController.update(scope: .summary)
             }
       }
    }
+   
 }

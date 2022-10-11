@@ -10,7 +10,6 @@ import SwiftUI
 import Combine
 
 
-
 struct VehicleInfoSheet: View {
    
    public let busNumber: Int
@@ -20,27 +19,16 @@ struct VehicleInfoSheet: View {
    
    private let refreshTimer = Timer.publish(every: 20 /* seconds */, on: .main, in: .common).autoconnect()
    
-   @State private var sheetDetentStatus: PresentationDetent = .medium
-   @State private var vehicleInfoSheetHeaderViewSize = CGSize()
-   
    
    var body: some View {
       ScrollView {
          
          // SECTION 1
          VehicleInfoSheetHeader(vehicle: vehiclesController.getVehicle(by: busNumber))
-            .onAppear() {
-               self.vehiclesController.updateVehicle(id: busNumber, for: .detail)
-            }
-            .onReceive(refreshTimer) { event in
-               self.vehiclesController.updateVehicle(id: busNumber, for: .detail)
-            }
-            .readSize { size in
-               self.vehicleInfoSheetHeaderViewSize = size
-            }
          
          // SECTION 2
-         Text("SECTION 2")
+         VehicleInfoSheetCurrentRouteStatus(vehicle: vehiclesController.getVehicle(by: busNumber))
+            .padding()
          
          Spacer()
          
@@ -48,8 +36,16 @@ struct VehicleInfoSheet: View {
             .padding()
          
       }
-      .presentationDetents([.medium, .large], selection: $sheetDetentStatus)
-//      .presentationDetents([.height(vehicleInfoSheetHeaderViewSize.height), .large], selection: $sheetDetentStatus)
+      .presentationDetents([.medium, .large])
+      .presentationDragIndicator(.hidden)
+      .onAppear() {
+         self.vehiclesController.update(scope: .detail, for: self.busNumber)
+         self.vehiclesController.update(scope: .community, for: self.busNumber)
+      }
+      .onReceive(refreshTimer) { event in
+         self.vehiclesController.update(scope: .detail, for: self.busNumber)
+         self.vehiclesController.update(scope: .community, for: self.busNumber)
+      }
    }
    
 }
@@ -110,10 +106,114 @@ struct VehicleInfoSheetLastSeenTime: View {
 
 
 
+struct VehicleInfoSheetCurrentRouteStatus: View {
+   
+   public let vehicle: Vehicle?
+   
+   let times = [
+      "2022-10-10T23:11:20",
+      "2022-10-10T23:11:20",
+      "2022-10-10T23:11:20",
+      "2022-10-10T23:11:20",
+      "2022-10-10T23:11:20",
+      "2022-10-10T23:11:20",
+      "2022-10-10T23:11:20",
+      "2022-10-10T23:11:20",
+      "2022-10-10T23:11:20",
+      "2022-10-10T23:11:20",
+      "2022-10-10T23:11:20",
+      "2022-10-10T23:11:20",
+      "2022-10-10T23:11:20",
+      "2022-10-10T23:11:20",
+      "2022-10-10T23:11:20"
+   ]
+   
+   var body: some View {
+      VStack(spacing: 0) {
+         // ForEach(vehicle?.estimatedTimeofArrivalCorrected ?? [], id: \.self) { timeString in
+         ForEach(self.times, id: \.self) { timeString in
+            VehicleInfoSheetRouteStop(timeString: timeString)
+         }
+      }
+   }
+   
+}
 
 
 
 
+struct VehicleInfoSheetRouteStop: View {
+   
+   
+   
+   public let timeString: String
+   
+   var body: some View {
+      HStack {
+         VStack(alignment: .leading, spacing: 0) {
+            HStack(spacing: 15) {
+               StopIcon(orderInRoute: 3, direction: .ascending)
+               Text("Teste")
+                  .fontWeight(.medium)
+                  .foregroundColor(Color(.label))
+                  .multilineTextAlignment(.leading)
+               Spacer()
+//               Text("45678")
+//                  .font(Font.system(size: 12, weight: .medium, design: .default) )
+//                  .foregroundColor(Color(.secondaryLabel))
+//                  .padding(.vertical, 2)
+//                  .padding(.horizontal, 7)
+//                  .cornerRadius(10)
+               TimeLeft(time: timeString)
+            }
+            HStack(spacing: 15) {
+               Rectangle()
+                  .foregroundColor(Color("StopSelectedBackground"))
+                  .frame(width: 5, height: 25)
+                  .padding(.leading, 10)
+               VStack {
+                  Divider()
+               }
+            }
+         }
+         Spacer()
+//         TimeLeft(time: timeString)
+      }
+
+   }
+   
+}
+
+
+
+
+
+
+
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 

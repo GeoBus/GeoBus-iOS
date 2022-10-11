@@ -74,8 +74,8 @@ struct CommunityAPIVehicle: Codable {
    //   "Warning: currentBusStopArrivals: This bus is expected to either arrive or have arrived in the past minute. Halting computation."
    //   ]
    let estimatedRecentlyArrived: Bool?
-   let estimatedTimeofArrival: String?
-   let estimatedTimeofArrivalCorrected: String?
+   let estimatedTimeofArrival: [String]
+   let estimatedTimeofArrivalCorrected: [String]
    let lastGpsTime: String?
    let lastReportTime: String?
    let lat: Double?
@@ -119,7 +119,7 @@ struct Vehicle: Codable, Equatable, Identifiable, Hashable {
    var lastStopOnVoyageName: String?
    
    // Community API
-   // ...
+   var estimatedTimeofArrivalCorrected: [String]?
    
 }
 
