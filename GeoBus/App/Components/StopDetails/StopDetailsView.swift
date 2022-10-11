@@ -68,22 +68,7 @@ struct StopDetailsView2: View {
    
    var fixedHeader: some View {
       HStack(spacing: 15) {
-         ZStack {
-            switch direction {
-               case .ascending:
-                  Image("PinkCircle")
-               case .descending:
-                  Image("OrangeCircle")
-               case .circular:
-                  Image("BlueCircle")
-               case .none:
-                  Image("BlueCircle")
-            }
-            Text(String(orderInRoute ?? 0))
-               .font(.caption)
-               .fontWeight(.bold)
-               .foregroundColor(Color(.white))
-         }
+         StopIcon(orderInRoute: self.orderInRoute ?? 0, direction: self.direction ?? .circular)
          Text(name)
             .fontWeight(.medium)
             .foregroundColor(Color(.label))
