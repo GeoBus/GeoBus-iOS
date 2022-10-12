@@ -6,39 +6,8 @@
 //
 
 import Foundation
-import PostHog
 
 class Appstate: ObservableObject {
-   
-   /* MARK: - ANALYTICS */
-   
-   private var posthog: PHGPostHog?
-   
-   func receive(analytics: PHGPostHog?) {
-      self.posthog = analytics
-   }
-   
-   func capture(event: String) {
-      if (_isDebugAssertConfiguration()) {
-         print("GB: Captured event '\(event)'")
-      } else {
-         if (self.posthog != nil) {
-            self.posthog!.capture(event)
-         }
-      }
-   }
-   
-   func capture(event: String, properties: [String : Any]) {
-      if (_isDebugAssertConfiguration()) {
-         print("GB: Captured event '\(event)' with properties '\(properties)'")
-      } else {
-         if (self.posthog != nil) {
-            self.posthog!.capture(event, properties: properties)
-         }
-      }
-   }
-   
-   
    
    /* MARK: - STATE */
    
