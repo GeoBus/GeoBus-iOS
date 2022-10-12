@@ -13,6 +13,7 @@ struct FavoriteRoutes: View {
    @Environment(\.colorScheme) var colorScheme: ColorScheme
 
    @EnvironmentObject var appstate: Appstate
+   @EnvironmentObject var analytics: Analytics
    @EnvironmentObject var stopsController: StopsController
    @EnvironmentObject var routesController: RoutesController
    @EnvironmentObject var vehiclesController: VehiclesController
@@ -42,7 +43,7 @@ struct FavoriteRoutes: View {
                      self.stopsController.deselect()
                      self.routesController.select(route: route.number)
                      self.vehiclesController.set(route: route.number)
-                     self.appstate.capture(event: "Routes-Select-FromFavorites", properties: ["routeNumber": route.number])
+                     self.analytics.capture(event: .Routes_Select_FromFavorites, properties: ["routeNumber": route.number])
                      self.showSelectRouteSheet = false
                   }){
                      RouteBadgeSquare(routeNumber: route.number)

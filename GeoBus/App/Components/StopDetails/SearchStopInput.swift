@@ -11,6 +11,7 @@ import SwiftUI
 struct SearchStopInput: View {
 
    @EnvironmentObject var appstate: Appstate
+   @EnvironmentObject var analytics: Analytics
    @EnvironmentObject var stopsController: StopsController
    @EnvironmentObject var routesController: RoutesController
    @EnvironmentObject var vehiclesController: VehiclesController
@@ -48,7 +49,7 @@ struct SearchStopInput: View {
                   self.showSheet = false
                   self.routesController.deselect()
                   self.vehiclesController.deselect()
-                  self.appstate.capture(event: "Stops-Select-FromTextInput", properties: ["stopPublicId": self.stopPublicId.uppercased()])
+                  self.analytics.capture(event: .Stops_Select_FromTextInput, properties: ["stopPublicId": self.stopPublicId.uppercased()])
                } else {
                   self.showErrorLabel = true
                }

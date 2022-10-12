@@ -28,6 +28,7 @@ class MapController: ObservableObject {
    /* MARK: - RECEIVE APPSTATE & AUTHENTICATION */
    
    var appstate = Appstate()
+   var analytics = Analytics()
    
    func receive(state: Appstate) {
       self.appstate = state
@@ -56,7 +57,7 @@ class MapController: ObservableObject {
       locationManager.requestWhenInUseAuthorization()
       
       if (locationManager.authorizationStatus == .authorizedWhenInUse) {
-         self.appstate.capture(event: "Location-Status-Allowed")
+         self.analytics.capture(event: .Location_Status_Allowed)
          if (andZoom) {
             self.moveMap(to: MKCoordinateRegion(
                center: locationManager.location?.coordinate ?? CLLocationCoordinate2D(),
@@ -69,7 +70,7 @@ class MapController: ObservableObject {
             ))
          }
       } else if (locationManager.authorizationStatus != .notDetermined) {
-         self.appstate.capture(event: "Location-Status-Denied")
+         self.analytics.capture(event: .Location_Status_Denied)
          self.showLocationNotAllowedAlert = true
       }
       

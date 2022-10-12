@@ -35,7 +35,7 @@ class TheManager: ObservableObject {
    
    
    /* * */
-   /* MARK: - SECTION 3: PUBLISHED VARIABLES */
+   /* MARK: - SECTION 2: PUBLISHED VARIABLES */
    /* Here are all the @Published variables that can be consumed by the app views. */
    /* It is important to keep the names of this variables short, but descriptive, */
    /* to avoid clutter on the interface code. */
@@ -60,7 +60,7 @@ class TheManager: ObservableObject {
    
    
    /* * */
-   /* MARK: - SECTION C: INITIALIZER */
+   /* MARK: - SECTION 3: INITIALIZER */
    /* When this class is initialized, data stored on the users device must be retrieved */
    /* from UserDefaults to avoid requesting a new update to the APIs. Do not call other */
    /* functions yet because Appstate and Authentication must be passed first. */
@@ -89,16 +89,18 @@ class TheManager: ObservableObject {
    
    
    /* * */
-   /* MARK: - SECTION D: APPSTATE & AUTHENTICATION */
-   /* Receive Appstate and Authentication objects */
-   /* molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum */
-   /* numquam blanditiis harum quisquam eius sed odit fugiat */
+   /* MARK: - SECTION 4: APPSTATE & AUTHENTICATION */
+   /* Receive Appstate and Authentication objects that were initialized globally. */
+   /* This is required to prevent duplicates of the same calls, and promote reuse of tokens. */
+   /* For Appstate, this is */
    
    private var appstate = Appstate()
+   private var analytics = Analytics()
    private var authentication = Authentication()
    
-   func receive(state: Appstate, auth: Authentication) {
+   func receive(state: Appstate, analytics: Analytics, auth: Authentication) {
       self.appstate = state
+      self.analytics = analytics
       self.authentication = auth
    }
    
@@ -151,7 +153,7 @@ class TheManager: ObservableObject {
    
    func fetchRoutesFromCarrisAPI() async {
       
-      appstate.capture(event: "Routes-Sync-START")
+      analytics.capture(event: .Routes_Sync_START)
       appstate.change(to: .loading, for: .routes)
       
       print("Fetching Routes: Starting...")
@@ -253,11 +255,11 @@ class TheManager: ObservableObject {
          
          print("Fetching Routes: Complete!")
          
-         appstate.capture(event: "Routes-Sync-OK")
+         analytics.capture(event: .Routes_Sync_OK)
          appstate.change(to: .idle, for: .routes)
          
       } catch {
-         appstate.capture(event: "Routes-Sync-ERROR")
+         analytics.capture(event: .Routes_Sync_ERROR)
          appstate.change(to: .error, for: .routes)
          print("Fetching Routes: Error!")
          print(error)
@@ -373,7 +375,7 @@ class TheManager: ObservableObject {
    
    func fetchStopsFromCarrisAPI() async {
       
-      appstate.capture(event: "Stops-Sync-START")
+      analytics.capture(event: .Stops_Sync_START)
       appstate.change(to: .loading, for: .stops)
       
       print("Fetching Stops: Starting...")
@@ -428,11 +430,11 @@ class TheManager: ObservableObject {
          
          print("[GB-Debug] Fetching Stops: Complete!")
          
-         self.appstate.capture(event: "Stops-Sync-OK")
+         self.analytics.capture(event: .Stops_Sync_OK)
          self.appstate.change(to: .idle, for: .stops)
          
       } catch {
-         self.appstate.capture(event: "Stops-Sync-ERROR")
+         self.analytics.capture(event: .Stops_Sync_ERROR)
          self.appstate.change(to: .error, for: .stops)
          print("Fetching Stops: Error!")
          print(error)

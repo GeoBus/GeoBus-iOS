@@ -10,6 +10,7 @@ import SwiftUI
 struct ShareCard: View {
 
    @EnvironmentObject var appstate: Appstate
+   @EnvironmentObject var analytics: Analytics
 
    private let cardColor: Color = Color(.systemPink)
 
@@ -45,7 +46,7 @@ struct ShareCard: View {
           .simultaneousGesture(
             TapGesture()
                .onEnded { val in
-                  self.appstate.capture(event: "General-Share-ShareIntent")
+                  self.analytics.capture(event: .General_Share_ShareIntent)
                }
           )
        }

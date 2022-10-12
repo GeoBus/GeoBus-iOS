@@ -49,6 +49,7 @@ class StopsController: ObservableObject {
    /* MARK: - RECEIVE APPSTATE & AUTHENTICATION */
 
    var appstate = Appstate()
+   var analytics = Analytics()
    var authentication = Authentication()
 
    func receive(state: Appstate, auth: Authentication) {
@@ -219,7 +220,7 @@ class StopsController: ObservableObject {
 
    func fetchStopsFromAPI() async {
 
-      self.appstate.capture(event: "Stops-Sync-START")
+      self.analytics.capture(event: .Stops_Sync_START)
       appstate.change(to: .loading, for: .stops)
 
       print("Fetching Stops: Starting...")
@@ -276,11 +277,11 @@ class StopsController: ObservableObject {
 
          print("Fetching Stops: Complete!")
 
-         self.appstate.capture(event: "Stops-Sync-OK")
+         self.analytics.capture(event: .Stops_Sync_OK)
          self.appstate.change(to: .idle, for: .stops)
 
       } catch {
-         self.appstate.capture(event: "Stops-Sync-ERROR")
+         self.analytics.capture(event: .Stops_Sync_ERROR)
          self.appstate.change(to: .error, for: .stops)
          print("Fetching Stops: Error!")
          print(error)

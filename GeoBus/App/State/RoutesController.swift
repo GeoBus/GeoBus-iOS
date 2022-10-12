@@ -52,6 +52,7 @@ class RoutesController: ObservableObject {
    /* MARK: - RECEIVE APPSTATE & AUTHENTICATION */
 
    var appstate = Appstate()
+   var analytics = Analytics()
    var authentication = Authentication()
 
    func receive(state: Appstate, auth: Authentication) {
@@ -188,10 +189,10 @@ class RoutesController: ObservableObject {
 
       if let index = self.favorites.firstIndex(of: route) {
          self.favorites.remove(at: index)
-         self.appstate.capture(event: "Routes-Details-RemoveFromFavorites", properties: ["routeNumber": route.number])
+         self.analytics.capture(event: .Routes_Details_RemoveFromFavorites, properties: ["routeNumber": route.number])
       } else {
          self.favorites.append(route)
-         self.appstate.capture(event: "Routes-Details-AddToFavorites", properties: ["routeNumber": route.number])
+         self.analytics.capture(event: .Routes_Details_AddToFavorites, properties: ["routeNumber": route.number])
       }
 
       saveFavorites()
@@ -234,7 +235,7 @@ class RoutesController: ObservableObject {
 
    func fetchRoutesFromAPI() async {
 
-      self.appstate.capture(event: "Routes-Sync-START")
+      self.analytics.capture(event: .Routes_Sync_START)
       appstate.change(to: .loading, for: .routes)
 
       print("Fetching Routes: Starting...")
@@ -346,11 +347,11 @@ class RoutesController: ObservableObject {
 
          print("Fetching Routes: Complete!")
 
-         appstate.capture(event: "Routes-Sync-OK")
+         analytics.capture(event: .Routes_Sync_OK)
          appstate.change(to: .idle, for: .routes)
 
       } catch {
-         appstate.capture(event: "Routes-Sync-ERROR")
+         analytics.capture(event: .Routes_Sync_ERROR)
          appstate.change(to: .error, for: .routes)
          print("Fetching Routes: Error!")
          print(error)

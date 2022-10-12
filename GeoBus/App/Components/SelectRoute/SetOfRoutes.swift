@@ -11,6 +11,7 @@ import SwiftUI
 struct SetOfRoutes: View {
 
    @EnvironmentObject var appstate: Appstate
+   @EnvironmentObject var analytics: Analytics
    @EnvironmentObject var stopsController: StopsController
    @EnvironmentObject var routesController: RoutesController
    @EnvironmentObject var vehiclesController: VehiclesController
@@ -39,7 +40,7 @@ struct SetOfRoutes: View {
                   self.routesController.select(route: route.number)
                   self.vehiclesController.set(route: route.number)
                   self.stopsController.deselect()
-                  self.appstate.capture(event: "Routes-Select-FromList", properties: ["routeNumber": route.number])
+                  self.analytics.capture(event: .Routes_Select_FromList, properties: ["routeNumber": route.number])
                   self.showSheet = false
                }){
                   RouteBadgeSquare(routeNumber: route.number)

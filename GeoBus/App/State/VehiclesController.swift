@@ -24,6 +24,7 @@ class VehiclesController: ObservableObject {
    /* MARK: - RECEIVE APPSTATE & AUTHENTICATION */
 
    var appstate = Appstate()
+   var analytics = Analytics()
    var authentication = Authentication()
 
    func receive(state: Appstate, auth: Authentication) {

@@ -11,6 +11,7 @@ import SwiftUI
 struct OpenExternalLinkButton: View {
 
    @EnvironmentObject var appstate: Appstate
+   @EnvironmentObject var analytics: Analytics
 
    let icon: Image
    let text: Text
@@ -20,7 +21,7 @@ struct OpenExternalLinkButton: View {
    var body: some View {
       Button(action: {
          if let urlToOpen = URL(string: self.link) {
-            self.appstate.capture(event: "General-Contact-OpenLink", properties: ["URL": urlToOpen])
+            self.analytics.capture(event: .General_Contact_OpenLink, properties: ["URL": urlToOpen])
             UIApplication.shared.open(urlToOpen)
          }
       }) {
