@@ -9,8 +9,28 @@
 import Foundation
 import Combine
 
+
+/* * */
+/* MARK: - CARRIS NETWORK CONTROLLER */
+/* This class controls all things Network related. Keeping logic centralized */
+/* allows for code reuse, less plumbing passing object from one class to another */
+/* and less clutter overall. If the data is provided by Carris, it should be controlled */
+/* by this class. Next follows an overview of this class and its sections: */
+/* › SECTION 1: SETTINGS */
+/* › SECTION 2: PUBLISHED VARIABLES */
+/* › SECTION 3: INITIALIZER */
+/* › SECTION 4: APPSTATE, ANALYTICS & AUTHENTICATION */
+/* › SECTION 5: TITLE */
+/* › SECTION 6: TITLE */
+/* › SECTION 7: TITLE */
+/* › SECTION 8: TITLE */
+/* › SECTION 9: TITLE */
+/* › SECTION 10: TITLE */
+/* › SECTION 11: TITLE */
+
+
 @MainActor
-class TheManager: ObservableObject {
+class CarrisNetworkController: ObservableObject {
    
    /* * */
    /* MARK: - SECTION 1: SETTINGS */
@@ -66,22 +86,26 @@ class TheManager: ObservableObject {
    /* functions yet because Appstate and Authentication must be passed first. */
    
    init() {
+      
       // Unwrap and Decode Stops from Storage
       if let unwrappedSavedNetworkStops = UserDefaults.standard.data(forKey: network_storageKeyForSavedStops) {
          if let decodedSavedNetworkStops = try? JSONDecoder().decode([Stop_NEW].self, from: unwrappedSavedNetworkStops) {
             self.network_allStops = decodedSavedNetworkStops
          }
       }
-      // Unwrap and Decode Stops from Storage
+      
+      // Unwrap and Decode Routes from Storage
       if let unwrappedSavedNetworkRoutes = UserDefaults.standard.data(forKey: network_storageKeyForSavedRoutes) {
          if let decodedSavedNetworkRoutes = try? JSONDecoder().decode([Route_NEW].self, from: unwrappedSavedNetworkRoutes) {
             self.network_allRoutes = decodedSavedNetworkRoutes
          }
       }
+      
       // Unwrap last timestamp from Storage
       if let unwrappedLastUpdatedNetwork = UserDefaults.standard.string(forKey: network_storageKeyForLastUpdated) {
          self.network_lastUpdated = unwrappedLastUpdatedNetwork
       }
+      
    }
    
    
@@ -89,38 +113,41 @@ class TheManager: ObservableObject {
    
    
    /* * */
-   /* MARK: - SECTION 4: APPSTATE & AUTHENTICATION */
+   /* MARK: - SECTION 4: APPSTATE, ANALYTICS & AUTHENTICATION */
    /* Receive Appstate and Authentication objects that were initialized globally. */
-   /* This is required to prevent duplicates of the same calls, and promote reuse of tokens. */
-   /* For Appstate, this is */
+   /* This is required to prevent duplicates of the same calls, and allow reuse of tokens. */
+   /* For Appstate, this is so there is a single source of truth for the UI state. */
    
    private var appstate = Appstate()
    private var analytics = Analytics()
-   private var authentication = Authentication()
+   private var authentication = CarrisAuthController()
    
-   func receive(state: Appstate, analytics: Analytics, auth: Authentication) {
-      self.appstate = state
+   func receive(_ appstate: Appstate, _ analytics: Analytics, _ authentication: CarrisAuthController) {
+      self.appstate = appstate
       self.analytics = analytics
-      self.authentication = auth
+      self.authentication = authentication
    }
    
    
    
    
    
-   
-   
    /* * */
-   /* MARK: - SECTION E: UPDATE NETWORK FROM CARRIS API */
+   /* MARK: - SECTION 5: UPDATE NETWORK FROM CARRIS API */
    /* This function decides whether to update the complete network model */
    /* if it is considered outdated or is inexistent on device storage. */
+   /* Provide a convenience method to allow user-requested updates from the UI. */
    
-   func update(forced: Bool = false) {
+   func resetAndUpdateNetwork() {
+      self.start(withForcedUpdate: true)
+   }
+   
+   func start(withForcedUpdate forceUpdate: Bool = false) {
       
       // Conditions to update
       let lastUpdateIsLongerThanInterval = Globals().getSecondsFromISO8601DateString(network_lastUpdated ?? "") > network_updateInterval
       let savedNetworkDataIsEmpty = network_allRoutes.isEmpty || network_allStops.isEmpty
-      let updateIsForcedByCaller = forced
+      let updateIsForcedByCaller = forceUpdate
       
       // Proceed if at least one condition is true
       if (lastUpdateIsLongerThanInterval || savedNetworkDataIsEmpty || updateIsForcedByCaller) {
@@ -135,7 +162,7 @@ class TheManager: ObservableObject {
       
       
       // Retrieve favorites at app launch
-//      self.retrieveFavorites()
+      // self.retrieveFavorites()
       
    }
    
@@ -144,7 +171,7 @@ class TheManager: ObservableObject {
    
    
    /* * */
-   /* MARK: - SECTION F: FETCH & FORMAT STOPS FROM CARRIS API */
+   /* MARK: - SECTION F: FETCH & FORMAT ROUTES FROM CARRIS API */
    /* This function first fetches the Routes List, which is an object */
    /* that contains all the available routes from the API. */
    /* The information for each Route is very short, so it is necessary to retrieve */
@@ -156,7 +183,7 @@ class TheManager: ObservableObject {
       analytics.capture(event: .Routes_Sync_START)
       appstate.change(to: .loading, for: .routes)
       
-      print("Fetching Routes: Starting...")
+      print("GB: Fetching Routes: Starting...")
       
       do {
          // Request API Routes List
@@ -190,7 +217,7 @@ class TheManager: ObservableObject {
             
             if (availableRoute.isPublicVisible ?? false) {
                
-               print("Route: Route.\(String(describing: availableRoute.routeNumber)) starting...")
+               print("Route: \(String(describing: availableRoute.routeNumber)) starting...")
                
                // Request Route Detail for ‹routeNumber›
                var requestAPIRouteDetail = URLRequest(url: URL(string: "\(api_carrisEndpoint)/Routes/\(availableRoute.routeNumber ?? "invalid-route-number")")!)
@@ -213,14 +240,16 @@ class TheManager: ObservableObject {
                let decodedAPIRouteDetail = try JSONDecoder().decode(APIRoute.self, from: rawDataAPIRouteDetail)
                
                // Define a temporary variable to store formatted route variants
-               var formattedRouteVariants: [Variant_NEW] = []
+               var tempFormattedRouteVariants: [Variant_NEW] = []
                
                // For each variant in route,
                // check if it is currently active, format it
                // and append the result to the temporary variable.
                for apiRouteVariant in decodedAPIRouteDetail.variants ?? [] {
                   if (apiRouteVariant.isActive ?? false) {
-                     formattedRouteVariants.append(formatRawRouteVariant(rawVariant: apiRouteVariant))
+                     tempFormattedRouteVariants.append(
+                        formatRawRouteVariant(rawVariant: apiRouteVariant)
+                     )
                   }
                }
                
@@ -229,7 +258,7 @@ class TheManager: ObservableObject {
                   number: decodedAPIRouteDetail.routeNumber ?? "-",
                   name: decodedAPIRouteDetail.name ?? "-",
                   kind: Globals().getKind(by: decodedAPIRouteDetail.routeNumber ?? "-"),
-                  variants: formattedRouteVariants
+                  variants: tempFormattedRouteVariants
                )
                
                // Save the formatted route object in the allRoutes temporary variable

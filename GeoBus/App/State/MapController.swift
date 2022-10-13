@@ -30,8 +30,9 @@ class MapController: ObservableObject {
    var appstate = Appstate()
    var analytics = Analytics()
    
-   func receive(state: Appstate) {
-      self.appstate = state
+   func receive(_ appstate: Appstate, _ analytics: Analytics) {
+      self.appstate = appstate
+      self.analytics = analytics
    }
    
    

@@ -85,9 +85,11 @@
 		CFFF2D3D28D7C99C00E035E0 /* PostHog in Frameworks */ = {isa = PBXBuildFile; productRef = CFFF2D3C28D7C99C00E035E0 /* PostHog */; };
 		CFFFAD7928F4AD0400DFD5FD /* TimeLeft.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFFAD7828F4AD0400DFD5FD /* TimeLeft.swift */; };
 		CFFFAD7B28F4D8D000DFD5FD /* StopIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFFAD7A28F4D8D000DFD5FD /* StopIcon.swift */; };
-		CFFFAD7D28F5040C00DFD5FD /* TheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFFAD7C28F5040C00DFD5FD /* TheManager.swift */; };
+		CFFFAD7D28F5040C00DFD5FD /* CarrisNetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFFAD7C28F5040C00DFD5FD /* CarrisNetworkController.swift */; };
 		CFFFAD7F28F5928900DFD5FD /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFFAD7E28F5928900DFD5FD /* Network.swift */; };
 		CFFFAD8128F64E2000DFD5FD /* Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFFAD8028F64E2000DFD5FD /* Analytics.swift */; };
+		CFFFAD8328F6754400DFD5FD /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFFAD8228F6754400DFD5FD /* Helpers.swift */; };
+		CFFFAD8528F7A21100DFD5FD /* CarrisAuthController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFFAD8428F7A21100DFD5FD /* CarrisAuthController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -183,9 +185,11 @@
 		CFFF2D3E28D7CEE300E035E0 /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		CFFFAD7828F4AD0400DFD5FD /* TimeLeft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeLeft.swift; sourceTree = "<group>"; };
 		CFFFAD7A28F4D8D000DFD5FD /* StopIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopIcon.swift; sourceTree = "<group>"; };
-		CFFFAD7C28F5040C00DFD5FD /* TheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheManager.swift; sourceTree = "<group>"; };
+		CFFFAD7C28F5040C00DFD5FD /* CarrisNetworkController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarrisNetworkController.swift; sourceTree = "<group>"; };
 		CFFFAD7E28F5928900DFD5FD /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		CFFFAD8028F64E2000DFD5FD /* Analytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Analytics.swift; sourceTree = "<group>"; };
+		CFFFAD8228F6754400DFD5FD /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
+		CFFFAD8428F7A21100DFD5FD /* CarrisAuthController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarrisAuthController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -255,7 +259,8 @@
 				CFFFAD8028F64E2000DFD5FD /* Analytics.swift */,
 				CF6C918128D3F1C6006C3F61 /* MapController.swift */,
 				CF181FF528CCB95300248F72 /* Authentication.swift */,
-				CFFFAD7C28F5040C00DFD5FD /* TheManager.swift */,
+				CFFFAD8428F7A21100DFD5FD /* CarrisAuthController.swift */,
+				CFFFAD7C28F5040C00DFD5FD /* CarrisNetworkController.swift */,
 				CF6C918928D4A88D006C3F61 /* StopsController.swift */,
 				CF18200628CCBA3500248F72 /* RoutesController.swift */,
 				CF18202D28CCBC0100248F72 /* VehiclesController.swift */,
@@ -352,6 +357,7 @@
 				CF18202828CCBBDC00248F72 /* TapticEngine.swift */,
 				CFC80FCB28D2C2FF003D059D /* DragAndDrop.swift */,
 				CFAF0E7528CE586300DDAD5B /* Globals.swift */,
+				CFFFAD8228F6754400DFD5FD /* Helpers.swift */,
 				CFDC15EE28D292FB00A4BE49 /* ViewSize.swift */,
 			);
 			path = Extensions;
@@ -547,12 +553,13 @@
 				CFFFAD7928F4AD0400DFD5FD /* TimeLeft.swift in Sources */,
 				CF82BB0D28D7F202007F0CDB /* ContactsCard.swift in Sources */,
 				CF18202E28CCBC0100248F72 /* VehiclesController.swift in Sources */,
+				CFFFAD8328F6754400DFD5FD /* Helpers.swift in Sources */,
 				CFC80FCC28D2C2FF003D059D /* DragAndDrop.swift in Sources */,
 				CF18207028CCBD2300248F72 /* RouteDetailsView.swift in Sources */,
 				CF03D6AE28F3B00F0077299B /* VehicleDestination.swift in Sources */,
 				CF18207328CCBD2300248F72 /* VariantButton.swift in Sources */,
 				CF18209B28CCBD5000248F72 /* MapView.swift in Sources */,
-				CFFFAD7D28F5040C00DFD5FD /* TheManager.swift in Sources */,
+				CFFFAD7D28F5040C00DFD5FD /* CarrisNetworkController.swift in Sources */,
 				CF18207428CCBD2300248F72 /* CircularVariantInfo.swift in Sources */,
 				CF18208228CCBD3A00248F72 /* SelectRouteView.swift in Sources */,
 				CF18208328CCBD3A00248F72 /* SelectRouteSheet.swift in Sources */,
@@ -585,6 +592,7 @@
 				CF18205028CCBCE900248F72 /* OpenExternalLinkButton.swift in Sources */,
 				CF18204928CCBCC500248F72 /* SheetHeader.swift in Sources */,
 				CF18205728CCBD0400248F72 /* StopEstimations.swift in Sources */,
+				CFFFAD8528F7A21100DFD5FD /* CarrisAuthController.swift in Sources */,
 				CF05F61A28CD09A000B4AD58 /* NavBar.swift in Sources */,
 				CFAF0E7628CE586300DDAD5B /* Globals.swift in Sources */,
 				CFDD014B28D535370070FE4B /* Card.swift in Sources */,

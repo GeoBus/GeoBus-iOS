@@ -13,44 +13,43 @@ struct GeoBusApp: App {
    
    /* MARK: - GEOBUS */
    
-   @StateObject private var appstate = Appstate()
-   @StateObject private var analytics = Analytics()
-   @StateObject private var mapController = MapController()
-   @StateObject private var authentication = Authentication()
    @StateObject private var stopsController = StopsController()
    @StateObject private var routesController = RoutesController()
    @StateObject private var vehiclesController = VehiclesController()
    @StateObject private var estimationsController = EstimationsController()
    
-   let refreshVehiclesTimer = Timer.publish(every: 20 /* seconds */, on: .main, in: .common).autoconnect()
+   @StateObject private var appstate = Appstate()
+   @StateObject private var analytics = Analytics()
+   @StateObject private var mapController = MapController()
+   @StateObject private var carrisAuthController = CarrisAuthController()
+   @StateObject private var carrisNetworkController = CarrisNetworkController()
+   
+   private let updateIntervalTimer = Timer.publish(every: 20 /* seconds */, on: .main, in: .common).autoconnect()
    
    var body: some Scene {
       WindowGroup {
          ContentView()
-            .environmentObject(appstate)
-            .environmentObject(analytics)
-            .environmentObject(mapController)
-            .environmentObject(authentication)
+            // OLD
             .environmentObject(stopsController)
             .environmentObject(routesController)
             .environmentObject(vehiclesController)
             .environmentObject(estimationsController)
+            // NEW
+            .environmentObject(self.appstate)
+            .environmentObject(self.analytics)
+            .environmentObject(self.mapController)
+            .environmentObject(self.carrisNetworkController)
             .onAppear(perform: {
                // Pass references to Controllers
-               self.mapController.receive(state: appstate)
-               self.authentication.receive(state: appstate)
-               self.stopsController.receive(state: appstate, auth: authentication)
-               self.routesController.receive(state: appstate, auth: authentication)
-               self.vehiclesController.receive(state: appstate, auth: authentication)
-               self.estimationsController.receive(state: appstate, auth: authentication)
-               // Update available stops & routes
-               self.stopsController.update()
-               self.routesController.update()
-               self.vehiclesController.update(scope: .summary)
+               self.mapController.receive(self.appstate, self.analytics)
+               self.carrisAuthController.receive(self.appstate, self.analytics)
+               self.carrisNetworkController.receive(self.appstate, self.analytics, self.carrisAuthController)
+               // Update Carris network model
+               self.carrisNetworkController.start()
                // Capture app open
                self.analytics.capture(event: .App_Session_Start)
             })
-            .onReceive(refreshVehiclesTimer) { event in
+            .onReceive(updateIntervalTimer) { event in
                // Capture session continuation
                self.analytics.capture(event: .App_Session_Ping)
                // Update vehicles on timer call
