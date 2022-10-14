@@ -22,7 +22,7 @@ struct StopEstimations: View {
             .textCase(.uppercase)
             .foregroundColor(Color(.tertiaryLabel))
          Spacer()
-         EstimatedIcon()
+         PulseLabel(accent: .orange, label: Text("Estimated"))
       }
    }
    

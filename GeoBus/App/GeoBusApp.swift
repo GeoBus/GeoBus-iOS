@@ -15,6 +15,7 @@ struct GeoBusApp: App {
    
    @StateObject private var appstate = Appstate.shared
    @StateObject private var mapController = MapController()
+   
    @StateObject private var stopsController = StopsController()
    @StateObject private var routesController = RoutesController()
    @StateObject private var vehiclesController = VehiclesController()

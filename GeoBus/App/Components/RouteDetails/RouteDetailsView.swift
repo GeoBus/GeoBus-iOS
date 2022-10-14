@@ -71,7 +71,7 @@ struct RouteDetailsView: View {
    var selectedRouteDetails: some View {
       VStack(alignment: .leading) {
          HStack {
-            LiveIcon()
+            PulseLabel(accent: .green, label: Text("Live"))
             Text(vehiclesController.vehicles.count == 1 ? "1 active vehicle" : "\(vehiclesController.vehicles.count) active vehicles")
                .font(Font.system(size: 11, weight: .medium, design: .default) )
                .lineLimit(1)
