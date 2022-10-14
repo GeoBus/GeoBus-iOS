@@ -26,7 +26,7 @@ struct GeoBusApp: App {
    var body: some Scene {
       WindowGroup {
          ContentView()
-            .environmentObject(Appstate.shared)
+            .environmentObject(appstate)
             .environmentObject(mapController)
             .environmentObject(stopsController)
             .environmentObject(routesController)

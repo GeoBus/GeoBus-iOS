@@ -67,10 +67,10 @@ struct VehicleDetailsView: View {
                .font(.system(size: 12, weight: .bold, design: .default))
                .foregroundColor(Color(.secondaryLabel))
                .onAppear() {
-                  self.lastSeenTime = Globals().getTimeString(for: lastGpsTime, in: .past, style: .full, units: [.hour, .minute, .second])
+                  self.lastSeenTime = Helpers.getTimeString(for: lastGpsTime, in: .past, style: .full, units: [.hour, .minute, .second])
                }
                .onReceive(lastSeenTimeTimer) { event in
-                  self.lastSeenTime = Globals().getTimeString(for: lastGpsTime, in: .past, style: .full, units: [.hour, .minute, .second])
+                  self.lastSeenTime = Helpers.getTimeString(for: lastGpsTime, in: .past, style: .full, units: [.hour, .minute, .second])
                }
             Spacer()
          }

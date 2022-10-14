@@ -62,7 +62,7 @@ class EstimationsController: ObservableObject {
                   destination: estimation.destination ?? "-",
                   publicId: estimation.publicId ?? "-",
                   busNumber: estimation.busNumber,
-                  eta: Globals().getTimeString(for: estimation.time ?? "", in: .future, style: .short, units: [.hour, .minute])
+                  eta: Helpers.getTimeString(for: estimation.time ?? "", in: .future, style: .short, units: [.hour, .minute])
                )
             )
             

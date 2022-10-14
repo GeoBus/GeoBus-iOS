@@ -58,7 +58,6 @@
 		CF82BB0928D7F19A007F0CDB /* LocationCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF82BB0828D7F19A007F0CDB /* LocationCard.swift */; };
 		CF82BB0B28D7F1C6007F0CDB /* ShareCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF82BB0A28D7F1C6007F0CDB /* ShareCard.swift */; };
 		CF82BB0D28D7F202007F0CDB /* ContactsCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF82BB0C28D7F202007F0CDB /* ContactsCard.swift */; };
-		CFAF0E7628CE586300DDAD5B /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAF0E7528CE586300DDAD5B /* Globals.swift */; };
 		CFAF0E7828CE84C200DDAD5B /* Vehicles.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAF0E7728CE84C200DDAD5B /* Vehicles.swift */; };
 		CFAF0E7A28CE84F400DDAD5B /* MapAnnotations.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAF0E7928CE84F400DDAD5B /* MapAnnotations.swift */; };
 		CFB5D45728EEFE21002368BC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CFB5D45528EEFE21002368BC /* InfoPlist.strings */; };
@@ -135,7 +134,6 @@
 		CF82BB0828D7F19A007F0CDB /* LocationCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCard.swift; sourceTree = "<group>"; };
 		CF82BB0A28D7F1C6007F0CDB /* ShareCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareCard.swift; sourceTree = "<group>"; };
 		CF82BB0C28D7F202007F0CDB /* ContactsCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsCard.swift; sourceTree = "<group>"; };
-		CFAF0E7528CE586300DDAD5B /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		CFAF0E7728CE84C200DDAD5B /* Vehicles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vehicles.swift; sourceTree = "<group>"; };
 		CFAF0E7928CE84F400DDAD5B /* MapAnnotations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAnnotations.swift; sourceTree = "<group>"; };
 		CFAF0E7B28CEC78C00DDAD5B /* GeoBus.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GeoBus.entitlements; sourceTree = "<group>"; };
@@ -331,7 +329,6 @@
 			children = (
 				CF18202828CCBBDC00248F72 /* TapticEngine.swift */,
 				CFC80FCB28D2C2FF003D059D /* DragAndDrop.swift */,
-				CFAF0E7528CE586300DDAD5B /* Globals.swift */,
 				CFFFAD8228F6754400DFD5FD /* Helpers.swift */,
 				CFDC15EE28D292FB00A4BE49 /* ViewSize.swift */,
 			);
@@ -544,7 +541,6 @@
 				CF18205728CCBD0400248F72 /* StopEstimations.swift in Sources */,
 				CFFFAD8528F7A21100DFD5FD /* CarrisAuthentication.swift in Sources */,
 				CF05F61A28CD09A000B4AD58 /* NavBar.swift in Sources */,
-				CFAF0E7628CE586300DDAD5B /* Globals.swift in Sources */,
 				CFDD014B28D535370070FE4B /* Card.swift in Sources */,
 				CF18202928CCBBDC00248F72 /* TapticEngine.swift in Sources */,
 				CF18200728CCBA3500248F72 /* RoutesController.swift in Sources */,

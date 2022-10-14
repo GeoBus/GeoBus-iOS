@@ -11,15 +11,12 @@ import SwiftUI
 
 
 open class Helpers {
-   
-   
-   public static let variable: Helpers = .init()
 
    /* MARK: - Get Route Kind */
 
    // Discover the Route kind by analysing the route number.
 
-   func getKind(by routeNumber: String) -> Kind {
+   static func getKind(by routeNumber: String) -> Kind {
 
       if (routeNumber.suffix(1) == "B") {
          // Neighborhood buses end with "B"
@@ -52,7 +49,7 @@ open class Helpers {
 
    // Centralized functions that retrieve theme colors.
 
-   func getBackgroundColor(for routeNumber: String) -> Color {
+   static func getBackgroundColor(for routeNumber: String) -> Color {
       let routeKind = getKind(by: routeNumber)
       switch routeKind {
          case .tram:
@@ -68,7 +65,7 @@ open class Helpers {
       }
    }
 
-   func getForegroundColor(for routeNumber: String) -> Color {
+   static func getForegroundColor(for routeNumber: String) -> Color {
       let routeKind = getKind(by: routeNumber)
       switch routeKind {
          case .tram:
@@ -96,7 +93,7 @@ open class Helpers {
    }
 
    
-   func getTimeString(for isoDateString: String, in timeRelation: TimeRelativeToNow, style: DateComponentsFormatter.UnitsStyle, units: NSCalendar.Unit) -> String {
+   static func getTimeString(for isoDateString: String, in timeRelation: TimeRelativeToNow, style: DateComponentsFormatter.UnitsStyle, units: NSCalendar.Unit) -> String {
 
       // Setup Date Formatter
       let dateFormatter = DateFormatter()
@@ -127,7 +124,7 @@ open class Helpers {
    }
    
    
-   func getLastSeenTime(since lastGpsTime: String) -> Int {
+   static func getLastSeenTime(since lastGpsTime: String) -> Int {
       
       let formatter = DateFormatter()
       formatter.locale = Locale(identifier: "en_US_POSIX")
@@ -143,7 +140,7 @@ open class Helpers {
    }
    
    
-   func getSecondsFromISO8601DateString(_ dateString: String) -> Int {
+   static func getSecondsFromISO8601DateString(_ dateString: String) -> Int {
       let formattedDateObject = ISO8601DateFormatter().date(from: dateString)
       return Int(formattedDateObject?.timeIntervalSinceNow ?? -1)
    }

@@ -151,7 +151,7 @@ class MapController: ObservableObject {
             
             // CONDITION 2:
             // Vehicle was last seen no longer than 3 minutes
-            let isNotZombieVehicle = Globals().getLastSeenTime(since: vehicle.lastGpsTime) < 180
+            let isNotZombieVehicle = Helpers.getLastSeenTime(since: vehicle.lastGpsTime) < 180
             
             
             // Find index of Annotation matching this vehicle busNumber

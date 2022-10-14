@@ -84,7 +84,7 @@ class VehiclesController: ObservableObject {
 
                // Discard vehicles with outdated location,
                // here decided to be 180 seconds (3 minutes).
-               if (Globals().getLastSeenTime(since: vehicleSummary.lastGpsTime ?? "") < 180) {
+               if (Helpers.getLastSeenTime(since: vehicleSummary.lastGpsTime ?? "") < 180) {
 
                   // Format and append each vehicle
                   // to the temporary variable.
@@ -93,7 +93,7 @@ class VehiclesController: ObservableObject {
                         busNumber: vehicleSummary.busNumber ?? -1,
                         state: vehicleSummary.state ?? "",
                         routeNumber: vehicleSummary.routeNumber ?? "-",
-                        kind: Globals().getKind(by: vehicleSummary.routeNumber ?? "-"),
+                        kind: Helpers.getKind(by: vehicleSummary.routeNumber ?? "-"),
                         lat: vehicleSummary.lat ?? 0,
                         lng: vehicleSummary.lng ?? 0,
                         previousLatitude: vehicleSummary.previousLatitude ?? 0,
