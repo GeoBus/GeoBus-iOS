@@ -25,18 +25,6 @@ class MapController: ObservableObject {
    
    
    
-   /* MARK: - RECEIVE APPSTATE & AUTHENTICATION */
-   
-   var appstate = Appstate()
-   var analytics = Analytics()
-   
-   func receive(_ appstate: Appstate, _ analytics: Analytics) {
-      self.appstate = appstate
-      self.analytics = analytics
-   }
-   
-   
-   
    /* MARK: - MOVE MAP TO NEW COORDINATE REGION */
    
    // Helper function to animate Map changing region.
@@ -58,7 +46,7 @@ class MapController: ObservableObject {
       locationManager.requestWhenInUseAuthorization()
       
       if (locationManager.authorizationStatus == .authorizedWhenInUse) {
-         self.analytics.capture(event: .Location_Status_Allowed)
+         Analytics.shared.capture(event: .Location_Status_Allowed)
          if (andZoom) {
             self.moveMap(to: MKCoordinateRegion(
                center: locationManager.location?.coordinate ?? CLLocationCoordinate2D(),
@@ -71,7 +59,7 @@ class MapController: ObservableObject {
             ))
          }
       } else if (locationManager.authorizationStatus != .notDetermined) {
-         self.analytics.capture(event: .Location_Status_Denied)
+         Analytics.shared.capture(event: .Location_Status_Denied)
          self.showLocationNotAllowedAlert = true
       }
       

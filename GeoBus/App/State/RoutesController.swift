@@ -49,19 +49,6 @@ class RoutesController: ObservableObject {
 
 
 
-   /* MARK: - RECEIVE APPSTATE & AUTHENTICATION */
-
-   var appstate = Appstate()
-   var analytics = Analytics()
-   var authentication = Authentication()
-
-   func receive(state: Appstate, auth: Authentication) {
-      self.appstate = state
-      self.authentication = auth
-   }
-
-
-
    /* MARK: - Selectors */
    
    // Getters and Setters for published and private variables.
@@ -189,10 +176,10 @@ class RoutesController: ObservableObject {
 
       if let index = self.favorites.firstIndex(of: route) {
          self.favorites.remove(at: index)
-         self.analytics.capture(event: .Routes_Details_RemoveFromFavorites, properties: ["routeNumber": route.number])
+         Analytics.shared.capture(event: .Routes_Details_RemoveFromFavorites, properties: ["routeNumber": route.number])
       } else {
          self.favorites.append(route)
-         self.analytics.capture(event: .Routes_Details_AddToFavorites, properties: ["routeNumber": route.number])
+         Analytics.shared.capture(event: .Routes_Details_AddToFavorites, properties: ["routeNumber": route.number])
       }
 
       saveFavorites()
@@ -235,8 +222,8 @@ class RoutesController: ObservableObject {
 
    func fetchRoutesFromAPI() async {
 
-      self.analytics.capture(event: .Routes_Sync_START)
-      appstate.change(to: .loading, for: .routes)
+      Analytics.shared.capture(event: .Routes_Sync_START)
+      Appstate.shared.change(to: .loading, for: .routes)
 
       print("Fetching Routes: Starting...")
 
@@ -245,18 +232,18 @@ class RoutesController: ObservableObject {
          var requestAPIRoutesList = URLRequest(url: URL(string: "https://gateway.carris.pt/gateway/xtranpassengerapi/api/v2.10/Routes")!)
          requestAPIRoutesList.addValue("application/json", forHTTPHeaderField: "Content-Type")
          requestAPIRoutesList.addValue("application/json", forHTTPHeaderField: "Accept")
-         requestAPIRoutesList.setValue("Bearer \(authentication.authToken ?? "invalid_token")", forHTTPHeaderField: "Authorization")
+         requestAPIRoutesList.setValue("Bearer \(CarrisAuthentication.shared.authToken ?? "invalid_token")", forHTTPHeaderField: "Authorization")
          let (rawDataAPIRoutesList, rawResponseAPIRoutesList) = try await URLSession.shared.data(for: requestAPIRoutesList)
          let responseAPIRoutesList = rawResponseAPIRoutesList as? HTTPURLResponse
 
          // Check status of response
          if (responseAPIRoutesList?.statusCode == 401) {
-            await self.authentication.authenticate()
+            await CarrisAuthentication.shared.authenticate()
             await self.fetchRoutesFromAPI()
             return
          } else if (responseAPIRoutesList?.statusCode != 200) {
             print(responseAPIRoutesList as Any)
-            throw Appstate.CarrisAPIError.unavailable
+            throw Appstate.ModuleError.carris_unavailable
          }
 
          let decodedAPIRoutesList = try JSONDecoder().decode([APIRoutesList].self, from: rawDataAPIRoutesList)
@@ -280,20 +267,20 @@ class RoutesController: ObservableObject {
                var requestAPIRouteDetail = URLRequest(url: URL(string: "https://gateway.carris.pt/gateway/xtranpassengerapi/api/v2.10/Routes/\(availableRoute.routeNumber ?? "invalid-route-number")")!)
                requestAPIRouteDetail.addValue("application/json", forHTTPHeaderField: "Content-Type")
                requestAPIRouteDetail.addValue("application/json", forHTTPHeaderField: "Accept")
-               requestAPIRouteDetail.setValue("Bearer \(authentication.authToken ?? "invalid_token")", forHTTPHeaderField: "Authorization")
+               requestAPIRouteDetail.setValue("Bearer \(CarrisAuthentication.shared.authToken ?? "invalid_token")", forHTTPHeaderField: "Authorization")
                let (rawDataAPIRouteDetail, rawResponseAPIRouteDetail) = try await URLSession.shared.data(for: requestAPIRouteDetail)
                let responseAPIRouteDetail = rawResponseAPIRouteDetail as? HTTPURLResponse
 
                // Check status of response
                if (responseAPIRouteDetail?.statusCode == 401) {
                   Task {
-                     await self.authentication.authenticate()
+                     await CarrisAuthentication.shared.authenticate()
                      await self.fetchRoutesFromAPI()
                   }
                   return
                } else if (responseAPIRouteDetail?.statusCode != 200) {
                   print(responseAPIRouteDetail as Any)
-                  throw Appstate.CarrisAPIError.unavailable
+                  throw Appstate.ModuleError.carris_unavailable
                }
 
 
@@ -347,12 +334,12 @@ class RoutesController: ObservableObject {
 
          print("Fetching Routes: Complete!")
 
-         analytics.capture(event: .Routes_Sync_OK)
-         appstate.change(to: .idle, for: .routes)
+         Analytics.shared.capture(event: .Routes_Sync_OK)
+         Appstate.shared.change(to: .idle, for: .routes)
 
       } catch {
-         analytics.capture(event: .Routes_Sync_ERROR)
-         appstate.change(to: .error, for: .routes)
+         Analytics.shared.capture(event: .Routes_Sync_ERROR)
+         Appstate.shared.change(to: .error, for: .routes)
          print("Fetching Routes: Error!")
          print(error)
          print("************")

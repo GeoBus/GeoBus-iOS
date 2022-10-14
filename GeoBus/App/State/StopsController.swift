@@ -46,19 +46,6 @@ class StopsController: ObservableObject {
 
 
 
-   /* MARK: - RECEIVE APPSTATE & AUTHENTICATION */
-
-   var appstate = Appstate()
-   var analytics = Analytics()
-   var authentication = Authentication()
-
-   func receive(state: Appstate, auth: Authentication) {
-      self.appstate = state
-      self.authentication = auth
-   }
-
-
-
    /* MARK: - Selectors */
    
    // Getters and Setters for published and private variables.
@@ -220,8 +207,8 @@ class StopsController: ObservableObject {
 
    func fetchStopsFromAPI() async {
 
-      self.analytics.capture(event: .Stops_Sync_START)
-      appstate.change(to: .loading, for: .stops)
+      Analytics.shared.capture(event: .Stops_Sync_START)
+      Appstate.shared.change(to: .loading, for: .stops)
 
       print("Fetching Stops: Starting...")
 
@@ -230,20 +217,20 @@ class StopsController: ObservableObject {
          var requestAPIStopsList = URLRequest(url: URL(string: "https://gateway.carris.pt/gateway/xtranpassengerapi/api/v2.10/busstops")!)
          requestAPIStopsList.addValue("application/json", forHTTPHeaderField: "Content-Type")
          requestAPIStopsList.addValue("application/json", forHTTPHeaderField: "Accept")
-         requestAPIStopsList.setValue("Bearer \(authentication.authToken ?? "invalid_token")", forHTTPHeaderField: "Authorization")
+         requestAPIStopsList.setValue("Bearer \(CarrisAuthentication.shared.authToken ?? "invalid_token")", forHTTPHeaderField: "Authorization")
          let (rawDataAPIStopsList, rawResponseAPIStopsList) = try await URLSession.shared.data(for: requestAPIStopsList)
          let responseAPIStopsList = rawResponseAPIStopsList as? HTTPURLResponse
 
          // Check status of response
          if (responseAPIStopsList?.statusCode == 401) {
             Task {
-               await self.authentication.authenticate()
+               await CarrisAuthentication.shared.authenticate()
                await self.fetchStopsFromAPI()
             }
             return
          } else if (responseAPIStopsList?.statusCode != 200) {
             print(responseAPIStopsList as Any)
-            throw Appstate.CarrisAPIError.unavailable
+            throw Appstate.ModuleError.carris_unavailable
          }
 
          let decodedAPIStopsList = try JSONDecoder().decode([APIStop].self, from: rawDataAPIStopsList)
@@ -277,12 +264,12 @@ class StopsController: ObservableObject {
 
          print("Fetching Stops: Complete!")
 
-         self.analytics.capture(event: .Stops_Sync_OK)
-         self.appstate.change(to: .idle, for: .stops)
+         Analytics.shared.capture(event: .Stops_Sync_OK)
+         Appstate.shared.change(to: .idle, for: .stops)
 
       } catch {
-         self.analytics.capture(event: .Stops_Sync_ERROR)
-         self.appstate.change(to: .error, for: .stops)
+         Analytics.shared.capture(event: .Stops_Sync_ERROR)
+         Appstate.shared.change(to: .error, for: .stops)
          print("Fetching Stops: Error!")
          print(error)
          print("************")

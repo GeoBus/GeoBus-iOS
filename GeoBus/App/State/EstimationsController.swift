@@ -29,18 +29,6 @@ class EstimationsController: ObservableObject {
    
    
    
-   /* MARK: - RECEIVE APPSTATE & AUTHENTICATION */
-   
-   private var appstate = Appstate()
-   private var authentication = Authentication()
-   
-   public func receive(state: Appstate, auth: Authentication) {
-      self.appstate = state
-      self.authentication = auth
-   }
-   
-   
-   
    /* MARK: - GET ESTIMATIONS PROVIDER FROM STORAGE */
    
    // Retrieve Estimations Provider from device storage.
@@ -87,26 +75,26 @@ class EstimationsController: ObservableObject {
    
    private func getCarrisEstimation(for publicId: String) async -> [Estimation] {
       
-      appstate.change(to: .loading, for: .estimations)
+      Appstate.shared.change(to: .loading, for: .estimations)
       
       do {
          // Request API Routes List
          var requestCarrisAPIEstimations = URLRequest(url: URL(string: "https://gateway.carris.pt/gateway/xtranpassengerapi/api/v2.10/Estimations/busStop/\(publicId)/top/5")!)
          requestCarrisAPIEstimations.addValue("application/json", forHTTPHeaderField: "Content-Type")
          requestCarrisAPIEstimations.addValue("application/json", forHTTPHeaderField: "Accept")
-         requestCarrisAPIEstimations.setValue("Bearer \(authentication.authToken ?? "invalid_token")", forHTTPHeaderField: "Authorization")
+         requestCarrisAPIEstimations.setValue("Bearer \(CarrisAuthentication.shared.authToken ?? "invalid_token")", forHTTPHeaderField: "Authorization")
          let (rawDataCarrisAPIEstimations, rawResponseCarrisAPIEstimations) = try await URLSession.shared.data(for: requestCarrisAPIEstimations)
          let responseCarrisAPIEstimations = rawResponseCarrisAPIEstimations as? HTTPURLResponse
          
          // Check status of response
          if (responseCarrisAPIEstimations?.statusCode == 401) {
             Task {
-               await self.authentication.authenticate()
+               await CarrisAuthentication.shared.authenticate()
                return await self.getCarrisEstimation(for: publicId)
             }
          } else if (responseCarrisAPIEstimations?.statusCode != 200) {
             print(responseCarrisAPIEstimations as Any)
-            throw Appstate.CarrisAPIError.unavailable
+            throw Appstate.ModuleError.carris_unavailable
          }
          
          let decodedCarrisAPIEstimations = try JSONDecoder().decode([CarrisAPIEstimation].self, from: rawDataCarrisAPIEstimations)
@@ -132,13 +120,13 @@ class EstimationsController: ObservableObject {
             
          }
          
-         appstate.change(to: .idle, for: .estimations)
+         Appstate.shared.change(to: .idle, for: .estimations)
          
          // Return the formatted estimations.
          return tempAllEstimations
          
       } catch {
-         appstate.change(to: .error, for: .estimations)
+         Appstate.shared.change(to: .error, for: .estimations)
          print("GB: ERROR IN ESTIMATIONS: \(error)")
          return []
       }
@@ -153,7 +141,7 @@ class EstimationsController: ObservableObject {
    
    func getCommunityEstimation(for publicId: String) async -> [Estimation] {
       
-      appstate.change(to: .loading, for: .estimations)
+      Appstate.shared.change(to: .loading, for: .estimations)
       
       do {
          // Request API Routes List
@@ -166,7 +154,7 @@ class EstimationsController: ObservableObject {
          // Check status of response
          if (responseCommunityAPIVehicle?.statusCode != 200) {
             print(responseCommunityAPIVehicle as Any)
-            throw Appstate.CommunityAPIError.unavailable
+            throw Appstate.ModuleError.community_unavailable
          }
          
          let decodedCommunityAPIVehicle = try JSONDecoder().decode([CommunityAPIVehicle].self, from: rawDataCommunityAPIVehicle)
@@ -199,13 +187,13 @@ class EstimationsController: ObservableObject {
             
          }
          
-         appstate.change(to: .idle, for: .estimations)
+         Appstate.shared.change(to: .idle, for: .estimations)
          
          // Return the formatted estimations.
          return tempAllEstimations
          
       } catch {
-         appstate.change(to: .error, for: .estimations)
+         Appstate.shared.change(to: .error, for: .estimations)
          print("ERROR IN ESTIMATIONS: \(error)")
          return []
       }

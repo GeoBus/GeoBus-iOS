@@ -14,7 +14,6 @@ struct VehicleInfoSheet: View {
    
    public let busNumber: Int
    
-   @EnvironmentObject var appstate: Appstate
    @EnvironmentObject var vehiclesController: VehiclesController
    
    private let refreshTimer = Timer.publish(every: 20 /* seconds */, on: .main, in: .common).autoconnect()
@@ -229,7 +228,6 @@ struct VehicleInfoSheetHeader2: View {
    
    public let vehicle: Vehicle?
    
-   @EnvironmentObject var appstate: Appstate
    @EnvironmentObject var vehiclesController: VehiclesController
    
    private let lastSeenTimeTimer = Timer.publish(every: 1 /* seconds */, on: .main, in: .common).autoconnect()
@@ -292,7 +290,7 @@ struct VehicleInfoSheetHeader2: View {
             Divider()
             vehicleDetailsScreen
                .padding()
-         } else if (appstate.vehicles == .loading) {
+         } else if (Appstate.shared.vehicles == .loading) {
             loadingScreen
                .padding()
          } else {
@@ -334,7 +332,6 @@ struct VehicleInfoSheetHeader2: View {
 
 struct VehicleDetailsView: View {
    
-   @EnvironmentObject var appstate: Appstate
    @EnvironmentObject var vehiclesController: VehiclesController
    
    let vehicle: VehicleSummary
@@ -369,7 +366,6 @@ struct VehicleDetailsView: View {
 
 struct VehicleDetailsView2: View {
    
-   @EnvironmentObject var appstate: Appstate
    @EnvironmentObject var vehiclesController: VehiclesController
    
    let refreshTimer = Timer.publish(every: 20 /* seconds */, on: .main, in: .common).autoconnect()
@@ -454,7 +450,7 @@ struct VehicleDetailsView2: View {
             Divider()
             vehicleDetailsScreen
                .padding()
-         } else if (appstate.vehicles == .loading) {
+         } else if (Appstate.shared.vehicles == .loading) {
             loadingScreen
                .padding()
          } else {

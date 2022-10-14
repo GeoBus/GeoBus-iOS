@@ -9,7 +9,6 @@ import SwiftUI
 
 struct AboutGeoBus: View {
 
-   @EnvironmentObject var appstate: Appstate
    @EnvironmentObject var stopsController: StopsController
    @EnvironmentObject var routesController: RoutesController
 

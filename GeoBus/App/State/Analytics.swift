@@ -58,16 +58,25 @@ class Analytics: ObservableObject {
    
    
    /* * */
-   /* MARK: - SECTION 2: INITIALIZATION */
+   /* MARK: - SECTION 2: SHARED INSTANCE */
+   /* To allow the same instance of this class to be available accross the whole app, */
+   /* we create a Singleton. More info here: https://www.hackingwithswift.com/example-code/language/what-is-a-singleton */
+   
+   static let shared = Analytics()
+   
+   
+   
+   /* * */
+   /* MARK: - SECTION 3: INITIALIZATION */
    /* Initialize the framework on init with the set configuration. */
    /* Everything is turned off except for ‹DeviceId› because it is the one */
    /* data point that allows PostHog to aggregate sessions from the same users. */
-   /* From what I've read, this is renewd often by Apple and is very difficult to be */
+   /* From what I've read, this is renewed often by Apple and is very difficult to be */
    /* used for tracking when used alone without the other options (which are turned off). */
    
    private let posthog: PHGPostHog?
    
-   init() {
+   private init() {
       if let posthogApiKey = Bundle.main.infoDictionary?["POSTHOG_API_KEY"] as? String {
          let configuration = PHGPostHogConfiguration(apiKey: posthogApiKey)
          configuration.shouldUseLocationServices = false
@@ -91,7 +100,7 @@ class Analytics: ObservableObject {
    
    
    /* * */
-   /* MARK: - SECTION 3: CAPTURE EVENTS */
+   /* MARK: - SECTION 4: CAPTURE EVENTS */
    /* Captured events can either be only a string or contain additional data. */
    /* Do not capture events if the app is in debug mode (directly run by Xcode). */
    

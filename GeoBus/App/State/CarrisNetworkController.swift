@@ -113,26 +113,6 @@ class CarrisNetworkController: ObservableObject {
    
    
    /* * */
-   /* MARK: - SECTION 4: APPSTATE, ANALYTICS & AUTHENTICATION */
-   /* Receive Appstate and Authentication objects that were initialized globally. */
-   /* This is required to prevent duplicates of the same calls, and allow reuse of tokens. */
-   /* For Appstate, this is so there is a single source of truth for the UI state. */
-   
-   private var appstate = Appstate()
-   private var analytics = Analytics()
-   private var authentication = CarrisAuthController()
-   
-   func receive(_ appstate: Appstate, _ analytics: Analytics, _ authentication: CarrisAuthController) {
-      self.appstate = appstate
-      self.analytics = analytics
-      self.authentication = authentication
-   }
-   
-   
-   
-   
-   
-   /* * */
    /* MARK: - SECTION 5: UPDATE NETWORK FROM CARRIS API */
    /* This function decides whether to update the complete network model */
    /* if it is considered outdated or is inexistent on device storage. */
@@ -180,8 +160,8 @@ class CarrisNetworkController: ObservableObject {
    
    func fetchRoutesFromCarrisAPI() async {
       
-      analytics.capture(event: .Routes_Sync_START)
-      appstate.change(to: .loading, for: .routes)
+      Analytics.shared.capture(event: .Routes_Sync_START)
+      Appstate.shared.change(to: .loading, for: .routes)
       
       print("GB: Fetching Routes: Starting...")
       
@@ -190,18 +170,18 @@ class CarrisNetworkController: ObservableObject {
          var requestCarrisAPIRoutesList = URLRequest(url: URL(string: "\(api_carrisEndpoint)/Routes")!)
          requestCarrisAPIRoutesList.addValue("application/json", forHTTPHeaderField: "Content-Type")
          requestCarrisAPIRoutesList.addValue("application/json", forHTTPHeaderField: "Accept")
-         requestCarrisAPIRoutesList.setValue("Bearer \(authentication.authToken ?? "invalid_token")", forHTTPHeaderField: "Authorization")
+         requestCarrisAPIRoutesList.setValue("Bearer \(CarrisAuthentication.shared.authToken ?? "invalid_token")", forHTTPHeaderField: "Authorization")
          let (rawDataCarrisAPIRoutesList, rawResponseCarrisAPIRoutesList) = try await URLSession.shared.data(for: requestCarrisAPIRoutesList)
          let responseCarrisAPIRoutesList = rawResponseCarrisAPIRoutesList as? HTTPURLResponse
          
          // Check status of response
          if (responseCarrisAPIRoutesList?.statusCode == 401) {
-            await self.authentication.authenticate()
+            await CarrisAuthentication.shared.authenticate()
             await self.fetchRoutesFromCarrisAPI()
             return
          } else if (responseCarrisAPIRoutesList?.statusCode != 200) {
             print(responseCarrisAPIRoutesList as Any)
-            throw Appstate.CarrisAPIError.unavailable
+            throw Appstate.ModuleError.carris_unavailable
          }
          
          let decodedCarrisAPIRoutesList = try JSONDecoder().decode([APIRoutesList].self, from: rawDataCarrisAPIRoutesList)
@@ -223,18 +203,18 @@ class CarrisNetworkController: ObservableObject {
                var requestAPIRouteDetail = URLRequest(url: URL(string: "\(api_carrisEndpoint)/Routes/\(availableRoute.routeNumber ?? "invalid-route-number")")!)
                requestAPIRouteDetail.addValue("application/json", forHTTPHeaderField: "Content-Type")
                requestAPIRouteDetail.addValue("application/json", forHTTPHeaderField: "Accept")
-               requestAPIRouteDetail.setValue("Bearer \(authentication.authToken ?? "invalid_token")", forHTTPHeaderField: "Authorization")
+               requestAPIRouteDetail.setValue("Bearer \(CarrisAuthentication.shared.authToken ?? "invalid_token")", forHTTPHeaderField: "Authorization")
                let (rawDataAPIRouteDetail, rawResponseAPIRouteDetail) = try await URLSession.shared.data(for: requestAPIRouteDetail)
                let responseAPIRouteDetail = rawResponseAPIRouteDetail as? HTTPURLResponse
                
                // Check status of response
                if (responseAPIRouteDetail?.statusCode == 401) {
-                  await self.authentication.authenticate()
+                  await CarrisAuthentication.shared.authenticate()
                   await self.fetchRoutesFromCarrisAPI()
                   return
                } else if (responseAPIRouteDetail?.statusCode != 200) {
                   print(responseAPIRouteDetail as Any)
-                  throw Appstate.CarrisAPIError.unavailable
+                  throw Appstate.ModuleError.carris_unavailable
                }
             
                let decodedAPIRouteDetail = try JSONDecoder().decode(APIRoute.self, from: rawDataAPIRouteDetail)
@@ -284,12 +264,12 @@ class CarrisNetworkController: ObservableObject {
          
          print("Fetching Routes: Complete!")
          
-         analytics.capture(event: .Routes_Sync_OK)
-         appstate.change(to: .idle, for: .routes)
+         Analytics.shared.capture(event: .Routes_Sync_OK)
+         Appstate.shared.change(to: .idle, for: .routes)
          
       } catch {
-         analytics.capture(event: .Routes_Sync_ERROR)
-         appstate.change(to: .error, for: .routes)
+         Analytics.shared.capture(event: .Routes_Sync_ERROR)
+         Appstate.shared.change(to: .error, for: .routes)
          print("Fetching Routes: Error!")
          print(error)
          print("************")
@@ -404,8 +384,8 @@ class CarrisNetworkController: ObservableObject {
    
    func fetchStopsFromCarrisAPI() async {
       
-      analytics.capture(event: .Stops_Sync_START)
-      appstate.change(to: .loading, for: .stops)
+      Analytics.shared.capture(event: .Stops_Sync_START)
+      Appstate.shared.change(to: .loading, for: .stops)
       
       print("Fetching Stops: Starting...")
       
@@ -414,18 +394,18 @@ class CarrisNetworkController: ObservableObject {
          var requestCarrisAPIStopsList = URLRequest(url: URL(string: "\(api_carrisEndpoint)/busstops")!)
          requestCarrisAPIStopsList.addValue("application/json", forHTTPHeaderField: "Content-Type")
          requestCarrisAPIStopsList.addValue("application/json", forHTTPHeaderField: "Accept")
-         requestCarrisAPIStopsList.setValue("Bearer \(authentication.authToken ?? "invalid_token")", forHTTPHeaderField: "Authorization")
+         requestCarrisAPIStopsList.setValue("Bearer \(CarrisAuthentication.shared.authToken ?? "invalid_token")", forHTTPHeaderField: "Authorization")
          let (rawDataCarrisAPIStopsList, rawResponseCarrisAPIStopsList) = try await URLSession.shared.data(for: requestCarrisAPIStopsList)
          let responseCarrisAPIStopsList = rawResponseCarrisAPIStopsList as? HTTPURLResponse
          
          // Check status of response
          if (responseCarrisAPIStopsList?.statusCode == 401) {
-            await self.authentication.authenticate()
+            await CarrisAuthentication.shared.authenticate()
             await self.fetchStopsFromCarrisAPI()
             return
          } else if (responseCarrisAPIStopsList?.statusCode != 200) {
             print(responseCarrisAPIStopsList as Any)
-            throw Appstate.CarrisAPIError.unavailable
+            throw Appstate.ModuleError.carris_unavailable
          }
          
          let decodedCarrisAPIStopsList = try JSONDecoder().decode([APIStop].self, from: rawDataCarrisAPIStopsList)
@@ -459,12 +439,12 @@ class CarrisNetworkController: ObservableObject {
          
          print("[GB-Debug] Fetching Stops: Complete!")
          
-         self.analytics.capture(event: .Stops_Sync_OK)
-         self.appstate.change(to: .idle, for: .stops)
+         Analytics.shared.capture(event: .Stops_Sync_OK)
+         Appstate.shared.change(to: .idle, for: .stops)
          
       } catch {
-         self.analytics.capture(event: .Stops_Sync_ERROR)
-         self.appstate.change(to: .error, for: .stops)
+         Analytics.shared.capture(event: .Stops_Sync_ERROR)
+         Appstate.shared.change(to: .error, for: .stops)
          print("Fetching Stops: Error!")
          print(error)
          print("************")
@@ -633,25 +613,25 @@ class CarrisNetworkController: ObservableObject {
    
    func fetchVehiclesListFromCarrisAPI_NEW() async {
       
-      appstate.change(to: .loading, for: .vehicles)
+      Appstate.shared.change(to: .loading, for: .vehicles)
       
       do {
          // Request all Vehicles from API
          var requestCarrisAPIVehiclesList = URLRequest(url: URL(string: "https://gateway.carris.pt/gateway/xtranpassengerapi/api/v2.10/vehicleStatuses")!) // /routeNumber/\(routeNumber!)
          requestCarrisAPIVehiclesList.addValue("application/json", forHTTPHeaderField: "Content-Type")
          requestCarrisAPIVehiclesList.addValue("application/json", forHTTPHeaderField: "Accept")
-         requestCarrisAPIVehiclesList.setValue("Bearer \(authentication.authToken ?? "invalid_token")", forHTTPHeaderField: "Authorization")
+         requestCarrisAPIVehiclesList.setValue("Bearer \(CarrisAuthentication.shared.authToken ?? "invalid_token")", forHTTPHeaderField: "Authorization")
          let (rawDataCarrisAPIVehiclesList, rawResponseCarrisAPIVehiclesList) = try await URLSession.shared.data(for: requestCarrisAPIVehiclesList)
          let responseCarrisAPIVehiclesList = rawResponseCarrisAPIVehiclesList as? HTTPURLResponse
          
          // Check status of response
          if (responseCarrisAPIVehiclesList?.statusCode == 401) {
-            await self.authentication.authenticate()
+            await CarrisAuthentication.shared.authenticate()
             await self.fetchVehiclesListFromCarrisAPI_NEW()
             return
          } else if (responseCarrisAPIVehiclesList?.statusCode != 200) {
             print(responseCarrisAPIVehiclesList as Any)
-            throw Appstate.CarrisAPIError.unavailable
+            throw Appstate.ModuleError.carris_unavailable
          }
          
          let decodedCarrisAPIVehiclesList = try JSONDecoder().decode([CarrisAPIVehicleSummary].self, from: rawDataCarrisAPIVehiclesList)
@@ -700,10 +680,10 @@ class CarrisNetworkController: ObservableObject {
             
          }
          
-         appstate.change(to: .idle, for: .vehicles)
+         Appstate.shared.change(to: .idle, for: .vehicles)
          
       } catch {
-         appstate.change(to: .error, for: .vehicles)
+         Appstate.shared.change(to: .error, for: .vehicles)
          print("ERROR IN VEHICLES: \(error)")
          return
       }
@@ -732,7 +712,7 @@ class CarrisNetworkController: ObservableObject {
          return
       }
       
-      appstate.change(to: .loading, for: .vehicles)
+      Appstate.shared.change(to: .loading, for: .vehicles)
       
       do {
          
@@ -740,18 +720,18 @@ class CarrisNetworkController: ObservableObject {
          var requestCarrisAPIVehicleDetail = URLRequest(url: URL(string: "\(api_carrisEndpoint)/SGO/busNumber/\(busNumber)")!)
          requestCarrisAPIVehicleDetail.addValue("application/json", forHTTPHeaderField: "Content-Type")
          requestCarrisAPIVehicleDetail.addValue("application/json", forHTTPHeaderField: "Accept")
-         requestCarrisAPIVehicleDetail.setValue("Bearer \(authentication.authToken ?? "invalid_token")", forHTTPHeaderField: "Authorization")
+         requestCarrisAPIVehicleDetail.setValue("Bearer \(CarrisAuthentication.shared.authToken ?? "invalid_token")", forHTTPHeaderField: "Authorization")
          let (rawDataCarrisAPIVehicleDetail, rawResponseCarrisAPIVehicleDetail) = try await URLSession.shared.data(for: requestCarrisAPIVehicleDetail)
          let responseCarrisAPIVehicleDetail = rawResponseCarrisAPIVehicleDetail as? HTTPURLResponse
          
          // Check status of response
          if (responseCarrisAPIVehicleDetail?.statusCode == 401) {
-            await self.authentication.authenticate()
+            await CarrisAuthentication.shared.authenticate()
             await self.fetchVehicleDetailsFromCarrisAPI_NEW(for: busNumber)
             return
          } else if (responseCarrisAPIVehicleDetail?.statusCode != 200) {
             print(responseCarrisAPIVehicleDetail as Any)
-            throw Appstate.CarrisAPIError.unavailable
+            throw Appstate.ModuleError.carris_unavailable
          }
          
          let decodedCarrisAPIVehicleDetail = try JSONDecoder().decode(CarrisAPIVehicleDetail.self, from: rawDataCarrisAPIVehicleDetail)
@@ -760,10 +740,10 @@ class CarrisNetworkController: ObservableObject {
          network_allVehicles[indexOfVehicleInArray].vehiclePlate = decodedCarrisAPIVehicleDetail.vehiclePlate ?? "-"
          network_allVehicles[indexOfVehicleInArray].lastStopOnVoyageName = decodedCarrisAPIVehicleDetail.lastStopOnVoyageName ?? "-"
          
-         appstate.change(to: .idle, for: .vehicles)
+         Appstate.shared.change(to: .idle, for: .vehicles)
          
       } catch {
-         appstate.change(to: .error, for: .vehicles)
+         Appstate.shared.change(to: .error, for: .vehicles)
          print("ERROR IN VEHICLE DETAILS: \(error)")
          return
       }
@@ -787,7 +767,7 @@ class CarrisNetworkController: ObservableObject {
          return
       }
       
-      appstate.change(to: .loading, for: .vehicles)
+      Appstate.shared.change(to: .loading, for: .vehicles)
       
       do {
          
@@ -795,14 +775,13 @@ class CarrisNetworkController: ObservableObject {
          var requestCommunityAPIVehicle = URLRequest(url: URL(string: "\(api_communityEndpoint)/estbus?busNumber=\(busNumber)")!)
          requestCommunityAPIVehicle.addValue("application/json", forHTTPHeaderField: "Content-Type")
          requestCommunityAPIVehicle.addValue("application/json", forHTTPHeaderField: "Accept")
-         requestCommunityAPIVehicle.setValue("Bearer \(authentication.authToken ?? "invalid_token")", forHTTPHeaderField: "Authorization")
          let (rawDataCommunityAPIVehicle, rawResponseCommunityAPIVehicle) = try await URLSession.shared.data(for: requestCommunityAPIVehicle)
          let responseCommunityAPIVehicle = rawResponseCommunityAPIVehicle as? HTTPURLResponse
          
          // Check status of response
          if (responseCommunityAPIVehicle?.statusCode != 200) {
             print(responseCommunityAPIVehicle as Any)
-            throw Appstate.CommunityAPIError.unavailable
+            throw Appstate.ModuleError.community_unavailable
          }
          
          let decodedCommunityAPIVehicle = try JSONDecoder().decode([CommunityAPIVehicle].self, from: rawDataCommunityAPIVehicle)
@@ -810,10 +789,10 @@ class CarrisNetworkController: ObservableObject {
          // Update details of Vehicle
          network_allVehicles[indexOfVehicleInArray].estimatedTimeofArrivalCorrected = decodedCommunityAPIVehicle[0].estimatedTimeofArrivalCorrected
          
-         appstate.change(to: .idle, for: .vehicles)
+         Appstate.shared.change(to: .idle, for: .vehicles)
          
       } catch {
-         appstate.change(to: .error, for: .vehicles)
+         Appstate.shared.change(to: .error, for: .vehicles)
          print("GB: ERROR IN 'fetchVehicleFromCommunityAPI_NEW': \(error)")
          return
       }

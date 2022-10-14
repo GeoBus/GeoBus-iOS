@@ -10,7 +10,6 @@ import Combine
 
 struct NavBar: View {
 
-   @EnvironmentObject var appstate: Appstate
    @EnvironmentObject var routesController: RoutesController
 
    @State var showSelectRouteSheet: Bool = false
