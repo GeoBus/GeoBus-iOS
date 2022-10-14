@@ -14,7 +14,7 @@ struct PulseLabel: View {
    let label: Text
    
    var body: some View {
-      HStack(spacing: 0) {
+      HStack(spacing: 2) {
          Pulse(size: 15, accent: self.accent)
          label
             .font(Font.system(size: 11, weight: .medium, design: .default) )
@@ -34,7 +34,7 @@ struct Pulse: View {
    let accent: Color
    
    @State var scale: Double = 0.0
-   @State var opacity: Double = 1.0
+   @State var opacity: Double = 0.8
    
    
    var body: some View {
@@ -43,18 +43,18 @@ struct Pulse: View {
             .scale(scale)
             .fill(accent)
             .opacity(opacity)
-            .animation(
-               .easeOut(duration: speed)
-               .repeatForever(autoreverses: false),
-               value: [scale, opacity])
          Circle()
             .fill(accent)
             .frame(width: size/4, height: size/4, alignment: .center)
       }
       .frame(width: size, height: size, alignment: .center)
       .onAppear {
-         scale = 1.0
-         opacity = 0.0
+         withAnimation(.easeOut(duration: speed).repeatForever(autoreverses: false)) {
+            scale = 1.0
+         }
+         withAnimation(.easeIn(duration: speed).repeatForever(autoreverses: false)) {
+            opacity = 0.0
+         }
       }
    }
    
