@@ -14,8 +14,10 @@ struct LiveIcon: View {
 
    var body: some View {
       HStack {
-         LottieView(name: "live-icon", loopMode: .loop, aspect: .scaleAspectFit, play: $play)
-            .frame(width: 15, height: 15)
+//         LottieView(name: "live-icon", loopMode: .loop, aspect: .scaleAspectFit, play: $play)
+//            .frame(width: 15, height: 15)
+//            .padding(.leading, -2)
+         LoadingPulse(color: .green, size: 15)
             .padding(.leading, -2)
          Text("Live")
             .font(Font.system(size: 11, weight: .medium, design: .default) )

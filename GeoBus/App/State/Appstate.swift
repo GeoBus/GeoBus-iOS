@@ -96,6 +96,7 @@ class Appstate: ObservableObject {
    /* After the change, follow the set rules to also update the .global state. This might change in the future. */
    
    func change(to newState: State, for module: Module) {
+      print("GB5: Module: \(module), state: \(newState)")
       DispatchQueue.main.async {
          // Change state of affected module
          switch module {

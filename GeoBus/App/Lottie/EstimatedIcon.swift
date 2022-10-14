@@ -14,8 +14,11 @@ struct EstimatedIcon: View {
 
    var body: some View {
       HStack {
-         LottieView(name: "estimated-icon", loopMode: .loop, aspect: .scaleAspectFit, play: $play)
-            .frame(width: 15, height: 15)
+//         LottieView(name: "estimated-icon", loopMode: .loop, aspect: .scaleAspectFit, play: $play)
+//            .frame(width: 15, height: 15)
+//            .padding(.leading, -2)
+         LoadingPulse(color: .orange, size: 15)
+//            .frame(width: 15, height: 15)
             .padding(.leading, -2)
          Text("Estimated")
             .font(Font.system(size: 11, weight: .medium, design: .default) )

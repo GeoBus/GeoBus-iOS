@@ -19,13 +19,8 @@ struct LoadingView: View {
 
          RoundedRectangle(cornerRadius: 10)
             .fill( colorScheme == .dark ? Color(.systemGray4) : Color(.systemGray5) )
-
-         LottieView(
-            name: colorScheme == .dark ? "circular-loader-white" : "circular-loader-green",
-            loopMode: .loop,
-            duration: 1,
-            play: $play
-         )
+         
+         LoadingSpinner(color: colorScheme == .dark ? .white : .green)
 
       }
    }

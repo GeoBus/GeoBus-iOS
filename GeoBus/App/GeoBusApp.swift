@@ -33,10 +33,10 @@ struct GeoBusApp: App {
             .environmentObject(estimationsController)
             // NEW
             .environmentObject(self.mapController)
-            .environmentObject(self.carrisNetworkController)
+//            .environmentObject(self.carrisNetworkController)
             .onAppear(perform: {
                // Update Carris network model
-               self.carrisNetworkController.start()
+//               self.carrisNetworkController.start()
                // Capture app open
                Analytics.shared.capture(event: .App_Session_Start)
             })
