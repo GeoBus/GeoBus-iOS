@@ -6,41 +6,76 @@
 //
 
 import Foundation
-import PostHog
+
+
+/* * */
+/* MARK: - APPSTATE */
+/* Appstate is a 'global' class that all controller modules use to set the current state of the app. */
+/* This state is immediatly reflected on the UI to inform the user of any loading or error events. */
+/* Using Appstate increases consistency in UI code and prevents direct access to controllers. */
+
 
 class Appstate: ObservableObject {
    
-   /* MARK: - ANALYTICS */
+   /* * */
+   /* MARK: - SECTION 1: POSSIBLE STATE TYPES */
+   /* Essentialy the app can be in either of the following three states, not simultaneously. */
    
-   private var posthog: PHGPostHog?
-   
-   func receive(analytics: PHGPostHog?) {
-      self.posthog = analytics
-   }
-   
-   func capture(event: String) {
-      if (_isDebugAssertConfiguration()) {
-         print("GB: Captured event '\(event)'")
-      } else {
-         if (self.posthog != nil) {
-            self.posthog!.capture(event)
-         }
-      }
-   }
-   
-   func capture(event: String, properties: [String : Any]) {
-      if (_isDebugAssertConfiguration()) {
-         print("GB: Captured event '\(event)' with properties '\(properties)'")
-      } else {
-         if (self.posthog != nil) {
-            self.posthog!.capture(event, properties: properties)
-         }
-      }
+   enum State {
+      case idle
+      case loading
+      case error
    }
    
    
    
-   /* MARK: - STATE */
+   /* * */
+   /* MARK: - SECTION 2: MODULES */
+   /* These are the modules that publish state change events. This allows the UI to provide local */
+   /* loading or error messages on the relevant functionality, increasing perception of stability. */
+
+   enum Module {
+      case auth
+      case stops
+      case routes
+      case vehicles
+      case estimations
+   }
+   
+   
+   
+   /* * */
+   /* MARK: - SECTION 3: ERROR TYPES */
+   /* Modules can publish more information on the particular error it encountered. */
+   /* This functionality is planned to be expanded sometime in the future. */
+   
+   enum ModuleError: Error {
+      
+      // For Carris API
+      case carris_unauthorized
+      case carris_unavailable
+      
+   }
+   
+   
+   
+   /* * */
+   /* MARK: - SECTION 4: SHARED INSTANCE */
+   /* To allow the same instance of this class to be available accross the whole app, */
+   /* we create a Singleton. More info here: https://www.hackingwithswift.com/example-code/language/what-is-a-singleton */
+   /* Adding a private initializer is important because it stops other code from creating a new class instance. */
+   
+   static let shared = Appstate()
+   
+   private init() { }
+   
+   
+   
+   /* * */
+   /* MARK: - SECTION 5: PUBLISHED VARIABLES */
+   /* Here are all the @Published variables refering to the above modules that can be consumed */
+   /* by the UI. It is important to keep the names of this variables short, but descriptive, */
+   /* to avoid clutter on the interface code. */
    
    @Published var global: State = .idle
    
@@ -50,24 +85,12 @@ class Appstate: ObservableObject {
    @Published var vehicles: State = .idle
    @Published var estimations: State = .idle
    
-   enum State {
-      case idle
-      case loading
-      case error
-   }
    
-   enum Module {
-      case auth
-      case stops
-      case routes
-      case vehicles
-      case estimations
-   }
    
-   enum CarrisAPIError: Error {
-      case unauthorized
-      case unavailable
-   }
+   /* * */
+   /* MARK: - SECTION 6: CHANGE STATE */
+   /* Dispatch the change to the main queue to ensure UI updates happen smoothly and without interruptions. */
+   /* After the change, follow the set rules to also update the .global state. This might change in the future. */
    
    func change(to newState: State, for module: Module) {
       DispatchQueue.main.async {

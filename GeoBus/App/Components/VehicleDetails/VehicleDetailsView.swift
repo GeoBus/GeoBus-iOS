@@ -5,33 +5,32 @@
 //  Created by João on 22/04/2020.
 //  Copyright © 2020 João. All rights reserved.
 //
-
 import SwiftUI
 import Combine
 
 struct VehicleDetailsView: View {
-
+   
    @EnvironmentObject var appstate: Appstate
    @EnvironmentObject var vehiclesController: VehiclesController
-
+   
    let refreshTimer = Timer.publish(every: 20 /* seconds */, on: .main, in: .common).autoconnect()
    let lastSeenTimeTimer = Timer.publish(every: 1 /* seconds */, on: .main, in: .common).autoconnect()
-
-   let busNumber: String
+   
+   let busNumber: Int
    let routeNumber: String
    let lastGpsTime: String
-
+   
    @State var vehicleDetails: VehicleDetails? = nil
    @State var lastSeenTime: String = "-"
-
-
+   
+   
    func getVehicleDetailsFromController() {
       Task {
-         self.vehicleDetails = await vehiclesController.fetchVehicleDetailsFromAPI(for: self.busNumber)
+         self.vehicleDetails = await vehiclesController.fetchVehicleDetailsFromCarrisAPI(for: self.busNumber)
       }
    }
-
-
+   
+   
    var loadingScreen: some View {
       HStack(spacing: 3) {
          ProgressView()
@@ -42,31 +41,22 @@ struct VehicleDetailsView: View {
          Spacer()
       }
    }
-
+   
    var errorScreen: some View {
       Text("Carris API is unavailable.")
          .font(Font.system(size: 13, weight: .medium, design: .default) )
          .foregroundColor(Color(.secondaryLabel))
    }
-
+   
    var vehicleDetailsHeader: some View {
       HStack(spacing: 15) {
-         HStack {
-            RouteBadgePill(routeNumber: routeNumber)
-            Text("to")
-               .font(.footnote)
-               .foregroundColor(Color(.tertiaryLabel))
-            Text(vehicleDetails!.lastStopOnVoyageName)
-               .font(.body)
-               .fontWeight(.medium)
-               .foregroundColor(Color(.label))
-         }
+         VehicleDestination(routeNumber: routeNumber, destination: vehicleDetails!.lastStopOnVoyageName)
          Spacer()
          VehicleIdentifier(busNumber: busNumber, vehiclePlate: vehicleDetails!.vehiclePlate)
       }
    }
-
-
+   
+   
    var vehicleDetailsScreen: some View {
       VStack(alignment: .leading) {
          HStack(alignment: .center, spacing: 5) {
@@ -77,17 +67,17 @@ struct VehicleDetailsView: View {
                .font(.system(size: 12, weight: .bold, design: .default))
                .foregroundColor(Color(.secondaryLabel))
                .onAppear() {
-                  self.lastSeenTime = Globals().getTimeString(for: lastGpsTime, in: .past, style: .full, units: [.hour, .minute, .second])
+                  self.lastSeenTime = Helpers.getTimeString(for: lastGpsTime, in: .past, style: .full, units: [.hour, .minute, .second])
                }
                .onReceive(lastSeenTimeTimer) { event in
-                  self.lastSeenTime = Globals().getTimeString(for: lastGpsTime, in: .past, style: .full, units: [.hour, .minute, .second])
+                  self.lastSeenTime = Helpers.getTimeString(for: lastGpsTime, in: .past, style: .full, units: [.hour, .minute, .second])
                }
             Spacer()
          }
       }
    }
-
-
+   
+   
    var body: some View {
       VStack(alignment: .leading, spacing: 0) {
          if (vehicleDetails != nil) {
@@ -112,7 +102,7 @@ struct VehicleDetailsView: View {
          // Update details on timer call
          self.getVehicleDetailsFromController()
       }
-
+      
    }
-
+   
 }

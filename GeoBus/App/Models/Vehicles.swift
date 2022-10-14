@@ -13,7 +13,7 @@ import Foundation
 // Data model as provided by the API.
 // Schema is available at https://joaodcp.github.io/Carris-API
 
-struct APIVehicleSummary: Decodable {
+struct CarrisAPIVehicleSummary: Decodable {
    let busNumber: Int?
    let state: String?
    let lastGpsTime: String?
@@ -30,7 +30,7 @@ struct APIVehicleSummary: Decodable {
    let previousLongitude: Double?
 }
 
-struct APIVehicleDetail: Codable {
+struct CarrisAPIVehicleDetail: Codable {
    let vehiclePlate: String?
    let routeNumber: String?
    let plateNumber: String?
@@ -51,7 +51,7 @@ struct APIVehicleDetail: Codable {
 // Data model adjusted for the app.
 
 struct VehicleSummary: Codable, Equatable, Identifiable {
-   let busNumber: String
+   let busNumber: Int
    let state: String
    let routeNumber: String
    let kind: Kind
@@ -62,7 +62,7 @@ struct VehicleSummary: Codable, Equatable, Identifiable {
    let lastGpsTime: String
    let angleInRadians: Double
 
-   var id: String {
+   var id: Int {
       return self.busNumber
    }
    
@@ -70,7 +70,7 @@ struct VehicleSummary: Codable, Equatable, Identifiable {
 
 
 struct VehicleDetails: Codable, Equatable, Identifiable {
-   let busNumber: String
+   let busNumber: Int
    let vehiclePlate: String
    let lastStopOnVoyageName: String
 

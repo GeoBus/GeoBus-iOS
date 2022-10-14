@@ -10,7 +10,6 @@ import SwiftUI
 
 struct SelectRouteInput: View {
 
-   @EnvironmentObject var appstate: Appstate
    @EnvironmentObject var stopsController: StopsController
    @EnvironmentObject var routesController: RoutesController
    @EnvironmentObject var vehiclesController: VehiclesController
@@ -37,7 +36,7 @@ struct SelectRouteInput: View {
                if success {
                   self.vehiclesController.set(route: self.routeNumber.uppercased())
                   self.stopsController.deselect()
-                  self.appstate.capture(event: "Routes-Select-FromTextInput", properties: ["routeNumber": self.routeNumber.uppercased()])
+                  Analytics.shared.capture(event: .Routes_Select_FromTextInput, properties: ["routeNumber": self.routeNumber.uppercased()])
                   self.showSheet = false
                } else {
                   self.showErrorLabel = true
