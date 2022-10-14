@@ -46,10 +46,10 @@ struct MapView: View {
       .onChange(of: routesController.selectedVariant) { newVariant in
          if (newVariant != nil) {
             self.mapController.updateAnnotations(with: newVariant!)
-            self.mapController.updateAnnotations(with: vehiclesController.allVehicles, for: routesController.selectedRoute?.number)
+            self.mapController.updateAnnotations(with: vehiclesController.vehicles, for: routesController.selectedRoute?.number)
          }
       }
-      .onChange(of: vehiclesController.allVehicles) { newVehiclesList in
+      .onChange(of: vehiclesController.vehicles) { newVehiclesList in
          self.mapController.updateAnnotations(with: newVehiclesList, for: routesController.selectedRoute?.number)
       }
    }

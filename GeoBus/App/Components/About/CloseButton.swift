@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CloseButton: View {
 
+   @EnvironmentObject var appstate: Appstate
    @EnvironmentObject var stopsController: StopsController
    @EnvironmentObject var routesController: RoutesController
 
@@ -100,7 +101,7 @@ struct CloseButton: View {
 
    var body: some View {
       if (stopsController.allStops.isEmpty || routesController.allRoutes.isEmpty) {
-         if (Appstate.shared.stops == .error || Appstate.shared.routes == .error) {
+         if (appstate.stops == .error || appstate.routes == .error) {
             syncError
          } else {
             isSyncing

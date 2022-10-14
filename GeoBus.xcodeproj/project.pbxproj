@@ -49,7 +49,6 @@
 		CF521A0528F34F5300AD0B76 /* StopDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF521A0428F34F5300AD0B76 /* StopDetailsView.swift */; };
 		CF548FF328D129B000668CB6 /* VehicleDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF6478FC28D112E800C70691 /* VehicleDetailsView.swift */; };
 		CF548FF628D14BA400668CB6 /* VehicleIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF548FF528D14BA400668CB6 /* VehicleIdentifier.swift */; };
-		CF69994C28E878ED00646582 /* EstimationsProviderCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF69994B28E878ED00646582 /* EstimationsProviderCard.swift */; };
 		CF6C917E28D3ED0A006C3F61 /* SquareButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF6C917D28D3ED0A006C3F61 /* SquareButton.swift */; };
 		CF6C918228D3F1C6006C3F61 /* MapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF6C918128D3F1C6006C3F61 /* MapController.swift */; };
 		CF6C918428D3F2C9006C3F61 /* UserLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF6C918328D3F2C9006C3F61 /* UserLocation.swift */; };
@@ -78,8 +77,6 @@
 		CFFF2D3D28D7C99C00E035E0 /* PostHog in Frameworks */ = {isa = PBXBuildFile; productRef = CFFF2D3C28D7C99C00E035E0 /* PostHog */; };
 		CFFFAD7928F4AD0400DFD5FD /* TimeLeft.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFFAD7828F4AD0400DFD5FD /* TimeLeft.swift */; };
 		CFFFAD7B28F4D8D000DFD5FD /* StopIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFFAD7A28F4D8D000DFD5FD /* StopIcon.swift */; };
-		CFFFAD7D28F5040C00DFD5FD /* CarrisNetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFFAD7C28F5040C00DFD5FD /* CarrisNetworkController.swift */; };
-		CFFFAD7F28F5928900DFD5FD /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFFAD7E28F5928900DFD5FD /* Network.swift */; };
 		CFFFAD8128F64E2000DFD5FD /* Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFFAD8028F64E2000DFD5FD /* Analytics.swift */; };
 		CFFFAD8328F6754400DFD5FD /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFFAD8228F6754400DFD5FD /* Helpers.swift */; };
 		CFFFAD8528F7A21100DFD5FD /* CarrisAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFFAD8428F7A21100DFD5FD /* CarrisAuthentication.swift */; };
@@ -131,7 +128,6 @@
 		CF521A0428F34F5300AD0B76 /* StopDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopDetailsView.swift; sourceTree = "<group>"; };
 		CF548FF528D14BA400668CB6 /* VehicleIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleIdentifier.swift; sourceTree = "<group>"; };
 		CF6478FC28D112E800C70691 /* VehicleDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleDetailsView.swift; sourceTree = "<group>"; };
-		CF69994B28E878ED00646582 /* EstimationsProviderCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EstimationsProviderCard.swift; sourceTree = "<group>"; };
 		CF6C917D28D3ED0A006C3F61 /* SquareButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareButton.swift; sourceTree = "<group>"; };
 		CF6C918128D3F1C6006C3F61 /* MapController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapController.swift; sourceTree = "<group>"; };
 		CF6C918328D3F2C9006C3F61 /* UserLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLocation.swift; sourceTree = "<group>"; };
@@ -174,8 +170,6 @@
 		CFFF2D3E28D7CEE300E035E0 /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		CFFFAD7828F4AD0400DFD5FD /* TimeLeft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeLeft.swift; sourceTree = "<group>"; };
 		CFFFAD7A28F4D8D000DFD5FD /* StopIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopIcon.swift; sourceTree = "<group>"; };
-		CFFFAD7C28F5040C00DFD5FD /* CarrisNetworkController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarrisNetworkController.swift; sourceTree = "<group>"; };
-		CFFFAD7E28F5928900DFD5FD /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		CFFFAD8028F64E2000DFD5FD /* Analytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Analytics.swift; sourceTree = "<group>"; };
 		CFFFAD8228F6754400DFD5FD /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		CFFFAD8428F7A21100DFD5FD /* CarrisAuthentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarrisAuthentication.swift; sourceTree = "<group>"; };
@@ -249,7 +243,6 @@
 				CFFFAD8028F64E2000DFD5FD /* Analytics.swift */,
 				CF6C918128D3F1C6006C3F61 /* MapController.swift */,
 				CFFFAD8428F7A21100DFD5FD /* CarrisAuthentication.swift */,
-				CFFFAD7C28F5040C00DFD5FD /* CarrisNetworkController.swift */,
 				CF6C918928D4A88D006C3F61 /* StopsController.swift */,
 				CF18200628CCBA3500248F72 /* RoutesController.swift */,
 				CF18202D28CCBC0100248F72 /* VehiclesController.swift */,
@@ -264,7 +257,6 @@
 				CF181FFC28CCB99E00248F72 /* Auth.swift */,
 				CF6C918D28D4DABA006C3F61 /* Stops.swift */,
 				CF18200828CCBA4600248F72 /* Routes.swift */,
-				CFFFAD7E28F5928900DFD5FD /* Network.swift */,
 				CFAF0E7728CE84C200DDAD5B /* Vehicles.swift */,
 				CF18203C28CCBC6000248F72 /* Estimations.swift */,
 			);
@@ -335,7 +327,7 @@
 				CF05F61628CD08D400B4AD58 /* Components */,
 				CF05F61C28CD1F2800B4AD58 /* Layout */,
 				CF18200C28CCBA7300248F72 /* Extensions */,
-				CF18201528CCBB4900248F72 /* Lottie */,
+				CF18201528CCBB4900248F72 /* Animations */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -352,7 +344,7 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		CF18201528CCBB4900248F72 /* Lottie */ = {
+		CF18201528CCBB4900248F72 /* Animations */ = {
 			isa = PBXGroup;
 			children = (
 				CF18201828CCBB6400248F72 /* LoadingView.swift */,
@@ -361,7 +353,7 @@
 				CFFFAD8A28F8F33200DFD5FD /* LoadingPulse.swift */,
 				CFFFAD8828F8ECDE00DFD5FD /* LoadingSpinner.swift */,
 			);
-			path = Lottie;
+			path = Animations;
 			sourceTree = "<group>";
 		};
 		CF18205228CCBCF400248F72 /* StopDetails */ = {
@@ -398,7 +390,6 @@
 			children = (
 				CF6C918728D3FAF8006C3F61 /* AboutGeoBus.swift */,
 				CFDD014828D5114D0070FE4B /* SyncStatus.swift */,
-				CF69994B28E878ED00646582 /* EstimationsProviderCard.swift */,
 				CF82BB0628D7F166007F0CDB /* LiveDataCard.swift */,
 				CF82BB0828D7F19A007F0CDB /* LocationCard.swift */,
 				CF82BB0A28D7F1C6007F0CDB /* ShareCard.swift */,
@@ -531,7 +522,6 @@
 				CF03D6AE28F3B00F0077299B /* VehicleDestination.swift in Sources */,
 				CF18207328CCBD2300248F72 /* VariantButton.swift in Sources */,
 				CF18209B28CCBD5000248F72 /* MapView.swift in Sources */,
-				CFFFAD7D28F5040C00DFD5FD /* CarrisNetworkController.swift in Sources */,
 				CF18207428CCBD2300248F72 /* CircularVariantInfo.swift in Sources */,
 				CF18208228CCBD3A00248F72 /* SelectRouteView.swift in Sources */,
 				CF18208328CCBD3A00248F72 /* SelectRouteSheet.swift in Sources */,
@@ -550,14 +540,12 @@
 				CF6C918628D3F8C8006C3F61 /* StopSearch.swift in Sources */,
 				CF18207228CCBD2300248F72 /* VariantPicker.swift in Sources */,
 				CFAF0E7A28CE84F400DDAD5B /* MapAnnotations.swift in Sources */,
-				CF69994C28E878ED00646582 /* EstimationsProviderCard.swift in Sources */,
 				CF548FF328D129B000668CB6 /* VehicleDetailsView.swift in Sources */,
 				CFFFAD7B28F4D8D000DFD5FD /* StopIcon.swift in Sources */,
 				CF18203028CCBC0B00248F72 /* EstimationsController.swift in Sources */,
 				CF18200928CCBA4600248F72 /* Routes.swift in Sources */,
 				CF6C918A28D4A88D006C3F61 /* StopsController.swift in Sources */,
 				CF82BB0928D7F19A007F0CDB /* LocationCard.swift in Sources */,
-				CFFFAD7F28F5928900DFD5FD /* Network.swift in Sources */,
 				CF18207928CCBD2300248F72 /* RouteDetailsVehiclesQuantity.swift in Sources */,
 				CF181FFD28CCB99E00248F72 /* Auth.swift in Sources */,
 				CF181FE628CCB7D600248F72 /* GeoBusApp.swift in Sources */,

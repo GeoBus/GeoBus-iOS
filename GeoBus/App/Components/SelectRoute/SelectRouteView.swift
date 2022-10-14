@@ -10,6 +10,7 @@ import SwiftUI
 
 struct SelectRouteView: View {
 
+   @EnvironmentObject var appstate: Appstate
    @EnvironmentObject var routesController: RoutesController
    
 
@@ -17,10 +18,10 @@ struct SelectRouteView: View {
 
       ZStack {
 
-         if (Appstate.shared.global == .loading) {
+         if (appstate.global == .loading) {
             LoadingView()
 
-         } else if (Appstate.shared.global == .error) {
+         } else if (appstate.global == .error) {
             RoundedRectangle(cornerRadius: 10)
                .fill(Color(.systemRed).opacity(0.5))
             Image(systemName: "wifi.exclamationmark")

@@ -10,6 +10,8 @@ import SwiftUI
 
 struct StopEstimations: View {
    
+   @EnvironmentObject var appstate: Appstate
+   
    let estimations: [Estimation]?
    
    
@@ -69,7 +71,7 @@ struct StopEstimations: View {
             } else {
                noResultsScreen
             }
-         } else if (Appstate.shared.estimations == .error) {
+         } else if (appstate.estimations == .error) {
             errorScreen
          } else {
             loadingScreen
