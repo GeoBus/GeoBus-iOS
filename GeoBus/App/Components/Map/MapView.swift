@@ -9,6 +9,7 @@
 import SwiftUI
 import MapKit
 
+
 struct MapView: View {
 
    @EnvironmentObject var mapController: MapController
@@ -39,18 +40,18 @@ struct MapView: View {
       }
       .onChange(of: stopsController.selectedStop) { newStop in
          if (newStop != nil) {
-            mapController.updateAnnotations(with: newStop!)
+            self.mapController.updateAnnotations(with: newStop!)
          }
       }
       .onChange(of: routesController.selectedVariant) { newVariant in
          if (newVariant != nil) {
-            mapController.updateAnnotations(with: newVariant!)
+            self.mapController.updateAnnotations(with: newVariant!)
+            self.mapController.updateAnnotations(with: vehiclesController.vehicles, for: routesController.selectedRoute?.number)
          }
       }
       .onChange(of: vehiclesController.vehicles) { newVehiclesList in
-         mapController.updateAnnotations(with: newVehiclesList)
+         self.mapController.updateAnnotations(with: newVehiclesList, for: routesController.selectedRoute?.number)
       }
    }
-
 
 }

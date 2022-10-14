@@ -8,15 +8,20 @@
 
 import Foundation
 
+
 /* MARK: - API Estimation */
 
-// Data model as provided by the API.
+// Data model as provided by Carris API.
 // Schema is available at https://joaodcp.github.io/Carris-API
 
-struct APIEstimation: Decodable {
+struct CarrisAPIEstimation: Decodable {
    let routeNumber: String?
+   let routeName: String?
    let destination: String?
    let time: String? // Expected time of arrival
+   let busNumber: String?
+   let plateNumber: String?
+   let voyageNumber: Int
    let publicId: String?
 }
 
@@ -30,6 +35,7 @@ struct Estimation: Codable, Identifiable, Equatable {
    let routeNumber: String
    let destination: String
    let publicId: String
+   let busNumber: String?
    let eta: String
 
    var id: String {

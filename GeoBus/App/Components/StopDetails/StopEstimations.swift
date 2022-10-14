@@ -9,12 +9,12 @@
 import SwiftUI
 
 struct StopEstimations: View {
-
+   
    @EnvironmentObject var appstate: Appstate
-
+   
    let estimations: [Estimation]?
    
-
+   
    var fixedInfo: some View {
       HStack {
          Text("Next on this stop:")
@@ -22,10 +22,10 @@ struct StopEstimations: View {
             .textCase(.uppercase)
             .foregroundColor(Color(.tertiaryLabel))
          Spacer()
-         EstimatedIcon()
+         PulseLabel(accent: .orange, label: Text("Estimated"))
       }
    }
-
+   
    var loadingScreen: some View {
       HStack(spacing: 3) {
          ProgressView()
@@ -36,45 +36,32 @@ struct StopEstimations: View {
          Spacer()
       }
    }
-
+   
    var estimationsList: some View {
       VStack(spacing: 12) {
          ForEach(estimations!) { estimation in
-            HStack {
-               RouteBadgePill(routeNumber: estimation.routeNumber)
-               Text("to")
-                  .font(.footnote)
-                  .foregroundColor(Color(.tertiaryLabel))
-               Text(estimation.destination)
-                  .font(.body)
-                  .fontWeight(.medium)
-                  .foregroundColor(Color(.label))
+            HStack(spacing: 5) {
+               VehicleDestination(routeNumber: estimation.routeNumber, destination: estimation.destination)
                Spacer()
-               Text("in ±")
-                  .font(.footnote)
-                  .foregroundColor(Color(.tertiaryLabel))
-               Text(estimation.eta)
-                  .font(.body)
-                  .fontWeight(.medium)
-                  .foregroundColor(Color(.label))
+               TimeLeft(time: estimation.eta)
             }
          }
       }
    }
-
+   
    var noResultsScreen: some View {
       Text("No estimations available for this stop.")
          .font(Font.system(size: 13, weight: .medium, design: .default) )
          .foregroundColor(Color(.secondaryLabel))
    }
-
+   
    var errorScreen: some View {
       Text("Carris API is unavailable.")
          .font(Font.system(size: 13, weight: .medium, design: .default) )
          .foregroundColor(Color(.secondaryLabel))
    }
-
-
+   
+   
    var body: some View {
       VStack(alignment: .leading, spacing: 10) {
          fixedInfo
@@ -84,12 +71,14 @@ struct StopEstimations: View {
             } else {
                noResultsScreen
             }
-         } else if (appstate.estimations == .loading) {
-            loadingScreen
-         } else {
+         } else if (appstate.estimations == .error) {
             errorScreen
+         } else {
+            loadingScreen
          }
       }
    }
-
+   
 }
+
+

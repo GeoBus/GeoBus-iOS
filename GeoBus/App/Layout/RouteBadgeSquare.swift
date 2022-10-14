@@ -16,10 +16,10 @@ struct RouteBadgeSquare: View {
 
       ZStack {
          RoundedRectangle(cornerRadius: 10)
-            .fill(Globals().getBackgroundColor(for: routeNumber))
+            .fill(Helpers.getBackgroundColor(for: routeNumber))
          Text(routeNumber)
             .font(Font.system(size: 22, weight: .heavy, design: .default))
-            .foregroundColor(Globals().getForegroundColor(for: routeNumber))
+            .foregroundColor(Helpers.getForegroundColor(for: routeNumber))
       }
       .aspectRatio(1, contentMode: .fit)
 

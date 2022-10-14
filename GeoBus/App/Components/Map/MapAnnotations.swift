@@ -11,37 +11,40 @@ import SwiftUI
 
 
 struct GenericMapAnnotation: Identifiable {
-
+   
    let id = UUID()
-   let location: CLLocationCoordinate2D
+   var location: CLLocationCoordinate2D
    let format: Format
-
+   
    enum Format {
       case stop
       case vehicle
       case singleStop
    }
-
+   
    // For Stops
    var stop: Stop?
-
+   
    init(lat: Double, lng: Double, format: Format, stop: Stop) {
       self.location = CLLocationCoordinate2D(latitude: lat, longitude: lng)
       self.format = format
       self.stop = stop
       self.vehicle = nil
+      self.busNumber = nil
    }
-
+   
    // For Vehicles
    var vehicle: VehicleSummary?
-
-   init(lat: Double, lng: Double, format: Format, vehicle: VehicleSummary) {
+   let busNumber: Int?
+   
+   init(lat: Double, lng: Double, format: Format, busNumber: Int, vehicle: VehicleSummary) {
       self.location = CLLocationCoordinate2D(latitude: lat, longitude: lng)
       self.format = format
       self.stop = nil
       self.vehicle = vehicle
+      self.busNumber = busNumber
    }
-
+   
 }
 
 
@@ -51,61 +54,43 @@ struct GenericMapAnnotation: Identifiable {
 
 
 struct StopAnnotationView: View {
-
+   
    var stop: Stop
-
+   
    let isPresentedOnAppear: Bool
    @State private var isPresented: Bool = false
-   @State private var viewSize = CGSize()
-
-
+   @State private var isAnnotationSelected: Bool = false
+   
+   
    var body: some View {
       Button(action: {
          self.isPresented = !self.isPresented
+         self.isAnnotationSelected = self.isPresented
          TapticEngine.impact.feedback(.light)
       }) {
-         if (isPresented) {
-            Image("GreenInfo")
-         } else {
-            switch (stop.direction) {
-               case .ascending:
-                  Image("PinkArrowUp")
-               case .descending:
-                  Image("OrangeArrowDown")
-               case .circular:
-                  Image("BlueArrowRight")
-               case .none:
-                  Image("BlueArrowRight")
-            }
-         }
+         StopIcon(
+            orderInRoute: self.stop.orderInRoute ?? 0,
+            direction: self.stop.direction ?? .circular,
+            isSelected: self.isAnnotationSelected
+         )
       }
       .frame(width: 40, height: 40, alignment: .center)
       .onAppear() {
-         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.isPresented = self.isPresentedOnAppear
+         if (self.isPresentedOnAppear) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+               self.isPresented = true
+            }
          }
       }
-      .sheet(isPresented: $isPresented) {
-         VStack(alignment: .leading) {
-            StopDetailsView(
-               canToggle: false,
-               publicId: stop.publicId,
-               name: stop.name,
-               orderInRoute: stop.orderInRoute,
-               direction: stop.direction
-            )
-            .padding(.bottom, 20)
-            Disclaimer()
-               .padding(.horizontal)
-               .padding(.bottom, 10)
+      .sheet(isPresented: $isPresented, onDismiss: {
+         withAnimation(.easeInOut(duration: 0.1)) {
+            self.isAnnotationSelected = false
          }
-         .readSize { size in
-            viewSize = size
-         }
-         .presentationDetents([.height(viewSize.height)])
+      }) {
+         StopDetailsView(stop: self.stop)
       }
    }
-
+   
 }
 
 
@@ -113,14 +98,14 @@ struct StopAnnotationView: View {
 
 
 struct VehicleAnnotationView: View {
-
+   
    let vehicle: VehicleSummary
-
+   
    let isPresentedOnAppear: Bool
    @State private var isPresented: Bool = false
    @State private var viewSize = CGSize()
-
-
+   
+   
    var body: some View {
       Button(action: {
          self.isPresented = true
@@ -161,5 +146,5 @@ struct VehicleAnnotationView: View {
          .presentationDetents([.height(viewSize.height)])
       }
    }
-
+   
 }
