@@ -15,7 +15,7 @@ struct RouteDetailsVehiclesQuantity: View {
   var body: some View {
     ZStack(alignment: .topLeading) {
       
-       PulseLabel(accent: .green, label: Text("Live"))
+      LiveIcon()
       
       VStack(alignment: .center) {
         Text(String(vehiclesQuantity))

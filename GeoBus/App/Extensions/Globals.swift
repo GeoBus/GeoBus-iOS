@@ -10,10 +10,25 @@ import SwiftUI
 
 
 
-open class Helpers {
+//open class ExampleClass {
+//
+//   public static let variable: ExampleClass = .init()
+//
+//   public enum ExampleEnum {
+//      case primary, secondary, tertiary
+//   }
+//
+//   public func set(value example: ExampleEnum) -> ExampleEnum {
+//
+//   }
+//
+//}
+
+
+open class Globals {
    
    
-   public static let variable: Helpers = .init()
+   public static let variable: Globals = .init()
 
    /* MARK: - Get Route Kind */
 

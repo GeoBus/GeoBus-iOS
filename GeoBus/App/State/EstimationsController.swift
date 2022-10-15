@@ -5,6 +5,7 @@
 //  Created by João on 20/04/2020.
 //  Copyright © 2020 João. All rights reserved.
 //
+
 import Foundation
 import Combine
 
@@ -13,46 +14,97 @@ class EstimationsController: ObservableObject {
    
    /* MARK: - Variables */
    
-   @Published var estimations: [Estimation] = []
+   private let storageKeyForEstimationsProvider: String = "estimations_estimationsProvider"
+   @Published var estimationsProvider: EstimationsProvider = .community
    
    
    
-   /* MARK: - Get Estimations */
+   /* MARK: - INITIALIZER */
    
-   // This function calls the API to retrieve estimations for the provided stop 'publicId'.
+   // Retrieve data from UserDefaults on init.
+   
+   init() {
+      self.getProviderFromStorage()
+   }
+   
+   
+   
+   /* MARK: - GET ESTIMATIONS PROVIDER FROM STORAGE */
+   
+   // Retrieve Estimations Provider from device storage.
+   
+   private func getProviderFromStorage() {
+      if let unwrappedEstimationsProvider = UserDefaults.standard.string(forKey: storageKeyForEstimationsProvider) {
+         self.estimationsProvider = EstimationsProvider(rawValue: unwrappedEstimationsProvider) ?? .carris
+      }
+   }
+   
+   
+   
+   /* MARK: - SET ESTIMATIONS PROVIDER */
+   
+   // Set Estimations Provider for current session and save it to device storage.
+   
+   public func setProvider(selection: EstimationsProvider) {
+      self.estimationsProvider = selection
+      UserDefaults.standard.set(estimationsProvider.rawValue, forKey: storageKeyForEstimationsProvider)
+      print("GB: Provider is \(selection)")
+   }
+   
+   
+   
+   /* MARK: - GET ESTIMATIONS */
+   
+   // This function initiates the correct API calls according to the set Estimations provider.
+   
+   public func get(for publicId: String) async -> [Estimation] {
+      switch estimationsProvider {
+         case .carris:
+            return await self.getCarrisEstimation(for: publicId)
+         case .community:
+            return await self.getCommunityEstimation(for: publicId)
+      }
+   }
+   
+   
+   
+   /* MARK: - GET ESTIMATIONS › CARRIS */
+   
+   // This function calls Carris API to retrieve estimations for the given stop 'publicId'.
    // It formats and returns the results to the caller.
-   func get(for publicId: String) async -> [Estimation] {
+   
+   private func getCarrisEstimation(for publicId: String) async -> [Estimation] {
       
       Appstate.shared.change(to: .loading, for: .estimations)
       
       do {
          // Request API Routes List
-         var requestAPIEstimations = URLRequest(url: URL(string: "https://gateway.carris.pt/gateway/xtranpassengerapi/api/v2.10/Estimations/busStop/\(publicId)/top/5")!)
-         requestAPIEstimations.addValue("application/json", forHTTPHeaderField: "Content-Type")
-         requestAPIEstimations.addValue("application/json", forHTTPHeaderField: "Accept")
-         requestAPIEstimations.setValue("Bearer \(CarrisAuthentication.shared.authToken ?? "invalid_token")", forHTTPHeaderField: "Authorization")
-         let (rawDataAPIEstimations, rawResponseAPIEstimations) = try await URLSession.shared.data(for: requestAPIEstimations)
-         let responseAPIEstimations = rawResponseAPIEstimations as? HTTPURLResponse
+         var requestCarrisAPIEstimations = URLRequest(url: URL(string: "https://gateway.carris.pt/gateway/xtranpassengerapi/api/v2.10/Estimations/busStop/\(publicId)/top/5")!)
+         requestCarrisAPIEstimations.addValue("application/json", forHTTPHeaderField: "Content-Type")
+         requestCarrisAPIEstimations.addValue("application/json", forHTTPHeaderField: "Accept")
+         requestCarrisAPIEstimations.setValue("Bearer \(CarrisAuthentication.shared.authToken ?? "invalid_token")", forHTTPHeaderField: "Authorization")
+         let (rawDataCarrisAPIEstimations, rawResponseCarrisAPIEstimations) = try await URLSession.shared.data(for: requestCarrisAPIEstimations)
+         let responseCarrisAPIEstimations = rawResponseCarrisAPIEstimations as? HTTPURLResponse
          
          // Check status of response
-         if (responseAPIEstimations?.statusCode == 401) {
+         if (responseCarrisAPIEstimations?.statusCode == 401) {
             Task {
                await CarrisAuthentication.shared.authenticate()
-               return await self.get(for: publicId)
+               return await self.getCarrisEstimation(for: publicId)
             }
-         } else if (responseAPIEstimations?.statusCode != 200) {
-            print(responseAPIEstimations as Any)
+         } else if (responseCarrisAPIEstimations?.statusCode != 200) {
+            print(responseCarrisAPIEstimations as Any)
             throw Appstate.ModuleError.carris_unavailable
          }
          
-         let decodedAPIEstimations = try JSONDecoder().decode([CarrisAPIEstimation].self, from: rawDataAPIEstimations)
+         let decodedCarrisAPIEstimations = try JSONDecoder().decode([CarrisAPIEstimation].self, from: rawDataCarrisAPIEstimations)
          
          // Define a temporary variable to store vehicles
          // before publishing and displaying them in the map.
          var tempAllEstimations: [Estimation] = []
          
          // For each available vehicles in the API
-         for estimation in decodedAPIEstimations {
+         for estimation in decodedCarrisAPIEstimations {
             
             // Format and append each estimation
             // to the temporary variable.
@@ -61,10 +113,77 @@ class EstimationsController: ObservableObject {
                   routeNumber: estimation.routeNumber ?? "-",
                   destination: estimation.destination ?? "-",
                   publicId: estimation.publicId ?? "-",
-                  busNumber: estimation.busNumber,
-                  eta: Helpers.getTimeString(for: estimation.time ?? "", in: .future, style: .short, units: [.hour, .minute])
+                  busNumber: estimation.busNumber ?? "-",
+                  eta: estimation.time ?? ""
                )
             )
+            
+         }
+         
+         Appstate.shared.change(to: .idle, for: .estimations)
+         
+         // Return the formatted estimations.
+         return tempAllEstimations
+         
+      } catch {
+         Appstate.shared.change(to: .error, for: .estimations)
+         print("GB: ERROR IN ESTIMATIONS: \(error)")
+         return []
+      }
+      
+   }
+   
+   
+   /* MARK: - GET ESTIMATIONS › COMMUNITY */
+   
+   // This function calls the API to retrieve estimations for the provided stop 'publicId'.
+   // It formats and returns the results to the caller.
+   
+   func getCommunityEstimation(for publicId: String) async -> [Estimation] {
+      
+      Appstate.shared.change(to: .loading, for: .estimations)
+      
+      do {
+         // Request API Routes List
+         var requestCommunityAPIVehicle = URLRequest(url: URL(string: "https://api.carril.workers.dev/eststop?busStop=\(publicId)")!)
+         requestCommunityAPIVehicle.addValue("application/json", forHTTPHeaderField: "Content-Type")
+         requestCommunityAPIVehicle.addValue("application/json", forHTTPHeaderField: "Accept")
+         let (rawDataCommunityAPIVehicle, rawResponseCommunityAPIVehicle) = try await URLSession.shared.data(for: requestCommunityAPIVehicle)
+         let responseCommunityAPIVehicle = rawResponseCommunityAPIVehicle as? HTTPURLResponse
+         
+         // Check status of response
+         if (responseCommunityAPIVehicle?.statusCode != 200) {
+            print(responseCommunityAPIVehicle as Any)
+            throw Appstate.ModuleError.community_unavailable
+         }
+         
+         let decodedCommunityAPIVehicle = try JSONDecoder().decode([CommunityAPIVehicle].self, from: rawDataCommunityAPIVehicle)
+         
+         // Define a temporary variable to store vehicles
+         // before publishing and displaying them in the map.
+         var tempAllEstimations: [Estimation] = []
+         
+         // For each available vehicles in the API
+         for communityVehicle in decodedCommunityAPIVehicle {
+            
+            // If the vehicle is not expected to have arrived
+            if (!(communityVehicle.estimatedRecentlyArrived ?? false)) {
+               
+               let carrisVehicleDetails = await VehiclesController().fetchVehicleDetailsFromCarrisAPI(for: communityVehicle.busNumber ?? 0)
+               
+               // Format and append each estimation
+               // to the temporary variable.
+               tempAllEstimations.append(
+                  Estimation(
+                     routeNumber: communityVehicle.routeNumber ?? "-",
+                     destination: carrisVehicleDetails?.lastStopOnVoyageName ?? "-",
+                     publicId: publicId,
+                     busNumber: String(communityVehicle.busNumber ?? 0),
+                     eta: "" // communityVehicle.estimatedTimeofArrivalCorrected ?? ""
+                  )
+               )
+               
+            }
             
          }
          

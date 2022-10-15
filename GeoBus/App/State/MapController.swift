@@ -138,7 +138,7 @@ class MapController: ObservableObject {
    
    // .....
    
-   func updateAnnotations(with vehiclesList: [VehicleSummary], for routeNumber: String?) {
+   func updateAnnotations(with vehiclesList: [Vehicle], for routeNumber: String?) {
       
       if (routeNumber != nil) {
          
@@ -151,7 +151,7 @@ class MapController: ObservableObject {
             
             // CONDITION 2:
             // Vehicle was last seen no longer than 3 minutes
-            let isNotZombieVehicle = Helpers.getLastSeenTime(since: vehicle.lastGpsTime) < 180
+            let isNotZombieVehicle = Globals().getLastSeenTime(since: vehicle.lastGpsTime ?? "") < 180
             
             
             // Find index of Annotation matching this vehicle busNumber
@@ -164,16 +164,16 @@ class MapController: ObservableObject {
                if (indexOfVisibleAnnotation != nil) {
                   // If annotation already exists, update it's values
                   withAnimation(.easeIn(duration: 0.5)) {
-                     self.visibleAnnotations[indexOfVisibleAnnotation!].location.latitude = vehicle.lat
-                     self.visibleAnnotations[indexOfVisibleAnnotation!].location.longitude = vehicle.lng
+                     self.visibleAnnotations[indexOfVisibleAnnotation!].location.latitude = vehicle.lat ?? 0
+                     self.visibleAnnotations[indexOfVisibleAnnotation!].location.longitude = vehicle.lng ?? 0
                      self.visibleAnnotations[indexOfVisibleAnnotation!].vehicle = vehicle
                   }
                } else {
                   // If annotation does not already exist, create a new one
                   visibleAnnotations.append(
                      GenericMapAnnotation(
-                        lat: vehicle.lat,
-                        lng: vehicle.lng,
+                        lat: vehicle.lat ?? 0,
+                        lng: vehicle.lng ?? 0,
                         format: .vehicle,
                         busNumber: vehicle.busNumber,
                         vehicle: vehicle

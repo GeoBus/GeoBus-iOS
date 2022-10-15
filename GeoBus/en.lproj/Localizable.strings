@@ -83,6 +83,9 @@
 "If the error persists, the only option is to wait and try again later. Unfortunately the app cannot function without this first step." = "If the error persists, the only option is to wait and try again later. Unfortunately the app cannot function without this first step.";
 
 /* No comment provided by engineer. */
+"in ±" = "in ±";
+
+/* No comment provided by engineer. */
 "It's probably because their servers are down. In this case, the best option is to wait and try again later :/" = "It's probably because their servers are down. In this case, the best option is to wait and try again later :/";
 
 /* No comment provided by engineer. */
@@ -114,6 +117,9 @@
 
 /* No comment provided by engineer. */
 "Open to Feedback" = "Open to Feedback";
+
+/* No comment provided by engineer. */
+"P" = "P";
 
 /* No comment provided by engineer. */
 "Please try again." = "Please try again.";
@@ -189,6 +195,9 @@
 
 /* No comment provided by engineer. */
 "This will only happen once." = "This will only happen once.";
+
+/* No comment provided by engineer. */
+"to" = "to";
 
 /* No comment provided by engineer. */
 "to: %@" = "to: %@";

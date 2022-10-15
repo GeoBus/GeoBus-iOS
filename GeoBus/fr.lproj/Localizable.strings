@@ -83,6 +83,9 @@
 "If the error persists, the only option is to wait and try again later. Unfortunately the app cannot function without this first step." = "Si l'erreur persiste, la seule option est d'attendre et de réessayer plus tard. Malheureusement, l'application ne peut pas fonctionner sans cette première étape.";
 
 /* No comment provided by engineer. */
+"in ±" = "en ±";
+
+/* No comment provided by engineer. */
 "It's probably because their servers are down. In this case, the best option is to wait and try again later :/" = "C'est probablement parce que leurs serveurs sont en panne. Dans ce cas, la meilleure option est d'attendre et de réessayer plus tard :/";
 
 /* No comment provided by engineer. */
@@ -114,6 +117,9 @@
 
 /* No comment provided by engineer. */
 "Open to Feedback" = "Ouvert à la rétroaction";
+
+/* No comment provided by engineer. */
+"P" = "P";
 
 /* No comment provided by engineer. */
 "Please try again." = "Veuillez réessayer.";
@@ -189,6 +195,9 @@
 
 /* No comment provided by engineer. */
 "This will only happen once." = "Cela ne se fera qu'une seule fois.";
+
+/* No comment provided by engineer. */
+"to" = "à";
 
 /* No comment provided by engineer. */
 "to: %@" = "à: %@";

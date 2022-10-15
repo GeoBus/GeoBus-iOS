@@ -1,5 +1,5 @@
 //
-//  CarrisAuthentication.swift
+//  Authentication.swift
 //  GeoBus
 //
 //  Created by João on 20/04/2020.

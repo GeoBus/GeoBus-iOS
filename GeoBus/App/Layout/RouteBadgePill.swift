@@ -19,11 +19,11 @@ struct RouteBadgePill: View {
             .font(.footnote)
             .fontWeight(.heavy)
             .lineLimit(1)
-            .foregroundColor(Helpers.getForegroundColor(for: routeNumber))
+            .foregroundColor(Globals().getForegroundColor(for: routeNumber))
             .padding(.horizontal, 7)
             .padding(.vertical, 2)
       }
-      .background(Helpers.getBackgroundColor(for: routeNumber))
+      .background(Globals().getBackgroundColor(for: routeNumber))
       .cornerRadius(10)
 
    }

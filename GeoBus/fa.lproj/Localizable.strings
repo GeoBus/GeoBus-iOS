@@ -83,6 +83,9 @@
 "If the error persists, the only option is to wait and try again later. Unfortunately the app cannot function without this first step." = "اگر خطا ادامه داشت، تنها گزینه این است که صبر کنید و بعداً دوباره امتحان کنید. متأسفانه برنامه بدون این مرحله اول نمی تواند کار کند.";
 
 /* No comment provided by engineer. */
+"in ±" = "در ±";
+
+/* No comment provided by engineer. */
 "It's probably because their servers are down. In this case, the best option is to wait and try again later :/" = "احتمالاً به این دلیل است که سرورهای آنها از کار افتاده است. در این مورد، بهترین گزینه این است که صبر کنید و بعداً دوباره امتحان کنید";
 
 /* No comment provided by engineer. */
@@ -114,6 +117,9 @@
 
 /* No comment provided by engineer. */
 "Open to Feedback" = "برای بازخورد باز کنید";
+
+/* No comment provided by engineer. */
+"P" = "پ";
 
 /* No comment provided by engineer. */
 "Please try again." = "لطفا دوباره امتحان کنید.";
@@ -189,6 +195,9 @@
 
 /* No comment provided by engineer. */
 "This will only happen once." = "این فقط یک بار اتفاق می افتد.";
+
+/* No comment provided by engineer. */
+"to" = "به";
 
 /* No comment provided by engineer. */
 "to: %@" = "به: %@";

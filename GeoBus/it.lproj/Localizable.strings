@@ -59,7 +59,7 @@
 "Favorites" = "Preferiti";
 
 /* No comment provided by engineer. */
-"Find Routes" = "Trova Itinerari";
+"Find Routes" = "Trova percorsi";
 
 /* No comment provided by engineer. */
 "GeoBus can show you where you are in the map, if you allow it." = "GeoBus può mostrarti dove ti trovi nella mappa, se lo consenti.";
@@ -81,6 +81,9 @@
 
 /* No comment provided by engineer. */
 "If the error persists, the only option is to wait and try again later. Unfortunately the app cannot function without this first step." = "Se l'errore persiste, l'unica opzione è attendere e riprovare più tardi. Sfortunatamente l'app non può funzionare senza questo primo passo.";
+
+/* No comment provided by engineer. */
+"in ±" = "in ±";
 
 /* No comment provided by engineer. */
 "It's probably because their servers are down. In this case, the best option is to wait and try again later :/" = "Probabilmente perché i loro server sono giù. In questo caso, l'opzione migliore è aspettare e riprovare più tardi :/";
@@ -114,6 +117,9 @@
 
 /* No comment provided by engineer. */
 "Open to Feedback" = "Apri a Feedback";
+
+/* No comment provided by engineer. */
+"P" = "P";
 
 /* No comment provided by engineer. */
 "Please try again." = "Per favore riprova.";
@@ -189,6 +195,9 @@
 
 /* No comment provided by engineer. */
 "This will only happen once." = "Questo accadrà solo una volta.";
+
+/* No comment provided by engineer. */
+"to" = "a";
 
 /* No comment provided by engineer. */
 "to: %@" = "a: %@";

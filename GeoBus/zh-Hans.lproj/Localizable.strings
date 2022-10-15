@@ -83,6 +83,9 @@
 "If the error persists, the only option is to wait and try again later. Unfortunately the app cannot function without this first step." = "如果错误仍然存在，唯一的选择是请稍后再尝试。不幸的是，如果没有第一步，该应用程序将无法运行。";
 
 /* No comment provided by engineer. */
+"in ±" = "在 ±";
+
+/* No comment provided by engineer. */
 "It's probably because their servers are down. In this case, the best option is to wait and try again later :/" = "这可能是由于他们的服务器已经关闭。在这种情况下，最好的选择是等候，然后再试一次 :/";
 
 /* No comment provided by engineer. */
@@ -114,6 +117,9 @@
 
 /* No comment provided by engineer. */
 "Open to Feedback" = "接受反馈";
+
+/* No comment provided by engineer. */
+"P" = "P";
 
 /* No comment provided by engineer. */
 "Please try again." = "请重试。";
@@ -189,6 +195,9 @@
 
 /* No comment provided by engineer. */
 "This will only happen once." = "这只会发生一次。";
+
+/* No comment provided by engineer. */
+"to" = "到";
 
 /* No comment provided by engineer. */
 "to: %@" = "到: %@";
