@@ -83,9 +83,6 @@
 "If the error persists, the only option is to wait and try again later. Unfortunately the app cannot function without this first step." = "Jeżeli błąd się powtarza, jedyną opcją jest poczekać i spróbować ponownie później. Niestety aplikacja nie może działać bez tego pierwszego kroku.";
 
 /* No comment provided by engineer. */
-"in ±" = "w ±";
-
-/* No comment provided by engineer. */
 "It's probably because their servers are down. In this case, the best option is to wait and try again later :/" = "Prawdopodobnie jest tak, ponieważ ich serwery są wyłączone. W tym przypadku najlepszym rozwiązaniem jest zaczekać i spróbować ponownie później :/";
 
 /* No comment provided by engineer. */
@@ -117,9 +114,6 @@
 
 /* No comment provided by engineer. */
 "Open to Feedback" = "Otwarci na opinie";
-
-/* No comment provided by engineer. */
-"P" = "P";
 
 /* No comment provided by engineer. */
 "Please try again." = "Spróbuj ponownie.";
@@ -195,9 +189,6 @@
 
 /* No comment provided by engineer. */
 "This will only happen once." = "Będzie to miało miejsce tylko raz.";
-
-/* No comment provided by engineer. */
-"to" = "do";
 
 /* No comment provided by engineer. */
 "to: %@" = "do: %@";

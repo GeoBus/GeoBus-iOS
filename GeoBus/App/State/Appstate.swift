@@ -31,8 +31,8 @@ class Appstate: ObservableObject {
    
    /* * */
    /* MARK: - SECTION 2: MODULES */
-   /* These are the modules than publish state change events. This allows the UI to provide local */
-   /* loading or error messages on the relevant functionality, incresing perception of stability. */
+   /* These are the modules that publish state change events. This allows the UI to provide local */
+   /* loading or error messages on the relevant functionality, increasing perception of stability. */
 
    enum Module {
       case auth
@@ -54,9 +54,6 @@ class Appstate: ObservableObject {
       // For Carris API
       case carris_unauthorized
       case carris_unavailable
-      
-      // For Community API
-      case community_unavailable
       
    }
    
@@ -96,7 +93,6 @@ class Appstate: ObservableObject {
    /* After the change, follow the set rules to also update the .global state. This might change in the future. */
    
    func change(to newState: State, for module: Module) {
-      print("GB5: Module: \(module), state: \(newState)")
       DispatchQueue.main.async {
          // Change state of affected module
          switch module {

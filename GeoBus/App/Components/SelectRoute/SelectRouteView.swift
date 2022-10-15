@@ -9,26 +9,33 @@
 import SwiftUI
 
 struct SelectRouteView: View {
-
+   
+   @Environment(\.colorScheme) var colorScheme: ColorScheme
+   
+   @EnvironmentObject var appstate: Appstate
    @EnvironmentObject var routesController: RoutesController
    
-
+   
    var body: some View {
-
+      
       ZStack {
-
-         if (Appstate.shared.global == .loading) {
-            LoadingView()
-
-         } else if (Appstate.shared.global == .error) {
+         
+         if (appstate.global == .loading) {
+            ZStack {
+               RoundedRectangle(cornerRadius: 10)
+                  .fill(Color(.systemGray4))
+               Spinner()
+            }
+            
+         } else if (appstate.global == .error) {
             RoundedRectangle(cornerRadius: 10)
                .fill(Color(.systemRed).opacity(0.5))
             Image(systemName: "wifi.exclamationmark")
                .font(.title)
                .foregroundColor(Color(.white))
-
+            
          } else {
-
+            
             if (routesController.selectedRoute != nil) {
                RouteBadgeSquare(routeNumber: routesController.selectedRoute!.number)
                
@@ -38,11 +45,11 @@ struct SelectRouteView: View {
                Image(systemName: "plus")
                   .font(.title)
                   .foregroundColor(Color(.white))
-
+               
             }
-
+            
          }
-
+         
       }
       .aspectRatio(1, contentMode: .fit)
       

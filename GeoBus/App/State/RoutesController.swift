@@ -307,7 +307,7 @@ class RoutesController: ObservableObject {
                let formattedRoute = Route(
                   number: decodedAPIRouteDetail.routeNumber ?? "-",
                   name: decodedAPIRouteDetail.name ?? "-",
-                  kind: Globals().getKind(by: decodedAPIRouteDetail.routeNumber ?? "-"),
+                  kind: Helpers.getKind(by: decodedAPIRouteDetail.routeNumber ?? "-"),
                   variants: formattedRouteVariants
                )
 

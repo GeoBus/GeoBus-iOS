@@ -34,10 +34,10 @@ struct GenericMapAnnotation: Identifiable {
    }
    
    // For Vehicles
-   var vehicle: Vehicle?
+   var vehicle: VehicleSummary?
    let busNumber: Int?
    
-   init(lat: Double, lng: Double, format: Format, busNumber: Int, vehicle: Vehicle) {
+   init(lat: Double, lng: Double, format: Format, busNumber: Int, vehicle: VehicleSummary) {
       self.location = CLLocationCoordinate2D(latitude: lat, longitude: lng)
       self.format = format
       self.stop = nil
@@ -99,7 +99,7 @@ struct StopAnnotationView: View {
 
 struct VehicleAnnotationView: View {
    
-   let vehicle: Vehicle
+   let vehicle: VehicleSummary
    
    let isPresentedOnAppear: Bool
    @State private var isPresented: Bool = false
@@ -123,16 +123,27 @@ struct VehicleAnnotationView: View {
                   Image("RegularService-Active")
                case .regular:
                   Image("RegularService-Active")
-               case .none:
-                  Rectangle()
-                     .background(Color.clear)
             }
          }
       }
       .frame(width: 40, height: 40, alignment: .center)
-      .rotationEffect(.radians(vehicle.angleInRadians ?? 0))
+      .rotationEffect(.radians(vehicle.angleInRadians))
       .sheet(isPresented: $isPresented) {
-         VehicleInfoSheet(busNumber: vehicle.busNumber)
+         VStack(alignment: .leading) {
+            VehicleDetailsView(
+               busNumber: vehicle.busNumber,
+               routeNumber: vehicle.routeNumber,
+               lastGpsTime: vehicle.lastGpsTime
+            )
+            .padding(.bottom, 20)
+            Disclaimer()
+               .padding(.horizontal)
+               .padding(.bottom, 10)
+         }
+         .readSize { size in
+            viewSize = size
+         }
+         .presentationDetents([.height(viewSize.height)])
       }
    }
    

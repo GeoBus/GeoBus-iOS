@@ -83,9 +83,6 @@
 "If the error persists, the only option is to wait and try again later. Unfortunately the app cannot function without this first step." = "Hata devam ederse, tek seçenek beklemek ve daha sonra tekrar denemektir. Maalesef uygulama bu ilk adım olmadan çalışamaz.";
 
 /* No comment provided by engineer. */
-"in ±" = "içinde";
-
-/* No comment provided by engineer. */
 "It's probably because their servers are down. In this case, the best option is to wait and try again later :/" = "Muhtemelen sunucuları kapalı olduğundandır. Bu durumda en iyi seçenek bekleyip daha sonra tekrar denemektir :/";
 
 /* No comment provided by engineer. */
@@ -117,9 +114,6 @@
 
 /* No comment provided by engineer. */
 "Open to Feedback" = "Geri Bildirime Açık";
-
-/* No comment provided by engineer. */
-"P" = "P";
 
 /* No comment provided by engineer. */
 "Please try again." = "Lütfen tekrar deneyiniz.";
@@ -195,9 +189,6 @@
 
 /* No comment provided by engineer. */
 "This will only happen once." = "Bu sadece bir kez olacak.";
-
-/* No comment provided by engineer. */
-"to" = "➨";
 
 /* No comment provided by engineer. */
 "to: %@" = "varış yeri: %@";

@@ -31,10 +31,10 @@ struct TimeLeft: View {
             .fontWeight(.medium)
             .foregroundColor(Color(.label))
             .onAppear() {
-               self.timeLeftString = Globals().getTimeString(for: self.time ?? "", in: .future, style: .short, units: [.hour, .minute])
+               self.timeLeftString = Helpers.getTimeString(for: self.time ?? "", in: .future, style: .short, units: [.hour, .minute])
             }
             .onReceive(countdownTimer) { event in
-               self.timeLeftString = Globals().getTimeString(for: self.time ?? "", in: .future, style: .short, units: [.hour, .minute])
+               self.timeLeftString = Helpers.getTimeString(for: self.time ?? "", in: .future, style: .short, units: [.hour, .minute])
             }
       }
    }

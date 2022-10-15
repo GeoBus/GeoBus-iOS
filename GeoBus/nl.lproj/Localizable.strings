@@ -59,7 +59,7 @@
 "Favorites" = "Favorieten";
 
 /* No comment provided by engineer. */
-"Find Routes" = "Vind routes";
+"Find Routes" = "Zoek routes";
 
 /* No comment provided by engineer. */
 "GeoBus can show you where you are in the map, if you allow it." = "GeoBus kan je laten zien waar je bent in de kaart, als je het toestaat.";
@@ -81,9 +81,6 @@
 
 /* No comment provided by engineer. */
 "If the error persists, the only option is to wait and try again later. Unfortunately the app cannot function without this first step." = "Als de fout zich blijft voordoen, is de enige optie wachten en het later opnieuw proberen. Helaas kan de app niet functioneren zonder deze eerste stap.";
-
-/* No comment provided by engineer. */
-"in ±" = "in ±";
 
 /* No comment provided by engineer. */
 "It's probably because their servers are down. In this case, the best option is to wait and try again later :/" = "Het is waarschijnlijk omdat hun servers offline zijn. In dit geval is de beste optie om te wachten en het later opnieuw te proberen :/";
@@ -117,9 +114,6 @@
 
 /* No comment provided by engineer. */
 "Open to Feedback" = "Open voor feedback";
-
-/* No comment provided by engineer. */
-"P" = "P";
 
 /* No comment provided by engineer. */
 "Please try again." = "Probeer het opnieuw.";
@@ -195,9 +189,6 @@
 
 /* No comment provided by engineer. */
 "This will only happen once." = "Dit zal slechts één keer gebeuren.";
-
-/* No comment provided by engineer. */
-"to" = "naar";
 
 /* No comment provided by engineer. */
 "to: %@" = "Aan: %@";

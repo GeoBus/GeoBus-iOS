@@ -10,6 +10,8 @@ import SwiftUI
 
 struct StopEstimations: View {
    
+   @EnvironmentObject var appstate: Appstate
+   
    let estimations: [Estimation]?
    
    
@@ -20,7 +22,7 @@ struct StopEstimations: View {
             .textCase(.uppercase)
             .foregroundColor(Color(.tertiaryLabel))
          Spacer()
-         EstimatedIcon()
+         PulseLabel(accent: .orange, label: Text("Estimated"))
       }
    }
    
@@ -69,7 +71,7 @@ struct StopEstimations: View {
             } else {
                noResultsScreen
             }
-         } else if (Appstate.shared.estimations == .error) {
+         } else if (appstate.estimations == .error) {
             errorScreen
          } else {
             loadingScreen

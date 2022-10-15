@@ -45,86 +45,10 @@ struct CarrisAPIVehicleDetail: Codable {
 }
 
 
-struct CommunityAPIVehicle: Codable {
-   let busNumber: Int?
-   let dataServico: String?
-   let direction: String?
-   let enrichedAvgRouteSpeed: Double?
-   let enrichedBusSpeed: Double?
-   let enrichedDbStartup: Double?
-   let enrichedEstRouteKm: Double?
-   let enrichedGeohash300m: String?
-   let enrichedGeohash80m: String?
-   let enrichedGeohashPrev300m: String?
-   let enrichedGeohashPrev80m: String?
-   let enrichedPreviousStopId: String?
-   // enrichedPreviousStopList: []
-   let enrichedPreviousStopMax: Int?
-   let enrichedPreviousStopOrderIdx: Double?
-   let enrichedQueryTime: Int?
-   let enrichedRouteDoneKm: Double?
-   let enrichedRouteLengthKm: Double?
-   let enrichedSequenceNo: Int?
-   let enrichedStartLat: Double?
-   let enrichedStartLng: Double?
-   let enrichedStartTime: String?
-   let enrichedTimeHash30m: String?
-   let enrichedTimeHashDay30m: String?
-   //   estimatedDebug": [
-   //   "Warning: currentBusStopArrivals: This bus is expected to either arrive or have arrived in the past minute. Halting computation."
-   //   ]
-   let estimatedRecentlyArrived: Bool?
-   let estimatedTimeofArrival: [String]
-   let estimatedTimeofArrivalCorrected: [String]
-   let lastGpsTime: String?
-   let lastReportTime: String?
-   let lat: Double?
-   let lng: Double?
-   let plateNumber: String?
-   let previousLatitude: Double?
-   let previousLongitude: Double?
-   let previousReportTime: String?
-   let routeNumber: String?
-   let state: String?
-   let timeStamp: String?
-   let variantNumber: Int?
-   let voyageNumber: Int?
-}
-
-
 
 /* MARK: - Vehicle */
 
 // Data model adjusted for the app.
-
-struct Vehicle: Codable, Equatable, Identifiable, Hashable {
-   
-   let busNumber: Int
-   var id: Int {
-      return self.busNumber
-   }
-   
-   // Carris API › Vehicle Summary
-   var routeNumber: String?
-   var kind: Kind?
-   var lat: Double?
-   var lng: Double?
-   var previousLatitude: Double?
-   var previousLongitude: Double?
-   var lastGpsTime: String?
-   var angleInRadians: Double?
-   
-   // Carris API › Vehicle Details
-   var vehiclePlate: String?
-   var lastStopOnVoyageName: String?
-   
-   // Community API
-   var estimatedTimeofArrivalCorrected: [String]?
-   
-}
-
-
-
 
 struct VehicleSummary: Codable, Equatable, Identifiable {
    let busNumber: Int
