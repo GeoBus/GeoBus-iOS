@@ -125,7 +125,7 @@ class CarrisNetworkController: ObservableObject {
    func start(withForcedUpdate forceUpdate: Bool = false) {
       
       // Conditions to update
-      let lastUpdateIsLongerThanInterval = Globals().getSecondsFromISO8601DateString(network_lastUpdated ?? "") > network_updateInterval
+      let lastUpdateIsLongerThanInterval = Helpers.getSecondsFromISO8601DateString(network_lastUpdated ?? "") > network_updateInterval
       let savedNetworkDataIsEmpty = network_allRoutes.isEmpty || network_allStops.isEmpty
       let updateIsForcedByCaller = forceUpdate
       
@@ -237,7 +237,7 @@ class CarrisNetworkController: ObservableObject {
                let formattedRoute = Route_NEW(
                   number: decodedAPIRouteDetail.routeNumber ?? "-",
                   name: decodedAPIRouteDetail.name ?? "-",
-                  kind: Globals().getKind(by: decodedAPIRouteDetail.routeNumber ?? "-"),
+                  kind: Helpers.getKind(by: decodedAPIRouteDetail.routeNumber ?? "-"),
                   variants: tempFormattedRouteVariants
                )
                
@@ -645,7 +645,7 @@ class CarrisNetworkController: ObservableObject {
             
             if (indexOfVehicleInArray != nil) {
                network_allVehicles[indexOfVehicleInArray!].routeNumber = vehicleSummary.routeNumber ?? "-"
-               network_allVehicles[indexOfVehicleInArray!].kind = Globals().getKind(by: vehicleSummary.routeNumber ?? "-")
+               network_allVehicles[indexOfVehicleInArray!].kind = Helpers.getKind(by: vehicleSummary.routeNumber ?? "-")
                network_allVehicles[indexOfVehicleInArray!].lat = vehicleSummary.lat ?? 0
                network_allVehicles[indexOfVehicleInArray!].lng = vehicleSummary.lng ?? 0
                network_allVehicles[indexOfVehicleInArray!].previousLatitude = vehicleSummary.previousLatitude ?? 0
@@ -662,7 +662,7 @@ class CarrisNetworkController: ObservableObject {
                   Vehicle(
                      busNumber: vehicleSummary.busNumber ?? 0,
                      routeNumber: vehicleSummary.routeNumber ?? "-",
-                     kind: Globals().getKind(by: vehicleSummary.routeNumber ?? "-"),
+                     kind: Helpers.getKind(by: vehicleSummary.routeNumber ?? "-"),
                      lat: vehicleSummary.lat ?? 0,
                      lng: vehicleSummary.lng ?? 0,
                      previousLatitude: vehicleSummary.previousLatitude ?? 0,

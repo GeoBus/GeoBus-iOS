@@ -46,7 +46,7 @@ struct GeoBusApp: App {
                // Capture session continuation
                Analytics.shared.capture(event: .App_Session_Ping)
                // Update vehicles on timer call
-               self.vehiclesController.update(scope: .summary)
+//               self.vehiclesController.update(scope: .summary)
                Task {
                   await vehiclesController.fetchVehiclesFromCarrisAPI()
                }
