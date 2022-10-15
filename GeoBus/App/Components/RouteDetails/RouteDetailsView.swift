@@ -10,6 +10,7 @@ import SwiftUI
 
 struct RouteDetailsView: View {
 
+   @EnvironmentObject var appstate: Appstate
    @EnvironmentObject var routesController: RoutesController
    @EnvironmentObject var vehiclesController: VehiclesController
 
@@ -70,7 +71,7 @@ struct RouteDetailsView: View {
    var selectedRouteDetails: some View {
       VStack(alignment: .leading) {
          HStack {
-            LiveIcon()
+            PulseLabel(accent: .green, label: Text("Live"))
             Text(vehiclesController.vehicles.count == 1 ? "1 active vehicle" : "\(vehiclesController.vehicles.count) active vehicles")
                .font(Font.system(size: 11, weight: .medium, design: .default) )
                .lineLimit(1)
@@ -90,9 +91,9 @@ struct RouteDetailsView: View {
    // The final view where screens are composed based on appstate
    var body: some View {
       VStack {
-         if (Appstate.shared.routes == .loading && routesController.allRoutes.count < 1) {
+         if (appstate.routes == .loading && routesController.allRoutes.count < 1) {
             updatingRoutesScreen
-         } else if (Appstate.shared.global == .error) {
+         } else if (appstate.global == .error) {
             connectionError
          } else if (routesController.selectedRoute != nil) {
             selectedRouteDetails

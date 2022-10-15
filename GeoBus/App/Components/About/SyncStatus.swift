@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SyncStatus: View {
 
+   @EnvironmentObject var appstate: Appstate
    @EnvironmentObject var stopsController: StopsController
    @EnvironmentObject var routesController: RoutesController
 
@@ -110,9 +111,9 @@ struct SyncStatus: View {
 
 
    var body: some View {
-      if (Appstate.shared.stops == .error || Appstate.shared.routes == .error) {
+      if (appstate.stops == .error || appstate.routes == .error) {
          syncError
-      } else if (Appstate.shared.stops == .loading || Appstate.shared.routes == .loading) {
+      } else if (appstate.stops == .loading || appstate.routes == .loading) {
          isSyncing
       } else {
          hasSynced
