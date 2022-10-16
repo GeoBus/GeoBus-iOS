@@ -22,7 +22,7 @@ final class Analytics {
    /* MARK: - SECTION 1: EVENTS */
    /* Defined below are the allowed events to be published to Posthog. */
    
-   public enum Event: String {
+   enum Event: String {
       
       case App_Session_Start
       case App_Session_Ping
