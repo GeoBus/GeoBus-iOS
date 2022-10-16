@@ -17,31 +17,46 @@ struct GenericMapAnnotation: Identifiable {
    let format: Format
    
    enum Format {
-      case stop
-      case vehicle
-      case singleStop
+      case carris_stop
+      case carris_vehicle
+      case carris_connection
    }
    
    // For Stops
-   var stop: Stop?
+   var carris_stop: Stop_NEW?
    
-   init(lat: Double, lng: Double, format: Format, stop: Stop) {
+   init(lat: Double, lng: Double, format: Format, stop: Stop_NEW) {
       self.location = CLLocationCoordinate2D(latitude: lat, longitude: lng)
       self.format = format
-      self.stop = stop
-      self.vehicle = nil
+      self.carris_stop = stop
+      self.carris_vehicle = nil
+      self.carris_connection = nil
+      self.busNumber = nil
+   }
+   
+   
+   // For Connections
+   var carris_connection: Connection_NEW?
+   
+   init(lat: Double, lng: Double, format: Format, connection: Connection_NEW) {
+      self.location = CLLocationCoordinate2D(latitude: lat, longitude: lng)
+      self.format = format
+      self.carris_stop = nil
+      self.carris_connection = connection
+      self.carris_vehicle = nil
       self.busNumber = nil
    }
    
    // For Vehicles
-   var vehicle: VehicleSummary?
+   var carris_vehicle: CarrisVehicle?
    let busNumber: Int?
    
-   init(lat: Double, lng: Double, format: Format, busNumber: Int, vehicle: VehicleSummary) {
+   init(lat: Double, lng: Double, format: Format, busNumber: Int, vehicle: CarrisVehicle) {
       self.location = CLLocationCoordinate2D(latitude: lat, longitude: lng)
       self.format = format
-      self.stop = nil
-      self.vehicle = vehicle
+      self.carris_stop = nil
+      self.carris_vehicle = vehicle
+      self.carris_connection = nil
       self.busNumber = busNumber
    }
    
@@ -53,41 +68,68 @@ struct GenericMapAnnotation: Identifiable {
 
 
 
-struct StopAnnotationView: View {
+struct CarrisStopAnnotationView: View {
    
-   var stop: Stop
+   var stop: Stop_NEW
    
-   let isPresentedOnAppear: Bool
-   @State private var isPresented: Bool = false
    @State private var isAnnotationSelected: Bool = false
    
    
    var body: some View {
       Button(action: {
-         self.isPresented = !self.isPresented
-         self.isAnnotationSelected = self.isPresented
+         self.isAnnotationSelected = true
          TapticEngine.impact.feedback(.light)
       }) {
          StopIcon(
-            orderInRoute: self.stop.orderInRoute ?? 0,
-            direction: self.stop.direction ?? .circular,
+            orderInRoute: 0,
+            direction: .circular,
             isSelected: self.isAnnotationSelected
          )
       }
       .frame(width: 40, height: 40, alignment: .center)
       .onAppear() {
-         if (self.isPresentedOnAppear) {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-               self.isPresented = true
-            }
+         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.isAnnotationSelected = true
          }
       }
-      .sheet(isPresented: $isPresented, onDismiss: {
+      .sheet(isPresented: $isAnnotationSelected, onDismiss: {
          withAnimation(.easeInOut(duration: 0.1)) {
             self.isAnnotationSelected = false
          }
       }) {
-         StopDetailsView(stop: self.stop)
+         Text("StopIcon")
+      }
+   }
+   
+}
+
+
+struct CarrisConnectionAnnotationView: View {
+   
+   var connection: Connection_NEW
+   
+   @State private var isAnnotationSelected: Bool = false
+   
+   
+   var body: some View {
+      Button(action: {
+         self.isAnnotationSelected = true
+         TapticEngine.impact.feedback(.light)
+      }) {
+         StopIcon(
+            orderInRoute: self.connection.orderInRoute,
+//            direction: self.connection.direction ?? .circular,
+            direction: .circular,
+            isSelected: self.isAnnotationSelected
+         )
+      }
+      .frame(width: 40, height: 40, alignment: .center)
+      .sheet(isPresented: $isAnnotationSelected, onDismiss: {
+         withAnimation(.easeInOut(duration: 0.1)) {
+            self.isAnnotationSelected = false
+         }
+      }) {
+         ConnectionDetailsView(connection: self.connection)
       }
    }
    
@@ -97,11 +139,10 @@ struct StopAnnotationView: View {
 
 
 
-struct VehicleAnnotationView: View {
+struct CarrisVehicleAnnotationView: View {
    
-   let vehicle: VehicleSummary
+   let vehicle: CarrisVehicle
    
-   let isPresentedOnAppear: Bool
    @State private var isPresented: Bool = false
    @State private var viewSize = CGSize()
    
@@ -123,17 +164,20 @@ struct VehicleAnnotationView: View {
                   Image("RegularService-Active")
                case .regular:
                   Image("RegularService-Active")
+               case .none:
+                  Image("RegularService-Active")
             }
          }
       }
       .frame(width: 40, height: 40, alignment: .center)
-      .rotationEffect(.radians(vehicle.angleInRadians))
+      .rotationEffect(.radians(vehicle.angleInRadians ?? 0))
       .sheet(isPresented: $isPresented) {
          VStack(alignment: .leading) {
             VehicleDetailsView(
-               busNumber: vehicle.busNumber,
-               routeNumber: vehicle.routeNumber,
-               lastGpsTime: vehicle.lastGpsTime
+               vehicle: self.vehicle,
+               busNumber: vehicle.id,
+               routeNumber: vehicle.routeNumber ?? "-",
+               lastGpsTime: vehicle.lastGpsTime ?? ""
             )
             .padding(.bottom, 20)
             Disclaimer()

@@ -10,9 +10,7 @@ import SwiftUI
 
 struct SearchStopInput: View {
 
-   @EnvironmentObject var stopsController: StopsController
-   @EnvironmentObject var routesController: RoutesController
-   @EnvironmentObject var vehiclesController: VehiclesController
+   @EnvironmentObject var carrisNetworkController: CarrisNetworkController
 
    @Binding var showSheet: Bool
    @FocusState private var stopIdInputIsFocused: Bool
@@ -42,11 +40,9 @@ struct SearchStopInput: View {
             .cornerRadius(10)
 
             Button(action: {
-               let success = self.stopsController.select(stop: self.stopPublicId.uppercased(), returnResult: true)
+               let success = self.carrisNetworkController.select(stop: self.stopPublicId.uppercased(), returnResult: true)
                if success {
                   self.showSheet = false
-                  self.routesController.deselect()
-                  self.vehiclesController.deselect()
                   Analytics.shared.capture(event: .Stops_Select_FromTextInput, properties: ["stopPublicId": self.stopPublicId.uppercased()])
                } else {
                   self.showErrorLabel = true

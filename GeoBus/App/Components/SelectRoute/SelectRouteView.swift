@@ -13,7 +13,7 @@ struct SelectRouteView: View {
    @Environment(\.colorScheme) var colorScheme: ColorScheme
    
    @EnvironmentObject var appstate: Appstate
-   @EnvironmentObject var routesController: RoutesController
+   @EnvironmentObject var carrisNetworkController: CarrisNetworkController
    
    
    var body: some View {
@@ -36,8 +36,8 @@ struct SelectRouteView: View {
             
          } else {
             
-            if (routesController.selectedRoute != nil) {
-               RouteBadgeSquare(routeNumber: routesController.selectedRoute!.number)
+            if (carrisNetworkController.selectedRoute != nil) {
+               RouteBadgeSquare(routeNumber: carrisNetworkController.selectedRoute!.number)
                
             } else {
                RoundedRectangle(cornerRadius: 10)

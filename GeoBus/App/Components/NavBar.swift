@@ -10,7 +10,7 @@ import Combine
 
 struct NavBar: View {
 
-   @EnvironmentObject var routesController: RoutesController
+   @EnvironmentObject var carrisNetworkController: CarrisNetworkController
 
    @State var showSelectRouteSheet: Bool = false
    @State var showRouteDetailsSheet: Bool = false
@@ -25,7 +25,7 @@ struct NavBar: View {
          SelectRouteView()
       }
       .sheet(isPresented: $showSelectRouteSheet) {
-         SelectRouteSheet(isPresentingSheet: self.$showSelectRouteSheet)
+         SelectRouteSheet(isPresentingSheet: $showSelectRouteSheet)
       }
    }
 
@@ -34,16 +34,16 @@ struct NavBar: View {
    // then it acts as button to choose a route.
    var routeDetails: some View {
       Button(action: {
-         if (routesController.selectedRoute != nil) {
-            self.showRouteDetailsSheet = true
+         if (carrisNetworkController.selectedRoute != nil) {
+            showRouteDetailsSheet = true
          } else {
-            self.showSelectRouteSheet = true
+            showSelectRouteSheet = true
          }
       }) {
          RouteDetailsView()
       }
       .sheet(isPresented: $showRouteDetailsSheet) {
-         RouteDetailsSheet(showRouteDetailsSheet: self.$showRouteDetailsSheet)
+         RouteDetailsSheet(showRouteDetailsSheet: $showRouteDetailsSheet)
       }
    }
 

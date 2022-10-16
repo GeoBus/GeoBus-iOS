@@ -10,15 +10,13 @@ import SwiftUI
 
 struct SetOfRoutes: View {
 
-   @EnvironmentObject var stopsController: StopsController
-   @EnvironmentObject var routesController: RoutesController
-   @EnvironmentObject var vehiclesController: VehiclesController
+   @EnvironmentObject var carrisNetworkController: CarrisNetworkController
 
    var title: Text
    var kind: Kind
 
    @Binding var showSheet: Bool
-   @State private var routes: [Route] = []
+   @State private var routes: [Route_NEW] = []
 
    var body: some View {
 
@@ -35,9 +33,7 @@ struct SetOfRoutes: View {
          LazyVGrid(columns: [.init(.adaptive(minimum: 60, maximum: 100), spacing: 15)], spacing: 15) {
             ForEach(routes) { route in
                Button(action: {
-                  self.routesController.select(route: route.number)
-                  self.vehiclesController.set(route: route.number)
-                  self.stopsController.deselect()
+                  self.carrisNetworkController.select(route: route.number)
                   Analytics.shared.capture(event: .Routes_Select_FromList, properties: ["routeNumber": route.number])
                   self.showSheet = false
                }){
@@ -48,7 +44,7 @@ struct SetOfRoutes: View {
          .padding(20)
          .onAppear(perform: {
             // Filter routes belonging to the provided Kind
-            self.routes = self.routesController.allRoutes.filter({
+            self.routes = self.carrisNetworkController.allRoutes.filter({
                if case self.kind = $0.kind { return true }; return false
             })
             // Sort those routes by their route number

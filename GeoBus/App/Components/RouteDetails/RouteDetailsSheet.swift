@@ -10,8 +10,7 @@ import SwiftUI
 
 struct RouteDetailsSheet: View {
 
-   @EnvironmentObject var routesController: RoutesController
-   @EnvironmentObject var vehiclesController: VehiclesController
+   @EnvironmentObject var carrisNetworkController: CarrisNetworkController
 
    @Binding var showRouteDetailsSheet: Bool
 
@@ -26,9 +25,9 @@ struct RouteDetailsSheet: View {
          SheetHeader(title: Text("Route Details"), toggle: $showRouteDetailsSheet)
 
          HStack(spacing: 25) {
-            RouteBadgeSquare(routeNumber: routesController.selectedRoute!.number)
+            RouteBadgeSquare(routeNumber: carrisNetworkController.selectedRoute!.number)
                .frame(width: 80)
-            Text(routesController.selectedRoute?.name ?? "-")
+            Text(carrisNetworkController.selectedRoute?.name ?? "-")
                .fontWeight(.bold)
                .foregroundColor(Color(.label))
             Spacer()
@@ -38,10 +37,10 @@ struct RouteDetailsSheet: View {
          .cornerRadius(10)
 
          HStack(spacing: 15) {
-            RouteDetailsVehiclesQuantity(vehiclesQuantity: vehiclesController.vehicles.count)
+            RouteDetailsVehiclesQuantity(vehiclesQuantity: carrisNetworkController.allVehicles.count)
             Button(action: {
                TapticEngine.impact.feedback(.heavy)
-               self.routesController.toggleFavorite(route: self.routesController.selectedRoute!)
+//               self.carrisNetworkController.toggleFavorite(route: self.carrisNetworkController.selectedRoute!)
             }) {
                RouteDetailsAddToFavorites()
             }
@@ -55,21 +54,20 @@ struct RouteDetailsSheet: View {
 
       VStack(spacing: 15) {
 
-         if (routesController.selectedVariant!.isCircular) {
+         if (carrisNetworkController.selectedVariant!.itineraries[0].direction == .circular) {
             RouteCircularVariantInfo()
-            StopsList(stops: routesController.selectedVariant!.circItinerary!)
-
+            StopsList(stops: carrisNetworkController.selectedVariant!.itineraries[0])
          } else {
             Picker("Direction", selection: $routeDirectionPicker) {
-               Text("to: \(routesController.getTerminalStopNameForVariant(variant: routesController.selectedVariant!, direction: .ascending))").tag(0)
-               Text("to: \(routesController.getTerminalStopNameForVariant(variant: routesController.selectedVariant!, direction: .descending))").tag(1)
+               Text("to: \(carrisNetworkController.getTerminalStopNameForVariant(variant: carrisNetworkController.selectedVariant!, direction: .ascending))").tag(0)
+               Text("to: \(carrisNetworkController.getTerminalStopNameForVariant(variant: carrisNetworkController.selectedVariant!, direction: .descending))").tag(1)
             }
             .pickerStyle(SegmentedPickerStyle())
 
             if (self.routeDirectionPicker == 0) {
-               StopsList(stops: routesController.selectedVariant!.upItinerary ?? [])
+               StopsList(stops: carrisNetworkController.selectedVariant!.upItinerary ?? [])
             } else {
-               StopsList(stops: routesController.selectedVariant!.downItinerary ?? [])
+               StopsList(stops: carrisNetworkController.selectedVariant!.downItinerary ?? [])
             }
          }
 
@@ -85,7 +83,7 @@ struct RouteDetailsSheet: View {
             liveInfo
                .padding()
             Divider()
-            if (routesController.selectedRoute!.variants.count > 1) {
+            if (carrisNetworkController.selectedRoute!.variants.count > 1) {
                VariantPicker()
                Divider()
             }

@@ -7,20 +7,20 @@
 
 import SwiftUI
 
-struct StopDetailsView: View {
+struct ConnectionDetailsView: View {
    
-   let stop: Stop
+   let connection: Connection_NEW
    
    @State private var viewSize = CGSize()
    
     var body: some View {
        VStack(alignment: .leading) {
-          StopDetailsView2(
+          ConnectionDetailsView2(
             canToggle: false,
-            publicId: stop.publicId,
-            name: stop.name,
-            orderInRoute: stop.orderInRoute,
-            direction: stop.direction
+            publicId: connection.stop.publicId,
+            name: connection.stop.name,
+            orderInRoute: connection.orderInRoute,
+            direction: .circular
           )
           .padding(.bottom, 20)
           Disclaimer()
@@ -41,7 +41,7 @@ struct StopDetailsView: View {
 
 
 
-struct StopDetailsView2: View {
+struct ConnectionDetailsView2: View {
    
    @Environment(\.colorScheme) var colorScheme: ColorScheme
    

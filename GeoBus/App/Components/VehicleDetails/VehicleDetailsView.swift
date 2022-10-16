@@ -10,8 +10,9 @@ import Combine
 
 struct VehicleDetailsView: View {
    
+   let vehicle: CarrisVehicle
+   
    @EnvironmentObject var appstate: Appstate
-   @EnvironmentObject var vehiclesController: VehiclesController
    
    let refreshTimer = Timer.publish(every: 20 /* seconds */, on: .main, in: .common).autoconnect()
    let lastSeenTimeTimer = Timer.publish(every: 1 /* seconds */, on: .main, in: .common).autoconnect()
@@ -22,13 +23,6 @@ struct VehicleDetailsView: View {
    
    @State var vehicleDetails: VehicleDetails? = nil
    @State var lastSeenTime: String = "-"
-   
-   
-   func getVehicleDetailsFromController() {
-      Task {
-         self.vehicleDetails = await vehiclesController.fetchVehicleDetailsFromCarrisAPI(for: self.busNumber)
-      }
-   }
    
    
    var loadingScreen: some View {
@@ -50,9 +44,9 @@ struct VehicleDetailsView: View {
    
    var vehicleDetailsHeader: some View {
       HStack(spacing: 15) {
-         VehicleDestination(routeNumber: routeNumber, destination: vehicleDetails!.lastStopOnVoyageName)
+         VehicleDestination(routeNumber: routeNumber, destination: vehicle.lastStopOnVoyageName ?? "-")
          Spacer()
-         VehicleIdentifier(busNumber: busNumber, vehiclePlate: vehicleDetails!.vehiclePlate)
+         VehicleIdentifier(busNumber: busNumber, vehiclePlate: vehicle.vehiclePlate)
       }
    }
    
@@ -80,27 +74,31 @@ struct VehicleDetailsView: View {
    
    var body: some View {
       VStack(alignment: .leading, spacing: 0) {
-         if (vehicleDetails != nil) {
+         if (appstate.vehicles == .loading) {
+            loadingScreen
+               .padding()
+         } else if (appstate.vehicles == .error) {
+            errorScreen
+               .padding()
+         } else {
             vehicleDetailsHeader
                .padding()
             Divider()
             vehicleDetailsScreen
                .padding()
-         } else if (appstate.vehicles == .loading) {
-            loadingScreen
-               .padding()
-         } else {
-            errorScreen
-               .padding()
          }
       }
       .onAppear() {
-         // Get vehicle details when view appears
-         self.getVehicleDetailsFromController()
+         Task {
+            // Get vehicle details when view appears
+            await self.vehicle.update()
+         }
       }
       .onReceive(refreshTimer) { event in
-         // Update details on timer call
-         self.getVehicleDetailsFromController()
+         Task {
+            // Update details on timer call
+            await self.vehicle.update()
+         }
       }
       
    }

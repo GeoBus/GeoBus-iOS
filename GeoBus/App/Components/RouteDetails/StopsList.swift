@@ -16,7 +16,7 @@ struct StopsList: View {
    var body: some View {
       VStack(alignment: .leading, spacing: 15) {
          ForEach(stops) { stop in
-            StopDetailsView2(
+            ConnectionDetailsView2(
                canToggle: true,
                publicId: stop.publicId,
                name: stop.name,
