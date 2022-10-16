@@ -1,11 +1,3 @@
-//
-//  CarrisAuthentication.swift
-//  GeoBus
-//
-//  Created by João on 20/04/2020.
-//  Copyright © 2020 João. All rights reserved.
-//
-
 import Foundation
 
 
@@ -14,7 +6,7 @@ import Foundation
 /* A series of self contained steps to authenticate with Carris API. */
 
 
-class CarrisAuthentication: ObservableObject {
+final class CarrisAuthentication {
    
    /* * */
    /* MARK: - SECTION 1: SETTINGS */
@@ -23,6 +15,7 @@ class CarrisAuthentication: ObservableObject {
    /* is not passed on to the user. */
    
    private let carris_auth_credentialEndpoint = "https://joao.earth/api/geobus/carris_auth"
+   private let carris_auth_authorizationEndpoint = "https://gateway.carris.pt/gateway/authenticationapi/authorization/sign"
    
    private let maxRetriesBeforeFail: Int = 3 // Should be 3 or more
    
@@ -34,11 +27,22 @@ class CarrisAuthentication: ObservableObject {
    
    
    /* * */
-   /* MARK: - SECTION 2: SHARED INSTANCE */
-   /* To allow the same instance of this class to be available accross the whole app, */
-   /* we create a Singleton. More info here: https://www.hackingwithswift.com/example-code/language/what-is-a-singleton */
+   /* MARK: - SECTION 2: CARRIS API JSON MODEL */
+   /* Data model as provided by the API. */
+   /* Example request for ‹CarrisAPICredential› is available at https://joao.earth/api/geobus/carris_auth */
+   /* Schema for ‹CarrisAPIAuthorization› is available at https://joaodcp.github.io/Carris-API */
    
-   static let shared = CarrisAuthentication()
+   struct CarrisAPICredential: Decodable {
+      let endpoint: String
+      let token: String
+      let type: String
+   }
+   
+   struct CarrisAPIAuthorization: Decodable {
+      let authorizationToken: String
+      let refreshToken: String
+      let expires: Double
+   }
    
    
    
@@ -46,9 +50,8 @@ class CarrisAuthentication: ObservableObject {
    /* MARK: - SECTION 3: INTERNAL VARIABLES */
    /* Here are the variables used througout the class. */
    
-   public var endpoint: String? = nil
    public var authToken: String? = nil
-
+   
    private var apiKey: String? = nil
    private var refreshToken: String? = nil
    
@@ -57,17 +60,21 @@ class CarrisAuthentication: ObservableObject {
    
    
    /* * */
-   /* MARK: - SECTION 4: INITIALIZER */
+   /* MARK: - SECTION 4: SHARED INSTANCE */
+   /* To allow the same instance of this class to be available accross the whole app, */
+   /* we create a Singleton. More info here: https://www.hackingwithswift.com/example-code/language/what-is-a-singleton */
+   
+   static let shared = CarrisAuthentication()
+   
+   
+   
+   /* * */
+   /* MARK: - SECTION 5: INITIALIZER */
    /* When this class is initialized, data stored on the users device must be retrieved */
    /* from UserDefaults to avoid requesting a new update to the APIs. The init() call is purposefully */
    /* marked private to prevent outsiders from creating another instance of this class. */
    
    private init() {
-      
-      // Unwrap Carris Auth Endpoint from Storage
-      if let unwrappedCarrisAuthEndpoint = UserDefaults.standard.string(forKey: carris_auth_storageKeyForEndpoint) {
-         self.endpoint = unwrappedCarrisAuthEndpoint
-      }
       
       // Unwrap Carris Auth API Key from Storage
       if let unwrappedCarrisAuthApiKey = UserDefaults.standard.string(forKey: carris_auth_storageKeyForApiKey) {
@@ -89,7 +96,7 @@ class CarrisAuthentication: ObservableObject {
    
    
    /* * */
-   /* MARK: - SECTION 5: AUTHENTICATE */
+   /* MARK: - SECTION 6: AUTHENTICATE */
    /* This function agregates all the steps required for authentication. */
    /* The goal is to have an ‹authToken›. If there is some refreshToken on file, */
    /* then use it to try to request a new short-lived, authToken. If it is invalid, */
@@ -156,14 +163,14 @@ class CarrisAuthentication: ObservableObject {
    
    
    
-   /* MARK: - SECTION 4: GET AUTH TOKEN FROM CARRIS API */
-   /* This is the function where a valid authToken is requested to Carris Authentication endpoint. */
-   /* Depending on the method of authentication ['apikey', 'refresh'], just pass on the request and */
+   /* MARK: - SECTION 7: GET AUTH TOKEN FROM CARRIS API */
+   /* This is the function where a valid ‹authToken› is requested to Carris Authentication endpoint. */
+   /* Depending on the method of authentication ['apikey', 'refresh'], just perform the request and */
    /* save the result to the respective variables. */
    
    func fetchAuthorization(token: String, type: String) async throws {
       
-      var requestCarrisAuthorization = URLRequest(url: URL(string: "https://\(endpoint!)/gateway/authenticationapi/authorization/sign")!)
+      var requestCarrisAuthorization = URLRequest(url: URL(string: self.carris_auth_authorizationEndpoint)!)
       requestCarrisAuthorization.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
       requestCarrisAuthorization.httpMethod = "POST"
       
@@ -171,7 +178,7 @@ class CarrisAuthentication: ObservableObject {
       
       let (rawDataCarrisAuthorization, _) = try await URLSession.shared.data(for: requestCarrisAuthorization)
       
-      let decodedCarrisAuthorization = try JSONDecoder().decode(APIAuthorization.self, from: rawDataCarrisAuthorization)
+      let decodedCarrisAuthorization = try JSONDecoder().decode(CarrisAPIAuthorization.self, from: rawDataCarrisAuthorization)
       
       self.refreshToken = decodedCarrisAuthorization.refreshToken
       self.authToken = decodedCarrisAuthorization.authorizationToken
@@ -181,20 +188,19 @@ class CarrisAuthentication: ObservableObject {
    
    
    /* * */
-   /* MARK: - SECTION 4: LATEST CREDENTIAL */
+   /* MARK: - SECTION 8: LATEST CREDENTIAL */
    /* This function retrieves the latest available credential from the endpoint. */
    /* This improves reliability as valid credentials can become invalid at a moment's notice. */
    /* Retrieving from an endpoint allows for a quick server fix and avoids an App Store submission.*/
    
    func fetchLatestCredential() async throws {
       
-      var requestCarrisLatestCredential = URLRequest(url: URL(string: carris_auth_credentialEndpoint)!)
+      var requestCarrisLatestCredential = URLRequest(url: URL(string: self.carris_auth_credentialEndpoint)!)
       requestCarrisLatestCredential.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
       requestCarrisLatestCredential.httpMethod = "GET"
       let (rawDataCarrisLatestCredential, _) = try await URLSession.shared.data(for: requestCarrisLatestCredential)
-      let decodedCarrisLatestCredential = try JSONDecoder().decode(APICredential.self, from: rawDataCarrisLatestCredential)
+      let decodedCarrisLatestCredential = try JSONDecoder().decode(CarrisAPICredential.self, from: rawDataCarrisLatestCredential)
       
-      self.endpoint = decodedCarrisLatestCredential.endpoint
       self.apiKey = decodedCarrisLatestCredential.token
       
    }
@@ -202,11 +208,10 @@ class CarrisAuthentication: ObservableObject {
    
    
    /* * */
-   /* MARK: - SECTION 3: SAVE CREDENTIALS BACK TO STORAGE */
-   /* On call, save the current credentials to device storage to avoid a new call to the servers. */
+   /* MARK: - SECTION 9: SAVE CREDENTIALS BACK TO STORAGE */
+   /* Save the current credentials to device storage to avoid a new call to the servers. */
    
    func saveCredentialsToDeviceStorage() {
-      UserDefaults.standard.set(endpoint, forKey: carris_auth_storageKeyForEndpoint)
       UserDefaults.standard.set(apiKey, forKey: carris_auth_storageKeyForApiKey)
       UserDefaults.standard.set(refreshToken, forKey: carris_auth_storageKeyForRefreshToken)
       UserDefaults.standard.set(authToken, forKey: carris_auth_storageKeyForAuthToken)
