@@ -16,7 +16,7 @@ import PostHog
 /* The point is to only record general events, without identifiers, to understand */
 /* if calls to the API are working, which routes are selected and how many people are using it. */
 
-class Analytics: ObservableObject {
+final class Analytics: ObservableObject {
    
    /* * */
    /* MARK: - SECTION 1: EVENTS */

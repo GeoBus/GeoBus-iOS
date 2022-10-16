@@ -15,7 +15,7 @@ import Foundation
 /* Using Appstate increases consistency in UI code and prevents direct access to controllers. */
 
 
-class Appstate: ObservableObject {
+final class Appstate: ObservableObject {
    
    /* * */
    /* MARK: - SECTION 1: POSSIBLE STATE TYPES */
