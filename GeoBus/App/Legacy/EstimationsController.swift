@@ -27,7 +27,7 @@ class EstimationsController: ObservableObject {
       
       do {
          // Request API Routes List
-         var requestAPIEstimations = URLRequest(url: URL(string: "https://gateway.carris.pt/gateway/xtranpassengerapi/api/v2.10/Estimations/busStop/\(publicId)/top/5")!)
+         var requestAPIEstimations = URLRequest(url: URL(string: "\(CarrisAPISettings.endpoint)/Estimations/busStop/\(publicId)/top/5")!)
          requestAPIEstimations.addValue("application/json", forHTTPHeaderField: "Content-Type")
          requestAPIEstimations.addValue("application/json", forHTTPHeaderField: "Accept")
          requestAPIEstimations.setValue("Bearer \(CarrisAuthentication.shared.authToken ?? "invalid_token")", forHTTPHeaderField: "Authorization")
