@@ -21,6 +21,7 @@ class MapController: ObservableObject {
    @Published var showLocationNotAllowedAlert: Bool = false
    
    private var stopAnnotations: [GenericMapAnnotation] = []
+   private var connectionAnnotations: [GenericMapAnnotation] = []
    @Published var visibleAnnotations: [GenericMapAnnotation] = []
    
    
@@ -71,7 +72,7 @@ class MapController: ObservableObject {
    
    // .....
    
-   func updateAnnotations(with selectedStop: Stop) {
+   func updateAnnotations(with selectedStop: Stop_NEW) {
       
       stopAnnotations = []
       
@@ -79,7 +80,7 @@ class MapController: ObservableObject {
          GenericMapAnnotation(
             lat: selectedStop.lat,
             lng: selectedStop.lng,
-            format: .singleStop,
+            format: .carris_stop,
             stop: selectedStop
          )
       )
@@ -97,36 +98,20 @@ class MapController: ObservableObject {
    
    // .....
    
-   func updateAnnotations(with selectedVariant: Variant) {
+   func updateAnnotations(with selectedVariant: Variant_NEW) {
       
-      stopAnnotations = []
+      connectionAnnotations = []
       
-      if (selectedVariant.upItinerary != nil) {
-         for stop in selectedVariant.upItinerary! {
-            stopAnnotations.append(
-               GenericMapAnnotation(lat: stop.lat, lng: stop.lng, format: .stop, stop: stop)
-            )
-         }
-      }
-      
-      if (selectedVariant.downItinerary != nil) {
-         for stop in selectedVariant.downItinerary! {
-            stopAnnotations.append(
-               GenericMapAnnotation(lat: stop.lat, lng: stop.lng, format: .stop, stop: stop)
-            )
-         }
-      }
-      
-      if (selectedVariant.circItinerary != nil) {
-         for stop in selectedVariant.circItinerary! {
-            stopAnnotations.append(
-               GenericMapAnnotation(lat: stop.lat, lng: stop.lng, format: .stop, stop: stop)
+      for itinerary in selectedVariant.itineraries {
+         for connection in itinerary.connections {
+            connectionAnnotations.append(
+               GenericMapAnnotation(lat: connection.stop.lat, lng: connection.stop.lng, format: .carris_connection, connection: connection)
             )
          }
       }
       
       visibleAnnotations.removeAll()
-      visibleAnnotations.append(contentsOf: stopAnnotations)
+      visibleAnnotations.append(contentsOf: connectionAnnotations)
       
       zoomToFitMapAnnotations(annotations: visibleAnnotations)
       
@@ -138,7 +123,7 @@ class MapController: ObservableObject {
    
    // .....
    
-   func updateAnnotations(with vehiclesList: [VehicleSummary], for routeNumber: String?) {
+   func updateAnnotations(with vehiclesList: [CarrisVehicle], for routeNumber: String?) {
       
       if (routeNumber != nil) {
          
@@ -151,12 +136,12 @@ class MapController: ObservableObject {
             
             // CONDITION 2:
             // Vehicle was last seen no longer than 3 minutes
-            let isNotZombieVehicle = Helpers.getLastSeenTime(since: vehicle.lastGpsTime) < 180
+            let isNotZombieVehicle = Helpers.getLastSeenTime(since: vehicle.lastGpsTime ?? "") < 180
             
             
             // Find index of Annotation matching this vehicle busNumber
             let indexOfVisibleAnnotation = visibleAnnotations.firstIndex(where: {
-               return $0.format == .vehicle && $0.busNumber == vehicle.busNumber
+               return $0.format == .carris_vehicle && $0.busNumber == vehicle.id
             })
             
             // Only proceed if ALL conditions are true
@@ -164,18 +149,18 @@ class MapController: ObservableObject {
                if (indexOfVisibleAnnotation != nil) {
                   // If annotation already exists, update it's values
                   withAnimation(.easeIn(duration: 0.5)) {
-                     self.visibleAnnotations[indexOfVisibleAnnotation!].location.latitude = vehicle.lat
-                     self.visibleAnnotations[indexOfVisibleAnnotation!].location.longitude = vehicle.lng
-                     self.visibleAnnotations[indexOfVisibleAnnotation!].vehicle = vehicle
+                     self.visibleAnnotations[indexOfVisibleAnnotation!].location.latitude = vehicle.lat ?? 0
+                     self.visibleAnnotations[indexOfVisibleAnnotation!].location.longitude = vehicle.lng ?? 0
+                     self.visibleAnnotations[indexOfVisibleAnnotation!].carris_vehicle = vehicle
                   }
                } else {
                   // If annotation does not already exist, create a new one
                   visibleAnnotations.append(
                      GenericMapAnnotation(
-                        lat: vehicle.lat,
-                        lng: vehicle.lng,
-                        format: .vehicle,
-                        busNumber: vehicle.busNumber,
+                        lat: vehicle.lat ?? 0,
+                        lng: vehicle.lng ?? 0,
+                        format: .carris_vehicle,
+                        busNumber: vehicle.id,
                         vehicle: vehicle
                      )
                   )
