@@ -9,9 +9,6 @@ import SwiftUI
 
 struct StopSearch: View {
 
-   @EnvironmentObject var mapController: MapController
-   @EnvironmentObject var stopsController: StopsController
-
    @State var showSearchStopSheet: Bool = false
    @State private var viewSize = CGSize()
 

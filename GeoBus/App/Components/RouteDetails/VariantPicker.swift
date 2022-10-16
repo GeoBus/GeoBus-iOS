@@ -10,7 +10,7 @@ import SwiftUI
 
 struct VariantPicker: View {
 
-   @EnvironmentObject var routesController: RoutesController
+   @EnvironmentObject var carrisNetworkController: CarrisNetworkController
 
    var body: some View {
 
@@ -18,20 +18,20 @@ struct VariantPicker: View {
 
          HStack(spacing: 10) {
 
-            VariantWarning(qty: routesController.selectedRoute?.variants.count ?? 0)
+            VariantWarning(qty: carrisNetworkController.selectedRoute?.variants.count ?? 0)
 
-            ForEach(routesController.selectedRoute!.variants) { variant in
+            ForEach(carrisNetworkController.selectedRoute!.variants) { variant in
 
                Button(action: {
-                  self.routesController.select(variant: variant)
+                  carrisNetworkController.select(variant: variant)
                }) {
                   VariantButton(
                      variantName: variant.name,
-                     isSelected: routesController.selectedVariant == variant
+                     isSelected: carrisNetworkController.selectedVariant == variant
                   )
                   .padding(.vertical, 15)
                }
-               .disabled(routesController.selectedVariant == variant)
+               .disabled(carrisNetworkController.selectedVariant == variant)
             }
 
          }
@@ -41,19 +41,3 @@ struct VariantPicker: View {
       }
    }
 }
-
-
-
-
-
-
-//VStack {
-//  ForEach(stopsStorage.stops) { stop in
-//    VStack(alignment: .leading) {
-//      StopButton(stop: stop)
-//        .padding(.bottom)
-//      //              VerticalLine(thickness: 2, color: .yellow)
-//    }
-//    .padding(.horizontal)
-//  }
-//}

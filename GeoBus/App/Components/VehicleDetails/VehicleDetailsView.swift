@@ -21,7 +21,6 @@ struct VehicleDetailsView: View {
    let routeNumber: String
    let lastGpsTime: String
    
-   @State var vehicleDetails: VehicleDetails? = nil
    @State var lastSeenTime: String = "-"
    
    

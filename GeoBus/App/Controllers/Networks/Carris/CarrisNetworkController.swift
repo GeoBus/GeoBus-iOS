@@ -175,7 +175,7 @@ class CarrisNetworkController: ObservableObject {
             throw Appstate.ModuleError.carris_unavailable
          }
          
-         let decodedCarrisAPIRoutesList = try JSONDecoder().decode([APIRoutesList].self, from: rawDataCarrisAPIRoutesList)
+         let decodedCarrisAPIRoutesList = try JSONDecoder().decode([CarrisAPIModel.RoutesList].self, from: rawDataCarrisAPIRoutesList)
          
          self.networkUpdateProgress = decodedCarrisAPIRoutesList.count
          
@@ -208,7 +208,7 @@ class CarrisNetworkController: ObservableObject {
                   throw Appstate.ModuleError.carris_unavailable
                }
                
-               let decodedAPIRouteDetail = try JSONDecoder().decode(APIRoute.self, from: rawDataAPIRouteDetail)
+               let decodedAPIRouteDetail = try JSONDecoder().decode(CarrisAPIModel.Route.self, from: rawDataAPIRouteDetail)
                
                // Define a temporary variable to store formatted route variants
                var tempFormattedRouteVariants: [Variant_NEW] = []
@@ -271,7 +271,7 @@ class CarrisNetworkController: ObservableObject {
    
    
    
-   func formatConnections(rawConnections: [APIRouteVariantItineraryConnection]) -> [Connection_NEW] {
+   func formatConnections(rawConnections: [CarrisAPIModel.Connection]) -> [Connection_NEW] {
       
       var tempConnections: [Connection_NEW] = []
       
@@ -304,7 +304,7 @@ class CarrisNetworkController: ObservableObject {
    
    /* MARK: - Format Route Variants */
    // Parse and simplify the data model for variants
-   func formatRawRouteVariant(rawVariant: APIRouteVariant) -> Variant_NEW {
+   func formatRawRouteVariant(rawVariant: CarrisAPIModel.Variant) -> Variant_NEW {
       
       // For each Itinerary type,
       // check if it is defined (not nil) in the raw object
@@ -361,15 +361,16 @@ class CarrisNetworkController: ObservableObject {
    
    /* MARK: - Get Terminal Stop Name for Variant */
    // This function returns the provided variant's terminal stop for the provided direction.
-   func getTerminalStopNameForVariant(variant: Variant, direction: Direction) -> String {
-      switch direction {
-         case .circular:
-            return variant.circItinerary?.first?.name ?? "-"
-         case .ascending:
-            return variant.upItinerary?.last?.name ?? (variant.upItinerary?.first?.name ?? "-")
-         case .descending:
-            return variant.downItinerary?.last?.name ?? (variant.downItinerary?.first?.name ?? "-")
-      }
+   func getTerminalStopNameForVariant(variant: Variant_NEW, direction: Direction) -> String {
+//      switch direction {
+//         case .circular:
+//            return variant.circItinerary?.first?.name ?? "-"
+//         case .ascending:
+//            return variant.upItinerary?.last?.name ?? (variant.upItinerary?.first?.name ?? "-")
+//         case .descending:
+//            return variant.downItinerary?.last?.name ?? (variant.downItinerary?.first?.name ?? "-")
+//      }
+      return "not implemented"
    }
    
    
@@ -399,7 +400,7 @@ class CarrisNetworkController: ObservableObject {
             throw Appstate.ModuleError.carris_unavailable
          }
          
-         let decodedCarrisAPIStopsList = try JSONDecoder().decode([APIStop].self, from: rawDataCarrisAPIStopsList)
+         let decodedCarrisAPIStopsList = try JSONDecoder().decode([CarrisAPIModel.Stop].self, from: rawDataCarrisAPIStopsList)
          
          // Define a temporary variable to store routes
          // before saving them to the device storage.
@@ -610,7 +611,7 @@ class CarrisNetworkController: ObservableObject {
             throw Appstate.ModuleError.carris_unavailable
          }
          
-         let decodedCarrisAPIVehiclesList = try JSONDecoder().decode([CarrisAPIVehicleSummary].self, from: rawDataCarrisAPIVehiclesList)
+         let decodedCarrisAPIVehiclesList = try JSONDecoder().decode([CarrisAPIModel.VehicleSummary].self, from: rawDataCarrisAPIVehiclesList)
          
          
          // Loop through all existing objects in the array

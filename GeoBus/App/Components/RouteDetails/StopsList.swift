@@ -10,18 +10,18 @@ import SwiftUI
 
 struct StopsList: View {
 
-   @State var stops: [Stop] = []
+   @State var connections: [Connection_NEW] = []
 
 
    var body: some View {
       VStack(alignment: .leading, spacing: 15) {
-         ForEach(stops) { stop in
+         ForEach(connections) { connection in
             ConnectionDetailsView2(
                canToggle: true,
-               publicId: stop.publicId,
-               name: stop.name,
-               orderInRoute: stop.orderInRoute,
-               direction: stop.direction
+               publicId: connection.stop.publicId,
+               name: connection.stop.name,
+               orderInRoute: connection.orderInRoute,
+               direction: .circular
             )
          }
       }
