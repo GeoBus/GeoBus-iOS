@@ -1,10 +1,3 @@
-//
-//  ArrayIdentifiable.swift
-//  GeoBus
-//
-//  Created by João de Vasconcelos on 16/10/2022.
-//
-
 import Foundation
 
 extension Array where Element: Identifiable {
@@ -13,5 +6,5 @@ extension Array where Element: Identifiable {
    }
 }
 
-// let arrayOfIdentifiables = []
-// let itemWithId = arrayOfIdentifiables[id]
+// Usage:
+// let itemWithId = arrayOfIdentifiables[withId: ‹unique_id›]
