@@ -61,7 +61,6 @@
 		CFAF0E7A28CE84F400DDAD5B /* MapAnnotations.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAF0E7928CE84F400DDAD5B /* MapAnnotations.swift */; };
 		CFB5D45728EEFE21002368BC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CFB5D45528EEFE21002368BC /* InfoPlist.strings */; };
 		CFB5D45A28EEFE6B002368BC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CFB5D45828EEFE6B002368BC /* Localizable.strings */; };
-		CFC80FCC28D2C2FF003D059D /* DragAndDrop.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC80FCB28D2C2FF003D059D /* DragAndDrop.swift */; };
 		CFDC15EF28D292FB00A4BE49 /* ViewSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDC15EE28D292FB00A4BE49 /* ViewSize.swift */; };
 		CFDD014928D5114D0070FE4B /* SyncStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDD014828D5114D0070FE4B /* SyncStatus.swift */; };
 		CFDD014B28D535370070FE4B /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDD014A28D535370070FE4B /* Card.swift */; };
@@ -143,7 +142,6 @@
 		CFB5D46028EEFEF1002368BC /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		CFB5D46128EEFF2C002368BC /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CFB5D46228EEFF2D002368BC /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		CFC80FCB28D2C2FF003D059D /* DragAndDrop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragAndDrop.swift; sourceTree = "<group>"; };
 		CFCED4F628EF5CB900963640 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CFCED4F728EF5CB900963640 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		CFCED4F828EF5CD500963640 /* fa */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fa; path = fa.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -310,7 +308,6 @@
 			isa = PBXGroup;
 			children = (
 				CF18202828CCBBDC00248F72 /* TapticEngine.swift */,
-				CFC80FCB28D2C2FF003D059D /* DragAndDrop.swift */,
 				CFFFAD8228F6754400DFD5FD /* Helpers.swift */,
 				CFDC15EE28D292FB00A4BE49 /* ViewSize.swift */,
 				CF5094C428FC279A00EDD320 /* ArrayIdentifiable.swift */,
@@ -525,7 +522,6 @@
 				CFFFAD7928F4AD0400DFD5FD /* TimeLeft.swift in Sources */,
 				CF82BB0D28D7F202007F0CDB /* ContactsCard.swift in Sources */,
 				CFFFAD8328F6754400DFD5FD /* Helpers.swift in Sources */,
-				CFC80FCC28D2C2FF003D059D /* DragAndDrop.swift in Sources */,
 				CF18207028CCBD2300248F72 /* RouteDetailsView.swift in Sources */,
 				CF03D6AE28F3B00F0077299B /* VehicleDestination.swift in Sources */,
 				CF18207328CCBD2300248F72 /* VariantButton.swift in Sources */,
