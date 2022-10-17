@@ -10,7 +10,7 @@ import Combine
 
 struct VehicleDetailsView: View {
    
-   let vehicle: CarrisVehicle
+   let vehicle: CarrisNetworkModel.Vehicle
    
    @EnvironmentObject var appstate: Appstate
    
@@ -90,13 +90,13 @@ struct VehicleDetailsView: View {
       .onAppear() {
          Task {
             // Get vehicle details when view appears
-            await self.vehicle.update()
+//            await self.vehicle.update()
          }
       }
       .onReceive(refreshTimer) { event in
          Task {
             // Update details on timer call
-            await self.vehicle.update()
+//            await self.vehicle.update()
          }
       }
       

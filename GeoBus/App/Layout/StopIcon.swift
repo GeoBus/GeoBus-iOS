@@ -10,16 +10,16 @@ import SwiftUI
 struct StopIcon: View {
    
    public let orderInRoute: Int
-   public let direction: Direction
+   public let direction: CarrisNetworkModel.Direction
    public let isSelected: Bool
    
-   init(orderInRoute: Int, direction: Direction) {
+   init(orderInRoute: Int, direction: CarrisNetworkModel.Direction) {
       self.orderInRoute = orderInRoute
       self.direction = direction
       self.isSelected = false
    }
    
-   init(orderInRoute: Int, direction: Direction, isSelected: Bool) {
+   init(orderInRoute: Int, direction: CarrisNetworkModel.Direction, isSelected: Bool) {
       self.orderInRoute = orderInRoute
       self.direction = direction
       self.isSelected = isSelected

@@ -74,7 +74,7 @@ class MapController: ObservableObject {
    
    // .....
    
-   func updateAnnotations(with selectedStop: Stop_NEW) {
+   func updateAnnotations(with selectedStop: CarrisNetworkModel.Stop) {
       
       visibleAnnotations.removeAll()
       
@@ -96,7 +96,7 @@ class MapController: ObservableObject {
    
    // .....
    
-   func updateAnnotations(with selectedVariant: Variant_NEW) {
+   func updateAnnotations(with selectedVariant: CarrisNetworkModel.Variant) {
       
       visibleAnnotations.removeAll(where: {
          switch $0.item {
@@ -129,7 +129,7 @@ class MapController: ObservableObject {
    
    // .....
    
-   func updateAnnotations(with activeVehiclesList: [CarrisVehicle]) {
+   func updateAnnotations(with activeVehiclesList: [CarrisNetworkModel.Vehicle]) {
       
       visibleAnnotations.removeAll()
       

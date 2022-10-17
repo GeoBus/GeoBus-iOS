@@ -7,7 +7,7 @@ struct GeoBusApp: App {
    
    @StateObject private var appstate = Appstate.shared
    @StateObject private var mapController = MapController()
-   @StateObject private var carrisNetworkController = CarrisNetworkController()
+   @StateObject private var carrisNetworkController = CarrisNetworkController.shared
    
    private let updateIntervalTimer = Timer.publish(every: 20 /* seconds */, on: .main, in: .common).autoconnect()
    

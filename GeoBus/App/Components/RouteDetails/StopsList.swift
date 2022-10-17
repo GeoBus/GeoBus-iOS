@@ -10,7 +10,7 @@ import SwiftUI
 
 struct StopsList: View {
 
-   @State var connections: [Connection_NEW] = []
+   @State var connections: [CarrisNetworkModel.Connection] = []
 
 
    var body: some View {

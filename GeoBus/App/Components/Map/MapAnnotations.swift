@@ -18,9 +18,9 @@ struct GenericMapAnnotation: Identifiable {
    var item: AnnotationItem
    
    enum AnnotationItem {
-      case carris_stop(Stop_NEW)
-      case carris_connection(Connection_NEW)
-      case carris_vehicle(CarrisVehicle)
+      case carris_stop(CarrisNetworkModel.Stop)
+      case carris_connection(CarrisNetworkModel.Connection)
+      case carris_vehicle(CarrisNetworkModel.Vehicle)
    }
    
 }
@@ -31,7 +31,7 @@ struct GenericMapAnnotation: Identifiable {
 
 struct CarrisStopAnnotationView: View {
    
-   public let stop: Stop_NEW
+   public let stop: CarrisNetworkModel.Stop
    
    @State private var isAnnotationSelected: Bool = false
    
@@ -67,7 +67,7 @@ struct CarrisStopAnnotationView: View {
 
 struct CarrisConnectionAnnotationView: View {
    
-   public let connection: Connection_NEW
+   public let connection: CarrisNetworkModel.Connection
    
    @State private var isAnnotationSelected: Bool = false
    
@@ -102,7 +102,7 @@ struct CarrisConnectionAnnotationView: View {
 
 struct CarrisVehicleAnnotationView: View {
    
-   @ObservedObject var vehicle: CarrisVehicle
+   let vehicle: CarrisNetworkModel.Vehicle
    
    @State private var isPresented: Bool = false
    @State private var viewSize = CGSize()

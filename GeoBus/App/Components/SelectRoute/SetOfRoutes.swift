@@ -13,10 +13,10 @@ struct SetOfRoutes: View {
    @EnvironmentObject var carrisNetworkController: CarrisNetworkController
 
    var title: Text
-   var kind: Kind
+   var kind: CarrisNetworkModel.Kind
 
    @Binding var showSheet: Bool
-   @State private var routes: [Route_NEW] = []
+   @State private var routes: [CarrisNetworkModel.Route] = []
 
    var body: some View {
 

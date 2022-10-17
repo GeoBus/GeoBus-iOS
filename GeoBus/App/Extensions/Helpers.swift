@@ -16,7 +16,7 @@ open class Helpers {
 
    // Discover the Route kind by analysing the route number.
 
-   static func getKind(by routeNumber: String) -> Kind {
+   static func getKind(by routeNumber: String) -> CarrisNetworkModel.Kind {
 
       if (routeNumber.suffix(1) == "B") {
          // Neighborhood buses end with "B"
@@ -143,6 +143,30 @@ open class Helpers {
    static func getSecondsFromISO8601DateString(_ dateString: String) -> Int {
       let formattedDateObject = ISO8601DateFormatter().date(from: dateString)
       return Int(formattedDateObject?.timeIntervalSinceNow ?? -1)
+   }
+   
+   
+   
+   /* * */
+   /* MARK: - CALCULATE VEHICLE ANGLE */
+   /* Calculate the angle in radians from the last two locations to correctly point */
+   /* the front of the vehicle to its current direction. */
+   
+   static func getAngleInRadians(prevLat: Double, prevLng: Double, currLat: Double, currLng: Double) -> Double {
+      // and return response to the caller
+      let x = currLat - prevLat;
+      let y = currLng - prevLng;
+      
+      var teta: Double;
+      // Angle is calculated with the arctan of ( y / x )
+      if (x == 0){ teta = .pi / 2 }
+      else { teta = atan(y / x) }
+      
+      // If x is negative, then the angle is in the symetric quadrant
+      if (x < 0) { teta += .pi }
+      
+      return teta - (.pi / 2) // Correction cuz Apple rotates clockwise
+      
    }
    
 }

@@ -48,23 +48,21 @@ class CarrisNetworkController: ObservableObject {
    /* It is important to keep the names of this variables short, but descriptive, */
    /* to avoid clutter on the interface code. */
    
-   @Published var allRoutes: [Route_NEW] = []
-   @Published var allStops: [Stop_NEW] = []
-   @Published var allVehicles: [CarrisVehicle] = []
-   
    @Published var lastUpdatedNetwork: String? = nil
    @Published var networkUpdateProgress: Int? = nil
    
-   @Published var activeRoute: Route_NEW? = nil
-   @Published var activeVariant: Variant_NEW? = nil
-   @Published var activeConnection: Connection_NEW? = nil
-   @Published var activeStop: Stop_NEW? = nil
-   @Published var activeVehicles: [CarrisVehicle] = []
+   @Published var allRoutes: [CarrisNetworkModel.Route] = []
+   @Published var allStops: [CarrisNetworkModel.Stop] = []
+   @Published var allVehicles: [CarrisNetworkModel.Vehicle] = []
    
-   @Published var favorites_routes: [Route_NEW] = []
-   @Published var favorites_stops: [Stop_NEW] = []
+   @Published var activeRoute: CarrisNetworkModel.Route? = nil
+   @Published var activeVariant: CarrisNetworkModel.Variant? = nil
+   @Published var activeConnection: CarrisNetworkModel.Connection? = nil
+   @Published var activeStop: CarrisNetworkModel.Stop? = nil
+   @Published var activeVehicles: [CarrisNetworkModel.Vehicle] = []
    
-   
+   @Published var favorites_routes: [CarrisNetworkModel.Route] = []
+   @Published var favorites_stops: [CarrisNetworkModel.Stop] = []
    
    
    
@@ -74,18 +72,28 @@ class CarrisNetworkController: ObservableObject {
    /* from UserDefaults to avoid requesting a new update to the APIs. Do not call other */
    /* functions yet because Appstate and Authentication must be passed first. */
    
-   init() {
+   static let shared = CarrisNetworkController()
+   
+   
+   
+   /* * */
+   /* MARK: - SECTION 3: INITIALIZER */
+   /* When this class is initialized, data stored on the users device must be retrieved */
+   /* from UserDefaults to avoid requesting a new update to the APIs. Do not call other */
+   /* functions yet because Appstate and Authentication must be passed first. */
+   
+   private init() {
       
       // Unwrap and Decode Stops from Storage
       if let unwrappedSavedNetworkStops = UserDefaults.standard.data(forKey: storageKeyForSavedStops) {
-         if let decodedSavedNetworkStops = try? JSONDecoder().decode([Stop_NEW].self, from: unwrappedSavedNetworkStops) {
+         if let decodedSavedNetworkStops = try? JSONDecoder().decode([CarrisNetworkModel.Stop].self, from: unwrappedSavedNetworkStops) {
             self.allStops = decodedSavedNetworkStops
          }
       }
       
       // Unwrap and Decode Routes from Storage
       if let unwrappedSavedNetworkRoutes = UserDefaults.standard.data(forKey: storageKeyForSavedRoutes) {
-         if let decodedSavedNetworkRoutes = try? JSONDecoder().decode([Route_NEW].self, from: unwrappedSavedNetworkRoutes) {
+         if let decodedSavedNetworkRoutes = try? JSONDecoder().decode([CarrisNetworkModel.Route].self, from: unwrappedSavedNetworkRoutes) {
             self.allRoutes = decodedSavedNetworkRoutes
          }
       }
@@ -184,7 +192,7 @@ class CarrisNetworkController: ObservableObject {
          
          // Define a temporary variable to store routes
          // before saving them to the device storage.
-         var tempAllRoutes: [Route_NEW] = []
+         var tempAllRoutes: [CarrisNetworkModel.Route] = []
          
          // For each available route in the API,
          for availableRoute in decodedCarrisAPIRoutesList {
@@ -214,7 +222,7 @@ class CarrisNetworkController: ObservableObject {
                let decodedAPIRouteDetail = try JSONDecoder().decode(CarrisAPIModel.Route.self, from: rawDataAPIRouteDetail)
                
                // Define a temporary variable to store formatted route variants
-               var tempFormattedRouteVariants: [Variant_NEW] = []
+               var tempFormattedRouteVariants: [CarrisNetworkModel.Variant] = []
                
                // For each variant in route,
                // check if it is currently active, format it
@@ -228,7 +236,7 @@ class CarrisNetworkController: ObservableObject {
                }
                
                // Build the formatted route object
-               let formattedRoute = Route_NEW(
+               let formattedRoute = CarrisNetworkModel.Route(
                   number: decodedAPIRouteDetail.routeNumber ?? "-",
                   name: decodedAPIRouteDetail.name ?? "-",
                   kind: Helpers.getKind(by: decodedAPIRouteDetail.routeNumber ?? "-"),
@@ -274,9 +282,9 @@ class CarrisNetworkController: ObservableObject {
    
    
    
-   func formatConnections(rawConnections: [CarrisAPIModel.Connection]) -> [Connection_NEW] {
+   func formatConnections(rawConnections: [CarrisAPIModel.Connection]) -> [CarrisNetworkModel.Connection] {
       
-      var tempConnections: [Connection_NEW] = []
+      var tempConnections: [CarrisNetworkModel.Connection] = []
       
       // For each connection,
       // convert the nested objects into a simplified RouteStop object
@@ -284,9 +292,9 @@ class CarrisNetworkController: ObservableObject {
          
          // Append new values to the temporary variable property directly
          tempConnections.append(
-            Connection_NEW(
+            CarrisNetworkModel.Connection(
                orderInRoute: rawConnection.orderNum ?? -1,
-               stop: Stop_NEW(
+               stop: CarrisNetworkModel.Stop(
                   publicId: rawConnection.busStop?.publicId ?? "-",
                   name: rawConnection.busStop?.name ?? "-",
                   lat: rawConnection.busStop?.lat ?? 0,
@@ -307,16 +315,16 @@ class CarrisNetworkController: ObservableObject {
    
    /* MARK: - Format Route Variants */
    // Parse and simplify the data model for variants
-   func formatRawRouteVariant(rawVariant: CarrisAPIModel.Variant) -> Variant_NEW {
+   func formatRawRouteVariant(rawVariant: CarrisAPIModel.Variant) -> CarrisNetworkModel.Variant {
       
       // For each Itinerary type,
       // check if it is defined (not nil) in the raw object
-      var tempItineraries: [Itinerary_NEW] = []
+      var tempItineraries: [CarrisNetworkModel.Itinerary] = []
       
       // For UpItinerary:
       if (rawVariant.upItinerary != nil) {
          tempItineraries.append(
-            Itinerary_NEW(
+            CarrisNetworkModel.Itinerary(
                direction: .ascending,
                connections: formatConnections(rawConnections: rawVariant.upItinerary!.connections ?? [])
             )
@@ -326,7 +334,7 @@ class CarrisNetworkController: ObservableObject {
       // For DownItinerary:
       if (rawVariant.downItinerary != nil) {
          tempItineraries.append(
-            Itinerary_NEW(
+            CarrisNetworkModel.Itinerary(
                direction: .descending,
                connections: formatConnections(rawConnections: rawVariant.downItinerary!.connections ?? [])
             )
@@ -336,7 +344,7 @@ class CarrisNetworkController: ObservableObject {
       // For CircItinerary:
       if (rawVariant.circItinerary != nil) {
          tempItineraries.append(
-            Itinerary_NEW(
+            CarrisNetworkModel.Itinerary(
                direction: .circular,
                connections: formatConnections(rawConnections: rawVariant.circItinerary!.connections ?? [])
             )
@@ -353,7 +361,7 @@ class CarrisNetworkController: ObservableObject {
       //      }
       
       // Finally, return the temporary variable to the caller
-      return Variant_NEW(
+      return CarrisNetworkModel.Variant(
          number: rawVariant.variantNumber ?? -1,
          name: "in-progress",
          itineraries: tempItineraries
@@ -364,7 +372,7 @@ class CarrisNetworkController: ObservableObject {
    
    /* MARK: - Get Terminal Stop Name for Variant */
    // This function returns the provided variant's terminal stop for the provided direction.
-   func getTerminalStopNameForVariant(variant: Variant_NEW, direction: Direction) -> String {
+   func getTerminalStopNameForVariant(variant: CarrisNetworkModel.Variant, direction: CarrisNetworkModel.Direction) -> String {
 //      switch direction {
 //         case .circular:
 //            return variant.circItinerary?.first?.name ?? "-"
@@ -407,14 +415,14 @@ class CarrisNetworkController: ObservableObject {
          
          // Define a temporary variable to store routes
          // before saving them to the device storage.
-         var tempAllStops: [Stop_NEW] = []
+         var tempAllStops: [CarrisNetworkModel.Stop] = []
          
          // For each available route in the API,
          for availableStop in decodedCarrisAPIStopsList {
             if (availableStop.isPublicVisible ?? false) {
                // Save the formatted route object in the allRoutes temporary variable
                tempAllStops.append(
-                  Stop_NEW(
+                  CarrisNetworkModel.Stop(
                      publicId: availableStop.publicId ?? "0",
                      name: availableStop.name ?? "-",
                      lat: availableStop.lat ?? 0,
@@ -450,7 +458,7 @@ class CarrisNetworkController: ObservableObject {
    /* MARK: - Find Route by RouteNumber */
    // This function searches for the provided routeNumber in all routes array,
    // and returns it if found. If not found, returns nil.
-   func findRoute(by routeNumber: String) -> Route_NEW? {
+   func findRoute(by routeNumber: String) -> CarrisNetworkModel.Route? {
       if let requestedRouteObject = self.allRoutes[withId: routeNumber] {
          return requestedRouteObject
       } else {
@@ -473,12 +481,12 @@ class CarrisNetworkController: ObservableObject {
    // Routes
    
    
-   private func select(route: Route_NEW) {
+   private func select(route: CarrisNetworkModel.Route) {
       self.activeRoute = route
       self.select(variant: route.variants[0])
       self.activeStop = nil
       self.activeConnection = nil
-      self.update()
+      self.getActiveVehicles()
    }
    
    
@@ -500,7 +508,7 @@ class CarrisNetworkController: ObservableObject {
    
    
    
-   public func select(variant: Variant_NEW) {
+   public func select(variant: CarrisNetworkModel.Variant) {
       self.activeVariant = variant
    }
    
@@ -515,7 +523,7 @@ class CarrisNetworkController: ObservableObject {
    
    // Stops
    
-   private func select(stop: Stop_NEW) {
+   private func select(stop: CarrisNetworkModel.Stop) {
       self.activeStop = stop
    }
    
@@ -540,7 +548,7 @@ class CarrisNetworkController: ObservableObject {
    /* MARK: - Find Stop by Public ID */
    // This function searches for the provided routeNumber in all routes array,
    // and returns it if found. If not found, returns nil.
-   func findStop(by stopPublicId: String) -> Stop_NEW? {
+   func findStop(by stopPublicId: String) -> CarrisNetworkModel.Stop? {
       
       let parsedStopPublicId = Int(stopPublicId) ?? 0
       
@@ -559,46 +567,12 @@ class CarrisNetworkController: ObservableObject {
    }
    
    
-   /* MARK: - UPDATE VEHICLES */
-   
-   // This function decides whether to update available routes
-   
-   func update2() {
-      
-      if (activeRoute != nil) {
-
-//         objectWillChange.send()
-         self.activeVehicles.removeAll()
-         
-         // Filter Vehicles matching the required conditions:
-         for vehicle in self.allVehicles {
-            
-            // CONDITION 1:
-            // Vehicle is currently driving the requested routeNumber
-            let matchesSelectedRouteNumber = vehicle.routeNumber == activeRoute?.number
-            
-            // CONDITION 2:
-            // Vehicle was last seen no longer than 3 minutes
-            let isNotZombieVehicle = Helpers.getLastSeenTime(since: vehicle.lastGpsTime ?? "") < 180
-            
-            // Find index of Annotation matching this vehicle busNumber
-            if (matchesSelectedRouteNumber && isNotZombieVehicle) {
-//               objectWillChange.send()
-//               self.activeVehicles.append(vehicle)
-            }
-            
-         }
-         
-      }
-      
-      objectWillChange.send()
-      self.activeVehicles.removeAll()
-      self.activeVehicles.append(self.allVehicles[6])
-      
-   }
    
    
-   func update() -> [CarrisVehicle] {
+   
+   
+   
+   func getActiveVehicles() {
       if (activeRoute != nil) {
          
          self.activeVehicles.removeAll()
@@ -612,7 +586,7 @@ class CarrisNetworkController: ObservableObject {
             
             // CONDITION 2:
             // Vehicle was last seen no longer than 3 minutes
-            let isNotZombieVehicle = Helpers.getLastSeenTime(since: vehicle.lastGpsTime ?? "") < 180
+            let isNotZombieVehicle = true // Helpers.getLastSeenTime(since: vehicle.lastGpsTime ?? "") < 180
             
             // Find index of Annotation matching this vehicle busNumber
             if (matchesSelectedRouteNumber && isNotZombieVehicle) {
@@ -621,9 +595,6 @@ class CarrisNetworkController: ObservableObject {
             
          }
          
-         return activeVehicles
-      } else {
-         return []
       }
       
    }
@@ -632,8 +603,8 @@ class CarrisNetworkController: ObservableObject {
    
    func updateVehicles() {
       Task {
-         await fetchVehiclesListFromCarrisAPI_NEW()
-         self.update()
+         await fetchVehiclesListFromCarrisAPI()
+         self.getActiveVehicles()
       }
    }
    
@@ -647,7 +618,7 @@ class CarrisNetworkController: ObservableObject {
    // them in the annotations array. It must have @objc flag because Timer
    // is written in Objective-C.
    
-   func fetchVehiclesListFromCarrisAPI_NEW() async {
+   func fetchVehiclesListFromCarrisAPI() async {
       
       Appstate.shared.change(to: .loading, for: .vehicles)
       
@@ -663,7 +634,7 @@ class CarrisNetworkController: ObservableObject {
          // Check status of response
          if (responseCarrisAPIVehiclesList?.statusCode == 401) {
             await CarrisAuthentication.shared.authenticate()
-            await self.fetchVehiclesListFromCarrisAPI_NEW()
+            await self.fetchVehiclesListFromCarrisAPI()
             return
          } else if (responseCarrisAPIVehiclesList?.statusCode != 200) {
             print(responseCarrisAPIVehiclesList as Any)
@@ -679,19 +650,23 @@ class CarrisNetworkController: ObservableObject {
             // Check if vehicleSummary has an unique identifier
             if (vehicleSummary.busNumber != nil) {
                
-               // If there is already and
-               if var existingVehicleObject = self.allVehicles[withId: vehicleSummary.busNumber!] {
+               let indexOfVehicleInArray = allVehicles.firstIndex(where: {
+                  $0.id == vehicleSummary.busNumber
+               })
+               
+               
+               if (indexOfVehicleInArray != nil) {
                   
-                  existingVehicleObject.routeNumber = vehicleSummary.routeNumber ?? "-"
-                  existingVehicleObject.lat = vehicleSummary.lat ?? 0
-                  existingVehicleObject.lng = vehicleSummary.lng ?? 0
-                  existingVehicleObject.previousLatitude = vehicleSummary.previousLatitude ?? 0
-                  existingVehicleObject.previousLongitude = vehicleSummary.previousLongitude ?? 0
-                  existingVehicleObject.lastGpsTime = vehicleSummary.lastGpsTime ?? ""
+                  allVehicles[indexOfVehicleInArray!].routeNumber = vehicleSummary.routeNumber ?? "-"
+                  allVehicles[indexOfVehicleInArray!].lat = vehicleSummary.lat ?? 0
+                  allVehicles[indexOfVehicleInArray!].lng = vehicleSummary.lng ?? 0
+                  allVehicles[indexOfVehicleInArray!].previousLatitude = vehicleSummary.previousLatitude ?? 0
+                  allVehicles[indexOfVehicleInArray!].previousLongitude = vehicleSummary.previousLongitude ?? 0
+                  allVehicles[indexOfVehicleInArray!].lastGpsTime = vehicleSummary.lastGpsTime ?? ""
                   
                } else {
                   self.allVehicles.append(
-                     CarrisVehicle(
+                     CarrisNetworkModel.Vehicle(
                         id: vehicleSummary.busNumber ?? 0,
                         routeNumber: vehicleSummary.routeNumber ?? "-",
                         lat: vehicleSummary.lat ?? 0,
@@ -727,7 +702,7 @@ class CarrisNetworkController: ObservableObject {
    
    
    
-   func getVehicle(by busNumber: Int) -> CarrisVehicle? {
+   func getVehicle(by busNumber: Int) -> CarrisNetworkModel.Vehicle? {
       if let existingVehicleObject = self.allVehicles[withId: busNumber] {
          return existingVehicleObject
       } else {

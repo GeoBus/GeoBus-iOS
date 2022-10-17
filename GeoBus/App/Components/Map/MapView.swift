@@ -44,13 +44,12 @@ struct MapView: View {
       .onChange(of: carrisNetworkController.activeVariant) { newVariant in
          if (newVariant != nil) {
             self.mapController.updateAnnotations(with: newVariant!)
-            self.mapController.updateAnnotations(with: carrisNetworkController.activeVehicles)
          }
       }
-      .onChange(of: carrisNetworkController.allVehicles) { newVehiclesList in
-         print("GB6: activeVehicles HAS CHANGED")
-         self.mapController.updateAnnotations(with: carrisNetworkController.update())
+      .onChange(of: carrisNetworkController.activeVehicles) { newVehiclesList in
+         self.mapController.updateAnnotations(with: newVehiclesList)
       }
+      
    }
 
 }

@@ -16,7 +16,7 @@ struct FavoriteRoutes: View {
 
    @Binding var showSelectRouteSheet: Bool
 
-   @State var routes: [Route_NEW] = []
+   @State var routes: [CarrisNetworkModel.Route] = []
    
 
    var body: some View {

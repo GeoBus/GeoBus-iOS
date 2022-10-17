@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ConnectionDetailsView: View {
    
-   let connection: Connection_NEW
+   let connection: CarrisNetworkModel.Connection
    
    @State private var viewSize = CGSize()
    
@@ -53,7 +53,7 @@ struct ConnectionDetailsView2: View {
    let publicId: String
    let name: String
    let orderInRoute: Int?
-   let direction: Direction?
+   let direction: CarrisNetworkModel.Direction?
    
    @State private var isOpen = false
    @State private var estimations: [Estimation]? = nil
