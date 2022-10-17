@@ -166,7 +166,7 @@ class VehiclesController: ObservableObject {
          // to the temporary variable.
          let result = VehicleDetails(
             busNumber: busNumber,
-            vehiclePlate: decodedAPIVehicleDetail.vehiclePlate ?? "",
+            vehiclePlate: decodedAPIVehicleDetail.vehiclePlate,
             lastStopOnVoyageName: decodedAPIVehicleDetail.lastStopOnVoyageName ?? "-"
          )
 
