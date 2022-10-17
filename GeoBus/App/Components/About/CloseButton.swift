@@ -32,7 +32,7 @@ struct CloseButton: View {
             .foregroundColor(Color(.secondaryLabel))
             .padding(.horizontal)
          Button(action: {
-            carrisNetworkController.start(withForcedUpdate: true)
+            carrisNetworkController.resetAndUpdateNetwork()
          }, label: {
             VStack {
                Text("Try Again")

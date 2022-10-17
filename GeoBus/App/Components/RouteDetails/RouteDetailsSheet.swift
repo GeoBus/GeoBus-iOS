@@ -25,9 +25,9 @@ struct RouteDetailsSheet: View {
          SheetHeader(title: Text("Route Details"), toggle: $showRouteDetailsSheet)
 
          HStack(spacing: 25) {
-            RouteBadgeSquare(routeNumber: carrisNetworkController.selectedRoute!.number)
+            RouteBadgeSquare(routeNumber: carrisNetworkController.activeRoute!.number)
                .frame(width: 80)
-            Text(carrisNetworkController.selectedRoute?.name ?? "-")
+            Text(carrisNetworkController.activeRoute?.name ?? "-")
                .fontWeight(.bold)
                .foregroundColor(Color(.label))
             Spacer()
@@ -54,21 +54,21 @@ struct RouteDetailsSheet: View {
 
       VStack(spacing: 15) {
 
-         if (carrisNetworkController.selectedVariant!.itineraries[0].direction == .circular) {
+         if (carrisNetworkController.activeVariant!.itineraries[0].direction == .circular) {
             RouteCircularVariantInfo()
-            StopsList(stops: carrisNetworkController.selectedVariant!.itineraries[0])
+//            StopsList(stops: carrisNetworkController.selectedVariant!.itineraries[0])
          } else {
             Picker("Direction", selection: $routeDirectionPicker) {
-               Text("to: \(carrisNetworkController.getTerminalStopNameForVariant(variant: carrisNetworkController.selectedVariant!, direction: .ascending))").tag(0)
-               Text("to: \(carrisNetworkController.getTerminalStopNameForVariant(variant: carrisNetworkController.selectedVariant!, direction: .descending))").tag(1)
+               Text("to: \(carrisNetworkController.getTerminalStopNameForVariant(variant: carrisNetworkController.activeVariant!, direction: .ascending))").tag(0)
+               Text("to: \(carrisNetworkController.getTerminalStopNameForVariant(variant: carrisNetworkController.activeVariant!, direction: .descending))").tag(1)
             }
             .pickerStyle(SegmentedPickerStyle())
 
-            if (self.routeDirectionPicker == 0) {
-               StopsList(stops: carrisNetworkController.selectedVariant!.upItinerary ?? [])
-            } else {
-               StopsList(stops: carrisNetworkController.selectedVariant!.downItinerary ?? [])
-            }
+//            if (self.routeDirectionPicker == 0) {
+//               StopsList(stops: carrisNetworkController.selectedVariant!.upItinerary ?? [])
+//            } else {
+//               StopsList(stops: carrisNetworkController.selectedVariant!.downItinerary ?? [])
+//            }
          }
 
       }
@@ -83,7 +83,7 @@ struct RouteDetailsSheet: View {
             liveInfo
                .padding()
             Divider()
-            if (carrisNetworkController.selectedRoute!.variants.count > 1) {
+            if (carrisNetworkController.activeRoute!.variants.count > 1) {
                VariantPicker()
                Divider()
             }

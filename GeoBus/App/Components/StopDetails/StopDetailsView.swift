@@ -61,7 +61,7 @@ struct ConnectionDetailsView2: View {
    
    func getEstimationsFromController() {
       Task {
-         self.estimations = await estimationsController.get(for: self.publicId)
+//         self.estimations = await estimationsController.get(for: self.publicId)
       }
    }
    

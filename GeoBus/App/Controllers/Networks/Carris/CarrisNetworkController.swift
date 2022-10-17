@@ -30,16 +30,13 @@ class CarrisNetworkController: ObservableObject {
    /* storage keys and more. Change these values with caution because they can */
    /* trigger updates on the users devices, which can take a long time or fail. */
    
-   private let network_updateInterval: Int = 86400 * 5 // 5 days
-   private let network_storageKeyForSavedStops: String = "network_savedStops"
-   private let network_storageKeyForSavedRoutes: String = "network_savedRoutes"
-   private let network_storageKeyForLastUpdated: String = "network_lastUpdated"
+   private let carrisNetworkUpdateInterval: Int = 86400 * 5 // 5 days
    
-   private let routes_storageKeyForFavoriteRoutes: String = "routes_favoriteRoutes"
-   
-   private let stops_storageKeyForFavoriteStops: String = "stops_favoriteStops"
-   
-   private let api_communityEndpoint: String = "https://api.carril.workers.dev"
+   private let storageKeyForLastUpdatedCarrisNetwork: String = "carris_lastUpdatedNetwork"
+   private let storageKeyForSavedStops: String = "carris_savedStops"
+   private let storageKeyForFavoriteStops: String = "carris_favoriteStops"
+   private let storageKeyForSavedRoutes: String = "carris_savedRoutes"
+   private let storageKeyForFavoriteRoutes: String = "carris_favoriteRoutes"
    
    
    
@@ -58,10 +55,11 @@ class CarrisNetworkController: ObservableObject {
    @Published var lastUpdatedNetwork: String? = nil
    @Published var networkUpdateProgress: Int? = nil
    
-   @Published var selectedRoute: Route_NEW? = nil
-   @Published var selectedVariant: Variant_NEW? = nil
-   @Published var selectedConnection: Connection_NEW? = nil
-   @Published var selectedStop: Stop_NEW? = nil
+   @Published var activeRoute: Route_NEW? = nil
+   @Published var activeVariant: Variant_NEW? = nil
+   @Published var activeConnection: Connection_NEW? = nil
+   @Published var activeStop: Stop_NEW? = nil
+   @Published var activeVehicles: [CarrisVehicle] = []
    
    @Published var favorites_routes: [Route_NEW] = []
    @Published var favorites_stops: [Stop_NEW] = []
@@ -79,21 +77,21 @@ class CarrisNetworkController: ObservableObject {
    init() {
       
       // Unwrap and Decode Stops from Storage
-      if let unwrappedSavedNetworkStops = UserDefaults.standard.data(forKey: network_storageKeyForSavedStops) {
+      if let unwrappedSavedNetworkStops = UserDefaults.standard.data(forKey: storageKeyForSavedStops) {
          if let decodedSavedNetworkStops = try? JSONDecoder().decode([Stop_NEW].self, from: unwrappedSavedNetworkStops) {
             self.allStops = decodedSavedNetworkStops
          }
       }
       
       // Unwrap and Decode Routes from Storage
-      if let unwrappedSavedNetworkRoutes = UserDefaults.standard.data(forKey: network_storageKeyForSavedRoutes) {
+      if let unwrappedSavedNetworkRoutes = UserDefaults.standard.data(forKey: storageKeyForSavedRoutes) {
          if let decodedSavedNetworkRoutes = try? JSONDecoder().decode([Route_NEW].self, from: unwrappedSavedNetworkRoutes) {
             self.allRoutes = decodedSavedNetworkRoutes
          }
       }
       
       // Unwrap last timestamp from Storage
-      if let unwrappedLastUpdatedNetwork = UserDefaults.standard.string(forKey: network_storageKeyForLastUpdated) {
+      if let unwrappedLastUpdatedNetwork = UserDefaults.standard.string(forKey: storageKeyForLastUpdatedCarrisNetwork) {
          self.lastUpdatedNetwork = unwrappedLastUpdatedNetwork
       }
       
@@ -109,14 +107,19 @@ class CarrisNetworkController: ObservableObject {
    /* if it is considered outdated or is inexistent on device storage. */
    /* Provide a convenience method to allow user-requested updates from the UI. */
    
-   func resetAndUpdateNetwork() {
-      self.start(withForcedUpdate: true)
+   public func start() {
+      self.updateNetwork(resetAndUpdate: false)
+      self.updateVehicles()
    }
    
-   func start(withForcedUpdate forceUpdate: Bool = false) {
+   public func resetAndUpdateNetwork() {
+      self.updateNetwork(resetAndUpdate: true)
+   }
+   
+   private func updateNetwork(resetAndUpdate forceUpdate: Bool) {
       
       // Conditions to update
-      let lastUpdateIsLongerThanInterval = Helpers.getSecondsFromISO8601DateString(lastUpdatedNetwork ?? "") > network_updateInterval
+      let lastUpdateIsLongerThanInterval = Helpers.getSecondsFromISO8601DateString(lastUpdatedNetwork ?? "") > carrisNetworkUpdateInterval
       let savedNetworkDataIsEmpty = allRoutes.isEmpty || allStops.isEmpty
       let updateIsForcedByCaller = forceUpdate
       
@@ -128,7 +131,7 @@ class CarrisNetworkController: ObservableObject {
          }
          // Replace timestamp in storage with current time
          let timestampOfCurrentUpdate = ISO8601DateFormatter().string(from: Date.now)
-         UserDefaults.standard.set(timestampOfCurrentUpdate, forKey: network_storageKeyForLastUpdated)
+         UserDefaults.standard.set(timestampOfCurrentUpdate, forKey: storageKeyForLastUpdatedCarrisNetwork)
       }
       
       
@@ -250,7 +253,7 @@ class CarrisNetworkController: ObservableObject {
          self.allRoutes.removeAll()
          self.allRoutes.append(contentsOf: tempAllRoutes)
          if let encodedAllRoutes = try? JSONEncoder().encode(self.allRoutes) {
-            UserDefaults.standard.set(encodedAllRoutes, forKey: network_storageKeyForSavedRoutes)
+            UserDefaults.standard.set(encodedAllRoutes, forKey: storageKeyForSavedRoutes)
          }
          
          print("Fetching Routes: Complete!")
@@ -426,7 +429,7 @@ class CarrisNetworkController: ObservableObject {
          self.allStops.removeAll()
          self.allStops.append(contentsOf: tempAllStops)
          if let encodedAllStops = try? JSONEncoder().encode(self.allStops) {
-            UserDefaults.standard.set(encodedAllStops, forKey: network_storageKeyForSavedStops)
+            UserDefaults.standard.set(encodedAllStops, forKey: storageKeyForSavedStops)
          }
          
          print("[GB-Debug] Fetching Stops: Complete!")
@@ -469,22 +472,15 @@ class CarrisNetworkController: ObservableObject {
    
    // Routes
    
-   enum CarrisNetworkControllerSelectableObject {
-      case route
-      case variant
-      case stop
+   
+   private func select(route: Route_NEW) {
+      self.activeRoute = route
+      self.select(variant: route.variants[0])
+      self.activeStop = nil
+      self.activeConnection = nil
+      self.update()
    }
    
-   public func isSelected(what selectableObject: CarrisNetworkControllerSelectableObject) -> Bool {
-      switch selectableObject {
-         case .route:
-            return (self.selectedRoute != nil) ? true : false
-         case .variant:
-            return (self.selectedVariant != nil) ? true : false
-         case .stop:
-            return (self.selectedStop != nil) ? true : false
-      }
-   }
    
    
    public func select(route routeNumber: String) {
@@ -502,28 +498,25 @@ class CarrisNetworkController: ObservableObject {
       }
    }
    
-   private func select(route: Route_NEW) {
-      self.selectedRoute = route
-      self.select(variant: route.variants[0])
-   }
+   
    
    public func select(variant: Variant_NEW) {
-      self.selectedVariant = variant
+      self.activeVariant = variant
    }
    
    
    public func deselect() {
-      self.selectedRoute = nil
-      self.selectedVariant = nil
-      self.selectedConnection = nil
-      self.selectedStop = nil
+      self.activeRoute = nil
+      self.activeVariant = nil
+      self.activeConnection = nil
+      self.activeStop = nil
    }
    
    
    // Stops
    
    private func select(stop: Stop_NEW) {
-      self.selectedStop = stop
+      self.activeStop = stop
    }
    
    func select(stop stopPublicId: String) {
@@ -570,12 +563,78 @@ class CarrisNetworkController: ObservableObject {
    
    // This function decides whether to update available routes
    
-   func update() {
+   func update2() {
       
-      Task {
-         await fetchVehiclesListFromCarrisAPI_NEW()
+      if (activeRoute != nil) {
+
+//         objectWillChange.send()
+         self.activeVehicles.removeAll()
+         
+         // Filter Vehicles matching the required conditions:
+         for vehicle in self.allVehicles {
+            
+            // CONDITION 1:
+            // Vehicle is currently driving the requested routeNumber
+            let matchesSelectedRouteNumber = vehicle.routeNumber == activeRoute?.number
+            
+            // CONDITION 2:
+            // Vehicle was last seen no longer than 3 minutes
+            let isNotZombieVehicle = Helpers.getLastSeenTime(since: vehicle.lastGpsTime ?? "") < 180
+            
+            // Find index of Annotation matching this vehicle busNumber
+            if (matchesSelectedRouteNumber && isNotZombieVehicle) {
+//               objectWillChange.send()
+//               self.activeVehicles.append(vehicle)
+            }
+            
+         }
+         
       }
       
+      objectWillChange.send()
+      self.activeVehicles.removeAll()
+      self.activeVehicles.append(self.allVehicles[6])
+      
+   }
+   
+   
+   func update() -> [CarrisVehicle] {
+      if (activeRoute != nil) {
+         
+         self.activeVehicles.removeAll()
+         
+         // Filter Vehicles matching the required conditions:
+         for vehicle in self.allVehicles {
+            
+            // CONDITION 1:
+            // Vehicle is currently driving the requested routeNumber
+            let matchesSelectedRouteNumber = vehicle.routeNumber == activeRoute?.number
+            
+            // CONDITION 2:
+            // Vehicle was last seen no longer than 3 minutes
+            let isNotZombieVehicle = Helpers.getLastSeenTime(since: vehicle.lastGpsTime ?? "") < 180
+            
+            // Find index of Annotation matching this vehicle busNumber
+            if (matchesSelectedRouteNumber && isNotZombieVehicle) {
+               self.activeVehicles.append(vehicle)
+            }
+            
+         }
+         
+         return activeVehicles
+      } else {
+         return []
+      }
+      
+   }
+   
+   
+   
+   func updateVehicles() {
+      Task {
+         await fetchVehiclesListFromCarrisAPI_NEW()
+         self.update()
+      }
    }
    
    
@@ -594,7 +653,7 @@ class CarrisNetworkController: ObservableObject {
       
       do {
          // Request all Vehicles from API
-         var requestCarrisAPIVehiclesList = URLRequest(url: URL(string: "https://gateway.carris.pt/gateway/xtranpassengerapi/api/v2.10/vehicleStatuses")!) // /routeNumber/\(routeNumber!)
+         var requestCarrisAPIVehiclesList = URLRequest(url: URL(string: "\(CarrisAPISettings.endpoint)/vehicleStatuses")!)
          requestCarrisAPIVehiclesList.addValue("application/json", forHTTPHeaderField: "Content-Type")
          requestCarrisAPIVehiclesList.addValue("application/json", forHTTPHeaderField: "Accept")
          requestCarrisAPIVehiclesList.setValue("Bearer \(CarrisAuthentication.shared.authToken ?? "invalid_token")", forHTTPHeaderField: "Authorization")
@@ -621,7 +680,7 @@ class CarrisNetworkController: ObservableObject {
             if (vehicleSummary.busNumber != nil) {
                
                // If there is already and
-               if let existingVehicleObject = self.allVehicles[withId: vehicleSummary.busNumber!] {
+               if var existingVehicleObject = self.allVehicles[withId: vehicleSummary.busNumber!] {
                   
                   existingVehicleObject.routeNumber = vehicleSummary.routeNumber ?? "-"
                   existingVehicleObject.lat = vehicleSummary.lat ?? 0
@@ -647,6 +706,10 @@ class CarrisNetworkController: ObservableObject {
             }
             
          }
+         
+         print("GB6: allVehicles[0].lat: \(allVehicles[6].lat)")
+         print("GB6: allVehicles[0].coordinate: \(allVehicles[6].coordinate)")
+         
          
          Appstate.shared.change(to: .idle, for: .vehicles)
          

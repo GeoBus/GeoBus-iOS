@@ -25,30 +25,31 @@ struct MapView: View {
       ) { annotation in
 
          MapAnnotation(coordinate: annotation.location) {
-            switch (annotation.format) {
-               case .carris_stop:
-                  CarrisStopAnnotationView(stop: annotation.carris_stop!)
-               case .carris_vehicle:
-                  CarrisVehicleAnnotationView(vehicle: annotation.carris_vehicle!)
-               case .carris_connection:
-                  CarrisConnectionAnnotationView(connection: annotation.carris_connection!)
+            switch (annotation.item) {
+               case .carris_stop(let item):
+                  CarrisStopAnnotationView(stop: item)
+               case .carris_vehicle(let item):
+                  CarrisVehicleAnnotationView(vehicle: item)
+               case .carris_connection(let item):
+                  CarrisConnectionAnnotationView(connection: item)
             }
          }
 
       }
-      .onChange(of: carrisNetworkController.selectedStop) { newStop in
+      .onChange(of: carrisNetworkController.activeStop) { newStop in
          if (newStop != nil) {
             self.mapController.updateAnnotations(with: newStop!)
          }
       }
-      .onChange(of: carrisNetworkController.selectedVariant) { newVariant in
+      .onChange(of: carrisNetworkController.activeVariant) { newVariant in
          if (newVariant != nil) {
             self.mapController.updateAnnotations(with: newVariant!)
-            self.mapController.updateAnnotations(with: carrisNetworkController.allVehicles, for: carrisNetworkController.selectedRoute?.number)
+            self.mapController.updateAnnotations(with: carrisNetworkController.activeVehicles)
          }
       }
       .onChange(of: carrisNetworkController.allVehicles) { newVehiclesList in
-         self.mapController.updateAnnotations(with: newVehiclesList, for: carrisNetworkController.selectedRoute?.number)
+         print("GB6: activeVehicles HAS CHANGED")
+         self.mapController.updateAnnotations(with: carrisNetworkController.update())
       }
    }
 

@@ -10,54 +10,17 @@ import MapKit
 import SwiftUI
 
 
+
 struct GenericMapAnnotation: Identifiable {
-   
-   let id = UUID()
+
+   let id: Int
    var location: CLLocationCoordinate2D
-   let format: Format
+   var item: AnnotationItem
    
-   enum Format {
-      case carris_stop
-      case carris_vehicle
-      case carris_connection
-   }
-   
-   // For Stops
-   var carris_stop: Stop_NEW?
-   
-   init(lat: Double, lng: Double, format: Format, stop: Stop_NEW) {
-      self.location = CLLocationCoordinate2D(latitude: lat, longitude: lng)
-      self.format = format
-      self.carris_stop = stop
-      self.carris_vehicle = nil
-      self.carris_connection = nil
-      self.busNumber = nil
-   }
-   
-   
-   // For Connections
-   var carris_connection: Connection_NEW?
-   
-   init(lat: Double, lng: Double, format: Format, connection: Connection_NEW) {
-      self.location = CLLocationCoordinate2D(latitude: lat, longitude: lng)
-      self.format = format
-      self.carris_stop = nil
-      self.carris_connection = connection
-      self.carris_vehicle = nil
-      self.busNumber = nil
-   }
-   
-   // For Vehicles
-   var carris_vehicle: CarrisVehicle?
-   let busNumber: Int?
-   
-   init(lat: Double, lng: Double, format: Format, busNumber: Int, vehicle: CarrisVehicle) {
-      self.location = CLLocationCoordinate2D(latitude: lat, longitude: lng)
-      self.format = format
-      self.carris_stop = nil
-      self.carris_vehicle = vehicle
-      self.carris_connection = nil
-      self.busNumber = busNumber
+   enum AnnotationItem {
+      case carris_stop(Stop_NEW)
+      case carris_connection(Connection_NEW)
+      case carris_vehicle(CarrisVehicle)
    }
    
 }
@@ -66,11 +29,9 @@ struct GenericMapAnnotation: Identifiable {
 
 
 
-
-
 struct CarrisStopAnnotationView: View {
    
-   var stop: Stop_NEW
+   public let stop: Stop_NEW
    
    @State private var isAnnotationSelected: Bool = false
    
@@ -106,7 +67,7 @@ struct CarrisStopAnnotationView: View {
 
 struct CarrisConnectionAnnotationView: View {
    
-   var connection: Connection_NEW
+   public let connection: Connection_NEW
    
    @State private var isAnnotationSelected: Bool = false
    
@@ -141,7 +102,7 @@ struct CarrisConnectionAnnotationView: View {
 
 struct CarrisVehicleAnnotationView: View {
    
-   let vehicle: CarrisVehicle
+   @ObservedObject var vehicle: CarrisVehicle
    
    @State private var isPresented: Bool = false
    @State private var viewSize = CGSize()
@@ -171,6 +132,7 @@ struct CarrisVehicleAnnotationView: View {
       }
       .frame(width: 40, height: 40, alignment: .center)
       .rotationEffect(.radians(vehicle.angleInRadians ?? 0))
+      .animation(.default, value: vehicle.angleInRadians)
       .sheet(isPresented: $isPresented) {
          VStack(alignment: .leading) {
             VehicleDetailsView(

@@ -34,7 +34,7 @@ struct NavBar: View {
    // then it acts as button to choose a route.
    var routeDetails: some View {
       Button(action: {
-         if (carrisNetworkController.selectedRoute != nil) {
+         if (carrisNetworkController.activeRoute != nil) {
             showRouteDetailsSheet = true
          } else {
             showSelectRouteSheet = true

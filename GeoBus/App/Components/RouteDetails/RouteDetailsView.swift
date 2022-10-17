@@ -71,13 +71,13 @@ struct RouteDetailsView: View {
       VStack(alignment: .leading) {
          HStack {
             PulseLabel(accent: .green, label: Text("Live"))
-            Text(carrisNetworkController.allVehicles.count == 1 ? "1 active vehicle" : "\(carrisNetworkController.allVehicles.count) active vehicles")
+            Text(carrisNetworkController.activeVehicles.count == 1 ? "1 active vehicle" : "\(carrisNetworkController.activeVehicles.count) active vehicles")
                .font(Font.system(size: 11, weight: .medium, design: .default) )
                .lineLimit(1)
                .foregroundColor(Color(.secondaryLabel))
             Spacer()
          }
-         Text(carrisNetworkController.selectedVariant?.name ?? "-")
+         Text(carrisNetworkController.activeVariant?.name ?? "-")
             .font(.body)
             .fontWeight(.bold)
             .lineLimit(2)
@@ -94,7 +94,7 @@ struct RouteDetailsView: View {
             updatingRoutesScreen
          } else if (appstate.global == .error) {
             connectionError
-         } else if (carrisNetworkController.selectedRoute != nil) {
+         } else if (carrisNetworkController.activeRoute != nil) {
             selectedRouteDetails
          } else {
             initScreen

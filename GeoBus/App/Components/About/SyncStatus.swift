@@ -33,7 +33,7 @@ struct SyncStatus: View {
             .fontWeight(.semibold)
             .foregroundColor(Color(.secondaryLabel))
          Button(action: {
-            carrisNetworkController.start(withForcedUpdate: true)
+            carrisNetworkController.resetAndUpdateNetwork()
          }, label: {
             VStack {
                Text("Try Again")
@@ -87,7 +87,7 @@ struct SyncStatus: View {
             .font(Font.system(size: 30, weight: .regular))
             .foregroundColor(Color(.systemGreen))
             .onTapGesture(count: 2, perform: {
-               carrisNetworkController.start(withForcedUpdate: true)
+               carrisNetworkController.resetAndUpdateNetwork()
             })
          Text("Up to Date")
             .font(.title)

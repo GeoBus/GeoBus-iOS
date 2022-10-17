@@ -22,7 +22,7 @@ struct GeoBusApp: App {
                Analytics.shared.capture(event: .App_Session_Start) // Capture app open
             })
             .onReceive(updateIntervalTimer) { event in
-               carrisNetworkController.update() // Update vehicles on timer call
+               carrisNetworkController.updateVehicles() // Update vehicles on timer call
                Analytics.shared.capture(event: .App_Session_Ping) // Capture session continuation
             }
       }

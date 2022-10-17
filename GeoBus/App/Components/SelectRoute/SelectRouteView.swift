@@ -36,8 +36,8 @@ struct SelectRouteView: View {
             
          } else {
             
-            if (carrisNetworkController.selectedRoute != nil) {
-               RouteBadgeSquare(routeNumber: carrisNetworkController.selectedRoute!.number)
+            if (carrisNetworkController.activeRoute != nil) {
+               RouteBadgeSquare(routeNumber: carrisNetworkController.activeRoute!.number)
                
             } else {
                RoundedRectangle(cornerRadius: 10)

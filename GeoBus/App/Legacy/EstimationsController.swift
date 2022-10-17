@@ -45,7 +45,7 @@ class EstimationsController: ObservableObject {
             throw Appstate.ModuleError.carris_unavailable
          }
          
-         let decodedAPIEstimations = try JSONDecoder().decode([CarrisAPIEstimation].self, from: rawDataAPIEstimations)
+         let decodedAPIEstimations = try JSONDecoder().decode([CarrisAPIModel.Estimation].self, from: rawDataAPIEstimations)
          
          // Define a temporary variable to store vehicles
          // before publishing and displaying them in the map.

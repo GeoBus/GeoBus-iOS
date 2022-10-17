@@ -7,26 +7,7 @@ import MapKit
 /* Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia. */
 
 
-class CarrisVehicle: Identifiable, Equatable {
-   
-   static func == (lhs: CarrisVehicle, rhs: CarrisVehicle) -> Bool {
-      return
-         lhs.id == rhs.id &&
-         lhs.coordinate?.latitude == rhs.coordinate?.latitude &&
-         lhs.coordinate?.longitude == rhs.coordinate?.longitude &&
-         lhs.routeNumber == rhs.routeNumber
-   }
-   
-   
-   public init(id: Int, routeNumber: String?, lat: Double?, lng: Double?, previousLatitude: Double?, previousLongitude: Double?, lastGpsTime: String?) {
-      self.id = id
-      self.lat = lat
-      self.lng = lng
-      self.previousLatitude = previousLatitude
-      self.previousLongitude = previousLongitude
-      self.lastGpsTime = lastGpsTime
-   }
-   
+class CarrisVehicle: Identifiable, Equatable, ObservableObject {
    
    /* * */
    /* MARK: - SECTION 1: IDENTIFIER */
@@ -37,47 +18,76 @@ class CarrisVehicle: Identifiable, Equatable {
    
    
    /* * */
-   /* MARK: - SECTION 2: VEHICLE PROPERTIES */
+   /* MARK: - SECTION 2: STATIC PROPERTIES */
    /* The data for this model. Here they are separated from the ones */
    /* retrieved from Carris API and from other community sources. */
    
    // From Carris API › Vehicle Summary
-   public var routeNumber: String?
-   
-   public var lat: Double?
-   public var lng: Double?
-   public var previousLatitude: Double?
-   public var previousLongitude: Double?
-   public var lastGpsTime: String?
-   
-   public var coordinate: CLLocationCoordinate2D? {
-      return CLLocationCoordinate2D(latitude: self.lat ?? 0, longitude: self.lng ?? 0)
+   @Published var routeNumber: String? {
+      didSet {
+         self.kind = Helpers.getKind(by: self.routeNumber ?? "")
+      }
    }
    
-   public var previousCoordinate: CLLocationCoordinate2D? {
-      return CLLocationCoordinate2D(latitude: self.previousLatitude ?? 0, longitude: self.previousLongitude ?? 0)
+   @Published var lat: Double? {
+      didSet {
+         print("GB7: HAS CHANGES LAT")
+         self.angleInRadians = self.getAngleInRadians(
+            prevLat: previousCoordinate.latitude,
+            prevLng: previousCoordinate.longitude,
+            currLat: coordinate.latitude,
+            currLng: coordinate.longitude
+         )
+      }
    }
    
-   public var kind: Kind? {
-      return Helpers.getKind(by: self.routeNumber ?? "")
+   @Published var lng: Double? {
+      didSet {
+         print("GB7: HAS CHANGES LNG")
+         self.angleInRadians = self.getAngleInRadians(
+            prevLat: previousCoordinate.latitude,
+            prevLng: previousCoordinate.longitude,
+            currLat: coordinate.latitude,
+            currLng: coordinate.longitude
+         )
+      }
    }
    
-   public var angleInRadians: Double? {
-      return self.getAngleInRadians(
-         prevLat: previousLatitude ?? 0,
-         prevLng: previousLongitude ?? 0,
-         currLat: coordinate?.latitude ?? 0,
-         currLng: coordinate?.longitude ?? 0
+   @Published var previousLatitude: Double?
+   @Published var previousLongitude: Double?
+   @Published var lastGpsTime: String?
+   
+   // Carris API › Vehicle Details
+   @Published var vehiclePlate: String?
+   @Published var lastStopOnVoyageId: Int?
+   @Published var lastStopOnVoyageName: String?
+   
+   // Community API
+   @Published var estimatedTimeofArrivalCorrected: [String]?
+   
+   
+   
+   /* * */
+   /* MARK: - SECTION 2: COMPUTED PROPERTIES */
+   /* The data for this model. Here they are separated from the ones */
+   /* retrieved from Carris API and from other community sources. */
+   
+   public var coordinate: CLLocationCoordinate2D {
+      return CLLocationCoordinate2D(
+         latitude: self.lat ?? 0,
+         longitude: self.lng ?? 0
       )
    }
    
-   // Carris API › Vehicle Details
-   public var vehiclePlate: String?
-   public var lastStopOnVoyageId: Int?
-   public var lastStopOnVoyageName: String?
+   public var previousCoordinate: CLLocationCoordinate2D {
+      return CLLocationCoordinate2D(
+         latitude: self.previousLatitude ?? 0,
+         longitude: self.previousLongitude ?? 0
+      )
+   }
    
-   // Community API
-   public var estimatedTimeofArrivalCorrected: [String]?
+   @Published var kind: Kind?
+   @Published var angleInRadians: Double?
    
    
    
@@ -86,20 +96,41 @@ class CarrisVehicle: Identifiable, Equatable {
    /* Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, */
    /* molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum */
    
-//   public init(id: Int) {
-//      self.id = id
-//   }
-//   
-//   public init(id: Int, lat: Double, lng: Double, routeNumber: String) {
-//      self.id = id
-//      self.coordinate = CLLocationCoordinate2D(latitude: lat, longitude: lng)
-//      self.routeNumber = routeNumber
-//   }
+   public init(id: Int, routeNumber: String?, lat: Double?, lng: Double?, previousLatitude: Double?, previousLongitude: Double?, lastGpsTime: String?) {
+      self.id = id
+      self.routeNumber = routeNumber
+      self.lat = lat
+      self.lng = lng
+      self.previousLatitude = previousLatitude
+      self.previousLongitude = previousLongitude
+      self.lastGpsTime = lastGpsTime
+   }
    
    
    
    /* * */
-   /* MARK: - SECTION 3: INITIALIZER */
+   /* MARK: - SECTION 3: EQUATABLE DEFINITION */
+   /* Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, */
+   /* molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum */
+   
+   static func == (lhs: CarrisVehicle, rhs: CarrisVehicle) -> Bool {
+      return
+         lhs.id == rhs.id &&
+         lhs.lat == rhs.lat &&
+         lhs.lng == rhs.lng &&
+         lhs.coordinate.latitude == rhs.coordinate.latitude &&
+         lhs.coordinate.longitude == rhs.coordinate.longitude &&
+         lhs.previousCoordinate.longitude == rhs.previousCoordinate.longitude &&
+         lhs.previousCoordinate.latitude == rhs.previousCoordinate.latitude &&
+         lhs.lastGpsTime == rhs.lastGpsTime &&
+         lhs.angleInRadians == rhs.angleInRadians &&
+         lhs.routeNumber == rhs.routeNumber
+   }
+   
+   
+   
+   /* * */
+   /* MARK: - SECTION 3: UPDATE SELF */
    /* Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, */
    /* molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum */
    
@@ -111,7 +142,6 @@ class CarrisVehicle: Identifiable, Equatable {
    
    
    
-   
    /* * */
    /* MARK: - SECTION 4: FETCH VEHICLE DETAILS FROM CARRIS API */
    /* This function calls Carris SGO endpoint to retrieve additional vehicle info, */
@@ -119,11 +149,11 @@ class CarrisVehicle: Identifiable, Equatable {
    /* information. This function should only be called when the user requests it. */
    
    private func updateVehicleWithAdditionalDetailsFromCarrisAPI() async {
-      
+
       Appstate.shared.change(to: .loading, for: .vehicles)
-      
+
       do {
-         
+
          // Request Vehicle Detail (SGO)
          var requestAPIVehicleDetail = URLRequest(url: URL(string: "\(CarrisAPISettings.endpoint)/SGO/busNumber/\(self.id)")!)
          requestAPIVehicleDetail.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -131,7 +161,7 @@ class CarrisVehicle: Identifiable, Equatable {
          requestAPIVehicleDetail.setValue("Bearer \(CarrisAuthentication.shared.authToken ?? "invalid_token")", forHTTPHeaderField: "Authorization")
          let (rawDataAPIVehicleDetail, rawResponseAPIVehicleDetail) = try await URLSession.shared.data(for: requestAPIVehicleDetail)
          let responseAPIVehicleDetail = rawResponseAPIVehicleDetail as? HTTPURLResponse
-         
+
          // Check status of response
          if (responseAPIVehicleDetail?.statusCode == 401) {
             await CarrisAuthentication.shared.authenticate()
@@ -141,24 +171,24 @@ class CarrisVehicle: Identifiable, Equatable {
             print(responseAPIVehicleDetail as Any)
             throw Appstate.ModuleError.carris_unavailable
          }
-         
-         let decodedAPIVehicleDetail = try JSONDecoder().decode(CarrisAPIVehicleDetail.self, from: rawDataAPIVehicleDetail)
-         
+
+         let decodedAPIVehicleDetail = try JSONDecoder().decode(CarrisAPIModel.VehicleDetail.self, from: rawDataAPIVehicleDetail)
+
          // Update properties with new values
          self.vehiclePlate = decodedAPIVehicleDetail.vehiclePlate
          self.lastStopOnVoyageId = decodedAPIVehicleDetail.lastStopOnVoyageId
          self.lastStopOnVoyageName = decodedAPIVehicleDetail.lastStopOnVoyageName
          self.lat = decodedAPIVehicleDetail.lat ?? 0
          self.lng = decodedAPIVehicleDetail.lng ?? 0
-         
+
          Appstate.shared.change(to: .idle, for: .vehicles)
-         
+
       } catch {
          Appstate.shared.change(to: .error, for: .vehicles)
          print("ERROR IN VEHICLE DETAILS: \(error)")
          return
       }
-      
+
    }
    
    

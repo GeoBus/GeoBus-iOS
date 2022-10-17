@@ -18,20 +18,20 @@ struct VariantPicker: View {
 
          HStack(spacing: 10) {
 
-            VariantWarning(qty: carrisNetworkController.selectedRoute?.variants.count ?? 0)
+            VariantWarning(qty: carrisNetworkController.activeRoute?.variants.count ?? 0)
 
-            ForEach(carrisNetworkController.selectedRoute!.variants) { variant in
+            ForEach(carrisNetworkController.activeRoute!.variants) { variant in
 
                Button(action: {
                   carrisNetworkController.select(variant: variant)
                }) {
                   VariantButton(
                      variantName: variant.name,
-                     isSelected: carrisNetworkController.selectedVariant == variant
+                     isSelected: carrisNetworkController.activeVariant == variant
                   )
                   .padding(.vertical, 15)
                }
-               .disabled(carrisNetworkController.selectedVariant == variant)
+               .disabled(carrisNetworkController.activeVariant == variant)
             }
 
          }

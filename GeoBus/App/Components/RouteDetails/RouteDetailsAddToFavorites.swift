@@ -17,13 +17,10 @@ struct RouteDetailsAddToFavorites: View {
       VStack {
          Image(systemName: "heart.fill")
             .font(.system(size: 30, weight: .bold, design: .default))
-            .foregroundColor(carrisNetworkController.isFavourite(route: carrisNetworkController.selectedRoute!) ? Color(.white) : Color(.systemRed))
+            .foregroundColor(Color(.systemBlue) /*carrisNetworkController.isFavourite(route: carrisNetworkController.selectedRoute!) ? Color(.white) : Color(.systemRed)*/)
       }
       .frame(maxWidth: .infinity, maxHeight: .infinity)
-      .background(carrisNetworkController.isFavourite(route: carrisNetworkController.selectedRoute!)
-                  ? Color(.systemRed)
-                  : Color("BackgroundSecondary")
-      )
+      .background(Color(.systemYellow)/*carrisNetworkController.isFavourite(route: carrisNetworkController.selectedRoute!) ? Color(.systemRed) : Color("BackgroundSecondary")*/ )
       .cornerRadius(10)
       .aspectRatio(1, contentMode: .fit)
       .frame(width: 120)
