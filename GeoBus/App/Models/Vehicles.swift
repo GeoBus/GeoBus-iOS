@@ -71,7 +71,7 @@ struct VehicleSummary: Codable, Equatable, Identifiable {
 
 struct VehicleDetails: Codable, Equatable, Identifiable {
    let busNumber: Int
-   let vehiclePlate: String
+   let vehiclePlate: String?
    let lastStopOnVoyageName: String
 
    var id: String {

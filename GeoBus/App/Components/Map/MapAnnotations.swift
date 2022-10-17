@@ -111,23 +111,29 @@ struct VehicleAnnotationView: View {
          self.isPresented = true
          TapticEngine.impact.feedback(.light)
       }) {
-         VStack {
+         ZStack(alignment: .init(horizontal: .leading, vertical: .center)) {
             switch (vehicle.kind) {
                case .tram:
-                  Image("Tram-Active")
+                  Image("Tram")
                case .neighborhood:
-                  Image("RegularService-Active")
+                  Image("RegularService")
                case .night:
-                  Image("RegularService-Active")
+                  Image("RegularService")
                case .elevator:
-                  Image("RegularService-Active")
+                  Image("RegularService")
                case .regular:
-                  Image("RegularService-Active")
+                  Image("RegularService")
+                  Text(verbatim: String(vehicle.busNumber))
+                     .font(Font.system(size: 10, weight: .bold, design: .monospaced))
+                     .tracking(1)
+                     .foregroundColor(.white)
+                     .padding(.leading, 12)
             }
          }
       }
       .frame(width: 40, height: 40, alignment: .center)
       .rotationEffect(.radians(vehicle.angleInRadians))
+      .animation(.default, value: vehicle.angleInRadians)
       .sheet(isPresented: $isPresented) {
          VStack(alignment: .leading) {
             VehicleDetailsView(
