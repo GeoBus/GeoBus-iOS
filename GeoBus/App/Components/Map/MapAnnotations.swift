@@ -128,6 +128,7 @@ struct VehicleAnnotationView: View {
       }
       .frame(width: 40, height: 40, alignment: .center)
       .rotationEffect(.radians(vehicle.angleInRadians))
+      .animation(.default, value: vehicle.angleInRadians)
       .sheet(isPresented: $isPresented) {
          VStack(alignment: .leading) {
             VehicleDetailsView(
