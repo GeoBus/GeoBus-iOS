@@ -76,7 +76,7 @@ struct CarrisAPIModel {
       let previousLongitude: Double?
    }
    
-   struct VehicleDetail: Codable {
+   struct VehicleDetail: Decodable {
       let vehiclePlate: String?
       let routeNumber: String?
       let plateNumber: String?
