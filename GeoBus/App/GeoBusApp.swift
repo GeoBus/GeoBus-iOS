@@ -19,11 +19,11 @@ struct GeoBusApp: App {
             .environmentObject(mapController)
             .environmentObject(carrisNetworkController)
             .onAppear(perform: {
-               Analytics.shared.capture(event: .App_Session_Start) // Capture app open
+               Analytics.shared.capture(event: .App_Session_Start)
             })
             .onReceive(updateIntervalTimer) { event in
-               carrisNetworkController.updateVehicles() // Update vehicles on timer call
-               Analytics.shared.capture(event: .App_Session_Ping) // Capture session continuation
+               carrisNetworkController.refresh()
+               Analytics.shared.capture(event: .App_Session_Ping)
             }
       }
    }
