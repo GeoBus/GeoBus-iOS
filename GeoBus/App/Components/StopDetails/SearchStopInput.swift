@@ -40,7 +40,7 @@ struct SearchStopInput: View {
             .cornerRadius(10)
 
             Button(action: {
-               let success = self.carrisNetworkController.select(stop: self.stopPublicId.uppercased(), returnResult: true)
+               let success = self.carrisNetworkController.select(stop: Int(self.stopPublicId.uppercased()) ?? -1)
                if success {
                   self.showSheet = false
                   Analytics.shared.capture(event: .Stops_Select_FromTextInput, properties: ["stopPublicId": self.stopPublicId.uppercased()])
