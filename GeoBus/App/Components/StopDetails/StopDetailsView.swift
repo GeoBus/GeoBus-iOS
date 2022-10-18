@@ -17,10 +17,10 @@ struct ConnectionDetailsView: View {
        VStack(alignment: .leading) {
           ConnectionDetailsView2(
             canToggle: false,
-            publicId: connection.stop.publicId,
+            publicId: connection.stop.id,
             name: connection.stop.name,
             orderInRoute: connection.orderInRoute,
-            direction: .circular
+            direction: connection.direction
           )
           .padding(.bottom, 20)
           Disclaimer()
@@ -50,7 +50,7 @@ struct ConnectionDetailsView2: View {
    let refreshTimer = Timer.publish(every: 60 /* seconds */, on: .main, in: .common).autoconnect()
    
    let canToggle: Bool
-   let publicId: String
+   let publicId: Int
    let name: String
    let orderInRoute: Int?
    let direction: CarrisNetworkModel.Direction?

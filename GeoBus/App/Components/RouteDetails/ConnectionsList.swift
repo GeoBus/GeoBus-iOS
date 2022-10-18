@@ -18,7 +18,7 @@ struct ConnectionsList: View {
          ForEach(connections) { connection in
             ConnectionDetailsView2(
                canToggle: true,
-               publicId: connection.stop.publicId,
+               publicId: connection.stop.id,
                name: connection.stop.name,
                orderInRoute: connection.orderInRoute,
                direction: connection.direction
