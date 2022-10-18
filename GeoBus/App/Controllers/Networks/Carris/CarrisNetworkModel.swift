@@ -28,9 +28,9 @@ struct CarrisNetworkModel {
    
    
    enum Direction: Codable {
+      case circular
       case ascending
       case descending
-      case circular
    }
    
    
@@ -63,29 +63,17 @@ struct CarrisNetworkModel {
       let id: Int
       let number: Int
       let name: String
-      let itineraries: [Itinerary]
+      let circularItinerary: [Connection]?
+      let ascendingItinerary: [Connection]?
+      let descendingItinerary: [Connection]?
       
-      init(number: Int, name: String, itineraries: [Itinerary]) {
+      init(number: Int, name: String, circularItinerary: [Connection]? = nil, ascendingItinerary: [Connection]? = nil, descendingItinerary: [Connection]? = nil) {
          self.id = number
          self.number = number
          self.name = name
-         self.itineraries = itineraries
-      }
-   }
-   
-   
-   // ITINERARY
-   // Itineraries hold the list of connections (stops) for each variant.
-   // They are identified by their direction (ascending, descending, circular).
-   struct Itinerary: Codable, Equatable, Identifiable {
-      let id: Direction
-      let direction: Direction
-      let connections: [Connection]
-      
-      init(direction: Direction, connections: [Connection]) {
-         self.id = direction
-         self.direction = direction
-         self.connections = connections
+         self.circularItinerary = circularItinerary
+         self.ascendingItinerary = ascendingItinerary
+         self.descendingItinerary = descendingItinerary
       }
    }
    
@@ -95,11 +83,13 @@ struct CarrisNetworkModel {
    // to hold a ‹orderInRoute› number. Connections are identified by this value.
    struct Connection: Codable, Equatable, Identifiable {
       let id: Int
+      let direction: Direction
       let orderInRoute: Int
       let stop: Stop
       
-      init(orderInRoute: Int, stop: Stop) {
+      init(direction: Direction, orderInRoute: Int, stop: Stop) {
          self.id = orderInRoute
+         self.direction = direction
          self.orderInRoute = orderInRoute
          self.stop = stop
       }
