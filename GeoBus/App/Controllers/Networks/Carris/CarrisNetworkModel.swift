@@ -96,9 +96,10 @@ struct CarrisNetworkModel {
    }
    
    
-   // STOP
-   // Stops are identified by its ‹publicId› value.
-   // They have a name and a location.
+   /* * */
+   /* MARK: - STOP */
+   /* Stops are identified by its ‹publicId› value. */
+   /* They have a name and a location. */
    struct Stop: Codable, Equatable, Identifiable {
       let id: Int
       let name: String
@@ -113,6 +114,28 @@ struct CarrisNetworkModel {
    }
    
    
+   /* * */
+   /* MARK: - ESTIMATION */
+   /* Lorem ipsum. */
+   struct Estimation: Codable, Identifiable, Equatable {
+      let id: UUID
+      let stopId: Int
+      let routeNumber: String
+      let destination: String
+      let eta: String
+      let busNumber: Int?
+      
+      init(stopId: Int, routeNumber: String, destination: String, eta: String, busNumber: Int? = nil) {
+         self.id = UUID()
+         self.stopId = stopId
+         self.routeNumber = routeNumber
+         self.destination = destination
+         self.busNumber = busNumber
+         self.eta = eta
+      }
+   }
+   
+   
    
    /* * */
    /* MARK: - CARRIS VEHICLE */
@@ -120,9 +143,8 @@ struct CarrisNetworkModel {
    
    struct Vehicle: Identifiable, Equatable {
       
-      /* * */
-      /* MARK: - IDENTIFIER */
-      /* The unique identifier for this model. */
+      // IDENTIFIER
+      // The unique identifier for this model.
       
       let id: Int // Bus Number
       
