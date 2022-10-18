@@ -357,9 +357,9 @@
 			children = (
 				CF5094C628FC365700EDD320 /* CarrisAPISettings.swift */,
 				CFFFAD8428F7A21100DFD5FD /* CarrisAuthentication.swift */,
-				CF5094C828FC50AC00EDD320 /* CarrisNetworkController.swift */,
 				CF5094CC28FCB9E400EDD320 /* CarrisAPIModel.swift */,
 				CF5094CA28FC50E900EDD320 /* CarrisNetworkModel.swift */,
+				CF5094C828FC50AC00EDD320 /* CarrisNetworkController.swift */,
 			);
 			path = Carris;
 			sourceTree = "<group>";
