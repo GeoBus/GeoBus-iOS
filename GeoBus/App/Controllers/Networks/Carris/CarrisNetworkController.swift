@@ -610,7 +610,7 @@ class CarrisNetworkController: ObservableObject {
       }
    }
    
-   public func find(vehicle vehicleId: Int) -> CarrisNetworkModel.Vehicle? {
+   private func find(vehicle vehicleId: Int) -> CarrisNetworkModel.Vehicle? {
       if let requestedVehicleObject = self.allVehicles[withId: vehicleId] {
          return requestedVehicleObject
       } else {
@@ -857,6 +857,70 @@ class CarrisNetworkController: ObservableObject {
          Appstate.shared.change(to: .error, for: .vehicles)
          print("GB Carris: Vehicle Details: ERROR IN VEHICLE DETAILS: \(error)")
          return
+      }
+      
+   }
+   
+   
+   
+   /* MARK: - Get Estimations */
+   // This function calls the API to retrieve estimations for the provided stop 'publicId'.
+   // It formats and returns the results to the caller.
+   
+   public func getEstimation(for stopId: Int) async -> [CarrisNetworkModel.Estimation] {
+         return await self.fetchEstimationsFromCarrisAPI(for: stopId)
+//         self.populateActiveVehicles()
+   }
+   
+   public func fetchEstimationsFromCarrisAPI(for stopId: Int) async -> [CarrisNetworkModel.Estimation] {
+      
+      Appstate.shared.change(to: .loading, for: .estimations)
+      
+      do {
+         // Request API Routes List
+         var requestCarrisAPIEstimations = URLRequest(url: URL(string: "\(CarrisAPISettings.endpoint)/Estimations/busStop/\(stopId)/top/5")!)
+         requestCarrisAPIEstimations.addValue("application/json", forHTTPHeaderField: "Content-Type")
+         requestCarrisAPIEstimations.addValue("application/json", forHTTPHeaderField: "Accept")
+         requestCarrisAPIEstimations.setValue("Bearer \(CarrisAuthentication.shared.authToken ?? "invalid_token")", forHTTPHeaderField: "Authorization")
+         let (rawDataCarrisAPIEstimations, rawResponseCarrisAPIEstimations) = try await URLSession.shared.data(for: requestCarrisAPIEstimations)
+         let responseCarrisAPIEstimations = rawResponseCarrisAPIEstimations as? HTTPURLResponse
+         
+         // Check status of response
+         if (responseCarrisAPIEstimations?.statusCode == 401) {
+            await CarrisAuthentication.shared.authenticate()
+            return await self.fetchEstimationsFromCarrisAPI(for: stopId)
+         } else if (responseCarrisAPIEstimations?.statusCode != 200) {
+            print(responseCarrisAPIEstimations as Any)
+            throw Appstate.ModuleError.carris_unavailable
+         }
+         
+         let decodedCarrisAPIEstimations = try JSONDecoder().decode([CarrisAPIModel.Estimation].self, from: rawDataCarrisAPIEstimations)
+         
+         
+         var tempFormattedEstimations: [CarrisNetworkModel.Estimation] = []
+         
+         
+         // For each available vehicles in the API
+         for apiEstimation in decodedCarrisAPIEstimations {
+            tempFormattedEstimations.append(
+               CarrisNetworkModel.Estimation(
+                  stopId: Int(apiEstimation.publicId ?? "-1") ?? -1,
+                  routeNumber: apiEstimation.routeNumber ?? "-",
+                  destination: apiEstimation.destination ?? "-",
+                  eta: apiEstimation.time ?? "",
+                  busNumber: Int(apiEstimation.busNumber ?? "-1")
+               )
+            )
+         }
+         
+         Appstate.shared.change(to: .idle, for: .estimations)
+         
+         return tempFormattedEstimations
+         
+      } catch {
+         Appstate.shared.change(to: .error, for: .estimations)
+         print("ERROR IN ESTIMATIONS: \(error)")
+         return []
       }
       
    }
