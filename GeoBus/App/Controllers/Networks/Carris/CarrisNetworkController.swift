@@ -40,8 +40,6 @@ class CarrisNetworkController: ObservableObject {
    
    
    
-   
-   
    /* * */
    /* MARK: - SECTION 2: PUBLISHED VARIABLES */
    /* Here are all the @Published variables that can be consumed by the app views. */
@@ -67,20 +65,19 @@ class CarrisNetworkController: ObservableObject {
    
    
    /* * */
-   /* MARK: - SECTION 3: INITIALIZER */
-   /* When this class is initialized, data stored on the users device must be retrieved */
-   /* from UserDefaults to avoid requesting a new update to the APIs. Do not call other */
-   /* functions yet because Appstate and Authentication must be passed first. */
+   /* MARK: - SECTION 3: SHARED INSTANCE */
+   /* To allow the same instance of this class to be available accross the whole app, */
+   /* we create a Singleton. More info here: https://www.hackingwithswift.com/example-code/language/what-is-a-singleton */
    
    static let shared = CarrisNetworkController()
    
    
    
    /* * */
-   /* MARK: - SECTION 3: INITIALIZER */
+   /* MARK: - SECTION 4: INITIALIZER */
    /* When this class is initialized, data stored on the users device must be retrieved */
-   /* from UserDefaults to avoid requesting a new update to the APIs. Do not call other */
-   /* functions yet because Appstate and Authentication must be passed first. */
+   /* from UserDefaults to avoid requesting a new update to the APIs. After this, check if */
+   /* this stored data needs an update or not. */
    
    private init() {
       
@@ -103,9 +100,10 @@ class CarrisNetworkController: ObservableObject {
          self.lastUpdatedNetwork = unwrappedLastUpdatedNetwork
       }
       
+      // Check if network needs an update
+      self.updateNetwork(reset: false)
+      
    }
-   
-   
    
    
    
@@ -115,16 +113,11 @@ class CarrisNetworkController: ObservableObject {
    /* if it is considered outdated or is inexistent on device storage. */
    /* Provide a convenience method to allow user-requested updates from the UI. */
    
-   public func start() {
-      self.updateNetwork(resetAndUpdate: false)
-      self.updateVehicles()
-   }
-   
    public func resetAndUpdateNetwork() {
-      self.updateNetwork(resetAndUpdate: true)
+      self.updateNetwork(reset: true)
    }
    
-   private func updateNetwork(resetAndUpdate forceUpdate: Bool) {
+   private func updateNetwork(reset forceUpdate: Bool) {
       
       // Conditions to update
       let lastUpdateIsLongerThanInterval = Helpers.getSecondsFromISO8601DateString(lastUpdatedNetwork ?? "") > carrisNetworkUpdateInterval
@@ -150,247 +143,16 @@ class CarrisNetworkController: ObservableObject {
    
    
    
-   
-   
    /* * */
-   /* MARK: - SECTION F: FETCH & FORMAT ROUTES FROM CARRIS API */
-   /* This function first fetches the Routes List, which is an object */
-   /* that contains all the available routes from the API. */
-   /* The information for each Route is very short, so it is necessary to retrieve */
-   /* the details for each route. Here, we only care about the publicy available routes. */
-   /* After, for each route, it's details are formatted and transformed into a Route. */
+   /* MARK: - SECTION 6: FETCH & FORMAT STOPS FROM CARRIS API */
+   /* Call Carris API and retrieve all stops. Format them to the app model. */
    
-   func fetchRoutesFromCarrisAPI() async {
-      
-      Analytics.shared.capture(event: .Routes_Sync_START)
-      Appstate.shared.change(to: .loading, for: .routes)
-      
-      print("GB: Fetching Routes: Starting...")
-      
-      do {
-         // Request API Routes List
-         var requestCarrisAPIRoutesList = URLRequest(url: URL(string: "\(CarrisAPISettings.endpoint)/Routes")!)
-         requestCarrisAPIRoutesList.addValue("application/json", forHTTPHeaderField: "Content-Type")
-         requestCarrisAPIRoutesList.addValue("application/json", forHTTPHeaderField: "Accept")
-         requestCarrisAPIRoutesList.setValue("Bearer \(CarrisAuthentication.shared.authToken ?? "invalid_token")", forHTTPHeaderField: "Authorization")
-         let (rawDataCarrisAPIRoutesList, rawResponseCarrisAPIRoutesList) = try await URLSession.shared.data(for: requestCarrisAPIRoutesList)
-         let responseCarrisAPIRoutesList = rawResponseCarrisAPIRoutesList as? HTTPURLResponse
-         
-         // Check status of response
-         if (responseCarrisAPIRoutesList?.statusCode == 401) {
-            await CarrisAuthentication.shared.authenticate()
-            await self.fetchRoutesFromCarrisAPI()
-            return
-         } else if (responseCarrisAPIRoutesList?.statusCode != 200) {
-            print(responseCarrisAPIRoutesList as Any)
-            throw Appstate.ModuleError.carris_unavailable
-         }
-         
-         let decodedCarrisAPIRoutesList = try JSONDecoder().decode([CarrisAPIModel.RoutesList].self, from: rawDataCarrisAPIRoutesList)
-         
-         self.networkUpdateProgress = decodedCarrisAPIRoutesList.count
-         
-         // Define a temporary variable to store routes
-         // before saving them to the device storage.
-         var tempAllRoutes: [CarrisNetworkModel.Route] = []
-         
-         // For each available route in the API,
-         for availableRoute in decodedCarrisAPIRoutesList {
-            
-            if (availableRoute.isPublicVisible ?? false) {
-               
-               print("Route: \(String(describing: availableRoute.routeNumber)) starting...")
-               
-               // Request Route Detail for ‹routeNumber›
-               var requestAPIRouteDetail = URLRequest(url: URL(string: "\(CarrisAPISettings.endpoint)/Routes/\(availableRoute.routeNumber ?? "invalid-route-number")")!)
-               requestAPIRouteDetail.addValue("application/json", forHTTPHeaderField: "Content-Type")
-               requestAPIRouteDetail.addValue("application/json", forHTTPHeaderField: "Accept")
-               requestAPIRouteDetail.setValue("Bearer \(CarrisAuthentication.shared.authToken ?? "invalid_token")", forHTTPHeaderField: "Authorization")
-               let (rawDataAPIRouteDetail, rawResponseAPIRouteDetail) = try await URLSession.shared.data(for: requestAPIRouteDetail)
-               let responseAPIRouteDetail = rawResponseAPIRouteDetail as? HTTPURLResponse
-               
-               // Check status of response
-               if (responseAPIRouteDetail?.statusCode == 401) {
-                  await CarrisAuthentication.shared.authenticate()
-                  await self.fetchRoutesFromCarrisAPI()
-                  return
-               } else if (responseAPIRouteDetail?.statusCode != 200) {
-                  print(responseAPIRouteDetail as Any)
-                  throw Appstate.ModuleError.carris_unavailable
-               }
-               
-               let decodedAPIRouteDetail = try JSONDecoder().decode(CarrisAPIModel.Route.self, from: rawDataAPIRouteDetail)
-               
-               // Define a temporary variable to store formatted route variants
-               var tempFormattedRouteVariants: [CarrisNetworkModel.Variant] = []
-               
-               // For each variant in route,
-               // check if it is currently active, format it
-               // and append the result to the temporary variable.
-               for apiRouteVariant in decodedAPIRouteDetail.variants ?? [] {
-                  if (apiRouteVariant.isActive ?? false) {
-                     tempFormattedRouteVariants.append(
-                        formatRawRouteVariant(rawVariant: apiRouteVariant)
-                     )
-                  }
-               }
-               
-               // Build the formatted route object
-               let formattedRoute = CarrisNetworkModel.Route(
-                  number: decodedAPIRouteDetail.routeNumber ?? "-",
-                  name: decodedAPIRouteDetail.name ?? "-",
-                  kind: Helpers.getKind(by: decodedAPIRouteDetail.routeNumber ?? "-"),
-                  variants: tempFormattedRouteVariants
-               )
-               
-               // Save the formatted route object in the allRoutes temporary variable
-               tempAllRoutes.append(formattedRoute)
-               
-               self.networkUpdateProgress! -= 1
-               
-               print("Route: Route.\(String(describing: formattedRoute.number)) complete.")
-               
-               try await Task.sleep(nanoseconds: 100_000_000)
-               
-            }
-            
-         }
-         
-         // Finally, save the temporary variables into storage,
-         // while removing the previous, old ones.
-         self.allRoutes.removeAll()
-         self.allRoutes.append(contentsOf: tempAllRoutes)
-         if let encodedAllRoutes = try? JSONEncoder().encode(self.allRoutes) {
-            UserDefaults.standard.set(encodedAllRoutes, forKey: storageKeyForSavedRoutes)
-         }
-         
-         print("Fetching Routes: Complete!")
-         
-         Analytics.shared.capture(event: .Routes_Sync_OK)
-         Appstate.shared.change(to: .idle, for: .routes)
-         
-      } catch {
-         Analytics.shared.capture(event: .Routes_Sync_ERROR)
-         Appstate.shared.change(to: .error, for: .routes)
-         print("Fetching Routes: Error!")
-         print(error)
-         print("************")
-      }
-      
-   }
-   
-   
-   
-   
-   func formatConnections(rawConnections: [CarrisAPIModel.Connection]) -> [CarrisNetworkModel.Connection] {
-      
-      var tempConnections: [CarrisNetworkModel.Connection] = []
-      
-      // For each connection,
-      // convert the nested objects into a simplified RouteStop object
-      for rawConnection in rawConnections {
-         
-         // Append new values to the temporary variable property directly
-         tempConnections.append(
-            CarrisNetworkModel.Connection(
-               orderInRoute: rawConnection.orderNum ?? -1,
-               stop: CarrisNetworkModel.Stop(
-                  publicId: rawConnection.busStop?.publicId ?? "-",
-                  name: rawConnection.busStop?.name ?? "-",
-                  lat: rawConnection.busStop?.lat ?? 0,
-                  lng: rawConnection.busStop?.lng ?? 0
-               )
-            )
-         )
-         
-      }
-      
-      // Sort the stops
-      tempConnections.sort(by: { $0.orderInRoute < $1.orderInRoute })
-      
-      return tempConnections
-      
-   }
-   
-   
-   /* MARK: - Format Route Variants */
-   // Parse and simplify the data model for variants
-   func formatRawRouteVariant(rawVariant: CarrisAPIModel.Variant) -> CarrisNetworkModel.Variant {
-      
-      // For each Itinerary type,
-      // check if it is defined (not nil) in the raw object
-      var tempItineraries: [CarrisNetworkModel.Itinerary] = []
-      
-      // For UpItinerary:
-      if (rawVariant.upItinerary != nil) {
-         tempItineraries.append(
-            CarrisNetworkModel.Itinerary(
-               direction: .ascending,
-               connections: formatConnections(rawConnections: rawVariant.upItinerary!.connections ?? [])
-            )
-         )
-      }
-      
-      // For DownItinerary:
-      if (rawVariant.downItinerary != nil) {
-         tempItineraries.append(
-            CarrisNetworkModel.Itinerary(
-               direction: .descending,
-               connections: formatConnections(rawConnections: rawVariant.downItinerary!.connections ?? [])
-            )
-         )
-      }
-      
-      // For CircItinerary:
-      if (rawVariant.circItinerary != nil) {
-         tempItineraries.append(
-            CarrisNetworkModel.Itinerary(
-               direction: .circular,
-               connections: formatConnections(rawConnections: rawVariant.circItinerary!.connections ?? [])
-            )
-         )
-      }
-      
-      
-      //      if (formattedVariant.isCircular) {
-      //         formattedVariant.name = getTerminalStopNameForVariant(variant: formattedVariant, direction: .circular)
-      //      } else {
-      //         let firstStop = getTerminalStopNameForVariant(variant: formattedVariant, direction: .ascending)
-      //         let lastStop = getTerminalStopNameForVariant(variant: formattedVariant, direction: .descending)
-      //         formattedVariant.name = "\(firstStop) ⇄ \(lastStop)"
-      //      }
-      
-      // Finally, return the temporary variable to the caller
-      return CarrisNetworkModel.Variant(
-         number: rawVariant.variantNumber ?? -1,
-         name: "in-progress",
-         itineraries: tempItineraries
-      )
-      
-   }
-   
-   
-   /* MARK: - Get Terminal Stop Name for Variant */
-   // This function returns the provided variant's terminal stop for the provided direction.
-   func getTerminalStopNameForVariant(variant: CarrisNetworkModel.Variant, direction: CarrisNetworkModel.Direction) -> String {
-//      switch direction {
-//         case .circular:
-//            return variant.circItinerary?.first?.name ?? "-"
-//         case .ascending:
-//            return variant.upItinerary?.last?.name ?? (variant.upItinerary?.first?.name ?? "-")
-//         case .descending:
-//            return variant.downItinerary?.last?.name ?? (variant.downItinerary?.first?.name ?? "-")
-//      }
-      return "not implemented"
-   }
-   
-   
-   func fetchStopsFromCarrisAPI() async {
+   private func fetchStopsFromCarrisAPI() async {
       
       Analytics.shared.capture(event: .Stops_Sync_START)
       Appstate.shared.change(to: .loading, for: .stops)
       
-      print("Fetching Stops: Starting...")
+      print("GB Carris: Fetching Stops: Starting...")
       
       do {
          // Request API Routes List
@@ -440,7 +202,7 @@ class CarrisNetworkController: ObservableObject {
             UserDefaults.standard.set(encodedAllStops, forKey: storageKeyForSavedStops)
          }
          
-         print("[GB-Debug] Fetching Stops: Complete!")
+         print("GB Carris: Fetching Stops: Complete!")
          
          Analytics.shared.capture(event: .Stops_Sync_OK)
          Appstate.shared.change(to: .idle, for: .stops)
@@ -448,12 +210,245 @@ class CarrisNetworkController: ObservableObject {
       } catch {
          Analytics.shared.capture(event: .Stops_Sync_ERROR)
          Appstate.shared.change(to: .error, for: .stops)
-         print("Fetching Stops: Error!")
+         print("GB Carris: Fetching Stops: Error!")
          print(error)
          print("************")
       }
       
    }
+   
+   
+   
+   /* * */
+   /* MARK: - SECTION 7: FETCH & FORMAT ROUTES FROM CARRIS API */
+   /* This function first fetches the Routes List from Carris API, */
+   /* which is an object that contains all the available routes. */
+   /* The information for each Route is very short, so it is necessary to retrieve */
+   /* the details for each route. Here, we only care about the publicy available routes. */
+   /* After, for each route, its details are formatted and transformed into a Route. */
+   
+   func fetchRoutesFromCarrisAPI() async {
+      
+      Analytics.shared.capture(event: .Routes_Sync_START)
+      Appstate.shared.change(to: .loading, for: .routes)
+      
+      print("GB Carris: Fetching Routes: Starting...")
+      
+      do {
+         // Request API Routes List
+         var requestCarrisAPIRoutesList = URLRequest(url: URL(string: "\(CarrisAPISettings.endpoint)/Routes")!)
+         requestCarrisAPIRoutesList.addValue("application/json", forHTTPHeaderField: "Content-Type")
+         requestCarrisAPIRoutesList.addValue("application/json", forHTTPHeaderField: "Accept")
+         requestCarrisAPIRoutesList.setValue("Bearer \(CarrisAuthentication.shared.authToken ?? "invalid_token")", forHTTPHeaderField: "Authorization")
+         let (rawDataCarrisAPIRoutesList, rawResponseCarrisAPIRoutesList) = try await URLSession.shared.data(for: requestCarrisAPIRoutesList)
+         let responseCarrisAPIRoutesList = rawResponseCarrisAPIRoutesList as? HTTPURLResponse
+         
+         // Check status of response
+         if (responseCarrisAPIRoutesList?.statusCode == 401) {
+            await CarrisAuthentication.shared.authenticate()
+            await self.fetchRoutesFromCarrisAPI()
+            return
+         } else if (responseCarrisAPIRoutesList?.statusCode != 200) {
+            print(responseCarrisAPIRoutesList as Any)
+            throw Appstate.ModuleError.carris_unavailable
+         }
+         
+         let decodedCarrisAPIRoutesList = try JSONDecoder().decode([CarrisAPIModel.RoutesList].self, from: rawDataCarrisAPIRoutesList)
+         
+         self.networkUpdateProgress = decodedCarrisAPIRoutesList.count
+         
+         // Define a temporary variable to store routes
+         // before saving them to the device storage.
+         var tempAllRoutes: [CarrisNetworkModel.Route] = []
+         
+         // For each available route in the API,
+         for availableRoute in decodedCarrisAPIRoutesList {
+            
+            if (availableRoute.isPublicVisible ?? false) {
+               
+               print("GB Carris: Route: \(String(describing: availableRoute.routeNumber)) starting...")
+               
+               // Request Route Detail for ‹routeNumber›
+               var requestAPIRouteDetail = URLRequest(url: URL(string: "\(CarrisAPISettings.endpoint)/Routes/\(availableRoute.routeNumber ?? "invalid-route-number")")!)
+               requestAPIRouteDetail.addValue("application/json", forHTTPHeaderField: "Content-Type")
+               requestAPIRouteDetail.addValue("application/json", forHTTPHeaderField: "Accept")
+               requestAPIRouteDetail.setValue("Bearer \(CarrisAuthentication.shared.authToken ?? "invalid_token")", forHTTPHeaderField: "Authorization")
+               let (rawDataAPIRouteDetail, rawResponseAPIRouteDetail) = try await URLSession.shared.data(for: requestAPIRouteDetail)
+               let responseAPIRouteDetail = rawResponseAPIRouteDetail as? HTTPURLResponse
+               
+               // Check status of response
+               if (responseAPIRouteDetail?.statusCode == 401) {
+                  await CarrisAuthentication.shared.authenticate()
+                  await self.fetchRoutesFromCarrisAPI()
+                  return
+               } else if (responseAPIRouteDetail?.statusCode != 200) {
+                  print(responseAPIRouteDetail as Any)
+                  throw Appstate.ModuleError.carris_unavailable
+               }
+               
+               let decodedAPIRouteDetail = try JSONDecoder().decode(CarrisAPIModel.Route.self, from: rawDataAPIRouteDetail)
+               
+               // Define a temporary variable to store formatted route variants
+               var tempFormattedRouteVariants: [CarrisNetworkModel.Variant] = []
+               
+               // For each variant in route,
+               // check if it is currently active, format it
+               // and append the result to the temporary variable.
+               for apiRouteVariant in decodedAPIRouteDetail.variants ?? [] {
+                  if (apiRouteVariant.isActive ?? false) {
+                     tempFormattedRouteVariants.append(
+                        formatRawRouteVariant(rawVariant: apiRouteVariant)
+                     )
+                  }
+               }
+               
+               // Build the formatted route object
+               let formattedRoute = CarrisNetworkModel.Route(
+                  number: decodedAPIRouteDetail.routeNumber ?? "-",
+                  name: decodedAPIRouteDetail.name ?? "-",
+                  kind: Helpers.getKind(by: decodedAPIRouteDetail.routeNumber ?? "-"),
+                  variants: tempFormattedRouteVariants
+               )
+               
+               // Save the formatted route object in the allRoutes temporary variable
+               tempAllRoutes.append(formattedRoute)
+               
+               self.networkUpdateProgress! -= 1
+               
+               print("GB Carris: Route: Route.\(String(describing: formattedRoute.number)) complete.")
+               
+               // Wait a moment before the next API request
+               try await Task.sleep(nanoseconds: 100_000_000)
+               
+            }
+            
+         }
+         
+         // Finally, save the temporary variables into storage,
+         // while removing the previous, old ones.
+         self.allRoutes.removeAll()
+         self.allRoutes.append(contentsOf: tempAllRoutes)
+         if let encodedAllRoutes = try? JSONEncoder().encode(self.allRoutes) {
+            UserDefaults.standard.set(encodedAllRoutes, forKey: storageKeyForSavedRoutes)
+         }
+         
+         print("GB Carris: Fetching Routes: Complete!")
+         
+         Analytics.shared.capture(event: .Routes_Sync_OK)
+         Appstate.shared.change(to: .idle, for: .routes)
+         
+      } catch {
+         Analytics.shared.capture(event: .Routes_Sync_ERROR)
+         Appstate.shared.change(to: .error, for: .routes)
+         print("GB Carris: Fetching Routes: Error!")
+         print(error)
+         print("************")
+      }
+      
+   }
+   
+   
+   
+   /* * */
+   /* MARK: - SECTION 7.1: FORMAT CARRIS ROUTE VARIANTS */
+   /* Parse and simplify the data model for variants. Variants contain */
+   /* one or more itineraries, each with a direction. Each itinerary is composed */
+   /* of a series of connections, in which each contains a stop. */
+   
+   func formatRawRouteVariant(rawVariant: CarrisAPIModel.Variant) -> CarrisNetworkModel.Variant {
+      
+      // For each Itinerary type, check if it is defined (not nil) in the raw object
+      
+      var tempVariantName: String = ""
+      var tempCircularConnections: [CarrisNetworkModel.Connection]? = nil
+      var tempAscendingConnections: [CarrisNetworkModel.Connection]? = nil
+      var tempDescendingConnections: [CarrisNetworkModel.Connection]? = nil
+      
+      
+      // . For CircItinerary:
+      if (rawVariant.circItinerary != nil) {
+         // If variant has circular itinerary, then it is circular
+         tempCircularConnections = formatConnections(direction: .circular, rawConnections: rawVariant.circItinerary!.connections ?? [])
+         tempVariantName = tempCircularConnections?.first?.stop.name ?? "-"
+         
+      } else {
+         // If variant does not have circular itinerary, then it is regular ascending‹›descending,
+         // but it still can have only one of these, so check for that.
+         if (rawVariant.upItinerary != nil) {
+            tempAscendingConnections = formatConnections(direction: .ascending, rawConnections: rawVariant.upItinerary!.connections ?? [])
+            tempVariantName = tempAscendingConnections?.first?.stop.name ?? "-"
+         }
+         
+         if (rawVariant.upItinerary != nil && rawVariant.downItinerary != nil) {
+            tempVariantName += " ⇄ "
+         }
+         
+         if (rawVariant.downItinerary != nil) {
+            tempDescendingConnections = formatConnections(direction: .descending, rawConnections: rawVariant.downItinerary!.connections ?? [])
+            tempVariantName += tempDescendingConnections?.first?.stop.name ?? "-"
+         }
+         
+      }
+      
+      
+      // 6. Finally, return the formatted variant to the caller
+      return CarrisNetworkModel.Variant(
+         number: rawVariant.variantNumber ?? -1,
+         name: tempVariantName,
+         circularItinerary: tempCircularConnections,
+         ascendingItinerary: tempAscendingConnections,
+         descendingItinerary: tempDescendingConnections
+      )
+      
+   }
+   
+   
+   
+   /* * */
+   /* MARK: - SECTION 7.2: FORMAT CARRIS CONNECTIONS */
+   /* Each itinerary is composed of a series of connections, in which each */
+   /* has a single stop. Connections contain the property ‹orderInRoute›. */
+   
+   func formatConnections(direction: CarrisNetworkModel.Direction, rawConnections: [CarrisAPIModel.Connection]) -> [CarrisNetworkModel.Connection] {
+      
+      var tempConnections: [CarrisNetworkModel.Connection] = []
+      
+      for rawConnection in rawConnections {
+         tempConnections.append(
+            CarrisNetworkModel.Connection(
+               direction: direction,
+               orderInRoute: rawConnection.orderNum ?? -1,
+               stop: CarrisNetworkModel.Stop(
+                  publicId: rawConnection.busStop?.publicId ?? "-",
+                  name: rawConnection.busStop?.name ?? "-",
+                  lat: rawConnection.busStop?.lat ?? 0,
+                  lng: rawConnection.busStop?.lng ?? 0
+               )
+            )
+         )
+      }
+      
+      // Sort the connections
+      tempConnections.sort(by: { $0.orderInRoute < $1.orderInRoute })
+      
+      return tempConnections
+      
+   }
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
    
    /* MARK: - Find Route by RouteNumber */
    // This function searches for the provided routeNumber in all routes array,
