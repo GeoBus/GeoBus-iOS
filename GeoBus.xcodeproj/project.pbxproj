@@ -27,7 +27,7 @@
 		CF18207328CCBD2300248F72 /* VariantButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF18206628CCBD2300248F72 /* VariantButton.swift */; };
 		CF18207428CCBD2300248F72 /* CircularVariantInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF18206728CCBD2300248F72 /* CircularVariantInfo.swift */; };
 		CF18207528CCBD2300248F72 /* VariantWarning.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF18206828CCBD2300248F72 /* VariantWarning.swift */; };
-		CF18207628CCBD2300248F72 /* StopsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF18206928CCBD2300248F72 /* StopsList.swift */; };
+		CF18207628CCBD2300248F72 /* ConnectionsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF18206928CCBD2300248F72 /* ConnectionsList.swift */; };
 		CF18207728CCBD2300248F72 /* RouteDetailsAddToFavorites.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF18206A28CCBD2300248F72 /* RouteDetailsAddToFavorites.swift */; };
 		CF18207828CCBD2300248F72 /* RouteDetailsSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF18206B28CCBD2300248F72 /* RouteDetailsSheet.swift */; };
 		CF18207928CCBD2300248F72 /* RouteDetailsVehiclesQuantity.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF18206C28CCBD2300248F72 /* RouteDetailsVehiclesQuantity.swift */; };
@@ -99,7 +99,7 @@
 		CF18206628CCBD2300248F72 /* VariantButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VariantButton.swift; sourceTree = "<group>"; };
 		CF18206728CCBD2300248F72 /* CircularVariantInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircularVariantInfo.swift; sourceTree = "<group>"; };
 		CF18206828CCBD2300248F72 /* VariantWarning.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VariantWarning.swift; sourceTree = "<group>"; };
-		CF18206928CCBD2300248F72 /* StopsList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopsList.swift; sourceTree = "<group>"; };
+		CF18206928CCBD2300248F72 /* ConnectionsList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionsList.swift; sourceTree = "<group>"; };
 		CF18206A28CCBD2300248F72 /* RouteDetailsAddToFavorites.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteDetailsAddToFavorites.swift; sourceTree = "<group>"; };
 		CF18206B28CCBD2300248F72 /* RouteDetailsSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteDetailsSheet.swift; sourceTree = "<group>"; };
 		CF18206C28CCBD2300248F72 /* RouteDetailsVehiclesQuantity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteDetailsVehiclesQuantity.swift; sourceTree = "<group>"; };
@@ -201,7 +201,7 @@
 				CF18206828CCBD2300248F72 /* VariantWarning.swift */,
 				CF18206628CCBD2300248F72 /* VariantButton.swift */,
 				CF18206728CCBD2300248F72 /* CircularVariantInfo.swift */,
-				CF18206928CCBD2300248F72 /* StopsList.swift */,
+				CF18206928CCBD2300248F72 /* ConnectionsList.swift */,
 			);
 			path = RouteDetails;
 			sourceTree = "<group>";
@@ -534,7 +534,7 @@
 				CFFFAD8928F8ECDE00DFD5FD /* Spinner.swift in Sources */,
 				CF18207528CCBD2300248F72 /* VariantWarning.swift in Sources */,
 				CF6C918C28D4B452006C3F61 /* SearchStopInput.swift in Sources */,
-				CF18207628CCBD2300248F72 /* StopsList.swift in Sources */,
+				CF18207628CCBD2300248F72 /* ConnectionsList.swift in Sources */,
 				CF181FE828CCB7D600248F72 /* ContentView.swift in Sources */,
 				CF05F62028CD337200B4AD58 /* AppVersion.swift in Sources */,
 				CF6C918628D3F8C8006C3F61 /* StopSearch.swift in Sources */,

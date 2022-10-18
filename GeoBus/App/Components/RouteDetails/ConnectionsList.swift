@@ -8,9 +8,9 @@
 
 import SwiftUI
 
-struct StopsList: View {
+struct ConnectionsList: View {
 
-   @State var connections: [CarrisNetworkModel.Connection] = []
+   let connections: [CarrisNetworkModel.Connection]
 
 
    var body: some View {
@@ -21,7 +21,7 @@ struct StopsList: View {
                publicId: connection.stop.publicId,
                name: connection.stop.name,
                orderInRoute: connection.orderInRoute,
-               direction: .circular
+               direction: connection.direction
             )
          }
       }
