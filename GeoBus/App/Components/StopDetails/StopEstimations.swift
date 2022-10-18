@@ -12,7 +12,7 @@ struct StopEstimations: View {
    
    @EnvironmentObject var appstate: Appstate
    
-   let estimations: [Estimation]?
+   let estimations: [CarrisNetworkModel.Estimation]?
    
    
    var fixedInfo: some View {

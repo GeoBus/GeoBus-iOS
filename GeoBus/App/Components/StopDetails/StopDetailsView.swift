@@ -45,7 +45,7 @@ struct ConnectionDetailsView2: View {
    
    @Environment(\.colorScheme) var colorScheme: ColorScheme
    
-   @EnvironmentObject var estimationsController: EstimationsController
+   @EnvironmentObject var carrisNetworkController: CarrisNetworkController
    
    let refreshTimer = Timer.publish(every: 60 /* seconds */, on: .main, in: .common).autoconnect()
    
@@ -56,12 +56,12 @@ struct ConnectionDetailsView2: View {
    let direction: CarrisNetworkModel.Direction?
    
    @State private var isOpen = false
-   @State private var estimations: [Estimation]? = nil
+   @State private var estimations: [CarrisNetworkModel.Estimation]? = nil
    
    
    func getEstimationsFromController() {
       Task {
-//         self.estimations = await estimationsController.get(for: self.publicId)
+         self.estimations = await carrisNetworkController.getEstimation(for: self.publicId)
       }
    }
    
