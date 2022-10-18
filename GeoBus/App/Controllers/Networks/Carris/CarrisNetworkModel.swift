@@ -100,14 +100,12 @@ struct CarrisNetworkModel {
    // Stops are identified by its ‹publicId› value.
    // They have a name and a location.
    struct Stop: Codable, Equatable, Identifiable {
-      let id: String
-      let publicId: String
+      let id: Int
       let name: String
       let lat, lng: Double
       
-      init(publicId: String, name: String, lat: Double, lng: Double) {
-         self.id = publicId
-         self.publicId = publicId
+      init(id: Int, name: String, lat: Double, lng: Double) {
+         self.id = id
          self.name = name
          self.lat = lat
          self.lng = lng
