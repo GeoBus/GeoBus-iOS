@@ -30,7 +30,7 @@ struct SelectRouteInput: View {
                .cornerRadius(10)
 
             Button(action: {
-               let success = carrisNetworkController.select(route: self.routeNumber.uppercased(), returnResult: true)
+               let success = carrisNetworkController.select(route: self.routeNumber.uppercased())
                if success {
                   Analytics.shared.capture(event: .Routes_Select_FromTextInput, properties: ["routeNumber": self.routeNumber.uppercased()])
                   self.showSheet = false

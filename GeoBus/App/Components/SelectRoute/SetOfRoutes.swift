@@ -33,7 +33,7 @@ struct SetOfRoutes: View {
          LazyVGrid(columns: [.init(.adaptive(minimum: 60, maximum: 100), spacing: 15)], spacing: 15) {
             ForEach(routes) { route in
                Button(action: {
-                  self.carrisNetworkController.select(route: route.number)
+                  _ = self.carrisNetworkController.select(route: route.number)
                   Analytics.shared.capture(event: .Routes_Select_FromList, properties: ["routeNumber": route.number])
                   self.showSheet = false
                }){
