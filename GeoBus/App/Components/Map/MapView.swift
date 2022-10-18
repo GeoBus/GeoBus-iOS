@@ -28,10 +28,10 @@ struct MapView: View {
             switch (annotation.item) {
                case .carris_stop(let item):
                   CarrisStopAnnotationView(stop: item)
-               case .carris_vehicle(let item):
-                  CarrisVehicleAnnotationView(vehicle: item)
                case .carris_connection(let item):
                   CarrisConnectionAnnotationView(connection: item)
+               case .carris_vehicle(let item):
+                  CarrisVehicleAnnotationView(vehicle: item)
             }
          }
 
