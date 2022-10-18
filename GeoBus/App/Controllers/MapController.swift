@@ -138,7 +138,12 @@ class MapController: ObservableObject {
    
    func updateAnnotations(with activeStop: CarrisNetworkModel.Stop) {
       
-      visibleAnnotations.removeAll()
+      visibleAnnotations.removeAll(where: {
+         switch $0.item {
+            case .carris_stop(_), .carris_connection(_), .carris_vehicle(_):
+               return true
+         }
+      })
       
       visibleAnnotations.append(
          GenericMapAnnotation(
@@ -162,9 +167,9 @@ class MapController: ObservableObject {
       
       visibleAnnotations.removeAll(where: {
          switch $0.item {
-            case .carris_connection(_):
+            case .carris_connection(_), .carris_stop(_):
                return true
-            case .carris_vehicle(_), .carris_stop(_):
+            case .carris_vehicle(_):
                return false
          }
       })
@@ -222,9 +227,9 @@ class MapController: ObservableObject {
       
       visibleAnnotations.removeAll(where: {
          switch $0.item {
-            case .carris_vehicle(_):
+            case .carris_vehicle(_), .carris_stop(_):
                return true
-            case .carris_connection(_), .carris_stop(_):
+            case .carris_connection(_):
                return false
          }
       })
