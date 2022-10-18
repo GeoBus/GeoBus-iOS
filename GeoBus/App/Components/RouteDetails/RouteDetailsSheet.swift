@@ -37,7 +37,7 @@ struct RouteDetailsSheet: View {
          .cornerRadius(10)
          
          HStack(spacing: 15) {
-            RouteDetailsVehiclesQuantity(vehiclesQuantity: carrisNetworkController.allVehicles.count)
+            RouteDetailsVehiclesQuantity(vehiclesQuantity: carrisNetworkController.activeVehicles.count)
             Button(action: {
                TapticEngine.impact.feedback(.heavy)
                // self.carrisNetworkController.toggleFavorite(route: self.carrisNetworkController.selectedRoute!)
@@ -60,8 +60,8 @@ struct RouteDetailsSheet: View {
             
          } else if (carrisNetworkController.activeVariant?.ascendingItinerary != nil && carrisNetworkController.activeVariant?.descendingItinerary != nil) {
             Picker("Direction", selection: $routeDirectionPicker) {
-               Text(carrisNetworkController.activeVariant?.ascendingItinerary?.last?.stop.name ?? "-").tag(0)
-               Text(carrisNetworkController.activeVariant?.descendingItinerary?.last?.stop.name ?? "-").tag(1)
+               Text("to: \(carrisNetworkController.activeVariant?.ascendingItinerary?.last?.stop.name ?? "-")").tag(0)
+               Text("to: \(carrisNetworkController.activeVariant?.descendingItinerary?.last?.stop.name ?? "-")").tag(1)
             }
             .pickerStyle(SegmentedPickerStyle())
             
