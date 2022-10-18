@@ -32,6 +32,8 @@ class CarrisNetworkController: ObservableObject {
    
    private let carrisNetworkUpdateInterval: Int = 86400 * 5 // 5 days
    
+   private let secondsToConsiderVehicleAsStale: Int = 180 // 3 minutes
+   
    private let storageKeyForLastUpdatedCarrisNetwork: String = "carris_lastUpdatedNetwork"
    private let storageKeyForSavedStops: String = "carris_savedStops"
    private let storageKeyForFavoriteStops: String = "carris_favoriteStops"
@@ -101,29 +103,26 @@ class CarrisNetworkController: ObservableObject {
       }
       
       // Check if network needs an update
-      self.updateNetwork(reset: false)
-      
-      // Update vehicles
-      self.updateVehicles()
+      self.update(reset: false)
       
    }
    
    
    
    /* * */
-   /* MARK: - SECTION 5: UPDATE NETWORK FROM CARRIS API */
+   /* MARK: - SECTION 5.1: UPDATE NETWORK FROM CARRIS API */
    /* This function decides whether to update the complete network model */
    /* if it is considered outdated or is inexistent on device storage. */
    /* Provide a convenience method to allow user-requested updates from the UI. */
    
    public func resetAndUpdateNetwork() {
-      self.updateNetwork(reset: true)
+      self.update(reset: true)
    }
    
-   private func updateNetwork(reset forceUpdate: Bool) {
+   private func update(reset forceUpdate: Bool) {
       
       // Conditions to update
-      let lastUpdateIsLongerThanInterval = Helpers.getSecondsFromISO8601DateString(lastUpdatedNetwork ?? "") > carrisNetworkUpdateInterval
+      let lastUpdateIsLongerThanInterval = Helpers.getSecondsFromISO8601DateString(self.lastUpdatedNetwork ?? "") > self.carrisNetworkUpdateInterval
       let savedNetworkDataIsEmpty = allRoutes.isEmpty || allStops.isEmpty
       let updateIsForcedByCaller = forceUpdate
       
@@ -138,10 +137,24 @@ class CarrisNetworkController: ObservableObject {
          UserDefaults.standard.set(timestampOfCurrentUpdate, forKey: storageKeyForLastUpdatedCarrisNetwork)
       }
       
+      // Update vehicles and favorites
+      self.refresh()
       
-      // Retrieve favorites at app launch
-      // self.retrieveFavorites()
-      
+   }
+   
+   
+   
+   /* * */
+   /* MARK: - SECTION 5.2: REFRESH DATA */
+   /* This function initiates vehicles refresh from Carris API, updates the ‹activeVehicles› array */
+   /* and syncronizes favorites with iCloud, to ensure changes are always up to date. */
+   
+   public func refresh() {
+      Task {
+         await self.fetchVehiclesListFromCarrisAPI()
+         self.populateActiveVehicles()
+         self.retrieveFavoritesFromKVS()
+      }
    }
    
    
@@ -230,7 +243,7 @@ class CarrisNetworkController: ObservableObject {
    /* the details for each route. Here, we only care about the publicy available routes. */
    /* After, for each route, its details are formatted and transformed into a Route. */
    
-   func fetchRoutesFromCarrisAPI() async {
+   private func fetchRoutesFromCarrisAPI() async {
       
       Analytics.shared.capture(event: .Routes_Sync_START)
       Appstate.shared.change(to: .loading, for: .routes)
@@ -358,7 +371,7 @@ class CarrisNetworkController: ObservableObject {
    /* one or more itineraries, each with a direction. Each itinerary is composed */
    /* of a series of connections, in which each contains a stop. */
    
-   func formatRawRouteVariant(rawVariant: CarrisAPIModel.Variant) -> CarrisNetworkModel.Variant {
+   private func formatRawRouteVariant(rawVariant: CarrisAPIModel.Variant) -> CarrisNetworkModel.Variant {
       
       // For each Itinerary type, check if it is defined (not nil) in the raw object
       
@@ -412,7 +425,7 @@ class CarrisNetworkController: ObservableObject {
    /* Each itinerary is composed of a series of connections, in which each */
    /* has a single stop. Connections contain the property ‹orderInRoute›. */
    
-   func formatConnections(direction: CarrisNetworkModel.Direction, rawConnections: [CarrisAPIModel.Connection]) -> [CarrisNetworkModel.Connection] {
+   private func formatConnections(direction: CarrisNetworkModel.Direction, rawConnections: [CarrisAPIModel.Connection]) -> [CarrisNetworkModel.Connection] {
       
       var tempConnections: [CarrisNetworkModel.Connection] = []
       
@@ -438,25 +451,106 @@ class CarrisNetworkController: ObservableObject {
       
    }
    
-
+   
+   
+   /* * */
+   /* MARK: - SECTION 8.1: RETRIEVE FAVORITES FROM ICLOUD KVS */
+   /* This function retrieves favorites from iCloud Key-Value-Storage. */
+   
+   private func retrieveFavoritesFromKVS() {
+      
+      // Initialize iCloud KVS
+      let iCloudKeyValueStorage = NSUbiquitousKeyValueStore()
+      iCloudKeyValueStorage.synchronize()
+      
+      // Get stored contents
+      let savedFavoriteRoutes = iCloudKeyValueStorage.array(forKey: storageKeyForFavoriteRoutes) as? [String] ?? []
+      let savedFavoriteStops = iCloudKeyValueStorage.array(forKey: storageKeyForFavoriteStops) as? [Int] ?? []
+      
+      // For Routes:
+      self.favorites_routes.removeAll()
+      for routeNumber in savedFavoriteRoutes {
+         if let route = find(route: routeNumber) {
+            self.favorites_routes.append(route)
+         }
+      }
+      
+      // For Stops:
+      self.favorites_stops.removeAll()
+      for stopId in savedFavoriteStops {
+         if let stop = find(stop: stopId) {
+            self.favorites_stops.append(stop)
+         }
+      }
+      
+   }
    
    
    
+   /* * */
+   /* MARK: - SECTION 8.2: SAVE FAVORITES TO ICLOUD KVS */
+   /* This function saves a representation of the objects stored in the favorites arrays */
+   /* to iCloud Key-Value-Store. This function should be called whenever a change */
+   /* in favorites occurs, to ensure consistency across devices. */
+   
+   private func saveFavoritesToKVS() {
+      
+      // For Routes
+      var favoriteRoutesToSave: [String] = []
+      for favRoute in favorites_routes {
+         favoriteRoutesToSave.append(favRoute.number)
+      }
+      
+      // For Stops
+      var favoriteStopsToSave: [Int] = []
+      for favStop in favorites_stops {
+         favoriteStopsToSave.append(favStop.id)
+      }
+      
+      // Initialize iCloud KVS
+      let iCloudKeyValueStorage = NSUbiquitousKeyValueStore()
+      iCloudKeyValueStorage.set(favoriteRoutesToSave, forKey: storageKeyForFavoriteRoutes)
+      iCloudKeyValueStorage.set(favoriteStopsToSave, forKey: storageKeyForFavoriteStops)
+      iCloudKeyValueStorage.synchronize()
+      
+   }
    
    
    
+   /* * */
+   /* MARK: - SECTION 8.3: TOGGLE ROUTES AND STOPS AS FAVORITES */
+   /* These functions mark an object as favorite if it is not, and remove it from favorites if it is. */
+   
+   public func toggleFavorite(route: CarrisNetworkModel.Route) {
+      if let index = self.favorites_routes.firstIndex(of: route) {
+         self.favorites_routes.remove(at: index)
+         Analytics.shared.capture(event: .Routes_Details_RemoveFromFavorites, properties: ["routeNumber": route.number])
+      } else {
+         self.favorites_routes.append(route)
+         Analytics.shared.capture(event: .Routes_Details_AddToFavorites, properties: ["routeNumber": route.number])
+      }
+      saveFavoritesToKVS()
+   }
+   
+   public func toggleFavorite(stop: CarrisNetworkModel.Stop) {
+      if let index = self.favorites_stops.firstIndex(of: stop) {
+         self.favorites_stops.remove(at: index)
+         Analytics.shared.capture(event: .Routes_Details_RemoveFromFavorites, properties: ["stopId": stop.id])
+      } else {
+         self.favorites_stops.append(stop)
+         Analytics.shared.capture(event: .Routes_Details_AddToFavorites, properties: ["stopId": stop.id])
+      }
+      saveFavoritesToKVS()
+   }
    
    
    
+   /* * */
+   /* MARK: - SECTION 9: FIND OBJECTS BY IDENTIFIER */
+   /* These functions search for the provided object identifier in the storage arrays */
+   /* and return it if found or nil if not found. */
    
-   
-   
-   
-   
-   /* MARK: - Find Route by RouteNumber */
-   // This function searches for the provided routeNumber in all routes array,
-   // and returns it if found. If not found, returns nil.
-   func findRoute(by routeNumber: String) -> CarrisNetworkModel.Route? {
+   private func find(route routeNumber: String) -> CarrisNetworkModel.Route? {
       if let requestedRouteObject = self.allRoutes[withId: routeNumber] {
          return requestedRouteObject
       } else {
@@ -464,46 +558,45 @@ class CarrisNetworkController: ObservableObject {
       }
    }
    
-   
-   
-   
+   private func find(stop stopId: Int) -> CarrisNetworkModel.Stop? {
+      if let requestedStopObject = self.allStops[withId: stopId] {
+         return requestedStopObject
+      } else {
+         return nil
+      }
+   }
    
    
    
    /* * */
-   /* MARK: - SECTION B: SELECTORS */
-   /* Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, */
-   /* molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum */
-   /* numquam blanditiis harum quisquam eius sed odit fugiat */
+   /* MARK: - SECTION 10: OBJECT SELECTORS */
+   /* These functions select and deselect the currently active objects. */
+   /* Provide public functions to more easily select object by their identifier. */
    
-   // Routes
+   private func deselect() {
+      self.activeRoute = nil
+      self.activeVariant = nil
+      self.activeConnection = nil
+      self.activeStop = nil
+      self.activeVehicles = []
+   }
    
    
    private func select(route: CarrisNetworkModel.Route) {
+      self.deselect()
       self.activeRoute = route
       self.select(variant: route.variants[0])
-      self.activeStop = nil
-      self.activeConnection = nil
-      self.getActiveVehicles()
+      self.populateActiveVehicles()
    }
    
-   
-   
-   public func select(route routeNumber: String) {
-      if let route = self.findRoute(by: routeNumber) {
-         self.select(route: route)
-      }
-   }
-   
-   func select(route routeNumber: String, returnResult: Bool) -> Bool {
-      if let route = self.findRoute(by: routeNumber) {
+   public func select(route routeNumber: String) -> Bool {
+      if let route = self.find(route: routeNumber) {
          self.select(route: route)
          return true
       } else {
          return false
       }
    }
-   
    
    
    public func select(variant: CarrisNetworkModel.Variant) {
@@ -511,29 +604,19 @@ class CarrisNetworkController: ObservableObject {
    }
    
    
-   public func deselect() {
-      self.activeRoute = nil
-      self.activeVariant = nil
-      self.activeConnection = nil
-      self.activeStop = nil
+   private func select(connection: CarrisNetworkModel.Connection) {
+      self.deselect()
+      self.activeConnection = connection
    }
    
    
-   // Stops
-   
    private func select(stop: CarrisNetworkModel.Stop) {
+      self.deselect()
       self.activeStop = stop
    }
    
-   func select(stop stopPublicId: String) {
-      let stop = self.findStop(by: stopPublicId)
-      if (stop != nil) {
-         self.select(stop: stop!)
-      }
-   }
-   
-   func select(stop stopPublicId: String, returnResult: Bool) -> Bool {
-      let stop = self.findStop(by: stopPublicId)
+   public func select(stop stopId: Int) -> Bool {
+      let stop = self.find(stop: stopId)
       if (stop != nil) {
          self.select(stop: stop!)
          return true
@@ -543,34 +626,15 @@ class CarrisNetworkController: ObservableObject {
    }
    
    
-   /* MARK: - Find Stop by Public ID */
-   // This function searches for the provided routeNumber in all routes array,
-   // and returns it if found. If not found, returns nil.
-   func findStop(by stopPublicId: String) -> CarrisNetworkModel.Stop? {
+   
+   /* * */
+   /* MARK: - SECTION 11: SET ACTIVE VEHICLES */
+   /* This function compares the currently active route number with all vehicles */
+   /* appending the ones that match to the ‹activeVehicles› array. It also checks */
+   /* if vehicles have an up-to-date location. */
+   
+   func populateActiveVehicles() {
       
-      let parsedStopPublicId = Int(stopPublicId) ?? 0
-      
-      // Find index of route matching requested routeNumber
-      let indexOfStopInArray = allStops.firstIndex(where: { (stop) -> Bool in
-         stop.id == parsedStopPublicId // test if this is the item we're looking for
-      }) ?? nil // If the item does not exist, return default value -1
-      
-      // If a match is found...
-      if (indexOfStopInArray != nil) {
-         return allStops[indexOfStopInArray!]
-      } else {
-         return nil
-      }
-      
-   }
-   
-   
-   
-   
-   
-   
-   
-   func getActiveVehicles() {
       if (activeRoute != nil) {
          
          self.activeVehicles.removeAll()
@@ -583,8 +647,8 @@ class CarrisNetworkController: ObservableObject {
             let matchesSelectedRouteNumber = vehicle.routeNumber == activeRoute?.number
             
             // CONDITION 2:
-            // Vehicle was last seen no longer than 3 minutes
-            let isNotZombieVehicle = true // Helpers.getLastSeenTime(since: vehicle.lastGpsTime ?? "") < 180
+            // Vehicle was last seen no longer than X minutes
+            let isNotZombieVehicle = Helpers.getLastSeenTime(since: vehicle.lastGpsTime ?? "") < secondsToConsiderVehicleAsStale
             
             // Find index of Annotation matching this vehicle busNumber
             if (matchesSelectedRouteNumber && isNotZombieVehicle) {
@@ -599,22 +663,11 @@ class CarrisNetworkController: ObservableObject {
    
    
    
-   func updateVehicles() {
-      Task {
-         await fetchVehiclesListFromCarrisAPI()
-         self.getActiveVehicles()
-      }
-   }
-   
-   
-   
-   /* MARK: - FETCH VEHICLES SUMMARY FROM CARRIS API */
-   
-   // This function calls the GeoBus API and receives vehicle metadata,
-   // including positions, for the set route number, while storing them
-   // in the vehicles array. It also formats VehicleAnnotations and stores
-   // them in the annotations array. It must have @objc flag because Timer
-   // is written in Objective-C.
+   /* * */
+   /* MARK: - SECTION 12: FETCH ALL VEHICLES FROM CARRIS API */
+   /* This function calls the Carris API and receives vehicle metadata, */
+   /* including positions, for all currently active vehicles, */
+   /* and stores them in the ‹allVehicles› array. */
    
    func fetchVehiclesListFromCarrisAPI() async {
       
@@ -684,24 +737,10 @@ class CarrisNetworkController: ObservableObject {
          
       } catch {
          Appstate.shared.change(to: .error, for: .vehicles)
-         print("ERROR IN VEHICLES: \(error)")
+         print("GB Carris: Vehicles List: ERROR IN VEHICLES: \(error)")
          return
       }
       
-   }
-   
-   
-   
-   
-   
-   
-   
-   func getVehicle(by busNumber: Int) -> CarrisNetworkModel.Vehicle? {
-      if let existingVehicleObject = self.allVehicles[withId: busNumber] {
-         return existingVehicleObject
-      } else {
-         return nil
-      }
    }
    
    
