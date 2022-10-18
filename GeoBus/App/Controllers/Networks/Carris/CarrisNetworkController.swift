@@ -120,26 +120,35 @@ class CarrisNetworkController: ObservableObject {
    }
    
    private func update(reset forceUpdate: Bool) {
-      
-      // Conditions to update
-      let lastUpdateIsLongerThanInterval = Helpers.getSecondsFromISO8601DateString(self.lastUpdatedNetwork ?? "") > self.carrisNetworkUpdateInterval
-      let savedNetworkDataIsEmpty = allRoutes.isEmpty || allStops.isEmpty
-      let updateIsForcedByCaller = forceUpdate
-      
-      // Proceed if at least one condition is true
-      if (lastUpdateIsLongerThanInterval || savedNetworkDataIsEmpty || updateIsForcedByCaller) {
-         Task {
+      Task {
+         
+         // Conditions to update
+         let lastUpdateIsLongerThanInterval = Helpers.getSecondsFromISO8601DateString(self.lastUpdatedNetwork ?? "") > self.carrisNetworkUpdateInterval
+         let savedNetworkDataIsEmpty = allRoutes.isEmpty || allStops.isEmpty
+         let updateIsForcedByCaller = forceUpdate
+         
+         // Proceed if at least one condition is true
+         if (lastUpdateIsLongerThanInterval || savedNetworkDataIsEmpty || updateIsForcedByCaller) {
+            
+            // Delete everything from storage
+            UserDefaults.standard.dictionaryRepresentation().keys.forEach { key in
+               UserDefaults.standard.removeObject(forKey: key)
+            }
+            
+            // Fetch the updated network from the API
             await fetchStopsFromCarrisAPI()
             await fetchRoutesFromCarrisAPI()
+            
+            // Replace timestamp in storage with current time
+            let timestampOfCurrentUpdate = ISO8601DateFormatter().string(from: Date.now)
+            UserDefaults.standard.set(timestampOfCurrentUpdate, forKey: storageKeyForLastUpdatedCarrisNetwork)
+            
          }
-         // Replace timestamp in storage with current time
-         let timestampOfCurrentUpdate = ISO8601DateFormatter().string(from: Date.now)
-         UserDefaults.standard.set(timestampOfCurrentUpdate, forKey: storageKeyForLastUpdatedCarrisNetwork)
+         
+         // Always update vehicles and favorites
+         self.refresh()
+         
       }
-      
-      // Update vehicles and favorites
-      self.refresh()
-      
    }
    
    
@@ -168,7 +177,7 @@ class CarrisNetworkController: ObservableObject {
       Analytics.shared.capture(event: .Stops_Sync_START)
       Appstate.shared.change(to: .loading, for: .stops)
       
-      print("GB Carris: Fetching Stops: Starting...")
+      print("GeoBus: Carris API: Stops: Starting update...")
       
       do {
          // Request API Routes List
@@ -181,10 +190,12 @@ class CarrisNetworkController: ObservableObject {
          
          // Check status of response
          if (responseCarrisAPIStopsList?.statusCode == 401) {
+            print("GeoBus: Carris API: Stops: Unauthorized. Refreshing authorization...")
             await CarrisAuthentication.shared.authenticate()
             await self.fetchStopsFromCarrisAPI()
             return
          } else if (responseCarrisAPIStopsList?.statusCode != 200) {
+            print("GeoBus: Carris API: Stops: Unknown error. Waiting for manual retry. More info below:")
             print(responseCarrisAPIStopsList as Any)
             throw Appstate.ModuleError.carris_unavailable
          }
@@ -218,7 +229,7 @@ class CarrisNetworkController: ObservableObject {
             UserDefaults.standard.set(encodedAllStops, forKey: storageKeyForSavedStops)
          }
          
-         print("GB Carris: Fetching Stops: Complete!")
+         print("GeoBus: Carris API: Stops: Update complete!")
          
          Analytics.shared.capture(event: .Stops_Sync_OK)
          Appstate.shared.change(to: .idle, for: .stops)
@@ -226,9 +237,7 @@ class CarrisNetworkController: ObservableObject {
       } catch {
          Analytics.shared.capture(event: .Stops_Sync_ERROR)
          Appstate.shared.change(to: .error, for: .stops)
-         print("GB Carris: Fetching Stops: Error!")
-         print(error)
-         print("************")
+         print("GeoBus: Carris API: Stops: Error found while updating. More info: \(error)")
       }
       
    }
@@ -248,7 +257,7 @@ class CarrisNetworkController: ObservableObject {
       Analytics.shared.capture(event: .Routes_Sync_START)
       Appstate.shared.change(to: .loading, for: .routes)
       
-      print("GB Carris: Fetching Routes: Starting...")
+      print("GeoBus: Carris API: Routes: Starting update...")
       
       do {
          // Request API Routes List
@@ -261,10 +270,12 @@ class CarrisNetworkController: ObservableObject {
          
          // Check status of response
          if (responseCarrisAPIRoutesList?.statusCode == 401) {
+            print("GeoBus: Carris API: Routes: Unauthorized. Refreshing authorization...")
             await CarrisAuthentication.shared.authenticate()
             await self.fetchRoutesFromCarrisAPI()
             return
          } else if (responseCarrisAPIRoutesList?.statusCode != 200) {
+            print("GeoBus: Carris API: Routes: Unknown error. Waiting for manual retry. More info below:")
             print(responseCarrisAPIRoutesList as Any)
             throw Appstate.ModuleError.carris_unavailable
          }
@@ -282,7 +293,7 @@ class CarrisNetworkController: ObservableObject {
             
             if (availableRoute.isPublicVisible ?? false) {
                
-               print("GB Carris: Route: \(String(describing: availableRoute.routeNumber)) starting...")
+               print("GeoBus: Carris API: Routes: Downloading route \(String(describing: availableRoute.routeNumber))...")
                
                // Request Route Detail for ‹routeNumber›
                var requestAPIRouteDetail = URLRequest(url: URL(string: "\(CarrisAPISettings.endpoint)/Routes/\(availableRoute.routeNumber ?? "invalid-route-number")")!)
@@ -331,7 +342,7 @@ class CarrisNetworkController: ObservableObject {
                
                self.networkUpdateProgress! -= 1
                
-               print("GB Carris: Route: Route.\(String(describing: formattedRoute.number)) complete.")
+               print("GeoBus: Carris API: Routes: Route \(String(describing: availableRoute.routeNumber)) complete!")
                
                // Wait a moment before the next API request
                try await Task.sleep(nanoseconds: 100_000_000)
@@ -348,7 +359,7 @@ class CarrisNetworkController: ObservableObject {
             UserDefaults.standard.set(encodedAllRoutes, forKey: storageKeyForSavedRoutes)
          }
          
-         print("GB Carris: Fetching Routes: Complete!")
+         print("GeoBus: Carris API: Routes: Update complete!")
          
          Analytics.shared.capture(event: .Routes_Sync_OK)
          Appstate.shared.change(to: .idle, for: .routes)
@@ -356,9 +367,7 @@ class CarrisNetworkController: ObservableObject {
       } catch {
          Analytics.shared.capture(event: .Routes_Sync_ERROR)
          Appstate.shared.change(to: .error, for: .routes)
-         print("GB Carris: Fetching Routes: Error!")
-         print(error)
-         print("************")
+         print("GeoBus: Carris API: Routes: Error found while updating. More info: \(error)")
       }
       
    }
@@ -725,6 +734,8 @@ class CarrisNetworkController: ObservableObject {
       
       Appstate.shared.change(to: .loading, for: .vehicles)
       
+      print("GeoBus: Carris API: Vehicles List: Starting update...")
+      
       do {
          // Request all Vehicles from API
          var requestCarrisAPIVehiclesList = URLRequest(url: URL(string: "\(CarrisAPISettings.endpoint)/vehicleStatuses")!)
@@ -736,10 +747,12 @@ class CarrisNetworkController: ObservableObject {
          
          // Check status of response
          if (responseCarrisAPIVehiclesList?.statusCode == 401) {
+            print("GeoBus: Carris API: Vehicles List: Unauthorized. Refreshing authorization...")
             await CarrisAuthentication.shared.authenticate()
             await self.fetchVehiclesListFromCarrisAPI()
             return
          } else if (responseCarrisAPIVehiclesList?.statusCode != 200) {
+            print("GeoBus: Carris API: Vehicles List: Unknown error. Waiting for manual retry. More info below:")
             print(responseCarrisAPIVehiclesList as Any)
             throw Appstate.ModuleError.carris_unavailable
          }
@@ -785,11 +798,13 @@ class CarrisNetworkController: ObservableObject {
             
          }
          
+         print("GeoBus: Carris API: Vehicles List: Update complete!")
+         
          Appstate.shared.change(to: .idle, for: .vehicles)
          
       } catch {
          Appstate.shared.change(to: .error, for: .vehicles)
-         print("GB Carris: Vehicles List: ERROR IN VEHICLES: \(error)")
+         print("GeoBus: Carris API: Vehicles List: Error found while updating. More info: \(error)")
          return
       }
       
@@ -815,6 +830,8 @@ class CarrisNetworkController: ObservableObject {
       
       Appstate.shared.change(to: .loading, for: .vehicles)
       
+      print("GeoBus: Carris API: Vehicle Details: Starting update...")
+      
       do {
          
          // Request Vehicle Detail (SGO)
@@ -827,10 +844,12 @@ class CarrisNetworkController: ObservableObject {
          
          // Check status of response
          if (responseCarrisAPIVehicleDetail?.statusCode == 401) {
+            print("GeoBus: Carris API: Vehicle Details: Unauthorized. Refreshing authorization...")
             await CarrisAuthentication.shared.authenticate()
             await self.fetchVehicleDetailsFromCarrisAPI(for: vehicleId)
             return
          } else if (responseCarrisAPIVehicleDetail?.statusCode != 200) {
+            print("GeoBus: Carris API: Vehicle Details: Unknown error. Waiting for manual retry. More info below:")
             print(responseCarrisAPIVehicleDetail as Any)
             throw Appstate.ModuleError.carris_unavailable
          }
@@ -851,11 +870,13 @@ class CarrisNetworkController: ObservableObject {
             allVehicles[indexOfVehicleInArray!].lastStopOnVoyageName = decodedCarrisAPIVehicleDetail.lastStopOnVoyageName
          }
          
+         print("GeoBus: Carris API: Vehicle Details: Update complete!")
+         
          Appstate.shared.change(to: .idle, for: .vehicles)
          
       } catch {
          Appstate.shared.change(to: .error, for: .vehicles)
-         print("GB Carris: Vehicle Details: ERROR IN VEHICLE DETAILS: \(error)")
+         print("GeoBus: Carris API: Vehicles Details: Error found while updating. More info: \(error)")
          return
       }
       
@@ -876,6 +897,8 @@ class CarrisNetworkController: ObservableObject {
       
       Appstate.shared.change(to: .loading, for: .estimations)
       
+      print("GeoBus: Carris API: Estimations: Starting update...")
+      
       do {
          // Request API Routes List
          var requestCarrisAPIEstimations = URLRequest(url: URL(string: "\(CarrisAPISettings.endpoint)/Estimations/busStop/\(stopId)/top/5")!)
@@ -887,9 +910,11 @@ class CarrisNetworkController: ObservableObject {
          
          // Check status of response
          if (responseCarrisAPIEstimations?.statusCode == 401) {
+            print("GeoBus: Carris API: Estimations: Unauthorized. Refreshing authorization...")
             await CarrisAuthentication.shared.authenticate()
             return await self.fetchEstimationsFromCarrisAPI(for: stopId)
          } else if (responseCarrisAPIEstimations?.statusCode != 200) {
+            print("GeoBus: Carris API: Estimations: Unknown error. Waiting for manual retry. More info below:")
             print(responseCarrisAPIEstimations as Any)
             throw Appstate.ModuleError.carris_unavailable
          }
@@ -913,13 +938,15 @@ class CarrisNetworkController: ObservableObject {
             )
          }
          
+         print("GeoBus: Carris API: Estimations: Update complete!")
+         
          Appstate.shared.change(to: .idle, for: .estimations)
          
          return tempFormattedEstimations
          
       } catch {
          Appstate.shared.change(to: .error, for: .estimations)
-         print("ERROR IN ESTIMATIONS: \(error)")
+         print("GeoBus: Carris API: Estimations: Error found while updating. More info: \(error)")
          return []
       }
       

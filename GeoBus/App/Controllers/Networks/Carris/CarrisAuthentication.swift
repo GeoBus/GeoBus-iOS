@@ -118,20 +118,20 @@ final class CarrisAuthentication {
       
       if (refreshToken != nil) {
          do {
-            print("GB: Carris Auth: Authorizing with Carris API using refreshToken...")
+            print("GeoBus: Carris API: Authentication: Authorizing with refreshToken...")
             try await fetchAuthorization(token: refreshToken!, type: "refresh")
          } catch {
-            print("GB: Carris Auth: Clearing saved refreshToken...")
+            print("GeoBus: Carris API: Authentication: Clearing saved refreshToken...")
             refreshToken = nil
             await authenticate()
             return
          }
       } else if (apiKey != nil) {
          do {
-            print("GB: Carris Auth: Authorizing with Carris API using apiKey...")
+            print("GeoBus: Carris API: Authentication: Authorizing with apiKey...")
             try await fetchAuthorization(token: apiKey!, type: "apikey")
          } catch {
-            print("GB: Carris Auth: Clearing saved apiKey...")
+            print("GeoBus: Carris API: Authentication: Clearing saved apiKey...")
             apiKey = nil
             await authenticate()
             return
@@ -139,18 +139,18 @@ final class CarrisAuthentication {
       } else {
          do {
             if (currentRetriesLeft > 0) {
-               print("GB: Carris Auth: Retrieving latest credential from server...")
+               print("GeoBus: Carris API: Authentication: Retrieving latest credential from server...")
                try await fetchLatestCredential()
                await authenticate()
                currentRetriesLeft -= 1
                return
             } else {
-               print("GB: Carris Auth: Carris did not accept any known authentication methods.")
+               print("GeoBus: Carris API: Authentication: Carris API did not accept any known authentication methods.")
                throw Appstate.ModuleError.carris_unauthorized
             }
          } catch {
             Appstate.shared.change(to: .error, for: .auth)
-            print("GB: Carris Auth: End of module.")
+            print("GeoBus: Carris API: Authentication: End of module.")
             return
          }
       }
@@ -170,6 +170,8 @@ final class CarrisAuthentication {
    
    func fetchAuthorization(token: String, type: String) async throws {
       
+      print("GeoBus: Carris API: Authentication: Fetching authorization...")
+      
       var requestCarrisAuthorization = URLRequest(url: URL(string: self.carris_auth_authorizationEndpoint)!)
       requestCarrisAuthorization.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
       requestCarrisAuthorization.httpMethod = "POST"
@@ -183,6 +185,8 @@ final class CarrisAuthentication {
       self.refreshToken = decodedCarrisAuthorization.refreshToken
       self.authToken = decodedCarrisAuthorization.authorizationToken
       
+      print("GeoBus: Carris API: Authentication: Done fetching authorization.")
+      
    }
    
    
@@ -195,6 +199,8 @@ final class CarrisAuthentication {
    
    func fetchLatestCredential() async throws {
       
+      print("GeoBus: Carris API: Authentication: Fetching latest credential...")
+      
       var requestCarrisLatestCredential = URLRequest(url: URL(string: self.carris_auth_credentialEndpoint)!)
       requestCarrisLatestCredential.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
       requestCarrisLatestCredential.httpMethod = "GET"
@@ -202,6 +208,8 @@ final class CarrisAuthentication {
       let decodedCarrisLatestCredential = try JSONDecoder().decode(CarrisAPICredential.self, from: rawDataCarrisLatestCredential)
       
       self.apiKey = decodedCarrisLatestCredential.token
+      
+      print("GeoBus: Carris API: Authentication: Done fetching latest credential.")
       
    }
    
