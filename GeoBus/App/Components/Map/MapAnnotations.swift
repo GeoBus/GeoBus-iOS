@@ -79,8 +79,7 @@ struct CarrisConnectionAnnotationView: View {
       }) {
          StopIcon(
             orderInRoute: self.connection.orderInRoute,
-//            direction: self.connection.direction ?? .circular,
-            direction: .circular,
+            direction: self.connection.direction,
             isSelected: self.isAnnotationSelected
          )
       }
