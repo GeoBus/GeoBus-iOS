@@ -103,6 +103,9 @@ class CarrisNetworkController: ObservableObject {
       // Check if network needs an update
       self.updateNetwork(reset: false)
       
+      // Update vehicles
+      self.updateVehicles()
+      
    }
    
    
@@ -185,7 +188,7 @@ class CarrisNetworkController: ObservableObject {
                // Save the formatted route object in the allRoutes temporary variable
                tempAllStops.append(
                   CarrisNetworkModel.Stop(
-                     publicId: availableStop.publicId ?? "0",
+                     id: availableStop.id ?? -1,
                      name: availableStop.name ?? "-",
                      lat: availableStop.lat ?? 0,
                      lng: availableStop.lng ?? 0
@@ -419,7 +422,7 @@ class CarrisNetworkController: ObservableObject {
                direction: direction,
                orderInRoute: rawConnection.orderNum ?? -1,
                stop: CarrisNetworkModel.Stop(
-                  publicId: rawConnection.busStop?.publicId ?? "-",
+                  id: rawConnection.busStop?.id ?? -1,
                   name: rawConnection.busStop?.name ?? "-",
                   lat: rawConnection.busStop?.lat ?? 0,
                   lng: rawConnection.busStop?.lng ?? 0
@@ -549,7 +552,7 @@ class CarrisNetworkController: ObservableObject {
       
       // Find index of route matching requested routeNumber
       let indexOfStopInArray = allStops.firstIndex(where: { (stop) -> Bool in
-         stop.publicId == String(parsedStopPublicId) // test if this is the item we're looking for
+         stop.id == parsedStopPublicId // test if this is the item we're looking for
       }) ?? nil // If the item does not exist, return default value -1
       
       // If a match is found...
@@ -676,10 +679,6 @@ class CarrisNetworkController: ObservableObject {
             }
             
          }
-         
-         print("GB6: allVehicles[0].lat: \(allVehicles[6].lat)")
-         print("GB6: allVehicles[0].coordinate: \(allVehicles[6].coordinate)")
-         
          
          Appstate.shared.change(to: .idle, for: .vehicles)
          
