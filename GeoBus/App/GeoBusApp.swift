@@ -18,7 +18,6 @@ struct GeoBusApp: App {
             .environmentObject(mapController)
             .environmentObject(carrisNetworkController)
             .onAppear(perform: {
-               carrisNetworkController.start() // Update Carris network model
                Analytics.shared.capture(event: .App_Session_Start) // Capture app open
             })
             .onReceive(updateIntervalTimer) { event in
