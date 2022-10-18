@@ -610,6 +610,14 @@ class CarrisNetworkController: ObservableObject {
       }
    }
    
+   public func find(vehicle vehicleId: Int) -> CarrisNetworkModel.Vehicle? {
+      if let requestedVehicleObject = self.allVehicles[withId: vehicleId] {
+         return requestedVehicleObject
+      } else {
+         return nil
+      }
+   }
+   
    
    
    /* * */
@@ -782,6 +790,72 @@ class CarrisNetworkController: ObservableObject {
       } catch {
          Appstate.shared.change(to: .error, for: .vehicles)
          print("GB Carris: Vehicles List: ERROR IN VEHICLES: \(error)")
+         return
+      }
+      
+   }
+   
+   
+   
+   /* * */
+   /* MARK: - SECTION 12: FETCH VEHICLE DETAILS FROM CARRIS API */
+   /* This function calls the Carris API SGO endpoint to retrieve additional vehicle metadata, */
+   /* such as location, license plate number and last stop on the current trip. Provide a convenience */
+   /* function to allow the UI to request this information only when necessary. After retrieving the new details */
+   /* fromt the API, re-populate the activeVehicles array to trigger an update in the UI. */
+   
+   public func getAdditionalDetailsFor(vehicle vehicleId: Int) {
+      Task {
+         await self.fetchVehicleDetailsFromCarrisAPI(for: vehicleId)
+         self.populateActiveVehicles()
+      }
+   }
+   
+   private func fetchVehicleDetailsFromCarrisAPI(for vehicleId: Int) async {
+      
+      Appstate.shared.change(to: .loading, for: .vehicles)
+      
+      do {
+         
+         // Request Vehicle Detail (SGO)
+         var requestCarrisAPIVehicleDetail = URLRequest(url: URL(string: "\(CarrisAPISettings.endpoint)/SGO/busNumber/\(vehicleId)")!)
+         requestCarrisAPIVehicleDetail.addValue("application/json", forHTTPHeaderField: "Content-Type")
+         requestCarrisAPIVehicleDetail.addValue("application/json", forHTTPHeaderField: "Accept")
+         requestCarrisAPIVehicleDetail.setValue("Bearer \(CarrisAuthentication.shared.authToken ?? "invalid_token")", forHTTPHeaderField: "Authorization")
+         let (rawDataCarrisAPIVehicleDetail, rawResponseCarrisAPIVehicleDetail) = try await URLSession.shared.data(for: requestCarrisAPIVehicleDetail)
+         let responseCarrisAPIVehicleDetail = rawResponseCarrisAPIVehicleDetail as? HTTPURLResponse
+         
+         // Check status of response
+         if (responseCarrisAPIVehicleDetail?.statusCode == 401) {
+            await CarrisAuthentication.shared.authenticate()
+            await self.fetchVehicleDetailsFromCarrisAPI(for: vehicleId)
+            return
+         } else if (responseCarrisAPIVehicleDetail?.statusCode != 200) {
+            print(responseCarrisAPIVehicleDetail as Any)
+            throw Appstate.ModuleError.carris_unavailable
+         }
+         
+         
+         let decodedCarrisAPIVehicleDetail = try JSONDecoder().decode(CarrisAPIModel.VehicleDetail.self, from: rawDataCarrisAPIVehicleDetail)
+         
+         
+         let indexOfVehicleInArray = allVehicles.firstIndex(where: {
+            $0.id == vehicleId
+         })
+         
+         if (indexOfVehicleInArray != nil) {
+            allVehicles[indexOfVehicleInArray!].lat = decodedCarrisAPIVehicleDetail.lat
+            allVehicles[indexOfVehicleInArray!].lng = decodedCarrisAPIVehicleDetail.lng
+            allVehicles[indexOfVehicleInArray!].vehiclePlate = decodedCarrisAPIVehicleDetail.vehiclePlate
+            allVehicles[indexOfVehicleInArray!].lastStopOnVoyageId = decodedCarrisAPIVehicleDetail.lastStopOnVoyageId
+            allVehicles[indexOfVehicleInArray!].lastStopOnVoyageName = decodedCarrisAPIVehicleDetail.lastStopOnVoyageName
+         }
+         
+         Appstate.shared.change(to: .idle, for: .vehicles)
+         
+      } catch {
+         Appstate.shared.change(to: .error, for: .vehicles)
+         print("GB Carris: Vehicle Details: ERROR IN VEHICLE DETAILS: \(error)")
          return
       }
       

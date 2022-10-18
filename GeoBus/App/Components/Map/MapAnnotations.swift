@@ -129,13 +129,8 @@ struct CarrisVehicleAnnotationView: View {
       .animation(.default, value: vehicle.angleInRadians)
       .sheet(isPresented: $isPresented) {
          VStack(alignment: .leading) {
-            VehicleDetailsView(
-               vehicle: self.vehicle,
-               busNumber: vehicle.id,
-               routeNumber: vehicle.routeNumber ?? "-",
-               lastGpsTime: vehicle.lastGpsTime ?? ""
-            )
-            .padding(.bottom, 20)
+            VehicleDetailsView(vehicle: self.vehicle)
+               .padding(.bottom, 20)
             Disclaimer()
                .padding(.horizontal)
                .padding(.bottom, 10)
