@@ -96,7 +96,7 @@ class MapController: ObservableObject {
    
    // .....
    
-   func updateAnnotations(with selectedVariant: CarrisNetworkModel.Variant) {
+   func updateAnnotations(with activeVariant: CarrisNetworkModel.Variant) {
       
       visibleAnnotations.removeAll(where: {
          switch $0.item {
@@ -107,8 +107,32 @@ class MapController: ObservableObject {
          }
       })
       
-      for itinerary in selectedVariant.itineraries {
-         for connection in itinerary.connections {
+      if (activeVariant.circularItinerary != nil) {
+         for connection in activeVariant.circularItinerary! {
+            visibleAnnotations.append(
+               GenericMapAnnotation(
+                  id: Int(connection.stop.publicId) ?? 0,
+                  location: CLLocationCoordinate2D(latitude: connection.stop.lat, longitude: connection.stop.lng),
+                  item: .carris_connection(connection)
+               )
+            )
+         }
+      }
+      
+      if (activeVariant.ascendingItinerary != nil) {
+         for connection in activeVariant.ascendingItinerary! {
+            visibleAnnotations.append(
+               GenericMapAnnotation(
+                  id: Int(connection.stop.publicId) ?? 0,
+                  location: CLLocationCoordinate2D(latitude: connection.stop.lat, longitude: connection.stop.lng),
+                  item: .carris_connection(connection)
+               )
+            )
+         }
+      }
+      
+      if (activeVariant.descendingItinerary != nil) {
+         for connection in activeVariant.descendingItinerary! {
             visibleAnnotations.append(
                GenericMapAnnotation(
                   id: Int(connection.stop.publicId) ?? 0,
@@ -131,7 +155,14 @@ class MapController: ObservableObject {
    
    func updateAnnotations(with activeVehiclesList: [CarrisNetworkModel.Vehicle]) {
       
-      visibleAnnotations.removeAll()
+      visibleAnnotations.removeAll(where: {
+         switch $0.item {
+            case .carris_vehicle(_):
+               return true
+            case .carris_connection(_), .carris_stop(_):
+               return false
+         }
+      })
       
       for vehicle in activeVehiclesList {
          visibleAnnotations.append(
