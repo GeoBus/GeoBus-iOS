@@ -85,9 +85,7 @@ struct CarrisConnectionAnnotationView: View {
       }
       .frame(width: 40, height: 40, alignment: .center)
       .sheet(isPresented: $isAnnotationSelected, onDismiss: {
-         withAnimation(.easeInOut(duration: 0.1)) {
-            self.isAnnotationSelected = false
-         }
+         self.isAnnotationSelected = false
       }) {
          ConnectionDetailsView(connection: self.connection)
       }

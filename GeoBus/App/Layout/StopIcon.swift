@@ -29,7 +29,7 @@ struct StopIcon: View {
    // Properties:
    // The defaults for the icon
    private let size: CGFloat = 25
-   private let multiplier: Double = 1.2
+   private let multiplier: Double = 1.5
    
    
    private var viewSize: CGFloat {
@@ -84,12 +84,17 @@ struct StopIcon: View {
          Circle()
             .foregroundColor(self.borderColor)
             .frame(width: self.viewSize, height: self.viewSize)
+            .animation(.default, value: self.borderColor)
+            .animation(.default, value: self.viewSize)
          Circle()
             .foregroundColor(self.backgroundColor)
             .frame(width: self.borderWidth, height: self.borderWidth)
+            .animation(.default, value: self.backgroundColor)
+            .animation(.default, value: self.borderWidth)
          Text(String(self.orderInRoute))
             .font(.system(size: self.textSize, weight: .bold))
             .foregroundColor(.white)
+            .animation(.default, value: self.textSize)
       }
    }
    
