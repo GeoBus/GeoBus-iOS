@@ -22,18 +22,12 @@ struct SelectRouteInput: View {
       VStack {
          HStack {
             TextField("_ _ _", text: self.$routeNumber)
-               .keyboardType(.numberPad)
+               .keyboardType(.namePhonePad)
                .font(.system(size: 40, weight: .bold, design: .default))
                .multilineTextAlignment(.center)
                .padding()
                .background(Color("BackgroundSecondary"))
                .cornerRadius(10)
-               .toolbar {
-                  ToolbarItemGroup(placement: .keyboard) {
-                     // INCLUDE BUTTON FOR ‹B› AND ‹E›
-                     // 13B and 28E
-                  }
-               }
 
             Button(action: {
                let success = carrisNetworkController.select(route: self.routeNumber.uppercased())
