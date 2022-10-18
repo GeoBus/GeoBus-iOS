@@ -40,7 +40,7 @@ struct RouteDetailsSheet: View {
             RouteDetailsVehiclesQuantity(vehiclesQuantity: carrisNetworkController.activeVehicles.count)
             Button(action: {
                TapticEngine.impact.feedback(.heavy)
-               // self.carrisNetworkController.toggleFavorite(route: self.carrisNetworkController.selectedRoute!)
+               carrisNetworkController.toggleFavoriteForActiveRoute()
             }) {
                RouteDetailsAddToFavorites()
             }

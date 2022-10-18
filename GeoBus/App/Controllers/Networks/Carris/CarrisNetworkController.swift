@@ -532,6 +532,13 @@ class CarrisNetworkController: ObservableObject {
       saveFavoritesToKVS()
    }
    
+   public func toggleFavoriteForActiveRoute() {
+      if (self.activeRoute != nil) {
+         self.toggleFavorite(route: self.activeRoute!)
+      }
+   }
+   
+   
    public func toggleFavorite(stop: CarrisNetworkModel.Stop) {
       if let index = self.favorites_stops.firstIndex(of: stop) {
          self.favorites_stops.remove(at: index)
@@ -541,6 +548,43 @@ class CarrisNetworkController: ObservableObject {
          Analytics.shared.capture(event: .Routes_Details_AddToFavorites, properties: ["stopId": stop.id])
       }
       saveFavoritesToKVS()
+   }
+   
+   public func toggleFavoriteForActiveStop() {
+      if (self.activeStop != nil) {
+         self.toggleFavorite(stop: self.activeStop!)
+      }
+   }
+   
+   
+   
+   /* * */
+   /* MARK: - SECTION 8.4: IS FAVORITE CHECKER */
+   /* These functions check if an object is marked as favorite. */
+   
+   public func isFavourite(route: CarrisNetworkModel.Route?) -> Bool {
+      if (route != nil) {
+         return self.favorites_routes.contains(route!)
+      } else {
+         return false
+      }
+   }
+   
+   public func isActiveRouteFavourite() -> Bool {
+      return self.isFavourite(route: self.activeRoute)
+   }
+   
+   
+   public func isFavourite(stop: CarrisNetworkModel.Stop?) -> Bool {
+      if (stop != nil) {
+         return self.favorites_stops.contains(stop!)
+      } else {
+         return false
+      }
+   }
+   
+   public func isActiveStopFavourite() -> Bool {
+      return self.isFavourite(stop: self.activeStop)
    }
    
    
