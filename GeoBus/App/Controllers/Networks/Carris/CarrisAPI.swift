@@ -18,10 +18,10 @@ final class CarrisAPI {
    private let authorizationEndpoint = "https://gateway.carris.pt/gateway/authenticationapi/authorization/sign"
    private let credentialEndpoint = "https://joao.earth/api/geobus/carris_auth"
    
-   private let storageKeyForEndpoint: String = "carris_auth_endpoint"
-   private let storageKeyForApiKey: String = "carris_auth_apiKey"
-   private let storageKeyForRefreshToken: String = "carris_auth_refreshToken"
-   private let storageKeyForAuthToken: String = "carris_auth_authToken"
+   private let storageKeyForEndpoint: String = "carris_endpoint"
+   private let storageKeyForApiKey: String = "carris_apiKey"
+   private let storageKeyForRefreshToken: String = "carris_refreshToken"
+   private let storageKeyForAuthToken: String = "carris_authToken"
    
    
    
