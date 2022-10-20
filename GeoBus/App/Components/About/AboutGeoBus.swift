@@ -46,6 +46,7 @@ struct AboutGeoBus: View {
                         .padding(.top, 70)
                         .padding(.bottom, 15)
                      SyncStatus()
+                     DataProvidersCard()
                   }
                   .padding(.horizontal)
 
