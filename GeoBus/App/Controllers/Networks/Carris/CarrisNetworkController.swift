@@ -180,25 +180,9 @@ class CarrisNetworkController: ObservableObject {
       print("GeoBus: Carris API: Stops: Starting update...")
       
       do {
-         // Request API Routes List
-         var requestCarrisAPIStopsList = URLRequest(url: URL(string: "\(CarrisAPISettings.endpoint)/busstops")!)
-         requestCarrisAPIStopsList.addValue("application/json", forHTTPHeaderField: "Content-Type")
-         requestCarrisAPIStopsList.addValue("application/json", forHTTPHeaderField: "Accept")
-         requestCarrisAPIStopsList.setValue("Bearer \(CarrisAuthentication.shared.authToken ?? "invalid_token")", forHTTPHeaderField: "Authorization")
-         let (rawDataCarrisAPIStopsList, rawResponseCarrisAPIStopsList) = try await URLSession.shared.data(for: requestCarrisAPIStopsList)
-         let responseCarrisAPIStopsList = rawResponseCarrisAPIStopsList as? HTTPURLResponse
          
-         // Check status of response
-         if (responseCarrisAPIStopsList?.statusCode == 401) {
-            print("GeoBus: Carris API: Stops: Unauthorized. Refreshing authorization...")
-            await CarrisAuthentication.shared.authenticate()
-            await self.fetchStopsFromCarrisAPI()
-            return
-         } else if (responseCarrisAPIStopsList?.statusCode != 200) {
-            print("GeoBus: Carris API: Stops: Unknown error. Waiting for manual retry. More info below:")
-            print(responseCarrisAPIStopsList as Any)
-            throw Appstate.ModuleError.carris_unavailable
-         }
+         // Request API Stops List
+         let rawDataCarrisAPIStopsList = try await CarrisAPI.shared.request(for: "busstops")
          
          let decodedCarrisAPIStopsList = try JSONDecoder().decode([CarrisAPIModel.Stop].self, from: rawDataCarrisAPIStopsList)
          
@@ -260,26 +244,9 @@ class CarrisNetworkController: ObservableObject {
       print("GeoBus: Carris API: Routes: Starting update...")
       
       do {
+         
          // Request API Routes List
-         var requestCarrisAPIRoutesList = URLRequest(url: URL(string: "\(CarrisAPISettings.endpoint)/Routes")!)
-         requestCarrisAPIRoutesList.addValue("application/json", forHTTPHeaderField: "Content-Type")
-         requestCarrisAPIRoutesList.addValue("application/json", forHTTPHeaderField: "Accept")
-         requestCarrisAPIRoutesList.setValue("Bearer \(CarrisAuthentication.shared.authToken ?? "invalid_token")", forHTTPHeaderField: "Authorization")
-         let (rawDataCarrisAPIRoutesList, rawResponseCarrisAPIRoutesList) = try await URLSession.shared.data(for: requestCarrisAPIRoutesList)
-         let responseCarrisAPIRoutesList = rawResponseCarrisAPIRoutesList as? HTTPURLResponse
-         
-         // Check status of response
-         if (responseCarrisAPIRoutesList?.statusCode == 401) {
-            print("GeoBus: Carris API: Routes: Unauthorized. Refreshing authorization...")
-            await CarrisAuthentication.shared.authenticate()
-            await self.fetchRoutesFromCarrisAPI()
-            return
-         } else if (responseCarrisAPIRoutesList?.statusCode != 200) {
-            print("GeoBus: Carris API: Routes: Unknown error. Waiting for manual retry. More info below:")
-            print(responseCarrisAPIRoutesList as Any)
-            throw Appstate.ModuleError.carris_unavailable
-         }
-         
+         let rawDataCarrisAPIRoutesList = try await CarrisAPI.shared.request(for: "Routes")
          let decodedCarrisAPIRoutesList = try JSONDecoder().decode([CarrisAPIModel.RoutesList].self, from: rawDataCarrisAPIRoutesList)
          
          self.networkUpdateProgress = decodedCarrisAPIRoutesList.count
@@ -296,24 +263,8 @@ class CarrisNetworkController: ObservableObject {
                print("GeoBus: Carris API: Routes: Downloading route \(String(describing: availableRoute.routeNumber))...")
                
                // Request Route Detail for ‹routeNumber›
-               var requestAPIRouteDetail = URLRequest(url: URL(string: "\(CarrisAPISettings.endpoint)/Routes/\(availableRoute.routeNumber ?? "invalid-route-number")")!)
-               requestAPIRouteDetail.addValue("application/json", forHTTPHeaderField: "Content-Type")
-               requestAPIRouteDetail.addValue("application/json", forHTTPHeaderField: "Accept")
-               requestAPIRouteDetail.setValue("Bearer \(CarrisAuthentication.shared.authToken ?? "invalid_token")", forHTTPHeaderField: "Authorization")
-               let (rawDataAPIRouteDetail, rawResponseAPIRouteDetail) = try await URLSession.shared.data(for: requestAPIRouteDetail)
-               let responseAPIRouteDetail = rawResponseAPIRouteDetail as? HTTPURLResponse
-               
-               // Check status of response
-               if (responseAPIRouteDetail?.statusCode == 401) {
-                  await CarrisAuthentication.shared.authenticate()
-                  await self.fetchRoutesFromCarrisAPI()
-                  return
-               } else if (responseAPIRouteDetail?.statusCode != 200) {
-                  print(responseAPIRouteDetail as Any)
-                  throw Appstate.ModuleError.carris_unavailable
-               }
-               
-               let decodedAPIRouteDetail = try JSONDecoder().decode(CarrisAPIModel.Route.self, from: rawDataAPIRouteDetail)
+               let rawDataCarrisAPIRouteDetail = try await CarrisAPI.shared.request(for: "Routes/\(availableRoute.routeNumber ?? "-")")
+               let decodedAPIRouteDetail = try JSONDecoder().decode(CarrisAPIModel.Route.self, from: rawDataCarrisAPIRouteDetail)
                
                // Define a temporary variable to store formatted route variants
                var tempFormattedRouteVariants: [CarrisNetworkModel.Variant] = []
@@ -738,24 +689,7 @@ class CarrisNetworkController: ObservableObject {
       
       do {
          // Request all Vehicles from API
-         var requestCarrisAPIVehiclesList = URLRequest(url: URL(string: "\(CarrisAPISettings.endpoint)/vehicleStatuses")!)
-         requestCarrisAPIVehiclesList.addValue("application/json", forHTTPHeaderField: "Content-Type")
-         requestCarrisAPIVehiclesList.addValue("application/json", forHTTPHeaderField: "Accept")
-         requestCarrisAPIVehiclesList.setValue("Bearer \(CarrisAuthentication.shared.authToken ?? "invalid_token")", forHTTPHeaderField: "Authorization")
-         let (rawDataCarrisAPIVehiclesList, rawResponseCarrisAPIVehiclesList) = try await URLSession.shared.data(for: requestCarrisAPIVehiclesList)
-         let responseCarrisAPIVehiclesList = rawResponseCarrisAPIVehiclesList as? HTTPURLResponse
-         
-         // Check status of response
-         if (responseCarrisAPIVehiclesList?.statusCode == 401) {
-            print("GeoBus: Carris API: Vehicles List: Unauthorized. Refreshing authorization...")
-            await CarrisAuthentication.shared.authenticate()
-            await self.fetchVehiclesListFromCarrisAPI()
-            return
-         } else if (responseCarrisAPIVehiclesList?.statusCode != 200) {
-            print("GeoBus: Carris API: Vehicles List: Unknown error. Waiting for manual retry. More info below:")
-            print(responseCarrisAPIVehiclesList as Any)
-            throw Appstate.ModuleError.carris_unavailable
-         }
+         let rawDataCarrisAPIVehiclesList = try await CarrisAPI.shared.request(for: "vehicleStatuses")
          
          let decodedCarrisAPIVehiclesList = try JSONDecoder().decode([CarrisAPIModel.VehicleSummary].self, from: rawDataCarrisAPIVehiclesList)
          
@@ -835,25 +769,7 @@ class CarrisNetworkController: ObservableObject {
       do {
          
          // Request Vehicle Detail (SGO)
-         var requestCarrisAPIVehicleDetail = URLRequest(url: URL(string: "\(CarrisAPISettings.endpoint)/SGO/busNumber/\(vehicleId)")!)
-         requestCarrisAPIVehicleDetail.addValue("application/json", forHTTPHeaderField: "Content-Type")
-         requestCarrisAPIVehicleDetail.addValue("application/json", forHTTPHeaderField: "Accept")
-         requestCarrisAPIVehicleDetail.setValue("Bearer \(CarrisAuthentication.shared.authToken ?? "invalid_token")", forHTTPHeaderField: "Authorization")
-         let (rawDataCarrisAPIVehicleDetail, rawResponseCarrisAPIVehicleDetail) = try await URLSession.shared.data(for: requestCarrisAPIVehicleDetail)
-         let responseCarrisAPIVehicleDetail = rawResponseCarrisAPIVehicleDetail as? HTTPURLResponse
-         
-         // Check status of response
-         if (responseCarrisAPIVehicleDetail?.statusCode == 401) {
-            print("GeoBus: Carris API: Vehicle Details: Unauthorized. Refreshing authorization...")
-            await CarrisAuthentication.shared.authenticate()
-            await self.fetchVehicleDetailsFromCarrisAPI(for: vehicleId)
-            return
-         } else if (responseCarrisAPIVehicleDetail?.statusCode != 200) {
-            print("GeoBus: Carris API: Vehicle Details: Unknown error. Waiting for manual retry. More info below:")
-            print(responseCarrisAPIVehicleDetail as Any)
-            throw Appstate.ModuleError.carris_unavailable
-         }
-         
+         let rawDataCarrisAPIVehicleDetail = try await CarrisAPI.shared.request(for: "SGO/busNumber/\(vehicleId)")
          
          let decodedCarrisAPIVehicleDetail = try JSONDecoder().decode(CarrisAPIModel.VehicleDetail.self, from: rawDataCarrisAPIVehicleDetail)
          
@@ -900,25 +816,8 @@ class CarrisNetworkController: ObservableObject {
       print("GeoBus: Carris API: Estimations: Starting update...")
       
       do {
-         // Request API Routes List
-         var requestCarrisAPIEstimations = URLRequest(url: URL(string: "\(CarrisAPISettings.endpoint)/Estimations/busStop/\(stopId)/top/5")!)
-         requestCarrisAPIEstimations.addValue("application/json", forHTTPHeaderField: "Content-Type")
-         requestCarrisAPIEstimations.addValue("application/json", forHTTPHeaderField: "Accept")
-         requestCarrisAPIEstimations.setValue("Bearer \(CarrisAuthentication.shared.authToken ?? "invalid_token")", forHTTPHeaderField: "Authorization")
-         let (rawDataCarrisAPIEstimations, rawResponseCarrisAPIEstimations) = try await URLSession.shared.data(for: requestCarrisAPIEstimations)
-         let responseCarrisAPIEstimations = rawResponseCarrisAPIEstimations as? HTTPURLResponse
-         
-         // Check status of response
-         if (responseCarrisAPIEstimations?.statusCode == 401) {
-            print("GeoBus: Carris API: Estimations: Unauthorized. Refreshing authorization...")
-            await CarrisAuthentication.shared.authenticate()
-            return await self.fetchEstimationsFromCarrisAPI(for: stopId)
-         } else if (responseCarrisAPIEstimations?.statusCode != 200) {
-            print("GeoBus: Carris API: Estimations: Unknown error. Waiting for manual retry. More info below:")
-            print(responseCarrisAPIEstimations as Any)
-            throw Appstate.ModuleError.carris_unavailable
-         }
-         
+         // Request API Estimations List
+         let rawDataCarrisAPIEstimations = try await CarrisAPI.shared.request(for: "Estimations/busStop/\(stopId)/top/5")
          let decodedCarrisAPIEstimations = try JSONDecoder().decode([CarrisAPIModel.Estimation].self, from: rawDataCarrisAPIEstimations)
          
          

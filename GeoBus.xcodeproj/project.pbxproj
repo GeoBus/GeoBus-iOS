@@ -38,7 +38,6 @@
 		CF47994D28D3315E00B56D4B /* Appstate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF47994C28D3315E00B56D4B /* Appstate.swift */; };
 		CF47994F28D33E1900B56D4B /* Disclaimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF47994E28D33E1900B56D4B /* Disclaimer.swift */; };
 		CF5094C528FC279A00EDD320 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5094C428FC279A00EDD320 /* Array.swift */; };
-		CF5094C728FC365700EDD320 /* CarrisAPISettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5094C628FC365700EDD320 /* CarrisAPISettings.swift */; };
 		CF5094C928FC50AC00EDD320 /* CarrisNetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5094C828FC50AC00EDD320 /* CarrisNetworkController.swift */; };
 		CF5094CB28FC50E900EDD320 /* CarrisNetworkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5094CA28FC50E900EDD320 /* CarrisNetworkModel.swift */; };
 		CF5094CD28FCB9E400EDD320 /* CarrisAPIModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5094CC28FCB9E400EDD320 /* CarrisAPIModel.swift */; };
@@ -70,7 +69,7 @@
 		CFFFAD7B28F4D8D000DFD5FD /* StopIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFFAD7A28F4D8D000DFD5FD /* StopIcon.swift */; };
 		CFFFAD8128F64E2000DFD5FD /* Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFFAD8028F64E2000DFD5FD /* Analytics.swift */; };
 		CFFFAD8328F6754400DFD5FD /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFFAD8228F6754400DFD5FD /* Helpers.swift */; };
-		CFFFAD8528F7A21100DFD5FD /* CarrisAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFFAD8428F7A21100DFD5FD /* CarrisAuthentication.swift */; };
+		CFFFAD8528F7A21100DFD5FD /* CarrisAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFFAD8428F7A21100DFD5FD /* CarrisAPI.swift */; };
 		CFFFAD8928F8ECDE00DFD5FD /* Spinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFFAD8828F8ECDE00DFD5FD /* Spinner.swift */; };
 		CFFFAD8B28F8F33200DFD5FD /* Pulse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFFAD8A28F8F33200DFD5FD /* Pulse.swift */; };
 /* End PBXBuildFile section */
@@ -108,7 +107,6 @@
 		CF47994C28D3315E00B56D4B /* Appstate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Appstate.swift; sourceTree = "<group>"; };
 		CF47994E28D33E1900B56D4B /* Disclaimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Disclaimer.swift; sourceTree = "<group>"; };
 		CF5094C428FC279A00EDD320 /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
-		CF5094C628FC365700EDD320 /* CarrisAPISettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarrisAPISettings.swift; sourceTree = "<group>"; };
 		CF5094C828FC50AC00EDD320 /* CarrisNetworkController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarrisNetworkController.swift; sourceTree = "<group>"; };
 		CF5094CA28FC50E900EDD320 /* CarrisNetworkModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarrisNetworkModel.swift; sourceTree = "<group>"; };
 		CF5094CC28FCB9E400EDD320 /* CarrisAPIModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarrisAPIModel.swift; sourceTree = "<group>"; };
@@ -154,7 +152,7 @@
 		CFFFAD7A28F4D8D000DFD5FD /* StopIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopIcon.swift; sourceTree = "<group>"; };
 		CFFFAD8028F64E2000DFD5FD /* Analytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Analytics.swift; sourceTree = "<group>"; };
 		CFFFAD8228F6754400DFD5FD /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
-		CFFFAD8428F7A21100DFD5FD /* CarrisAuthentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarrisAuthentication.swift; sourceTree = "<group>"; };
+		CFFFAD8428F7A21100DFD5FD /* CarrisAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarrisAPI.swift; sourceTree = "<group>"; };
 		CFFFAD8828F8ECDE00DFD5FD /* Spinner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spinner.swift; sourceTree = "<group>"; };
 		CFFFAD8A28F8F33200DFD5FD /* Pulse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pulse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -350,8 +348,7 @@
 		CF5094C128FB993400EDD320 /* Carris */ = {
 			isa = PBXGroup;
 			children = (
-				CF5094C628FC365700EDD320 /* CarrisAPISettings.swift */,
-				CFFFAD8428F7A21100DFD5FD /* CarrisAuthentication.swift */,
+				CFFFAD8428F7A21100DFD5FD /* CarrisAPI.swift */,
 				CF5094CC28FCB9E400EDD320 /* CarrisAPIModel.swift */,
 				CF5094CA28FC50E900EDD320 /* CarrisNetworkModel.swift */,
 				CF5094C828FC50AC00EDD320 /* CarrisNetworkController.swift */,
@@ -535,7 +532,7 @@
 				CF18205728CCBD0400248F72 /* StopEstimations.swift in Sources */,
 				CF5094CD28FCB9E400EDD320 /* CarrisAPIModel.swift in Sources */,
 				CF5094C928FC50AC00EDD320 /* CarrisNetworkController.swift in Sources */,
-				CFFFAD8528F7A21100DFD5FD /* CarrisAuthentication.swift in Sources */,
+				CFFFAD8528F7A21100DFD5FD /* CarrisAPI.swift in Sources */,
 				CF05F61A28CD09A000B4AD58 /* NavBar.swift in Sources */,
 				CFDD014B28D535370070FE4B /* Card.swift in Sources */,
 				CF18202928CCBBDC00248F72 /* TapticEngine.swift in Sources */,
@@ -547,7 +544,6 @@
 				CFDD014928D5114D0070FE4B /* SyncStatus.swift in Sources */,
 				CF18208528CCBD3A00248F72 /* FavoriteRoutes.swift in Sources */,
 				CFFFAD8B28F8F33200DFD5FD /* Pulse.swift in Sources */,
-				CF5094C728FC365700EDD320 /* CarrisAPISettings.swift in Sources */,
 				CF6C918828D3FAF9006C3F61 /* AboutGeoBus.swift in Sources */,
 				CF6C917E28D3ED0A006C3F61 /* SquareButton.swift in Sources */,
 				CF82BB0B28D7F1C6007F0CDB /* ShareCard.swift in Sources */,
