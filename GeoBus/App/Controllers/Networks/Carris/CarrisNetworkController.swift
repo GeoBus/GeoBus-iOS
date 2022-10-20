@@ -4,22 +4,9 @@ import Combine
 
 /* * */
 /* MARK: - CARRIS NETWORK CONTROLLER */
-/* This class controls all things Network related. Keeping logic centralized */
-/* allows for code reuse, less plumbing passing object from one class to another */
-/* and less clutter overall. If the data is provided by Carris, it should be controlled */
-/* by this class. Next follows an overview of this class and its sections: */
-/* › SECTION 1: SETTINGS */
-/* › SECTION 2: PUBLISHED VARIABLES */
-/* › SECTION 3: INITIALIZER */
-/* › SECTION 4: APPSTATE, ANALYTICS & AUTHENTICATION */
-/* › SECTION 5: TITLE */
-/* › SECTION 6: TITLE */
-/* › SECTION 7: TITLE */
-/* › SECTION 8: TITLE */
-/* › SECTION 9: TITLE */
-/* › SECTION 10: TITLE */
-/* › SECTION 11: TITLE */
-
+/* This class controls all things Carris Network related. Keeping logic centralized */
+/* allows for code reuse, less plumbing passing objects from one class to another and less */
+/* clutter overall. If the data is provided by Carris, it should be controlled by this class. */
 
 @MainActor
 class CarrisNetworkController: ObservableObject {
@@ -32,7 +19,7 @@ class CarrisNetworkController: ObservableObject {
    
    private let carrisNetworkUpdateInterval: Int = 86400 * 5 // 5 days
    
-   private let secondsToConsiderVehicleAsStale: Int = 180 // 3 minutes
+   private let secondsToConsiderVehicleAsStale: Int = 300 // 3 minutes
    
    private let storageKeyForLastUpdatedCarrisNetwork: String = "carris_lastUpdatedNetwork"
    private let storageKeyForSavedStops: String = "carris_savedStops"
