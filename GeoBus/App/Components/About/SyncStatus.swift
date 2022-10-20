@@ -110,10 +110,10 @@ struct SyncStatus: View {
 
 
    var body: some View {
-      if (appstate.stops == .error || appstate.routes == .error) {
-         syncError
-      } else if (appstate.stops == .loading || appstate.routes == .loading) {
+      if (appstate.stops == .loading || appstate.routes == .loading) {
          isSyncing
+      } else if (appstate.stops == .error || appstate.routes == .error) {
+         syncError
       } else {
          hasSynced
       }
