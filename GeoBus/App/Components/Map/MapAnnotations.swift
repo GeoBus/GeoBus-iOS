@@ -58,7 +58,7 @@ struct CarrisStopAnnotationView: View {
             self.isAnnotationSelected = false
          }
       }) {
-         Text("StopIcon")
+         StopDetailsView(stop: self.stop)
       }
    }
    

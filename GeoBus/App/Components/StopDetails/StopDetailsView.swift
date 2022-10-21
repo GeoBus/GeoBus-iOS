@@ -35,6 +35,33 @@ struct ConnectionDetailsView: View {
 }
 
 
+struct StopDetailsView: View {
+   
+   let stop: CarrisNetworkModel.Stop
+   
+   @State private var viewSize = CGSize()
+   
+   var body: some View {
+      VStack(alignment: .leading) {
+         ConnectionDetailsView2(
+            canToggle: false,
+            publicId: stop.id,
+            name: stop.name,
+            orderInRoute: 0,
+            direction: .circular
+         )
+         .padding(.bottom, 20)
+         Disclaimer()
+            .padding(.horizontal)
+            .padding(.bottom, 10)
+      }
+      .readSize { size in
+         viewSize = size
+      }
+      .presentationDetents([.height(viewSize.height)])
+   }
+}
+
 
 
 
