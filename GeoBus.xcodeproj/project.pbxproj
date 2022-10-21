@@ -378,6 +378,7 @@
 			children = (
 				CF6C918728D3FAF8006C3F61 /* AboutGeoBus.swift */,
 				CFDD014828D5114D0070FE4B /* SyncStatus.swift */,
+				CF0C2569290211EF00B03052 /* DataProvidersCard.swift */,
 				CF82BB0628D7F166007F0CDB /* LiveDataCard.swift */,
 				CF82BB0828D7F19A007F0CDB /* LocationCard.swift */,
 				CF82BB0A28D7F1C6007F0CDB /* ShareCard.swift */,
@@ -385,7 +386,6 @@
 				CFDD014C28D66D9B0070FE4B /* CloseButton.swift */,
 				CF05F61F28CD337200B4AD58 /* AppVersion.swift */,
 				CF47994E28D33E1900B56D4B /* Disclaimer.swift */,
-				CF0C2569290211EF00B03052 /* DataProvidersCard.swift */,
 			);
 			path = About;
 			sourceTree = "<group>";

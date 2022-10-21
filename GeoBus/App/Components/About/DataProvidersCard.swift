@@ -9,6 +9,8 @@ import SwiftUI
 
 struct DataProvidersCard: View {
    
+   @EnvironmentObject var carrisNetworkController: CarrisNetworkController
+   
    private let cardColor: Color = Color(.systemTeal)
    
    @State var communityProviderIsOn: Bool = false
@@ -27,11 +29,7 @@ struct DataProvidersCard: View {
                .padding(.leading, 5)
          }
          .onAppear() {
-//            if (estimationsController.estimationsProvider == .carris) {
-//               communityProviderIsOn = false
-//            } else {
-//               communityProviderIsOn = true
-//            }
+            communityProviderIsOn = carrisNetworkController.communityDataProviderStatus
          }
       }
       .padding()
@@ -39,19 +37,11 @@ struct DataProvidersCard: View {
       .tint(cardColor)
       .background(cardColor.opacity(0.05))
       .cornerRadius(10)
-//      .onChange(of: estimationsController.estimationsProvider) { value in
-//         if (value == .carris) {
-//            communityProviderIsOn = false
-//         } else {
-//            communityProviderIsOn = true
-//         }
-//      }
+      .onChange(of: carrisNetworkController.communityDataProviderStatus) { value in
+         communityProviderIsOn = value
+      }
       .onChange(of: communityProviderIsOn) { value in
-         if (value) {
-//            estimationsController.setProvider(selection: .community)
-         } else {
-//            estimationsController.setProvider(selection: .carris)
-         }
+         carrisNetworkController.toggleCommunityDataProviderTo(to: value)
       }
    }
    

@@ -26,6 +26,7 @@ class CarrisNetworkController: ObservableObject {
    private let storageKeyForFavoriteStops: String = "carris_favoriteStops"
    private let storageKeyForSavedRoutes: String = "carris_savedRoutes"
    private let storageKeyForFavoriteRoutes: String = "carris_favoriteRoutes"
+   private let storageKeyForCommunityDataProviderStatus: String = "carris_communityDataProviderStatus"
    
    
    
@@ -51,6 +52,8 @@ class CarrisNetworkController: ObservableObject {
    @Published var favorites_routes: [CarrisNetworkModel.Route] = []
    @Published var favorites_stops: [CarrisNetworkModel.Stop] = []
    
+   @Published var communityDataProviderStatus: Bool = false
+   
    
    
    /* * */
@@ -70,6 +73,11 @@ class CarrisNetworkController: ObservableObject {
    
    private init() {
       
+      // Unwrap last timestamp from Storage
+      if let unwrappedLastUpdatedNetwork = UserDefaults.standard.string(forKey: storageKeyForLastUpdatedCarrisNetwork) {
+         self.lastUpdatedNetwork = unwrappedLastUpdatedNetwork
+      }
+      
       // Unwrap and Decode Stops from Storage
       if let unwrappedSavedNetworkStops = UserDefaults.standard.data(forKey: storageKeyForSavedStops) {
          if let decodedSavedNetworkStops = try? JSONDecoder().decode([CarrisNetworkModel.Stop].self, from: unwrappedSavedNetworkStops) {
@@ -84,10 +92,9 @@ class CarrisNetworkController: ObservableObject {
          }
       }
       
-      // Unwrap last timestamp from Storage
-      if let unwrappedLastUpdatedNetwork = UserDefaults.standard.string(forKey: storageKeyForLastUpdatedCarrisNetwork) {
-         self.lastUpdatedNetwork = unwrappedLastUpdatedNetwork
-      }
+      // Unwrap Community Provider Status from Storage
+      self.communityDataProviderStatus = UserDefaults.standard.bool(forKey: storageKeyForCommunityDataProviderStatus)
+      print("GeoBus: Carris API: ‹toggleCommunityDataProviderTo()› Community Data switched \(communityDataProviderStatus ? "ON" : "OFF")")
       
       // Check if network needs an update
       self.update(reset: false)
@@ -838,6 +845,18 @@ class CarrisNetworkController: ObservableObject {
       
    }
    
+   
+   
+   /* * */
+   /* MARK: - SECTION 12: TOGGLE COMMUNITY DATA PROVIDER STATUS */
+   /* Call this function to switch Community Data ON or OFF. */
+   /* This switches in memory for the current session, and stores the new setting in storage. */
+   
+   public func toggleCommunityDataProviderTo(to newStatus: Bool) {
+      self.communityDataProviderStatus = newStatus
+      UserDefaults.standard.set(newStatus, forKey: storageKeyForCommunityDataProviderStatus)
+      print("GeoBus: Carris API: ‹toggleCommunityDataProviderTo()› Community Data switched \(newStatus ? "ON" : "OFF")")
+   }
    
    
 }
