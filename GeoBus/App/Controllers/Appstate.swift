@@ -45,24 +45,6 @@ final class Appstate: ObservableObject {
    
    
    /* * */
-   /* MARK: - SECTION 3: ERROR TYPES */
-   /* Modules can publish more information on the particular error it encountered. */
-   /* This functionality is planned to be expanded sometime in the future. */
-   
-   enum ModuleError: Error {
-      
-      // For Carris API
-      case carris_unauthorized
-      case carris_unavailable
-      
-      // For Community API
-      case community_unavailable
-      
-   }
-   
-   
-   
-   /* * */
    /* MARK: - SECTION 4: SHARED INSTANCE */
    /* To allow the same instance of this class to be available accross the whole app, */
    /* we create a Singleton. More info here: https://www.hackingwithswift.com/example-code/language/what-is-a-singleton */
