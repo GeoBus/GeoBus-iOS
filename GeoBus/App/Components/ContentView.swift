@@ -11,14 +11,11 @@ import SwiftUI
 struct ContentView: View {
    
    var body: some View {
-
-      VStack(alignment: .trailing, spacing: 0) {
-
+      VStack(spacing: 0) {
+         
          ZStack(alignment: .topTrailing) {
-            
             MapView()
                .edgesIgnoringSafeArea(.vertical)
-
             VStack(spacing: 15) {
                AboutGeoBus()
                Spacer()
@@ -26,14 +23,12 @@ struct ContentView: View {
                UserLocation()
             }
             .padding()
-
          }
-
+         
          NavBar()
             .edgesIgnoringSafeArea(.vertical)
          
-      }
-
+      }  
    }
-
+   
 }
