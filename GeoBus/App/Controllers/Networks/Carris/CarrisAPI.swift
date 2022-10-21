@@ -114,8 +114,8 @@ final class CarrisAPI {
    /* while loop, the same method is not repeated and the flow gets stuck in an infinite loop. This could be caused */
    /* due to the way authentication in Carris API is implemented: the system returns invalid tokens for an expired key. */
    /* This means that the only way to check if the tokens fetched from the current apiKey are valid is to perform the */
-   /* the request and look for the response status. Keeping this centralized in one single ‹request()› functions */
-   /* allows for a lot of code reuse. Also, if the response is not equal to 200 or 401, then throw an error immediately. */
+   /* request and look for the response status. Keeping this centralized in one single ‹request()› function */
+   /* allows for a lot of code reuse. Also, if the response is not equal to 200 or 401, throw an error immediately. */
    /* If all is well, then return the raw data response to the parent caller. */
    
    public func request(for service: String) async throws -> Data {
