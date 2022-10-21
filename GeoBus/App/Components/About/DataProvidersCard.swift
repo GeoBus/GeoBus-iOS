@@ -17,7 +17,7 @@ struct DataProvidersCard: View {
    
    
    var providerToggle: some View {
-      Toggle(isOn: $communityProviderIsOn) {
+      Toggle(isOn: $carrisNetworkController.communityDataProviderStatus) {
          HStack {
             Image(systemName: "staroflife.circle")
                .renderingMode(.template)
@@ -28,9 +28,6 @@ struct DataProvidersCard: View {
                .foregroundColor(cardColor)
                .padding(.leading, 5)
          }
-         .onAppear() {
-            communityProviderIsOn = carrisNetworkController.communityDataProviderStatus
-         }
       }
       .padding()
       .frame(maxWidth: .infinity)
@@ -38,9 +35,6 @@ struct DataProvidersCard: View {
       .background(cardColor.opacity(0.05))
       .cornerRadius(10)
       .onChange(of: carrisNetworkController.communityDataProviderStatus) { value in
-         communityProviderIsOn = value
-      }
-      .onChange(of: communityProviderIsOn) { value in
          carrisNetworkController.toggleCommunityDataProviderTo(to: value)
       }
    }
