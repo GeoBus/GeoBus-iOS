@@ -12,7 +12,7 @@ import SwiftUI
 
 
 struct GenericMapAnnotation: Identifiable {
-
+   
    let id: Int
    var location: CLLocationCoordinate2D
    var item: AnnotationItem
@@ -112,18 +112,15 @@ struct CarrisVehicleAnnotationView: View {
       }) {
          ZStack(alignment: .init(horizontal: .leading, vertical: .center)) {
             switch (vehicle.kind) {
-               case .tram:
+               case .tram, .elevator:
                   Image("Tram")
-               case .neighborhood:
-                  Image("RegularService-Active")
-               case .night:
-                  Image("RegularService-Active")
-               case .elevator:
-                  Image("RegularService-Active")
-               case .regular:
-                  Image("RegularService-Active")
-               case .none:
-                  Image("RegularService-Active")
+               case .neighborhood, .night, .regular, .none:
+                  Image("RegularService")
+                  Text(verbatim: String(vehicle.id))
+                     .font(Font.system(size: 10, weight: .bold, design: .monospaced))
+                     .tracking(1)
+                     .foregroundColor(.white)
+                     .padding(.leading, 12)
             }
          }
       }
