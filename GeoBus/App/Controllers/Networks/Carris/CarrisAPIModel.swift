@@ -1,12 +1,4 @@
-//
-//  Routes.swift
-//  GeoBus
-//
-//  Created by João de Vasconcelos on 09/09/2022.
-//  Copyright © 2022 João de Vasconcelos. All rights reserved.
-//
 import Foundation
-
 
 /* * */
 /* MARK: - CARRIS API DATA MODEL */

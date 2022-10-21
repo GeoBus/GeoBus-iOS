@@ -859,4 +859,13 @@ class CarrisNetworkController: ObservableObject {
    }
    
    
+   
+   /* * */
+   /* MARK: - SECTION 12: TOGGLE COMMUNITY DATA PROVIDER STATUS */
+   /* Call this function to switch Community Data ON or OFF. */
+   /* This switches in memory for the current session, and stores the new setting in storage. */
+   
+   //
+   
+   
 }
