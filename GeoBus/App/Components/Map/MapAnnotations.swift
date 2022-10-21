@@ -110,10 +110,10 @@ struct CarrisVehicleAnnotationView: View {
          self.isPresented = true
          TapticEngine.impact.feedback(.light)
       }) {
-         VStack {
+         ZStack(alignment: .init(horizontal: .leading, vertical: .center)) {
             switch (vehicle.kind) {
                case .tram:
-                  Image("Tram-Active")
+                  Image("Tram")
                case .neighborhood:
                   Image("RegularService-Active")
                case .night:
