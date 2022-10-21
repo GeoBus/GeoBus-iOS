@@ -148,6 +148,19 @@ class CarrisNetworkController: ObservableObject {
    
    
    /* * */
+   /* MARK: - SECTION 12: TOGGLE COMMUNITY DATA PROVIDER STATUS */
+   /* Call this function to switch Community Data ON or OFF. */
+   /* This switches in memory for the current session, and stores the new setting in storage. */
+   
+   public func toggleCommunityDataProviderTo(to newStatus: Bool) {
+      self.communityDataProviderStatus = newStatus
+      UserDefaults.standard.set(newStatus, forKey: storageKeyForCommunityDataProviderStatus)
+      print("GeoBus: Carris API: ‹toggleCommunityDataProviderTo()› Community Data switched \(newStatus ? "ON" : "OFF")")
+   }
+   
+   
+   
+   /* * */
    /* MARK: - SECTION 5.2: REFRESH DATA */
    /* This function initiates vehicles refresh from Carris API, updates the ‹activeVehicles› array */
    /* and syncronizes favorites with iCloud, to ensure changes are always up to date. */
@@ -872,19 +885,6 @@ class CarrisNetworkController: ObservableObject {
          return []
       }
       
-   }
-   
-   
-   
-   /* * */
-   /* MARK: - SECTION 12: TOGGLE COMMUNITY DATA PROVIDER STATUS */
-   /* Call this function to switch Community Data ON or OFF. */
-   /* This switches in memory for the current session, and stores the new setting in storage. */
-   
-   public func toggleCommunityDataProviderTo(to newStatus: Bool) {
-      self.communityDataProviderStatus = newStatus
-      UserDefaults.standard.set(newStatus, forKey: storageKeyForCommunityDataProviderStatus)
-      print("GeoBus: Carris API: ‹toggleCommunityDataProviderTo()› Community Data switched \(newStatus ? "ON" : "OFF")")
    }
    
    
