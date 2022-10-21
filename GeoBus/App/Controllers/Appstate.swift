@@ -45,7 +45,7 @@ final class Appstate: ObservableObject {
    
    
    /* * */
-   /* MARK: - SECTION 4: SHARED INSTANCE */
+   /* MARK: - SECTION 3: SHARED INSTANCE */
    /* To allow the same instance of this class to be available accross the whole app, */
    /* we create a Singleton. More info here: https://www.hackingwithswift.com/example-code/language/what-is-a-singleton */
    /* Adding a private initializer is important because it stops other code from creating a new class instance. */
@@ -57,7 +57,7 @@ final class Appstate: ObservableObject {
    
    
    /* * */
-   /* MARK: - SECTION 5: PUBLISHED VARIABLES */
+   /* MARK: - SECTION 4: PUBLISHED VARIABLES */
    /* Here are all the @Published variables refering to the above modules that can be consumed */
    /* by the UI. It is important to keep the names of this variables short, but descriptive, */
    /* to avoid clutter on the interface code. */
@@ -73,7 +73,7 @@ final class Appstate: ObservableObject {
    
    
    /* * */
-   /* MARK: - SECTION 6: CHANGE STATE */
+   /* MARK: - SECTION 5: CHANGE STATE */
    /* Dispatch the change to the main queue to ensure UI updates happen smoothly and without interruptions. */
    /* After the change, follow the set rules to also update the .global state. This might change in the future. */
    
