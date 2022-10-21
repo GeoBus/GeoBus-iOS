@@ -11,8 +11,7 @@ import SwiftUI
 struct RouteDetailsView: View {
 
    @EnvironmentObject var appstate: Appstate
-   @EnvironmentObject var routesController: RoutesController
-   @EnvironmentObject var vehiclesController: VehiclesController
+   @EnvironmentObject var carrisNetworkController: CarrisNetworkController
 
 
    // Initial screen simply explaining how to select a route,
@@ -72,13 +71,13 @@ struct RouteDetailsView: View {
       VStack(alignment: .leading) {
          HStack {
             PulseLabel(accent: .green, label: Text("Live"))
-            Text(vehiclesController.vehicles.count == 1 ? "1 active vehicle" : "\(vehiclesController.vehicles.count) active vehicles")
+            Text(carrisNetworkController.activeVehicles.count == 1 ? "1 active vehicle" : "\(carrisNetworkController.activeVehicles.count) active vehicles")
                .font(Font.system(size: 11, weight: .medium, design: .default) )
                .lineLimit(1)
                .foregroundColor(Color(.secondaryLabel))
             Spacer()
          }
-         Text(routesController.selectedVariant?.name ?? "-")
+         Text(carrisNetworkController.activeVariant?.name ?? "-")
             .font(.body)
             .fontWeight(.bold)
             .lineLimit(2)
@@ -91,11 +90,11 @@ struct RouteDetailsView: View {
    // The final view where screens are composed based on appstate
    var body: some View {
       VStack {
-         if (appstate.routes == .loading && routesController.allRoutes.count < 1) {
+         if (appstate.routes == .loading && carrisNetworkController.allRoutes.count < 1) {
             updatingRoutesScreen
          } else if (appstate.global == .error) {
             connectionError
-         } else if (routesController.selectedRoute != nil) {
+         } else if (carrisNetworkController.activeRoute != nil) {
             selectedRouteDetails
          } else {
             initScreen

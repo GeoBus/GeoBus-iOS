@@ -10,39 +10,17 @@ import MapKit
 import SwiftUI
 
 
+
 struct GenericMapAnnotation: Identifiable {
    
-   let id = UUID()
+   let id: Int
    var location: CLLocationCoordinate2D
-   let format: Format
+   var item: AnnotationItem
    
-   enum Format {
-      case stop
-      case vehicle
-      case singleStop
-   }
-   
-   // For Stops
-   var stop: Stop?
-   
-   init(lat: Double, lng: Double, format: Format, stop: Stop) {
-      self.location = CLLocationCoordinate2D(latitude: lat, longitude: lng)
-      self.format = format
-      self.stop = stop
-      self.vehicle = nil
-      self.busNumber = nil
-   }
-   
-   // For Vehicles
-   var vehicle: VehicleSummary?
-   let busNumber: Int?
-   
-   init(lat: Double, lng: Double, format: Format, busNumber: Int, vehicle: VehicleSummary) {
-      self.location = CLLocationCoordinate2D(latitude: lat, longitude: lng)
-      self.format = format
-      self.stop = nil
-      self.vehicle = vehicle
-      self.busNumber = busNumber
+   enum AnnotationItem {
+      case carris_stop(CarrisNetworkModel.Stop)
+      case carris_connection(CarrisNetworkModel.Connection)
+      case carris_vehicle(CarrisNetworkModel.Vehicle)
    }
    
 }
@@ -51,38 +29,31 @@ struct GenericMapAnnotation: Identifiable {
 
 
 
-
-
-struct StopAnnotationView: View {
+struct CarrisStopAnnotationView: View {
    
-   var stop: Stop
+   public let stop: CarrisNetworkModel.Stop
    
-   let isPresentedOnAppear: Bool
-   @State private var isPresented: Bool = false
    @State private var isAnnotationSelected: Bool = false
    
    
    var body: some View {
       Button(action: {
-         self.isPresented = !self.isPresented
-         self.isAnnotationSelected = self.isPresented
+         self.isAnnotationSelected = true
          TapticEngine.impact.feedback(.light)
       }) {
          StopIcon(
-            orderInRoute: self.stop.orderInRoute ?? 0,
-            direction: self.stop.direction ?? .circular,
+            orderInRoute: 0,
+            direction: .circular,
             isSelected: self.isAnnotationSelected
          )
       }
       .frame(width: 40, height: 40, alignment: .center)
       .onAppear() {
-         if (self.isPresentedOnAppear) {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-               self.isPresented = true
-            }
+         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.isAnnotationSelected = true
          }
       }
-      .sheet(isPresented: $isPresented, onDismiss: {
+      .sheet(isPresented: $isAnnotationSelected, onDismiss: {
          withAnimation(.easeInOut(duration: 0.1)) {
             self.isAnnotationSelected = false
          }
@@ -94,14 +65,42 @@ struct StopAnnotationView: View {
 }
 
 
-
-
-
-struct VehicleAnnotationView: View {
+struct CarrisConnectionAnnotationView: View {
    
-   let vehicle: VehicleSummary
+   public let connection: CarrisNetworkModel.Connection
    
-   let isPresentedOnAppear: Bool
+   @State private var isAnnotationSelected: Bool = false
+   
+   
+   var body: some View {
+      Button(action: {
+         self.isAnnotationSelected = true
+         TapticEngine.impact.feedback(.light)
+      }) {
+         StopIcon(
+            orderInRoute: self.connection.orderInRoute,
+            direction: self.connection.direction,
+            isSelected: self.isAnnotationSelected
+         )
+      }
+      .frame(width: 40, height: 40, alignment: .center)
+      .sheet(isPresented: $isAnnotationSelected, onDismiss: {
+         self.isAnnotationSelected = false
+      }) {
+         ConnectionDetailsView(connection: self.connection)
+      }
+   }
+   
+}
+
+
+
+
+
+struct CarrisVehicleAnnotationView: View {
+   
+   let vehicle: CarrisNetworkModel.Vehicle
+   
    @State private var isPresented: Bool = false
    @State private var viewSize = CGSize()
    
@@ -111,24 +110,35 @@ struct VehicleAnnotationView: View {
          self.isPresented = true
          TapticEngine.impact.feedback(.light)
       }) {
-         VStack {
+         ZStack(alignment: .init(horizontal: .leading, vertical: .center)) {
             switch (vehicle.kind) {
-               case .tram:
-                  Image("Tram-Active")
-               case .neighborhood:
-                  Image("RegularService-Active")
-               case .night:
-                  Image("RegularService-Active")
-               case .elevator:
-                  Image("RegularService-Active")
-               case .regular:
-                  Image("RegularService-Active")
+               case .tram, .elevator:
+                  Image("Tram")
+               case .neighborhood, .night, .regular, .none:
+                  Image("RegularService")
+                  Text(verbatim: String(vehicle.id))
+                     .font(Font.system(size: 10, weight: .bold, design: .monospaced))
+                     .tracking(1)
+                     .foregroundColor(.white)
+                     .padding(.leading, 12)
             }
          }
       }
       .frame(width: 40, height: 40, alignment: .center)
-      .rotationEffect(.radians(vehicle.angleInRadians))
+      .rotationEffect(.radians(vehicle.angleInRadians ?? 0))
+      .animation(.default, value: vehicle.angleInRadians)
       .sheet(isPresented: $isPresented) {
+         VStack(alignment: .leading) {
+            VehicleDetailsView(vehicle: self.vehicle)
+               .padding(.bottom, 20)
+            Disclaimer()
+               .padding(.horizontal)
+               .padding(.bottom, 10)
+         }
+         .readSize { size in
+            viewSize = size
+         }
+         .presentationDetents([.height(viewSize.height)])
       }
    }
    

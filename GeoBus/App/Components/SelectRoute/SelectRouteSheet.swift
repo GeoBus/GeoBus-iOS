@@ -10,8 +10,6 @@ import SwiftUI
 
 struct SelectRouteSheet: View {
 
-   @EnvironmentObject var routesController: RoutesController
-
    @Binding var isPresentingSheet: Bool
 
 

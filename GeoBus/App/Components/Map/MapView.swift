@@ -13,9 +13,7 @@ import MapKit
 struct MapView: View {
 
    @EnvironmentObject var mapController: MapController
-   @EnvironmentObject var stopsController: StopsController
-   @EnvironmentObject var routesController: RoutesController
-   @EnvironmentObject var vehiclesController: VehiclesController
+   @EnvironmentObject var carrisNetworkController: CarrisNetworkController
 
 
    var body: some View {
@@ -27,31 +25,31 @@ struct MapView: View {
       ) { annotation in
 
          MapAnnotation(coordinate: annotation.location) {
-            switch (annotation.format) {
-               case .stop:
-                  StopAnnotationView(stop: annotation.stop!, isPresentedOnAppear: false)
-               case .vehicle:
-                  VehicleAnnotationView(vehicle: annotation.vehicle!, isPresentedOnAppear: false)
-               case .singleStop:
-                  StopAnnotationView(stop: annotation.stop!, isPresentedOnAppear: true)
+            switch (annotation.item) {
+               case .carris_stop(let item):
+                  CarrisStopAnnotationView(stop: item)
+               case .carris_connection(let item):
+                  CarrisConnectionAnnotationView(connection: item)
+               case .carris_vehicle(let item):
+                  CarrisVehicleAnnotationView(vehicle: item)
             }
          }
 
       }
-      .onChange(of: stopsController.selectedStop) { newStop in
+      .onChange(of: carrisNetworkController.activeStop) { newStop in
          if (newStop != nil) {
             self.mapController.updateAnnotations(with: newStop!)
          }
       }
-      .onChange(of: routesController.selectedVariant) { newVariant in
+      .onChange(of: carrisNetworkController.activeVariant) { newVariant in
          if (newVariant != nil) {
             self.mapController.updateAnnotations(with: newVariant!)
-            self.mapController.updateAnnotations(with: vehiclesController.vehicles, for: routesController.selectedRoute?.number)
          }
       }
-      .onChange(of: vehiclesController.vehicles) { newVehiclesList in
-         self.mapController.updateAnnotations(with: newVehiclesList, for: routesController.selectedRoute?.number)
+      .onChange(of: carrisNetworkController.activeVehicles) { newVehiclesList in
+         self.mapController.updateAnnotations(with: newVehiclesList)
       }
+      
    }
 
 }

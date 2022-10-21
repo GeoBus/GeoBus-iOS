@@ -10,16 +10,9 @@ import SwiftUI
 struct CloseButton: View {
 
    @EnvironmentObject var appstate: Appstate
-   @EnvironmentObject var stopsController: StopsController
-   @EnvironmentObject var routesController: RoutesController
+   @EnvironmentObject var carrisNetworkController: CarrisNetworkController
 
    @Binding var isPresenting: Bool
-
-
-   func forceSync() {
-      self.stopsController.update(forced: true)
-      self.routesController.update(forced: true)
-   }
 
 
    var syncError: some View {
@@ -39,7 +32,7 @@ struct CloseButton: View {
             .foregroundColor(Color(.secondaryLabel))
             .padding(.horizontal)
          Button(action: {
-            self.forceSync()
+            carrisNetworkController.resetAndUpdateNetwork()
          }, label: {
             VStack {
                Text("Try Again")
@@ -100,7 +93,7 @@ struct CloseButton: View {
    
 
    var body: some View {
-      if (stopsController.allStops.isEmpty || routesController.allRoutes.isEmpty) {
+      if (carrisNetworkController.allStops.isEmpty || carrisNetworkController.allRoutes.isEmpty) {
          if (appstate.stops == .error || appstate.routes == .error) {
             syncError
          } else {

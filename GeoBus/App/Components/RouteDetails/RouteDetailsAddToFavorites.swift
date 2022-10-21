@@ -10,20 +10,17 @@ import SwiftUI
 
 struct RouteDetailsAddToFavorites: View {
 
-   @EnvironmentObject var routesController: RoutesController
+   @EnvironmentObject var carrisNetworkController: CarrisNetworkController
 
 
    var body: some View {
       VStack {
          Image(systemName: "heart.fill")
             .font(.system(size: 30, weight: .bold, design: .default))
-            .foregroundColor(routesController.isFavourite(route: routesController.selectedRoute!) ? Color(.white) : Color(.systemRed))
+            .foregroundColor(carrisNetworkController.isActiveRouteFavourite() ? Color(.white) : Color(.systemRed))
       }
       .frame(maxWidth: .infinity, maxHeight: .infinity)
-      .background(routesController.isFavourite(route: routesController.selectedRoute!)
-                  ? Color(.systemRed)
-                  : Color("BackgroundSecondary")
-      )
+      .background(carrisNetworkController.isActiveRouteFavourite() ? Color(.systemRed) : Color("BackgroundSecondary"))
       .cornerRadius(10)
       .aspectRatio(1, contentMode: .fit)
       .frame(width: 120)

@@ -9,10 +9,8 @@
 import SwiftUI
 
 struct SelectRouteInput: View {
-
-   @EnvironmentObject var stopsController: StopsController
-   @EnvironmentObject var routesController: RoutesController
-   @EnvironmentObject var vehiclesController: VehiclesController
+   
+   @EnvironmentObject var carrisNetworkController: CarrisNetworkController
 
    @Binding var showSheet: Bool
 
@@ -32,10 +30,8 @@ struct SelectRouteInput: View {
                .cornerRadius(10)
 
             Button(action: {
-               let success = self.routesController.select(route: self.routeNumber.uppercased(), returnResult: true)
+               let success = carrisNetworkController.select(route: self.routeNumber.uppercased())
                if success {
-                  self.vehiclesController.set(route: self.routeNumber.uppercased())
-                  self.stopsController.deselect()
                   Analytics.shared.capture(event: .Routes_Select_FromTextInput, properties: ["routeNumber": self.routeNumber.uppercased()])
                   self.showSheet = false
                } else {

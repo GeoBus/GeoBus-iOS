@@ -12,13 +12,11 @@ struct FavoriteRoutes: View {
 
    @Environment(\.colorScheme) var colorScheme: ColorScheme
 
-   @EnvironmentObject var stopsController: StopsController
-   @EnvironmentObject var routesController: RoutesController
-   @EnvironmentObject var vehiclesController: VehiclesController
+   @EnvironmentObject var carrisNetworkController: CarrisNetworkController
 
    @Binding var showSelectRouteSheet: Bool
 
-   @State var routes: [Route] = []
+   @State var routes: [CarrisNetworkModel.Route] = []
    
 
    var body: some View {
@@ -33,14 +31,12 @@ struct FavoriteRoutes: View {
 
          Divider()
 
-         if (routesController.favorites.count > 0) {
+         if (carrisNetworkController.favorites_routes.count > 0) {
             
             LazyVGrid(columns: [.init(.adaptive(minimum: 60, maximum: 100), spacing: 15)], spacing: 15) {
                ForEach(routes) { route in
                   Button(action: {
-                     self.stopsController.deselect()
-                     self.routesController.select(route: route.number)
-                     self.vehiclesController.set(route: route.number)
+                     _ = self.carrisNetworkController.select(route: route.number)
                      Analytics.shared.capture(event: .Routes_Select_FromFavorites, properties: ["routeNumber": route.number])
                      self.showSelectRouteSheet = false
                   }){
@@ -51,7 +47,7 @@ struct FavoriteRoutes: View {
             .padding(20)
             .onAppear(perform: {
                // Filter routes belonging to the provided Kind
-               self.routes = self.routesController.favorites
+               self.routes = self.carrisNetworkController.favorites_routes
                // Sort those routes by their route number
                self.routes.sort(by: { $0.number < $1.number })
             })

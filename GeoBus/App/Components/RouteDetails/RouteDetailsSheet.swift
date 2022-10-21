@@ -9,26 +9,25 @@
 import SwiftUI
 
 struct RouteDetailsSheet: View {
-
-   @EnvironmentObject var routesController: RoutesController
-   @EnvironmentObject var vehiclesController: VehiclesController
-
+   
+   @EnvironmentObject var carrisNetworkController: CarrisNetworkController
+   
    @Binding var showRouteDetailsSheet: Bool
-
+   
    @State var routeDirection: Int = 0
    @State var routeDirectionPicker: Int = 0
-
-
+   
+   
    var liveInfo: some View {
-
+      
       VStack(spacing: 15) {
-
+         
          SheetHeader(title: Text("Route Details"), toggle: $showRouteDetailsSheet)
-
+         
          HStack(spacing: 25) {
-            RouteBadgeSquare(routeNumber: routesController.selectedRoute!.number)
+            RouteBadgeSquare(routeNumber: carrisNetworkController.activeRoute!.number)
                .frame(width: 80)
-            Text(routesController.selectedRoute?.name ?? "-")
+            Text(carrisNetworkController.activeRoute?.name ?? "-")
                .fontWeight(.bold)
                .foregroundColor(Color(.label))
             Spacer()
@@ -36,56 +35,63 @@ struct RouteDetailsSheet: View {
          .padding()
          .background(Color("BackgroundSecondary"))
          .cornerRadius(10)
-
+         
          HStack(spacing: 15) {
-            RouteDetailsVehiclesQuantity(vehiclesQuantity: vehiclesController.vehicles.count)
+            RouteDetailsVehiclesQuantity(vehiclesQuantity: carrisNetworkController.activeVehicles.count)
             Button(action: {
                TapticEngine.impact.feedback(.heavy)
-               self.routesController.toggleFavorite(route: self.routesController.selectedRoute!)
+               carrisNetworkController.toggleFavoriteForActiveRoute()
             }) {
                RouteDetailsAddToFavorites()
             }
          }
-
+         
       }
    }
-
-
+   
+   
    var stopsList: some View {
-
+      
       VStack(spacing: 15) {
-
-         if (routesController.selectedVariant!.isCircular) {
+         
+         if (carrisNetworkController.activeVariant?.circularItinerary != nil) {
             RouteCircularVariantInfo()
-            StopsList(stops: routesController.selectedVariant!.circItinerary!)
-
-         } else {
+            ConnectionsList(connections: carrisNetworkController.activeVariant!.circularItinerary!)
+            
+         } else if (carrisNetworkController.activeVariant?.ascendingItinerary != nil && carrisNetworkController.activeVariant?.descendingItinerary != nil) {
             Picker("Direction", selection: $routeDirectionPicker) {
-               Text("to: \(routesController.getTerminalStopNameForVariant(variant: routesController.selectedVariant!, direction: .ascending))").tag(0)
-               Text("to: \(routesController.getTerminalStopNameForVariant(variant: routesController.selectedVariant!, direction: .descending))").tag(1)
+               Text("to: \(carrisNetworkController.activeVariant?.ascendingItinerary?.last?.stop.name ?? "-")").tag(0)
+               Text("to: \(carrisNetworkController.activeVariant?.descendingItinerary?.last?.stop.name ?? "-")").tag(1)
             }
             .pickerStyle(SegmentedPickerStyle())
-
+            
             if (self.routeDirectionPicker == 0) {
-               StopsList(stops: routesController.selectedVariant!.upItinerary ?? [])
+               ConnectionsList(connections: carrisNetworkController.activeVariant!.ascendingItinerary!)
             } else {
-               StopsList(stops: routesController.selectedVariant!.downItinerary ?? [])
+               ConnectionsList(connections: carrisNetworkController.activeVariant!.descendingItinerary!)
             }
+            
+         } else if (carrisNetworkController.activeVariant?.ascendingItinerary != nil) {
+            ConnectionsList(connections: carrisNetworkController.activeVariant!.ascendingItinerary!)
+            
+         } else if (carrisNetworkController.activeVariant?.descendingItinerary != nil) {
+            ConnectionsList(connections: carrisNetworkController.activeVariant!.descendingItinerary!)
+            
          }
-
+         
       }
-
+      
    }
-
-
+   
+   
    var body: some View {
-
+      
       ScrollView(.vertical, showsIndicators: true) {
          VStack(spacing: 5) {
             liveInfo
                .padding()
             Divider()
-            if (routesController.selectedRoute!.variants.count > 1) {
+            if (carrisNetworkController.activeRoute!.variants.count > 1) {
                VariantPicker()
                Divider()
             }
@@ -95,7 +101,7 @@ struct RouteDetailsSheet: View {
          .padding(.bottom, 30)
       }
       .background(Color("BackgroundPrimary"))
-
+      
    }
-
+   
 }

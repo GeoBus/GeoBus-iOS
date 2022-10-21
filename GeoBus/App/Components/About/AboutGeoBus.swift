@@ -9,8 +9,7 @@ import SwiftUI
 
 struct AboutGeoBus: View {
 
-   @EnvironmentObject var stopsController: StopsController
-   @EnvironmentObject var routesController: RoutesController
+   @EnvironmentObject var carrisNetworkController: CarrisNetworkController
 
    @State private var showInfoSheet: Bool = false
 
@@ -30,7 +29,7 @@ struct AboutGeoBus: View {
    var body: some View {
       SquareButton(icon: "info.circle", size: 28)
          .onAppear() {
-            if (stopsController.allStops.isEmpty || routesController.allRoutes.isEmpty) {
+            if (carrisNetworkController.allStops.isEmpty || carrisNetworkController.allRoutes.isEmpty) {
                self.showInfoSheet = true
             }
          }
@@ -47,7 +46,7 @@ struct AboutGeoBus: View {
                         .padding(.top, 70)
                         .padding(.bottom, 15)
                      SyncStatus()
-                     EstimationsProviderCard()
+//                     DataProvidersCard()
                   }
                   .padding(.horizontal)
 

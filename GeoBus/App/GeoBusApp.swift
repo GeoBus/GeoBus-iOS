@@ -1,25 +1,14 @@
-//
-//  GeoBusApp.swift
-//  GeoBus
-//
-//  Created by João de Vasconcelos on 09/09/2022.
-//  Copyright © 2022 João de Vasconcelos. All rights reserved.
-//
-
 import SwiftUI
+
+/* MARK: - GEOBUS */
 
 @main
 struct GeoBusApp: App {
    
-   /* MARK: - GEOBUS */
-   
    @StateObject private var appstate = Appstate.shared
-   @StateObject private var mapController = MapController()
-   
-   @StateObject private var stopsController = StopsController()
-   @StateObject private var routesController = RoutesController()
-   @StateObject private var vehiclesController = VehiclesController()
-   @StateObject private var estimationsController = EstimationsController()
+   @StateObject private var mapController = MapController.shared
+   @StateObject private var carrisNetworkController = CarrisNetworkController.shared
+   // @StateObject private var tcbNetworkController = TCBNetworkController.shared
    
    @StateObject private var carrisNetworkController = CarrisNetworkController()
    private let updateIntervalTimer = Timer.publish(every: 20 /* seconds */, on: .main, in: .common).autoconnect()
@@ -27,6 +16,7 @@ struct GeoBusApp: App {
    var body: some Scene {
       WindowGroup {
          ContentView()
+<<<<<<< HEAD
             // OLD
             .environmentObject(stopsController)
             .environmentObject(routesController)
@@ -40,16 +30,25 @@ struct GeoBusApp: App {
 //               self.carrisNetworkController.start()
                self.routesController.update()
                // Capture app open
+=======
+            .environmentObject(appstate)
+            .environmentObject(mapController)
+            .environmentObject(carrisNetworkController)
+            .onAppear(perform: {
+>>>>>>> production
                Analytics.shared.capture(event: .App_Session_Start)
             })
             .onReceive(updateIntervalTimer) { event in
-               // Capture session continuation
+               carrisNetworkController.refresh()
                Analytics.shared.capture(event: .App_Session_Ping)
+<<<<<<< HEAD
                // Update vehicles on timer call
 //               self.vehiclesController.update(scope: .summary)
                Task {
                   await vehiclesController.fetchVehiclesFromCarrisAPI()
                }
+=======
+>>>>>>> production
             }
       }
    }
