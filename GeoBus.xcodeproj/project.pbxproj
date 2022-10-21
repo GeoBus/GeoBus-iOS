@@ -12,6 +12,7 @@
 		CF05F62028CD337200B4AD58 /* AppVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF05F61F28CD337200B4AD58 /* AppVersion.swift */; };
 		CF0C256A290211EF00B03052 /* DataProvidersCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0C2569290211EF00B03052 /* DataProvidersCard.swift */; };
 		CF0C256C29031B2C00B03052 /* CarrisCommunityAPIModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0C256B29031B2C00B03052 /* CarrisCommunityAPIModel.swift */; };
+		CF0C256E290324A600B03052 /* CarrisCommunityAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0C256D290324A600B03052 /* CarrisCommunityAPI.swift */; };
 		CF181FE628CCB7D600248F72 /* GeoBusApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF181FE528CCB7D600248F72 /* GeoBusApp.swift */; };
 		CF181FE828CCB7D600248F72 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF181FE728CCB7D600248F72 /* ContentView.swift */; };
 		CF181FEA28CCB7D700248F72 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CF181FE928CCB7D700248F72 /* Assets.xcassets */; };
@@ -82,6 +83,7 @@
 		CF05F61F28CD337200B4AD58 /* AppVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppVersion.swift; sourceTree = "<group>"; };
 		CF0C2569290211EF00B03052 /* DataProvidersCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProvidersCard.swift; sourceTree = "<group>"; };
 		CF0C256B29031B2C00B03052 /* CarrisCommunityAPIModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarrisCommunityAPIModel.swift; sourceTree = "<group>"; };
+		CF0C256D290324A600B03052 /* CarrisCommunityAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarrisCommunityAPI.swift; sourceTree = "<group>"; };
 		CF181FE228CCB7D600248F72 /* GeoBus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GeoBus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF181FE528CCB7D600248F72 /* GeoBusApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoBusApp.swift; sourceTree = "<group>"; };
 		CF181FE728CCB7D600248F72 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -354,6 +356,7 @@
 			children = (
 				CFFFAD8428F7A21100DFD5FD /* CarrisAPI.swift */,
 				CF5094CC28FCB9E400EDD320 /* CarrisAPIModel.swift */,
+				CF0C256D290324A600B03052 /* CarrisCommunityAPI.swift */,
 				CF0C256B29031B2C00B03052 /* CarrisCommunityAPIModel.swift */,
 				CF5094CA28FC50E900EDD320 /* CarrisNetworkModel.swift */,
 				CF5094C828FC50AC00EDD320 /* CarrisNetworkController.swift */,
@@ -546,6 +549,7 @@
 				CF548FF628D14BA400668CB6 /* VehicleIdentifier.swift in Sources */,
 				CF5094CB28FC50E900EDD320 /* CarrisNetworkModel.swift in Sources */,
 				CF18208728CCBD3A00248F72 /* SelectRouteInput.swift in Sources */,
+				CF0C256E290324A600B03052 /* CarrisCommunityAPI.swift in Sources */,
 				CF18204728CCBCC500248F72 /* RouteBadgePill.swift in Sources */,
 				CF0C256A290211EF00B03052 /* DataProvidersCard.swift in Sources */,
 				CF18204828CCBCC500248F72 /* RouteBadgeSquare.swift in Sources */,

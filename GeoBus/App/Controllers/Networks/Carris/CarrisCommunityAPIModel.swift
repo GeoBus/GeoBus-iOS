@@ -22,7 +22,7 @@ struct CarrisCommunityAPIModel {
       let enrichedPreviousStopId: String?
       let enrichedPreviousStopList: [String]?
       let enrichedPreviousStopMax: Int?
-      let enrichedPreviousStopOrderIdx: Int?
+      let enrichedPreviousStopOrderIdx: Double?
       let enrichedQueryTime: Double?
       let enrichedRouteCoords: [Double]?
       let enrichedRouteDirection: Double?
@@ -65,7 +65,7 @@ struct CarrisCommunityAPIModel {
    
    
    
-   struct Estimate: Decodable {
+   struct Estimation: Decodable {
       let busNumber: Int?
       let dataServico: String?
       let direction: String?
@@ -77,10 +77,10 @@ struct CarrisCommunityAPIModel {
       let enrichedGeohash80m: String?
       let enrichedGeohashPrev300m: String?
       let enrichedGeohashPrev80m: String?
-      let enrichedPreviousStopId: String?
+//      let enrichedPreviousStopId: String? ———› ERROR: typeMismatch(Swift.String, Swift.DecodingError.Context(codingPath: [_JSONKey(stringValue: "Index 1", intValue: 1), CodingKeys(stringValue: "enrichedPreviousStopId", intValue: nil)], debugDescription: "Expected to decode String but found a number instead.", underlyingError: nil))
       let enrichedPreviousStopList: [String]?
       let enrichedPreviousStopMax: Int?
-      let enrichedPreviousStopOrderIdx: Int?
+      let enrichedPreviousStopOrderIdx: Double?
       let enrichedQueryTime: Double?
       let enrichedRouteCoords: [Double]?
       let enrichedRouteDirection: Double?
@@ -93,7 +93,7 @@ struct CarrisCommunityAPIModel {
       let enrichedTimeHash30m: String?
       let enrichedTimeHashDay30m: String?
       let estimatedDebug: [String]?
-      let estimatedFeatures: [EstimatedFeature]?
+      let estimatedFeatures: EstimatedFeature?
       let estimatedPreviouslyArrived: Bool?
       let estimatedRecentlyArrived: Bool?
       let estimatedRouteStopId: String?

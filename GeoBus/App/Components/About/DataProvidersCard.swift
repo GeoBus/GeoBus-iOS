@@ -13,8 +13,6 @@ struct DataProvidersCard: View {
    
    private let cardColor: Color = Color(.systemTeal)
    
-   @State var communityProviderIsOn: Bool = false
-   
    
    var providerToggle: some View {
       Toggle(isOn: $carrisNetworkController.communityDataProviderStatus) {

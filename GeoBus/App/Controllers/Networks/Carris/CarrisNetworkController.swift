@@ -548,6 +548,14 @@ class CarrisNetworkController: ObservableObject {
    /* These functions search for the provided object identifier in the storage arrays */
    /* and return it if found or nil if not found. */
    
+   private func find(vehicle vehicleId: Int) -> CarrisNetworkModel.Vehicle? {
+      if let requestedVehicleObject = self.allVehicles[withId: vehicleId] {
+         return requestedVehicleObject
+      } else {
+         return nil
+      }
+   }
+   
    private func find(route routeNumber: String) -> CarrisNetworkModel.Route? {
       if let requestedRouteObject = self.allRoutes[withId: routeNumber] {
          return requestedRouteObject
@@ -564,12 +572,24 @@ class CarrisNetworkController: ObservableObject {
       }
    }
    
-   private func find(vehicle vehicleId: Int) -> CarrisNetworkModel.Vehicle? {
-      if let requestedVehicleObject = self.allVehicles[withId: vehicleId] {
-         return requestedVehicleObject
-      } else {
+   private func find(route routeNumber: String, variant: Int, direction: String) -> CarrisNetworkModel.Stop? {
+      guard let requestedRouteObject = self.find(route: routeNumber) else {
          return nil
       }
+      
+      let requestedVariantObject = requestedRouteObject.variants[variant]
+      
+      switch direction {
+         case "ASC":
+            return requestedVariantObject.ascendingItinerary?.last?.stop
+         case "DESC":
+            return requestedVariantObject.descendingItinerary?.last?.stop
+         case "CIRC":
+            return requestedVariantObject.circularItinerary?.last?.stop
+         default:
+            return nil
+      }
+      
    }
    
    
@@ -794,14 +814,23 @@ class CarrisNetworkController: ObservableObject {
    
    
    
-   /* MARK: - Get Estimations */
+   /* MARK: - GET ESTIMATION */
    // This function calls the API to retrieve estimations for the provided stop 'publicId'.
    // It formats and returns the results to the caller.
    
    public func getEstimation(for stopId: Int) async -> [CarrisNetworkModel.Estimation] {
+      if (!communityDataProviderStatus) {
          return await self.fetchEstimationsFromCarrisAPI(for: stopId)
-//         self.populateActiveVehicles()
+      } else {
+         return await self.fetchEstimationsFromCommunityAPI(for: stopId)
+      }
    }
+   
+   
+   
+   /* MARK: - GET CARRIS ESTIMATIONS */
+   // This function calls the API to retrieve estimations for the provided stop 'publicId'.
+   // It formats and returns the results to the caller.
    
    public func fetchEstimationsFromCarrisAPI(for stopId: Int) async -> [CarrisNetworkModel.Estimation] {
       
@@ -860,12 +889,58 @@ class CarrisNetworkController: ObservableObject {
    
    
    
-   /* * */
-   /* MARK: - SECTION 12: TOGGLE COMMUNITY DATA PROVIDER STATUS */
-   /* Call this function to switch Community Data ON or OFF. */
-   /* This switches in memory for the current session, and stores the new setting in storage. */
+   /* MARK: - GET COMMUNITY ESTIMATIONS */
+   // This function calls the API to retrieve estimations for the provided stop 'publicId'.
+   // It formats and returns the results to the caller.
    
-   //
+   public func fetchEstimationsFromCommunityAPI(for stopId: Int) async -> [CarrisNetworkModel.Estimation] {
+      
+      Appstate.shared.change(to: .loading, for: .estimations)
+      
+      print("GeoBus: Carris API: Estimations: Starting update...")
+      
+      do {
+         // Request API Estimations List
+         let rawDataCarrisCommunityAPIEstimations = try await CarrisCommunityAPI.shared.request(for: "eststop?busStop=\(stopId)")
+         let decodedCarrisCommunityAPIEstimations = try JSONDecoder().decode([CarrisCommunityAPIModel.Estimation].self, from: rawDataCarrisCommunityAPIEstimations)
+         
+         
+         var tempFormattedEstimations: [CarrisNetworkModel.Estimation] = []
+         
+         
+         // For each available vehicles in the API
+         for apiEstimation in decodedCarrisCommunityAPIEstimations {
+            
+            let destinationStop = find(
+               route: apiEstimation.routeNumber ?? "-",
+               variant: apiEstimation.variantNumber ?? -1,
+               direction: apiEstimation.direction ?? "-"
+            )
+            
+            tempFormattedEstimations.append(
+               CarrisNetworkModel.Estimation(
+                  stopId: stopId,
+                  routeNumber: apiEstimation.routeNumber ?? "-",
+                  destination: destinationStop?.name ?? "-",
+                  eta: apiEstimation.estimatedTimeofArrivalCorrected ?? "",
+                  busNumber: apiEstimation.busNumber ?? -1
+               )
+            )
+         }
+         
+         print("GeoBus: Carris API: Estimations: Update complete!")
+         
+         Appstate.shared.change(to: .idle, for: .estimations)
+         
+         return tempFormattedEstimations
+         
+      } catch {
+         Appstate.shared.change(to: .error, for: .estimations)
+         print("GeoBus: Carris API: Estimations: Error found while updating. More info: \(error)")
+         return []
+      }
+      
+   }
    
    
 }

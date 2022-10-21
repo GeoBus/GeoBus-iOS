@@ -125,6 +125,43 @@ struct ConnectionDetailsView2: View {
          }
    }
    
+   // DEBUG!!!
+   var providerToggle: some View {
+      VStack {
+         Toggle(isOn: $carrisNetworkController.communityDataProviderStatus) {
+            HStack {
+               Image(systemName: "staroflife.circle")
+                  .renderingMode(.template)
+                  .font(Font.system(size: 25))
+                  .foregroundColor(.teal)
+               Text("Community Data")
+                  .font(Font.system(size: 18, weight: .bold))
+                  .foregroundColor(.teal)
+                  .padding(.leading, 5)
+            }
+         }
+         .padding()
+         .frame(maxWidth: .infinity)
+         .tint(.teal)
+         .background(.teal.opacity(0.05))
+         .cornerRadius(10)
+         .onChange(of: carrisNetworkController.communityDataProviderStatus) { value in
+            carrisNetworkController.toggleCommunityDataProviderTo(to: value)
+            self.getEstimationsFromController()
+         }
+         
+         Button(action: getEstimationsFromController, label: {
+            Text("Reload Estimate")
+               .font(Font.system(size: 15, weight: .bold, design: .default) )
+               .foregroundColor(Color(.white))
+               .padding(5)
+               .frame(maxWidth: .infinity)
+               .background(Color(.systemBlue))
+               .cornerRadius(10)
+         })
+      }
+   }
+   
    
    var body: some View {
       VStack(spacing: 0) {
@@ -138,6 +175,8 @@ struct ConnectionDetailsView2: View {
                .padding([.horizontal, .bottom])
                .padding(.top, 7)
          }
+         providerToggle
+            .padding()
       }
       .background(
          canToggle
