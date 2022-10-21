@@ -7,20 +7,20 @@
 
 import SwiftUI
 
-struct StopDetailsView: View {
+struct ConnectionDetailsView: View {
    
-   let stop: Stop
+   let connection: CarrisNetworkModel.Connection
    
    @State private var viewSize = CGSize()
    
     var body: some View {
        VStack(alignment: .leading) {
-          StopDetailsView2(
+          ConnectionDetailsView2(
             canToggle: false,
-            publicId: stop.publicId,
-            name: stop.name,
-            orderInRoute: stop.orderInRoute,
-            direction: stop.direction
+            publicId: connection.stop.id,
+            name: connection.stop.name,
+            orderInRoute: connection.orderInRoute,
+            direction: connection.direction
           )
           .padding(.bottom, 20)
           Disclaimer()
@@ -35,33 +35,60 @@ struct StopDetailsView: View {
 }
 
 
+struct StopDetailsView: View {
+   
+   let stop: CarrisNetworkModel.Stop
+   
+   @State private var viewSize = CGSize()
+   
+   var body: some View {
+      VStack(alignment: .leading) {
+         ConnectionDetailsView2(
+            canToggle: false,
+            publicId: stop.id,
+            name: stop.name,
+            orderInRoute: 0,
+            direction: .circular
+         )
+         .padding(.bottom, 20)
+         Disclaimer()
+            .padding(.horizontal)
+            .padding(.bottom, 10)
+      }
+      .readSize { size in
+         viewSize = size
+      }
+      .presentationDetents([.height(viewSize.height)])
+   }
+}
 
 
 
 
 
 
-struct StopDetailsView2: View {
+
+struct ConnectionDetailsView2: View {
    
    @Environment(\.colorScheme) var colorScheme: ColorScheme
    
-   @EnvironmentObject var estimationsController: EstimationsController
+   @EnvironmentObject var carrisNetworkController: CarrisNetworkController
    
    let refreshTimer = Timer.publish(every: 60 /* seconds */, on: .main, in: .common).autoconnect()
    
    let canToggle: Bool
-   let publicId: String
+   let publicId: Int
    let name: String
    let orderInRoute: Int?
-   let direction: Direction?
+   let direction: CarrisNetworkModel.Direction?
    
    @State private var isOpen = false
-   @State private var estimations: [Estimation]? = nil
+   @State private var estimations: [CarrisNetworkModel.Estimation]? = nil
    
    
    func getEstimationsFromController() {
       Task {
-         self.estimations = await estimationsController.get(for: self.publicId)
+         self.estimations = await carrisNetworkController.getEstimation(for: self.publicId)
       }
    }
    

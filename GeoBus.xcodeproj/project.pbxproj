@@ -10,17 +10,12 @@
 		CF03D6AE28F3B00F0077299B /* VehicleDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF03D6AD28F3B00F0077299B /* VehicleDestination.swift */; };
 		CF05F61A28CD09A000B4AD58 /* NavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF05F61928CD09A000B4AD58 /* NavBar.swift */; };
 		CF05F62028CD337200B4AD58 /* AppVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF05F61F28CD337200B4AD58 /* AppVersion.swift */; };
+		CF0C256A290211EF00B03052 /* DataProvidersCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0C2569290211EF00B03052 /* DataProvidersCard.swift */; };
 		CF181FE628CCB7D600248F72 /* GeoBusApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF181FE528CCB7D600248F72 /* GeoBusApp.swift */; };
 		CF181FE828CCB7D600248F72 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF181FE728CCB7D600248F72 /* ContentView.swift */; };
 		CF181FEA28CCB7D700248F72 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CF181FE928CCB7D700248F72 /* Assets.xcassets */; };
 		CF181FED28CCB7D700248F72 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CF181FEC28CCB7D700248F72 /* Preview Assets.xcassets */; };
-		CF181FFD28CCB99E00248F72 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF181FFC28CCB99E00248F72 /* Auth.swift */; };
-		CF18200728CCBA3500248F72 /* RoutesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF18200628CCBA3500248F72 /* RoutesController.swift */; };
-		CF18200928CCBA4600248F72 /* Routes.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF18200828CCBA4600248F72 /* Routes.swift */; };
 		CF18202928CCBBDC00248F72 /* TapticEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF18202828CCBBDC00248F72 /* TapticEngine.swift */; };
-		CF18202E28CCBC0100248F72 /* VehiclesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF18202D28CCBC0100248F72 /* VehiclesController.swift */; };
-		CF18203028CCBC0B00248F72 /* EstimationsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF18202F28CCBC0B00248F72 /* EstimationsController.swift */; };
-		CF18203D28CCBC6000248F72 /* Estimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF18203C28CCBC6000248F72 /* Estimations.swift */; };
 		CF18204728CCBCC500248F72 /* RouteBadgePill.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF18204128CCBCC500248F72 /* RouteBadgePill.swift */; };
 		CF18204828CCBCC500248F72 /* RouteBadgeSquare.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF18204228CCBCC500248F72 /* RouteBadgeSquare.swift */; };
 		CF18204928CCBCC500248F72 /* SheetHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF18204328CCBCC500248F72 /* SheetHeader.swift */; };
@@ -31,7 +26,7 @@
 		CF18207328CCBD2300248F72 /* VariantButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF18206628CCBD2300248F72 /* VariantButton.swift */; };
 		CF18207428CCBD2300248F72 /* CircularVariantInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF18206728CCBD2300248F72 /* CircularVariantInfo.swift */; };
 		CF18207528CCBD2300248F72 /* VariantWarning.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF18206828CCBD2300248F72 /* VariantWarning.swift */; };
-		CF18207628CCBD2300248F72 /* StopsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF18206928CCBD2300248F72 /* StopsList.swift */; };
+		CF18207628CCBD2300248F72 /* ConnectionsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF18206928CCBD2300248F72 /* ConnectionsList.swift */; };
 		CF18207728CCBD2300248F72 /* RouteDetailsAddToFavorites.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF18206A28CCBD2300248F72 /* RouteDetailsAddToFavorites.swift */; };
 		CF18207828CCBD2300248F72 /* RouteDetailsSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF18206B28CCBD2300248F72 /* RouteDetailsSheet.swift */; };
 		CF18207928CCBD2300248F72 /* RouteDetailsVehiclesQuantity.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF18206C28CCBD2300248F72 /* RouteDetailsVehiclesQuantity.swift */; };
@@ -43,6 +38,10 @@
 		CF18209B28CCBD5000248F72 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF18209A28CCBD5000248F72 /* MapView.swift */; };
 		CF47994D28D3315E00B56D4B /* Appstate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF47994C28D3315E00B56D4B /* Appstate.swift */; };
 		CF47994F28D33E1900B56D4B /* Disclaimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF47994E28D33E1900B56D4B /* Disclaimer.swift */; };
+		CF5094C528FC279A00EDD320 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5094C428FC279A00EDD320 /* Array.swift */; };
+		CF5094C928FC50AC00EDD320 /* CarrisNetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5094C828FC50AC00EDD320 /* CarrisNetworkController.swift */; };
+		CF5094CB28FC50E900EDD320 /* CarrisNetworkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5094CA28FC50E900EDD320 /* CarrisNetworkModel.swift */; };
+		CF5094CD28FCB9E400EDD320 /* CarrisAPIModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5094CC28FCB9E400EDD320 /* CarrisAPIModel.swift */; };
 		CF521A0528F34F5300AD0B76 /* StopDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF521A0428F34F5300AD0B76 /* StopDetailsView.swift */; };
 		CF548FF328D129B000668CB6 /* VehicleDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF6478FC28D112E800C70691 /* VehicleDetailsView.swift */; };
 		CF548FF628D14BA400668CB6 /* VehicleIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF548FF528D14BA400668CB6 /* VehicleIdentifier.swift */; };
@@ -51,14 +50,11 @@
 		CF6C918428D3F2C9006C3F61 /* UserLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF6C918328D3F2C9006C3F61 /* UserLocation.swift */; };
 		CF6C918628D3F8C8006C3F61 /* StopSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF6C918528D3F8C8006C3F61 /* StopSearch.swift */; };
 		CF6C918828D3FAF9006C3F61 /* AboutGeoBus.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF6C918728D3FAF8006C3F61 /* AboutGeoBus.swift */; };
-		CF6C918A28D4A88D006C3F61 /* StopsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF6C918928D4A88D006C3F61 /* StopsController.swift */; };
 		CF6C918C28D4B452006C3F61 /* SearchStopInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF6C918B28D4B452006C3F61 /* SearchStopInput.swift */; };
-		CF6C918E28D4DABA006C3F61 /* Stops.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF6C918D28D4DABA006C3F61 /* Stops.swift */; };
 		CF82BB0728D7F167007F0CDB /* LiveDataCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF82BB0628D7F166007F0CDB /* LiveDataCard.swift */; };
 		CF82BB0928D7F19A007F0CDB /* LocationCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF82BB0828D7F19A007F0CDB /* LocationCard.swift */; };
 		CF82BB0B28D7F1C6007F0CDB /* ShareCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF82BB0A28D7F1C6007F0CDB /* ShareCard.swift */; };
 		CF82BB0D28D7F202007F0CDB /* ContactsCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF82BB0C28D7F202007F0CDB /* ContactsCard.swift */; };
-		CFAF0E7828CE84C200DDAD5B /* Vehicles.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAF0E7728CE84C200DDAD5B /* Vehicles.swift */; };
 		CFAF0E7A28CE84F400DDAD5B /* MapAnnotations.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAF0E7928CE84F400DDAD5B /* MapAnnotations.swift */; };
 		CFB5D45728EEFE21002368BC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CFB5D45528EEFE21002368BC /* InfoPlist.strings */; };
 		CFB5D45A28EEFE6B002368BC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CFB5D45828EEFE6B002368BC /* Localizable.strings */; };
@@ -74,7 +70,7 @@
 		CFFFAD7B28F4D8D000DFD5FD /* StopIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFFAD7A28F4D8D000DFD5FD /* StopIcon.swift */; };
 		CFFFAD8128F64E2000DFD5FD /* Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFFAD8028F64E2000DFD5FD /* Analytics.swift */; };
 		CFFFAD8328F6754400DFD5FD /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFFAD8228F6754400DFD5FD /* Helpers.swift */; };
-		CFFFAD8528F7A21100DFD5FD /* CarrisAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFFAD8428F7A21100DFD5FD /* CarrisAuthentication.swift */; };
+		CFFFAD8528F7A21100DFD5FD /* CarrisAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFFAD8428F7A21100DFD5FD /* CarrisAPI.swift */; };
 		CFFFAD8928F8ECDE00DFD5FD /* Spinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFFAD8828F8ECDE00DFD5FD /* Spinner.swift */; };
 		CFFFAD8B28F8F33200DFD5FD /* Pulse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFFAD8A28F8F33200DFD5FD /* Pulse.swift */; };
 /* End PBXBuildFile section */
@@ -83,18 +79,13 @@
 		CF03D6AD28F3B00F0077299B /* VehicleDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleDestination.swift; sourceTree = "<group>"; };
 		CF05F61928CD09A000B4AD58 /* NavBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBar.swift; sourceTree = "<group>"; };
 		CF05F61F28CD337200B4AD58 /* AppVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppVersion.swift; sourceTree = "<group>"; };
+		CF0C2569290211EF00B03052 /* DataProvidersCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProvidersCard.swift; sourceTree = "<group>"; };
 		CF181FE228CCB7D600248F72 /* GeoBus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GeoBus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF181FE528CCB7D600248F72 /* GeoBusApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoBusApp.swift; sourceTree = "<group>"; };
 		CF181FE728CCB7D600248F72 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		CF181FE928CCB7D700248F72 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CF181FEC28CCB7D700248F72 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		CF181FFC28CCB99E00248F72 /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
-		CF18200628CCBA3500248F72 /* RoutesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutesController.swift; sourceTree = "<group>"; };
-		CF18200828CCBA4600248F72 /* Routes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routes.swift; sourceTree = "<group>"; };
 		CF18202828CCBBDC00248F72 /* TapticEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapticEngine.swift; sourceTree = "<group>"; };
-		CF18202D28CCBC0100248F72 /* VehiclesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehiclesController.swift; sourceTree = "<group>"; };
-		CF18202F28CCBC0B00248F72 /* EstimationsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EstimationsController.swift; sourceTree = "<group>"; };
-		CF18203C28CCBC6000248F72 /* Estimations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Estimations.swift; sourceTree = "<group>"; };
 		CF18204128CCBCC500248F72 /* RouteBadgePill.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteBadgePill.swift; sourceTree = "<group>"; };
 		CF18204228CCBCC500248F72 /* RouteBadgeSquare.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteBadgeSquare.swift; sourceTree = "<group>"; };
 		CF18204328CCBCC500248F72 /* SheetHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SheetHeader.swift; sourceTree = "<group>"; };
@@ -105,7 +96,7 @@
 		CF18206628CCBD2300248F72 /* VariantButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VariantButton.swift; sourceTree = "<group>"; };
 		CF18206728CCBD2300248F72 /* CircularVariantInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircularVariantInfo.swift; sourceTree = "<group>"; };
 		CF18206828CCBD2300248F72 /* VariantWarning.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VariantWarning.swift; sourceTree = "<group>"; };
-		CF18206928CCBD2300248F72 /* StopsList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopsList.swift; sourceTree = "<group>"; };
+		CF18206928CCBD2300248F72 /* ConnectionsList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionsList.swift; sourceTree = "<group>"; };
 		CF18206A28CCBD2300248F72 /* RouteDetailsAddToFavorites.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteDetailsAddToFavorites.swift; sourceTree = "<group>"; };
 		CF18206B28CCBD2300248F72 /* RouteDetailsSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteDetailsSheet.swift; sourceTree = "<group>"; };
 		CF18206C28CCBD2300248F72 /* RouteDetailsVehiclesQuantity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteDetailsVehiclesQuantity.swift; sourceTree = "<group>"; };
@@ -117,6 +108,10 @@
 		CF18209A28CCBD5000248F72 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		CF47994C28D3315E00B56D4B /* Appstate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Appstate.swift; sourceTree = "<group>"; };
 		CF47994E28D33E1900B56D4B /* Disclaimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Disclaimer.swift; sourceTree = "<group>"; };
+		CF5094C428FC279A00EDD320 /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
+		CF5094C828FC50AC00EDD320 /* CarrisNetworkController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarrisNetworkController.swift; sourceTree = "<group>"; };
+		CF5094CA28FC50E900EDD320 /* CarrisNetworkModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarrisNetworkModel.swift; sourceTree = "<group>"; };
+		CF5094CC28FCB9E400EDD320 /* CarrisAPIModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarrisAPIModel.swift; sourceTree = "<group>"; };
 		CF521A0428F34F5300AD0B76 /* StopDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopDetailsView.swift; sourceTree = "<group>"; };
 		CF548FF528D14BA400668CB6 /* VehicleIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleIdentifier.swift; sourceTree = "<group>"; };
 		CF6478FC28D112E800C70691 /* VehicleDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleDetailsView.swift; sourceTree = "<group>"; };
@@ -125,15 +120,12 @@
 		CF6C918328D3F2C9006C3F61 /* UserLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLocation.swift; sourceTree = "<group>"; };
 		CF6C918528D3F8C8006C3F61 /* StopSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopSearch.swift; sourceTree = "<group>"; };
 		CF6C918728D3FAF8006C3F61 /* AboutGeoBus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutGeoBus.swift; sourceTree = "<group>"; };
-		CF6C918928D4A88D006C3F61 /* StopsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopsController.swift; sourceTree = "<group>"; };
 		CF6C918B28D4B452006C3F61 /* SearchStopInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchStopInput.swift; sourceTree = "<group>"; };
-		CF6C918D28D4DABA006C3F61 /* Stops.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stops.swift; sourceTree = "<group>"; };
 		CF82BB0528D7D3EB007F0CDB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CF82BB0628D7F166007F0CDB /* LiveDataCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveDataCard.swift; sourceTree = "<group>"; };
 		CF82BB0828D7F19A007F0CDB /* LocationCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCard.swift; sourceTree = "<group>"; };
 		CF82BB0A28D7F1C6007F0CDB /* ShareCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareCard.swift; sourceTree = "<group>"; };
 		CF82BB0C28D7F202007F0CDB /* ContactsCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsCard.swift; sourceTree = "<group>"; };
-		CFAF0E7728CE84C200DDAD5B /* Vehicles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vehicles.swift; sourceTree = "<group>"; };
 		CFAF0E7928CE84F400DDAD5B /* MapAnnotations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAnnotations.swift; sourceTree = "<group>"; };
 		CFAF0E7B28CEC78C00DDAD5B /* GeoBus.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GeoBus.entitlements; sourceTree = "<group>"; };
 		CFB5D45628EEFE21002368BC /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -162,7 +154,7 @@
 		CFFFAD7A28F4D8D000DFD5FD /* StopIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopIcon.swift; sourceTree = "<group>"; };
 		CFFFAD8028F64E2000DFD5FD /* Analytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Analytics.swift; sourceTree = "<group>"; };
 		CFFFAD8228F6754400DFD5FD /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
-		CFFFAD8428F7A21100DFD5FD /* CarrisAuthentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarrisAuthentication.swift; sourceTree = "<group>"; };
+		CFFFAD8428F7A21100DFD5FD /* CarrisAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarrisAPI.swift; sourceTree = "<group>"; };
 		CFFFAD8828F8ECDE00DFD5FD /* Spinner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spinner.swift; sourceTree = "<group>"; };
 		CFFFAD8A28F8F33200DFD5FD /* Pulse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pulse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -182,6 +174,7 @@
 		CF05F61628CD08D400B4AD58 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				CF181FE728CCB7D600248F72 /* ContentView.swift */,
 				CF05F61928CD09A000B4AD58 /* NavBar.swift */,
 				CF18208828CCBD4600248F72 /* Map */,
 				CF05F62528CD60BD00B4AD58 /* SelectRoute */,
@@ -204,7 +197,7 @@
 				CF18206828CCBD2300248F72 /* VariantWarning.swift */,
 				CF18206628CCBD2300248F72 /* VariantButton.swift */,
 				CF18206728CCBD2300248F72 /* CircularVariantInfo.swift */,
-				CF18206928CCBD2300248F72 /* StopsList.swift */,
+				CF18206928CCBD2300248F72 /* ConnectionsList.swift */,
 			);
 			path = RouteDetails;
 			sourceTree = "<group>";
@@ -222,35 +215,20 @@
 				CF03D6AD28F3B00F0077299B /* VehicleDestination.swift */,
 				CFDD014A28D535370070FE4B /* Card.swift */,
 				CF18204E28CCBCE900248F72 /* OpenExternalLinkButton.swift */,
+				CF18201528CCBB4900248F72 /* Animations */,
 			);
 			path = Layout;
 			sourceTree = "<group>";
 		};
-		CF05F62128CD5DC700B4AD58 /* State */ = {
+		CF05F62128CD5DC700B4AD58 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				CF47994C28D3315E00B56D4B /* Appstate.swift */,
 				CFFFAD8028F64E2000DFD5FD /* Analytics.swift */,
 				CF6C918128D3F1C6006C3F61 /* MapController.swift */,
-				CFFFAD8428F7A21100DFD5FD /* CarrisAuthentication.swift */,
-				CF6C918928D4A88D006C3F61 /* StopsController.swift */,
-				CF18200628CCBA3500248F72 /* RoutesController.swift */,
-				CF18202D28CCBC0100248F72 /* VehiclesController.swift */,
-				CF18202F28CCBC0B00248F72 /* EstimationsController.swift */,
+				CF5094C028FB992D00EDD320 /* Networks */,
 			);
-			path = State;
-			sourceTree = "<group>";
-		};
-		CF05F62228CD5E5500B4AD58 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				CF181FFC28CCB99E00248F72 /* Auth.swift */,
-				CF6C918D28D4DABA006C3F61 /* Stops.swift */,
-				CF18200828CCBA4600248F72 /* Routes.swift */,
-				CFAF0E7728CE84C200DDAD5B /* Vehicles.swift */,
-				CF18203C28CCBC6000248F72 /* Estimations.swift */,
-			);
-			path = Models;
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		CF05F62528CD60BD00B4AD58 /* SelectRoute */ = {
@@ -311,13 +289,10 @@
 			isa = PBXGroup;
 			children = (
 				CF181FE528CCB7D600248F72 /* GeoBusApp.swift */,
-				CF181FE728CCB7D600248F72 /* ContentView.swift */,
-				CF05F62228CD5E5500B4AD58 /* Models */,
-				CF05F62128CD5DC700B4AD58 /* State */,
+				CF05F62128CD5DC700B4AD58 /* Controllers */,
 				CF05F61628CD08D400B4AD58 /* Components */,
 				CF05F61C28CD1F2800B4AD58 /* Layout */,
 				CF18200C28CCBA7300248F72 /* Extensions */,
-				CF18201528CCBB4900248F72 /* Animations */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -328,6 +303,7 @@
 				CF18202828CCBBDC00248F72 /* TapticEngine.swift */,
 				CFFFAD8228F6754400DFD5FD /* Helpers.swift */,
 				CFDC15EE28D292FB00A4BE49 /* ViewSize.swift */,
+				CF5094C428FC279A00EDD320 /* Array.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -362,6 +338,33 @@
 			path = Map;
 			sourceTree = "<group>";
 		};
+		CF5094C028FB992D00EDD320 /* Networks */ = {
+			isa = PBXGroup;
+			children = (
+				CF5094C128FB993400EDD320 /* Carris */,
+				CF5094CE28FCBB5700EDD320 /* TCB */,
+			);
+			path = Networks;
+			sourceTree = "<group>";
+		};
+		CF5094C128FB993400EDD320 /* Carris */ = {
+			isa = PBXGroup;
+			children = (
+				CFFFAD8428F7A21100DFD5FD /* CarrisAPI.swift */,
+				CF5094CC28FCB9E400EDD320 /* CarrisAPIModel.swift */,
+				CF5094CA28FC50E900EDD320 /* CarrisNetworkModel.swift */,
+				CF5094C828FC50AC00EDD320 /* CarrisNetworkController.swift */,
+			);
+			path = Carris;
+			sourceTree = "<group>";
+		};
+		CF5094CE28FCBB5700EDD320 /* TCB */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = TCB;
+			sourceTree = "<group>";
+		};
 		CF6478FB28D112CD00C70691 /* VehicleDetails */ = {
 			isa = PBXGroup;
 			children = (
@@ -382,6 +385,7 @@
 				CFDD014C28D66D9B0070FE4B /* CloseButton.swift */,
 				CF05F61F28CD337200B4AD58 /* AppVersion.swift */,
 				CF47994E28D33E1900B56D4B /* Disclaimer.swift */,
+				CF0C2569290211EF00B03052 /* DataProvidersCard.swift */,
 			);
 			path = About;
 			sourceTree = "<group>";
@@ -500,7 +504,6 @@
 				CF82BB0728D7F167007F0CDB /* LiveDataCard.swift in Sources */,
 				CFFFAD7928F4AD0400DFD5FD /* TimeLeft.swift in Sources */,
 				CF82BB0D28D7F202007F0CDB /* ContactsCard.swift in Sources */,
-				CF18202E28CCBC0100248F72 /* VehiclesController.swift in Sources */,
 				CFFFAD8328F6754400DFD5FD /* Helpers.swift in Sources */,
 				CF18207028CCBD2300248F72 /* RouteDetailsView.swift in Sources */,
 				CF03D6AE28F3B00F0077299B /* VehicleDestination.swift in Sources */,
@@ -509,15 +512,14 @@
 				CF18207428CCBD2300248F72 /* CircularVariantInfo.swift in Sources */,
 				CF18208228CCBD3A00248F72 /* SelectRouteView.swift in Sources */,
 				CF18208328CCBD3A00248F72 /* SelectRouteSheet.swift in Sources */,
-				CF18203D28CCBC6000248F72 /* Estimations.swift in Sources */,
+				CF5094C528FC279A00EDD320 /* Array.swift in Sources */,
 				CF18207828CCBD2300248F72 /* RouteDetailsSheet.swift in Sources */,
 				CF18207728CCBD2300248F72 /* RouteDetailsAddToFavorites.swift in Sources */,
 				CF6C918428D3F2C9006C3F61 /* UserLocation.swift in Sources */,
 				CFFFAD8928F8ECDE00DFD5FD /* Spinner.swift in Sources */,
-				CF6C918E28D4DABA006C3F61 /* Stops.swift in Sources */,
 				CF18207528CCBD2300248F72 /* VariantWarning.swift in Sources */,
 				CF6C918C28D4B452006C3F61 /* SearchStopInput.swift in Sources */,
-				CF18207628CCBD2300248F72 /* StopsList.swift in Sources */,
+				CF18207628CCBD2300248F72 /* ConnectionsList.swift in Sources */,
 				CF181FE828CCB7D600248F72 /* ContentView.swift in Sources */,
 				CF05F62028CD337200B4AD58 /* AppVersion.swift in Sources */,
 				CF6C918628D3F8C8006C3F61 /* StopSearch.swift in Sources */,
@@ -525,24 +527,23 @@
 				CFAF0E7A28CE84F400DDAD5B /* MapAnnotations.swift in Sources */,
 				CF548FF328D129B000668CB6 /* VehicleDetailsView.swift in Sources */,
 				CFFFAD7B28F4D8D000DFD5FD /* StopIcon.swift in Sources */,
-				CF18203028CCBC0B00248F72 /* EstimationsController.swift in Sources */,
-				CF18200928CCBA4600248F72 /* Routes.swift in Sources */,
-				CF6C918A28D4A88D006C3F61 /* StopsController.swift in Sources */,
 				CF82BB0928D7F19A007F0CDB /* LocationCard.swift in Sources */,
 				CF18207928CCBD2300248F72 /* RouteDetailsVehiclesQuantity.swift in Sources */,
-				CF181FFD28CCB99E00248F72 /* Auth.swift in Sources */,
 				CF181FE628CCB7D600248F72 /* GeoBusApp.swift in Sources */,
 				CF18205028CCBCE900248F72 /* OpenExternalLinkButton.swift in Sources */,
 				CF18204928CCBCC500248F72 /* SheetHeader.swift in Sources */,
 				CF18205728CCBD0400248F72 /* StopEstimations.swift in Sources */,
-				CFFFAD8528F7A21100DFD5FD /* CarrisAuthentication.swift in Sources */,
+				CF5094CD28FCB9E400EDD320 /* CarrisAPIModel.swift in Sources */,
+				CF5094C928FC50AC00EDD320 /* CarrisNetworkController.swift in Sources */,
+				CFFFAD8528F7A21100DFD5FD /* CarrisAPI.swift in Sources */,
 				CF05F61A28CD09A000B4AD58 /* NavBar.swift in Sources */,
 				CFDD014B28D535370070FE4B /* Card.swift in Sources */,
 				CF18202928CCBBDC00248F72 /* TapticEngine.swift in Sources */,
-				CF18200728CCBA3500248F72 /* RoutesController.swift in Sources */,
 				CF548FF628D14BA400668CB6 /* VehicleIdentifier.swift in Sources */,
+				CF5094CB28FC50E900EDD320 /* CarrisNetworkModel.swift in Sources */,
 				CF18208728CCBD3A00248F72 /* SelectRouteInput.swift in Sources */,
 				CF18204728CCBCC500248F72 /* RouteBadgePill.swift in Sources */,
+				CF0C256A290211EF00B03052 /* DataProvidersCard.swift in Sources */,
 				CF18204828CCBCC500248F72 /* RouteBadgeSquare.swift in Sources */,
 				CFDD014928D5114D0070FE4B /* SyncStatus.swift in Sources */,
 				CF18208528CCBD3A00248F72 /* FavoriteRoutes.swift in Sources */,
@@ -554,7 +555,6 @@
 				CF47994D28D3315E00B56D4B /* Appstate.swift in Sources */,
 				CFDD014D28D66D9B0070FE4B /* CloseButton.swift in Sources */,
 				CFDC15EF28D292FB00A4BE49 /* ViewSize.swift in Sources */,
-				CFAF0E7828CE84C200DDAD5B /* Vehicles.swift in Sources */,
 				CF6C918228D3F1C6006C3F61 /* MapController.swift in Sources */,
 				CFFFAD8128F64E2000DFD5FD /* Analytics.swift in Sources */,
 			);

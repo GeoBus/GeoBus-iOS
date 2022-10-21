@@ -10,16 +10,16 @@ import SwiftUI
 struct StopIcon: View {
    
    public let orderInRoute: Int
-   public let direction: Direction
+   public let direction: CarrisNetworkModel.Direction
    public let isSelected: Bool
    
-   init(orderInRoute: Int, direction: Direction) {
+   init(orderInRoute: Int, direction: CarrisNetworkModel.Direction) {
       self.orderInRoute = orderInRoute
       self.direction = direction
       self.isSelected = false
    }
    
-   init(orderInRoute: Int, direction: Direction, isSelected: Bool) {
+   init(orderInRoute: Int, direction: CarrisNetworkModel.Direction, isSelected: Bool) {
       self.orderInRoute = orderInRoute
       self.direction = direction
       self.isSelected = isSelected
@@ -29,7 +29,7 @@ struct StopIcon: View {
    // Properties:
    // The defaults for the icon
    private let size: CGFloat = 25
-   private let multiplier: Double = 1.2
+   private let multiplier: Double = 1.5
    
    
    private var viewSize: CGFloat {
@@ -84,12 +84,17 @@ struct StopIcon: View {
          Circle()
             .foregroundColor(self.borderColor)
             .frame(width: self.viewSize, height: self.viewSize)
+            .animation(.default, value: self.borderColor)
+            .animation(.default, value: self.viewSize)
          Circle()
             .foregroundColor(self.backgroundColor)
             .frame(width: self.borderWidth, height: self.borderWidth)
+            .animation(.default, value: self.backgroundColor)
+            .animation(.default, value: self.borderWidth)
          Text(String(self.orderInRoute))
             .font(.system(size: self.textSize, weight: .bold))
             .foregroundColor(.white)
+            .animation(.default, value: self.textSize)
       }
    }
    

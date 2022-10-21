@@ -10,14 +10,7 @@ import SwiftUI
 struct SyncStatus: View {
 
    @EnvironmentObject var appstate: Appstate
-   @EnvironmentObject var stopsController: StopsController
-   @EnvironmentObject var routesController: RoutesController
-
-
-   func forceSync() {
-      self.stopsController.update(forced: true)
-      self.routesController.update(forced: true)
-   }
+   @EnvironmentObject var carrisNetworkController: CarrisNetworkController
 
 
    var syncError: some View {
@@ -40,7 +33,7 @@ struct SyncStatus: View {
             .fontWeight(.semibold)
             .foregroundColor(Color(.secondaryLabel))
          Button(action: {
-            self.forceSync()
+            carrisNetworkController.resetAndUpdateNetwork()
          }, label: {
             VStack {
                Text("Try Again")
@@ -72,8 +65,14 @@ struct SyncStatus: View {
             .fontWeight(.semibold)
             .foregroundColor(Color(.secondaryLabel))
             .padding(.bottom, 5)
-         if (routesController.totalRoutesLeftToUpdate != nil) {
-            Text("\(routesController.totalRoutesLeftToUpdate!) Routes left...")
+         if (carrisNetworkController.networkUpdateProgress != nil) {
+            Text("\(carrisNetworkController.networkUpdateProgress!) Routes left...")
+               .multilineTextAlignment(.center)
+               .font(.subheadline)
+               .foregroundColor(Color(.secondaryLabel))
+               .padding(.horizontal)
+         } else {
+            Text("Preparing synchronization...")
                .multilineTextAlignment(.center)
                .font(.subheadline)
                .foregroundColor(Color(.secondaryLabel))
@@ -88,7 +87,7 @@ struct SyncStatus: View {
             .font(Font.system(size: 30, weight: .regular))
             .foregroundColor(Color(.systemGreen))
             .onTapGesture(count: 2, perform: {
-               self.forceSync()
+               carrisNetworkController.resetAndUpdateNetwork()
             })
          Text("Up to Date")
             .font(.title)
@@ -111,10 +110,10 @@ struct SyncStatus: View {
 
 
    var body: some View {
-      if (appstate.stops == .error || appstate.routes == .error) {
-         syncError
-      } else if (appstate.stops == .loading || appstate.routes == .loading) {
+      if (appstate.stops == .loading || appstate.routes == .loading) {
          isSyncing
+      } else if (appstate.stops == .error || appstate.routes == .error) {
+         syncError
       } else {
          hasSynced
       }
