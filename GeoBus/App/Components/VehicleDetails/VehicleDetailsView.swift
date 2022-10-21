@@ -21,11 +21,6 @@ struct VehicleDetailsView: View {
    @State var lastSeenTime: String = "-"
    
    
-//   init(vehicle: CarrisNetworkModel.Vehicle) {
-//      self.vehicle = carrisNetworkController.find(vehicle: vehicle.id)
-//   }
-   
-   
    var loadingScreen: some View {
       HStack(spacing: 3) {
          ProgressView()
