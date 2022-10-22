@@ -10,9 +10,10 @@ import SwiftUI
 
 struct ContentView: View {
    
+   @EnvironmentObject var appstate: Appstate
+   
    var body: some View {
       VStack(spacing: 0) {
-         
          ZStack(alignment: .topTrailing) {
             MapView()
                .edgesIgnoringSafeArea(.vertical)
@@ -24,10 +25,11 @@ struct ContentView: View {
             }
             .padding()
          }
-         
          NavBar()
             .edgesIgnoringSafeArea(.vertical)
-         
+      }
+      .sheet(isPresented: $appstate.sheetIsPresented) {
+         PresentedSheetView()
       }
    }
    
