@@ -11,6 +11,9 @@ struct ConnectionDetailsView: View {
    
    let connection: CarrisNetworkModel.Connection
    
+   @EnvironmentObject var appstate: Appstate
+   @EnvironmentObject var carrisNetworkController: CarrisNetworkController
+   
    @State private var viewSize = CGSize()
    
     var body: some View {
@@ -174,9 +177,9 @@ struct ConnectionDetailsView2: View {
             content
                .padding([.horizontal, .bottom])
                .padding(.top, 7)
+            providerToggle
+               .padding()
          }
-         providerToggle
-            .padding()
       }
       .background(
          canToggle
