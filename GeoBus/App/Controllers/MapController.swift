@@ -9,7 +9,7 @@ import Foundation
 import MapKit
 import SwiftUI
 
-@MainActor
+//@MainActor
 class MapController: ObservableObject {
    
    /* * */
@@ -41,7 +41,7 @@ class MapController: ObservableObject {
    /* To allow the same instance of this class to be available accross the whole app, */
    /* we create a Singleton. More info here: https://www.hackingwithswift.com/example-code/language/what-is-a-singleton */
    
-   static let shared = MapController()
+   public static let shared = MapController()
    
    
    
@@ -51,7 +51,11 @@ class MapController: ObservableObject {
    /* Setup the initial map region on init. */
    
    private init() {
-      self.region = MKCoordinateRegion(center: initialMapRegion, latitudinalMeters: initialMapZoom, longitudinalMeters: initialMapZoom)
+      self.region = MKCoordinateRegion(
+         center: self.initialMapRegion,
+         latitudinalMeters: self.initialMapZoom,
+         longitudinalMeters: self.initialMapZoom
+      )
    }
    
    
@@ -147,7 +151,7 @@ class MapController: ObservableObject {
       
       visibleAnnotations.append(
          GenericMapAnnotation(
-            id: activeStop.id,
+            id: UUID(),
             location: CLLocationCoordinate2D(latitude: activeStop.lat, longitude: activeStop.lng),
             item: .carris_stop(activeStop)
          )
@@ -178,7 +182,7 @@ class MapController: ObservableObject {
          for connection in activeVariant.circularItinerary! {
             visibleAnnotations.append(
                GenericMapAnnotation(
-                  id: connection.stop.id,
+                  id: UUID(),
                   location: CLLocationCoordinate2D(latitude: connection.stop.lat, longitude: connection.stop.lng),
                   item: .carris_connection(connection)
                )
@@ -190,7 +194,7 @@ class MapController: ObservableObject {
          for connection in activeVariant.ascendingItinerary! {
             visibleAnnotations.append(
                GenericMapAnnotation(
-                  id: connection.stop.id,
+                  id: UUID(),
                   location: CLLocationCoordinate2D(latitude: connection.stop.lat, longitude: connection.stop.lng),
                   item: .carris_connection(connection)
                )
@@ -202,7 +206,7 @@ class MapController: ObservableObject {
          for connection in activeVariant.descendingItinerary! {
             visibleAnnotations.append(
                GenericMapAnnotation(
-                  id: connection.stop.id,
+                  id: UUID(),
                   location: CLLocationCoordinate2D(latitude: connection.stop.lat, longitude: connection.stop.lng),
                   item: .carris_connection(connection)
                )
@@ -237,7 +241,7 @@ class MapController: ObservableObject {
       for vehicle in activeVehiclesList {
          visibleAnnotations.append(
             GenericMapAnnotation(
-               id: vehicle.id,
+               id: UUID(),
                location: vehicle.coordinate,
                item: .carris_vehicle(vehicle)
             )
