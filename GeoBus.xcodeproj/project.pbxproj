@@ -40,6 +40,7 @@
 		CF18209B28CCBD5000248F72 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF18209A28CCBD5000248F72 /* MapView.swift */; };
 		CF47994D28D3315E00B56D4B /* Appstate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF47994C28D3315E00B56D4B /* Appstate.swift */; };
 		CF47994F28D33E1900B56D4B /* Disclaimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF47994E28D33E1900B56D4B /* Disclaimer.swift */; };
+		CF47FCB529035D8300AE33B0 /* PresentedSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF47FCB429035D8300AE33B0 /* PresentedSheetView.swift */; };
 		CF5094C528FC279A00EDD320 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5094C428FC279A00EDD320 /* Array.swift */; };
 		CF5094C928FC50AC00EDD320 /* CarrisNetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5094C828FC50AC00EDD320 /* CarrisNetworkController.swift */; };
 		CF5094CB28FC50E900EDD320 /* CarrisNetworkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5094CA28FC50E900EDD320 /* CarrisNetworkModel.swift */; };
@@ -112,6 +113,7 @@
 		CF18209A28CCBD5000248F72 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		CF47994C28D3315E00B56D4B /* Appstate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Appstate.swift; sourceTree = "<group>"; };
 		CF47994E28D33E1900B56D4B /* Disclaimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Disclaimer.swift; sourceTree = "<group>"; };
+		CF47FCB429035D8300AE33B0 /* PresentedSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentedSheetView.swift; sourceTree = "<group>"; };
 		CF5094C428FC279A00EDD320 /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		CF5094C828FC50AC00EDD320 /* CarrisNetworkController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarrisNetworkController.swift; sourceTree = "<group>"; };
 		CF5094CA28FC50E900EDD320 /* CarrisNetworkModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarrisNetworkModel.swift; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 			isa = PBXGroup;
 			children = (
 				CF181FE728CCB7D600248F72 /* ContentView.swift */,
+				CF47FCB429035D8300AE33B0 /* PresentedSheetView.swift */,
 				CF05F61928CD09A000B4AD58 /* NavBar.swift */,
 				CF18208828CCBD4600248F72 /* Map */,
 				CF05F62528CD60BD00B4AD58 /* SelectRoute */,
@@ -558,6 +561,7 @@
 				CFFFAD8B28F8F33200DFD5FD /* Pulse.swift in Sources */,
 				CF6C918828D3FAF9006C3F61 /* AboutGeoBus.swift in Sources */,
 				CF6C917E28D3ED0A006C3F61 /* SquareButton.swift in Sources */,
+				CF47FCB529035D8300AE33B0 /* PresentedSheetView.swift in Sources */,
 				CF82BB0B28D7F1C6007F0CDB /* ShareCard.swift in Sources */,
 				CF47994F28D33E1900B56D4B /* Disclaimer.swift in Sources */,
 				CF47994D28D3315E00B56D4B /* Appstate.swift in Sources */,

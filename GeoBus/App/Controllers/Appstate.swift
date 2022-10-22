@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import SwiftUI
 
 /* * */
 /* MARK: - APPSTATE */
@@ -45,6 +45,29 @@ final class Appstate: ObservableObject {
    
    
    /* * */
+   /* MARK: - SECTION 2: MODULES */
+   /* These are the modules that publish state change events. This allows the UI to provide local */
+   /* loading or error messages on the relevant functionality, increasing perception of stability. */
+   
+   enum PresentableSheetView {
+      case carris_RouteSelector
+      case carris_RouteDetails
+      case carris_stopSelector
+      case carris_vehicleDetails
+      case carris_connectionDetails
+   }
+   
+   public func present(sheet: PresentableSheetView) {
+      self.currentlyPresentedSheetView = sheet
+      self.sheetIsPresented = true
+   }
+   
+   public func unpresent() {
+      self.sheetIsPresented = false
+   }
+   
+   
+   /* * */
    /* MARK: - SECTION 3: SHARED INSTANCE */
    /* To allow the same instance of this class to be available accross the whole app, */
    /* we create a Singleton. More info here: https://www.hackingwithswift.com/example-code/language/what-is-a-singleton */
@@ -69,6 +92,9 @@ final class Appstate: ObservableObject {
    @Published var routes: State = .idle
    @Published var vehicles: State = .idle
    @Published var estimations: State = .idle
+   
+   @Published var sheetIsPresented: Bool = false
+   @Published var currentlyPresentedSheetView: PresentableSheetView? = nil
    
    
    
