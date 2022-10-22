@@ -48,6 +48,7 @@ class CarrisNetworkController: ObservableObject {
    @Published var activeConnection: CarrisNetworkModel.Connection? = nil
    @Published var activeStop: CarrisNetworkModel.Stop? = nil
    @Published var activeVehicles: [CarrisNetworkModel.Vehicle] = []
+   @Published var activeVehicle: CarrisNetworkModel.Vehicle? = nil
    
    @Published var favorites_routes: [CarrisNetworkModel.Route] = []
    @Published var favorites_stops: [CarrisNetworkModel.Stop] = []
@@ -61,7 +62,7 @@ class CarrisNetworkController: ObservableObject {
    /* To allow the same instance of this class to be available accross the whole app, */
    /* we create a Singleton. More info here: https://www.hackingwithswift.com/example-code/language/what-is-a-singleton */
    
-   static let shared = CarrisNetworkController()
+   public static let shared = CarrisNetworkController()
    
    
    
@@ -665,6 +666,18 @@ class CarrisNetworkController: ObservableObject {
    }
    
    
+   public func select(vehicle vehicleId: Int?) {
+      if (vehicleId != nil) {
+         if let foundVehicle = self.find(vehicle: vehicleId!) {
+            Task {
+               await self.fetchVehicleDetailsFromCarrisAPI(for: foundVehicle.id)
+               self.activeVehicle = foundVehicle
+            }
+         }
+      }
+   }
+   
+   
    
    /* * */
    /* MARK: - SECTION 11: SET ACTIVE VEHICLES */
@@ -697,6 +710,8 @@ class CarrisNetworkController: ObservableObject {
          }
          
       }
+      
+//      self.select(vehicle: activeVehicle?.id)
       
    }
    
@@ -780,12 +795,15 @@ class CarrisNetworkController: ObservableObject {
    /* function to allow the UI to request this information only when necessary. After retrieving the new details */
    /* fromt the API, re-populate the activeVehicles array to trigger an update in the UI. */
    
-   public func getAdditionalDetailsFor(vehicle vehicleId: Int) {
-      Task {
-         await self.fetchVehicleDetailsFromCarrisAPI(for: vehicleId)
-         self.populateActiveVehicles()
-      }
-   }
+//   public func getAdditionalDetailsForActiveVehicle() {
+//      Task {
+//         if (activeVehicle != nil) {
+//            await self.fetchVehicleDetailsFromCarrisAPI(for: self.activeVehicle!.id)
+//            self.populateActiveVehicles()
+//            self.select(vehicle: activeVehicle!.id)
+//         }
+//      }
+//   }
    
    private func fetchVehicleDetailsFromCarrisAPI(for vehicleId: Int) async {
       
