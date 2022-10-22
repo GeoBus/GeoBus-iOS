@@ -9,44 +9,39 @@ import SwiftUI
 import Combine
 
 struct NavBar: View {
-
+   
+   @EnvironmentObject var appstate: Appstate
    @EnvironmentObject var carrisNetworkController: CarrisNetworkController
-
+   
    @State var showSelectRouteSheet: Bool = false
    @State var showRouteDetailsSheet: Bool = false
-
-
+   
+   
    // This is the route button, the left side of the NavBar.
    // Depending on the state, the button conveys different information.
    var routeSelector: some View {
       Button(action: {
-         self.showSelectRouteSheet = true
+         appstate.present(sheet: .carris_RouteSelector)
       }) {
          SelectRouteView()
       }
-      .sheet(isPresented: $showSelectRouteSheet) {
-         SelectRouteSheet(isPresentingSheet: $showSelectRouteSheet)
-      }
    }
-
+   
    // This is the route details panel, the right side of the NavBar.
    // If a route is selected, it's details appear here. If no route is selected,
    // then it acts as button to choose a route.
    var routeDetails: some View {
       Button(action: {
          if (carrisNetworkController.activeRoute != nil) {
-            showRouteDetailsSheet = true
+            appstate.present(sheet: .carris_RouteDetails)
          } else {
-            showSelectRouteSheet = true
+            appstate.present(sheet: .carris_RouteSelector)
          }
       }) {
          RouteDetailsView()
       }
-      .sheet(isPresented: $showRouteDetailsSheet) {
-         RouteDetailsSheet(showRouteDetailsSheet: $showRouteDetailsSheet)
-      }
    }
-
+   
    // The composed final view for the NavBar.
    // It encompasses the route selector and the route details panel,
    // as well as the current app version.
@@ -64,5 +59,5 @@ struct NavBar: View {
       .frame(height: 120)
       .background(Color("BackgroundSecondary"))
    }
-
+   
 }

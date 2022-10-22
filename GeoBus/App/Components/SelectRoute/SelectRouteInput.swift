@@ -10,9 +10,8 @@ import SwiftUI
 
 struct SelectRouteInput: View {
    
+   @EnvironmentObject var appstate: Appstate
    @EnvironmentObject var carrisNetworkController: CarrisNetworkController
-
-   @Binding var showSheet: Bool
 
    @State var showErrorLabel: Bool = false
 
@@ -33,7 +32,7 @@ struct SelectRouteInput: View {
                let success = carrisNetworkController.select(route: self.routeNumber.uppercased())
                if success {
                   Analytics.shared.capture(event: .Routes_Select_FromTextInput, properties: ["routeNumber": self.routeNumber.uppercased()])
-                  self.showSheet = false
+                  appstate.unpresent()
                } else {
                   self.showErrorLabel = true
                }

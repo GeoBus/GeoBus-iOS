@@ -10,28 +10,26 @@ import SwiftUI
 
 struct SelectRouteSheet: View {
 
-   @Binding var isPresentingSheet: Bool
-
-
+   
    var body: some View {
 
       ScrollView(.vertical, showsIndicators: true) {
          
          VStack(spacing: 30) {
 
-            SheetHeader(title: Text("Find Routes"), toggle: $isPresentingSheet)
+            SheetHeader(title: Text("Find Routes"))
 
-            SelectRouteInput(showSheet: $isPresentingSheet)
+            SelectRouteInput()
                .padding(.horizontal)
 
             Divider()
 
             VStack(spacing: 30) {
-               FavoriteRoutes(showSelectRouteSheet: $isPresentingSheet)
-               SetOfRoutes(title: Text("Trams"), kind: .tram, showSheet: $isPresentingSheet)
-               SetOfRoutes(title: Text("Neighborhood Buses"), kind: .neighborhood, showSheet: $isPresentingSheet)
-               SetOfRoutes(title: Text("Night Buses"), kind: .night, showSheet: $isPresentingSheet)
-               SetOfRoutes(title: Text("Regular Service"), kind: .regular, showSheet: $isPresentingSheet)
+               FavoriteRoutes()
+               SetOfRoutes(title: Text("Trams"), kind: .tram)
+               SetOfRoutes(title: Text("Neighborhood Buses"), kind: .neighborhood)
+               SetOfRoutes(title: Text("Night Buses"), kind: .night)
+               SetOfRoutes(title: Text("Regular Service"), kind: .regular)
             }
             .padding(.horizontal)
 

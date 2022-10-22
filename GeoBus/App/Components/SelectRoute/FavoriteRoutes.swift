@@ -12,9 +12,8 @@ struct FavoriteRoutes: View {
 
    @Environment(\.colorScheme) var colorScheme: ColorScheme
 
+   @EnvironmentObject var appstate: Appstate
    @EnvironmentObject var carrisNetworkController: CarrisNetworkController
-
-   @Binding var showSelectRouteSheet: Bool
 
    @State var routes: [CarrisNetworkModel.Route] = []
    
@@ -38,7 +37,7 @@ struct FavoriteRoutes: View {
                   Button(action: {
                      _ = self.carrisNetworkController.select(route: route.number)
                      Analytics.shared.capture(event: .Routes_Select_FromFavorites, properties: ["routeNumber": route.number])
-                     self.showSelectRouteSheet = false
+                     appstate.unpresent()
                   }){
                      RouteBadgeSquare(routeNumber: route.number)
                   }

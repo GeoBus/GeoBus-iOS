@@ -10,9 +10,8 @@ import SwiftUI
 
 struct RouteDetailsSheet: View {
    
+   @EnvironmentObject var appstate: Appstate
    @EnvironmentObject var carrisNetworkController: CarrisNetworkController
-   
-   @Binding var showRouteDetailsSheet: Bool
    
    @State var routeDirection: Int = 0
    @State var routeDirectionPicker: Int = 0
@@ -22,7 +21,7 @@ struct RouteDetailsSheet: View {
       
       VStack(spacing: 15) {
          
-         SheetHeader(title: Text("Route Details"), toggle: $showRouteDetailsSheet)
+         SheetHeader(title: Text("Route Details"))
          
          HStack(spacing: 25) {
             RouteBadgeSquare(routeNumber: carrisNetworkController.activeRoute!.number)
