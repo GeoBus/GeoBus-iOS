@@ -13,7 +13,7 @@ import SwiftUI
 
 struct GenericMapAnnotation: Identifiable {
    
-   let id: Int
+   let id: UUID
    var location: CLLocationCoordinate2D
    var item: AnnotationItem
    
@@ -101,13 +101,17 @@ struct CarrisVehicleAnnotationView: View {
    
    let vehicle: CarrisNetworkModel.Vehicle
    
+   @EnvironmentObject var appstate: Appstate
+   @EnvironmentObject var carrisNetworkController: CarrisNetworkController
+   
    @State private var isPresented: Bool = false
    @State private var viewSize = CGSize()
    
    
    var body: some View {
       Button(action: {
-         self.isPresented = true
+         carrisNetworkController.select(vehicle: vehicle.id)
+         appstate.present(sheet: .carris_vehicleDetails)
          TapticEngine.impact.feedback(.light)
       }) {
          ZStack(alignment: .init(horizontal: .leading, vertical: .center)) {
@@ -127,19 +131,6 @@ struct CarrisVehicleAnnotationView: View {
       .frame(width: 40, height: 40, alignment: .center)
       .rotationEffect(.radians(vehicle.angleInRadians ?? 0))
       .animation(.default, value: vehicle.angleInRadians)
-      .sheet(isPresented: $isPresented) {
-         VStack(alignment: .leading) {
-            VehicleDetailsView(vehicle: self.vehicle)
-               .padding(.bottom, 20)
-            Disclaimer()
-               .padding(.horizontal)
-               .padding(.bottom, 10)
-         }
-         .readSize { size in
-            viewSize = size
-         }
-         .presentationDetents([.height(viewSize.height)])
-      }
    }
    
 }

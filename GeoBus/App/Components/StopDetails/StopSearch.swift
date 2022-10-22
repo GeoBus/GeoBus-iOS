@@ -9,32 +9,37 @@ import SwiftUI
 
 struct StopSearch: View {
 
-   @State var showSearchStopSheet: Bool = false
-   @State private var viewSize = CGSize()
-
+   @EnvironmentObject var appstate: Appstate
 
    var body: some View {
       SquareButton(icon: "mail.and.text.magnifyingglass", size: 26)
          .onTapGesture() {
             TapticEngine.impact.feedback(.medium)
-            self.showSearchStopSheet = true
+            appstate.present(sheet: .carris_stopSelector)
          }
-         .sheet(isPresented: self.$showSearchStopSheet) {
-            ScrollView() {
-               VStack {
-                  Text("Search Stop")
-                     .font(.largeTitle)
-                     .fontWeight(.bold)
-                     .padding(.vertical, 30)
-                  SearchStopInput(showSheet: $showSearchStopSheet)
-               }
-               .padding()
-               .readSize { size in
-                  viewSize = size
-               }
-            }
-            .background(Color("BackgroundPrimary"))
-            .presentationDetents([.height(viewSize.height)])
+   }
+}
+
+
+struct StopSearchView: View {
+   
+   @State private var viewSize = CGSize()
+   
+   var body: some View {
+      ScrollView() {
+         VStack {
+            Text("Search Stop")
+               .font(.largeTitle)
+               .fontWeight(.bold)
+               .padding(.vertical, 30)
+            SearchStopInput()
          }
+         .padding()
+         .readSize { size in
+            viewSize = size
+         }
+      }
+      .background(Color("BackgroundPrimary"))
+      .presentationDetents([.height(viewSize.height)])
    }
 }

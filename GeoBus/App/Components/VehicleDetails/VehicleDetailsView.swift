@@ -10,15 +10,13 @@ import Combine
 
 struct VehicleDetailsView: View {
    
-   let vehicle: CarrisNetworkModel.Vehicle
-   
    @EnvironmentObject var appstate: Appstate
    @EnvironmentObject var carrisNetworkController: CarrisNetworkController
    
-   let refreshTimer = Timer.publish(every: 20 /* seconds */, on: .main, in: .common).autoconnect()
    let lastSeenTimeTimer = Timer.publish(every: 1 /* seconds */, on: .main, in: .common).autoconnect()
    
    @State var lastSeenTime: String = "-"
+   @State private var viewSize = CGSize()
    
    
    var loadingScreen: some View {
@@ -40,9 +38,9 @@ struct VehicleDetailsView: View {
    
    var vehicleDetailsHeader: some View {
       HStack(spacing: 15) {
-         VehicleDestination(routeNumber: vehicle.routeNumber ?? "-", destination: vehicle.lastStopOnVoyageName ?? "-")
+         VehicleDestination(routeNumber: carrisNetworkController.activeVehicle?.routeNumber ?? "-", destination: carrisNetworkController.activeVehicle?.lastStopOnVoyageName ?? "-")
          Spacer()
-         VehicleIdentifier(busNumber: vehicle.id, vehiclePlate: vehicle.vehiclePlate)
+         VehicleIdentifier(busNumber: carrisNetworkController.activeVehicle?.id ?? -1, vehiclePlate: carrisNetworkController.activeVehicle?.vehiclePlate)
       }
    }
    
@@ -57,10 +55,10 @@ struct VehicleDetailsView: View {
                .font(.system(size: 12, weight: .bold, design: .default))
                .foregroundColor(Color(.secondaryLabel))
                .onAppear() {
-                  self.lastSeenTime = Helpers.getTimeString(for: vehicle.lastGpsTime ?? "", in: .past, style: .full, units: [.hour, .minute, .second])
+                  self.lastSeenTime = Helpers.getTimeString(for: carrisNetworkController.activeVehicle?.lastGpsTime ?? "", in: .past, style: .full, units: [.hour, .minute, .second])
                }
                .onReceive(lastSeenTimeTimer) { event in
-                  self.lastSeenTime = Helpers.getTimeString(for: vehicle.lastGpsTime ?? "", in: .past, style: .full, units: [.hour, .minute, .second])
+                  self.lastSeenTime = Helpers.getTimeString(for: carrisNetworkController.activeVehicle?.lastGpsTime ?? "", in: .past, style: .full, units: [.hour, .minute, .second])
                }
             Spacer()
          }
@@ -69,27 +67,29 @@ struct VehicleDetailsView: View {
    
    
    var body: some View {
-      VStack(alignment: .leading, spacing: 0) {
-         if (appstate.vehicles == .loading) {
-            loadingScreen
-               .padding()
-         } else if (appstate.vehicles == .error) {
-            errorScreen
-               .padding()
-         } else {
-            vehicleDetailsHeader
-               .padding()
-            Divider()
-            vehicleDetailsScreen
-               .padding()
+      VStack(alignment: .leading) {
+         VStack(alignment: .leading, spacing: 0) {
+            if (appstate.vehicles == .loading) {
+               loadingScreen
+                  .padding()
+            } else if (appstate.vehicles == .error) {
+               errorScreen
+                  .padding()
+            } else {
+               vehicleDetailsHeader
+                  .padding()
+               Divider()
+               vehicleDetailsScreen
+                  .padding()
+            }
          }
+//         Disclaimer()
+//         Spacer()
       }
-      .onAppear() {
-         carrisNetworkController.getAdditionalDetailsFor(vehicle: self.vehicle.id)
+      .readSize { size in
+         viewSize = size
       }
-      .onReceive(refreshTimer) { event in
-         carrisNetworkController.getAdditionalDetailsFor(vehicle: self.vehicle.id)
-      }
+      .presentationDetents([.height(viewSize.height)])
       
    }
    
