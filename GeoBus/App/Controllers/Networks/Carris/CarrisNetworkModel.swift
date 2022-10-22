@@ -141,12 +141,27 @@ struct CarrisNetworkModel {
    /* MARK: - CARRIS VEHICLE */
    /* Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia. */
    
-   struct Vehicle: Identifiable, Equatable {
+   class Vehicle: Identifiable, Equatable {
+      
+      static func == (lhs: CarrisNetworkModel.Vehicle, rhs: CarrisNetworkModel.Vehicle) -> Bool {
+         return false
+      }
+      
       
       // IDENTIFIER
       // The unique identifier for this model.
       
       let id: Int // Bus Number
+      
+      init(id: Int, routeNumber: String, lat: Double, lng: Double, previousLatitude: Double, previousLongitude: Double, lastGpsTime: String) {
+         self.id = id
+         self.routeNumber = routeNumber
+         self.lat = lat
+         self.lng = lng
+         self.previousLatitude = previousLatitude
+         self.previousLongitude = previousLongitude
+         self.lastGpsTime = lastGpsTime
+      }
       
       
       
