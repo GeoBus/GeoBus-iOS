@@ -7,177 +7,105 @@
 
 import SwiftUI
 
-struct ConnectionDetailsView: View {
-   
-   let connection: CarrisNetworkModel.Connection
-   
-   @EnvironmentObject var appstate: Appstate
-   @EnvironmentObject var carrisNetworkController: CarrisNetworkController
-   
-   @State private var viewSize = CGSize()
-   
-    var body: some View {
-       VStack(alignment: .leading) {
-          ConnectionDetailsView2(
-            canToggle: false,
-            publicId: connection.stop.id,
-            name: connection.stop.name,
-            orderInRoute: connection.orderInRoute,
-            direction: connection.direction
-          )
-          .padding(.bottom, 20)
-          Disclaimer()
-             .padding(.horizontal)
-             .padding(.bottom, 10)
-       }
-       .readSize { size in
-          viewSize = size
-       }
-       .presentationDetents([.height(viewSize.height)])
-    }
-}
 
-
-struct StopDetailsView: View {
+struct ConnectionSheetView: View {
    
-   let stop: CarrisNetworkModel.Stop
-   
-   @State private var viewSize = CGSize()
+   @ObservedObject var carrisNetworkController = CarrisNetworkController.shared
    
    var body: some View {
-      VStack(alignment: .leading) {
-         ConnectionDetailsView2(
+      ScrollView {
+         StopDetailsView(
             canToggle: false,
-            publicId: stop.id,
-            name: stop.name,
-            orderInRoute: 0,
-            direction: .circular
+            stopId: carrisNetworkController.activeConnection?.stop.id ?? 0,
+            name: carrisNetworkController.activeConnection?.stop.name ?? "-",
+            orderInRoute: carrisNetworkController.activeConnection?.orderInRoute,
+            direction: carrisNetworkController.activeConnection?.direction
          )
-         .padding(.bottom, 20)
-         Disclaimer()
-            .padding(.horizontal)
-            .padding(.bottom, 10)
       }
-      .readSize { size in
-         viewSize = size
-      }
-      .presentationDetents([.height(viewSize.height)])
    }
+   
+}
+
+
+struct StopSheetView: View {
+   
+   @ObservedObject var carrisNetworkController = CarrisNetworkController.shared
+   
+   var body: some View {
+      ScrollView {
+         StopDetailsView(
+            canToggle: false,
+            stopId: carrisNetworkController.activeStop?.id ?? 0,
+            name: carrisNetworkController.activeStop?.name ?? "-",
+            orderInRoute: nil,
+            direction: nil
+         )
+      }
+   }
+   
 }
 
 
 
 
-
-
-
-struct ConnectionDetailsView2: View {
+struct StopDetailsHeader: View {
    
-   @Environment(\.colorScheme) var colorScheme: ColorScheme
-   
-   @EnvironmentObject var carrisNetworkController: CarrisNetworkController
-   
-   let refreshTimer = Timer.publish(every: 60 /* seconds */, on: .main, in: .common).autoconnect()
-   
-   let canToggle: Bool
-   let publicId: Int
+   let stopId: Int
    let name: String
    let orderInRoute: Int?
    let direction: CarrisNetworkModel.Direction?
    
-   @State private var isOpen = false
-   @State private var estimations: [CarrisNetworkModel.Estimation]? = nil
-   
-   
-   func getEstimationsFromController() {
-      Task {
-         self.estimations = await carrisNetworkController.getEstimation(for: self.publicId)
-      }
-   }
-   
-   
-   var fixedHeader: some View {
+   var body: some View {
       HStack(spacing: 15) {
-         StopIcon(orderInRoute: self.orderInRoute ?? 0, direction: self.direction ?? .circular)
+         StopIcon(orderInRoute: self.orderInRoute, direction: self.direction)
          Text(name)
             .fontWeight(.medium)
             .foregroundColor(Color(.label))
             .multilineTextAlignment(.leading)
          Spacer()
-         Text(String(publicId))
+         Text(String(self.stopId))
             .font(Font.system(size: 12, weight: .medium, design: .default) )
             .foregroundColor(Color(.secondaryLabel))
             .padding(.vertical, 2)
             .padding(.horizontal, 7)
-            .background(colorScheme == .dark ? Color(.secondarySystemFill) : Color(.secondarySystemBackground))
+            .background(Color(.secondarySystemFill))
             .cornerRadius(10)
       }
+      .padding()
    }
    
+}
+
+
+
+
+struct StopDetailsView: View {
    
+   let canToggle: Bool
    
-   var content: some View {
-      StopEstimations(estimations: self.estimations)
-         .onAppear() {
-            // Get estimations when view appears
-            self.getEstimationsFromController()
-         }
-         .onReceive(refreshTimer) { event in
-            // Update estimations on timer call
-            self.getEstimationsFromController()
-         }
-   }
+   let stopId: Int
+   let name: String
+   let orderInRoute: Int?
+   let direction: CarrisNetworkModel.Direction?
    
-   // DEBUG!!!
-   var providerToggle: some View {
-      VStack {
-         Toggle(isOn: $carrisNetworkController.communityDataProviderStatus) {
-            HStack {
-               Image(systemName: "staroflife.circle")
-                  .renderingMode(.template)
-                  .font(Font.system(size: 25))
-                  .foregroundColor(.teal)
-               Text("Community Data")
-                  .font(Font.system(size: 18, weight: .bold))
-                  .foregroundColor(.teal)
-                  .padding(.leading, 5)
-            }
-         }
-         .padding()
-         .frame(maxWidth: .infinity)
-         .tint(.teal)
-         .background(.teal.opacity(0.05))
-         .cornerRadius(10)
-         .onChange(of: carrisNetworkController.communityDataProviderStatus) { value in
-            carrisNetworkController.toggleCommunityDataProviderTo(to: value)
-            self.getEstimationsFromController()
-         }
-         
-         Button(action: getEstimationsFromController, label: {
-            Text("Reload Estimate")
-               .font(Font.system(size: 15, weight: .bold, design: .default) )
-               .foregroundColor(Color(.white))
-               .padding(5)
-               .frame(maxWidth: .infinity)
-               .background(Color(.systemBlue))
-               .cornerRadius(10)
-         })
-      }
-   }
+   @State private var isOpen = false
+   
+   @Environment(\.colorScheme) var colorScheme: ColorScheme
    
    
    var body: some View {
-      VStack(spacing: 0) {
-         // The header of the view is always visible
-         fixedHeader
-            .padding()
-         // Estimations are visible only when the view is opened
+      VStack(alignment: .leading, spacing: 0) {
+         Button(action: {
+            if (canToggle) {
+               self.isOpen = !self.isOpen
+               TapticEngine.impact.feedback(.medium)
+            }
+         }, label: {
+            StopDetailsHeader(stopId: self.stopId, name: self.name, orderInRoute: self.orderInRoute, direction: self.direction)
+         })
          if (isOpen || !canToggle) {
             Divider()
-            content
-               .padding([.horizontal, .bottom])
-               .padding(.top, 7)
-            providerToggle
+            EstimationsContainer(stopId: self.stopId)
                .padding()
          }
       }
@@ -189,13 +117,7 @@ struct ConnectionDetailsView2: View {
          : Color.clear
       )
       .cornerRadius(10)
-      .onTapGesture {
-         if (canToggle) {
-            // If the view can be opened and closed
-            self.isOpen = !self.isOpen
-            TapticEngine.impact.feedback(.medium)
-         }
-      }
    }
    
 }
+

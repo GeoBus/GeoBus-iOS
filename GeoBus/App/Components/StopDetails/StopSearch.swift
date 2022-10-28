@@ -9,7 +9,7 @@ import SwiftUI
 
 struct StopSearch: View {
 
-   @EnvironmentObject var appstate: Appstate
+   @ObservedObject var appstate = Appstate.shared
 
    var body: some View {
       SquareButton(icon: "mail.and.text.magnifyingglass", size: 26)
@@ -23,8 +23,6 @@ struct StopSearch: View {
 
 struct StopSearchView: View {
    
-   @State private var viewSize = CGSize()
-   
    var body: some View {
       ScrollView() {
          VStack {
@@ -35,11 +33,8 @@ struct StopSearchView: View {
             SearchStopInput()
          }
          .padding()
-         .readSize { size in
-            viewSize = size
-         }
       }
       .background(Color("BackgroundPrimary"))
-      .presentationDetents([.height(viewSize.height)])
    }
+   
 }

@@ -95,7 +95,6 @@ class CarrisNetworkController: ObservableObject {
       
       // Unwrap Community Provider Status from Storage
       self.communityDataProviderStatus = UserDefaults.standard.bool(forKey: storageKeyForCommunityDataProviderStatus)
-      print("GeoBus: Carris API: ‹toggleCommunityDataProviderTo()› Community Data switched \(communityDataProviderStatus ? "ON" : "OFF")")
       
       // Check if network needs an update
       self.update(reset: false)
@@ -140,6 +139,9 @@ class CarrisNetworkController: ObservableObject {
             
          }
          
+         // Get favorites from KVS
+         self.retrieveFavoritesFromKVS()
+         
          // Always update vehicles and favorites
          self.refresh()
          
@@ -170,7 +172,6 @@ class CarrisNetworkController: ObservableObject {
       Task {
          await self.fetchVehiclesListFromCarrisAPI()
          self.populateActiveVehicles()
-         self.retrieveFavoritesFromKVS()
       }
    }
    
@@ -613,17 +614,39 @@ class CarrisNetworkController: ObservableObject {
    /* These functions select and deselect the currently active objects. */
    /* Provide public functions to more easily select object by their identifier. */
    
-   private func deselect() {
-      self.activeRoute = nil
-      self.activeVariant = nil
-      self.activeConnection = nil
-      self.activeStop = nil
-      self.activeVehicles = []
+   
+   enum SelectableObject {
+      case route
+      case variant
+      case connection
+      case vehicle
+      case stop
+      case all
+   }
+   
+   
+   public func deselect(_ objectType: [SelectableObject]) {
+      for type in objectType {
+         switch type {
+            case .route:
+               self.activeRoute = nil
+            case .variant:
+               self.activeVariant = nil
+            case .connection:
+               self.activeConnection = nil
+            case .vehicle:
+               self.activeVehicle = nil
+            case .stop:
+               self.activeStop = nil
+            case .all:
+               self.deselect([.route, .variant, .connection, .vehicle, .stop])
+         }
+      }
    }
    
    
    private func select(route: CarrisNetworkModel.Route) {
-      self.deselect()
+      self.deselect([.all])
       self.activeRoute = route
       self.select(variant: route.variants[0])
       self.populateActiveVehicles()
@@ -644,21 +667,25 @@ class CarrisNetworkController: ObservableObject {
    }
    
    
-   private func select(connection: CarrisNetworkModel.Connection) {
-      self.deselect()
+   public func deselect(connection: CarrisNetworkModel.Connection) {
       self.activeConnection = connection
    }
    
+   public func select(connection: CarrisNetworkModel.Connection) {
+      self.activeConnection = connection
+   }
    
-   private func select(stop: CarrisNetworkModel.Stop) {
-      self.deselect()
+   public func select(stop: CarrisNetworkModel.Stop) {
+      self.deselect([.all])
       self.activeStop = stop
    }
    
    public func select(stop stopId: Int) -> Bool {
       let stop = self.find(stop: stopId)
       if (stop != nil) {
-         self.select(stop: stop!)
+         self.deselect([.all])
+         self.activeStop = stop
+//         self.select(stop: stop!)
          return true
       } else {
          return false

@@ -16,7 +16,6 @@ struct VehicleDetailsView: View {
    let lastSeenTimeTimer = Timer.publish(every: 1 /* seconds */, on: .main, in: .common).autoconnect()
    
    @State var lastSeenTime: String = "-"
-   @State private var viewSize = CGSize()
    
    
    var loadingScreen: some View {
@@ -83,13 +82,9 @@ struct VehicleDetailsView: View {
                   .padding()
             }
          }
-//         Disclaimer()
-//         Spacer()
+         Disclaimer()
+         Spacer()
       }
-      .readSize { size in
-         viewSize = size
-      }
-      .presentationDetents([.height(viewSize.height)])
       
    }
    

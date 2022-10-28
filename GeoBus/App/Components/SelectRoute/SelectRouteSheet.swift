@@ -13,7 +13,7 @@ struct SelectRouteSheet: View {
    
    var body: some View {
 
-      ScrollView(.vertical, showsIndicators: true) {
+      ScrollView(showsIndicators: true) {
          
          VStack(spacing: 30) {
 

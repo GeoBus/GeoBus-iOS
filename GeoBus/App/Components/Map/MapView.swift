@@ -12,8 +12,8 @@ import MapKit
 
 struct MapView: View {
 
-   @EnvironmentObject var mapController: MapController
-   @EnvironmentObject var carrisNetworkController: CarrisNetworkController
+   @ObservedObject var mapController = MapController.shared
+   @ObservedObject var carrisNetworkController = CarrisNetworkController.shared
 
 
    var body: some View {
@@ -46,6 +46,11 @@ struct MapView: View {
             self.mapController.updateAnnotations(with: newVariant!)
          }
       }
+//      .onChange(of: carrisNetworkController.activeVehicle) { newVehicle in
+//         if (newVehicle != nil) {
+//            self.mapController.updateAnnotations(with: newVehicle!)
+//         }
+//      }
       .onChange(of: carrisNetworkController.activeVehicles) { newVehiclesList in
          self.mapController.updateAnnotations(with: newVehiclesList)
       }

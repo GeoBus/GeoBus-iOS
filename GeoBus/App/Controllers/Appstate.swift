@@ -55,11 +55,20 @@ final class Appstate: ObservableObject {
       case carris_stopSelector
       case carris_vehicleDetails
       case carris_connectionDetails
+      case carris_stopDetails
    }
    
    public func present(sheet: PresentableSheetView) {
-      self.currentlyPresentedSheetView = sheet
-      self.sheetIsPresented = true
+      if (sheetIsPresented) {
+         self.sheetIsPresented = false
+         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.currentlyPresentedSheetView = sheet
+            self.sheetIsPresented = true
+         }
+      } else {
+         self.currentlyPresentedSheetView = sheet
+         self.sheetIsPresented = true
+      }
    }
    
    public func unpresent() {

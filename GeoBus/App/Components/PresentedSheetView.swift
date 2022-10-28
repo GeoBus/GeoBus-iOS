@@ -9,23 +9,54 @@ import SwiftUI
 
 struct PresentedSheetView: View {
    
-   @EnvironmentObject var appstate: Appstate
+   @ObservedObject var appstate = Appstate.shared
+   @ObservedObject var carrisNetworkController = CarrisNetworkController.shared
    
    var body: some View {
       switch appstate.currentlyPresentedSheetView {
+            
          case .carris_RouteSelector:
             SelectRouteSheet()
+               .presentationDetents([.large])
+               .presentationDragIndicator(.hidden)
+            
          case .carris_RouteDetails:
             RouteDetailsSheet()
+               .presentationDetents([.large])
+               .presentationDragIndicator(.hidden)
+            
          case .carris_stopSelector:
             StopSearchView()
+               .presentationDetents([.medium])
+               .presentationDragIndicator(.hidden)
+            
          case .carris_vehicleDetails:
             VehicleDetailsView()
+               .presentationDetents([.medium])
+               .presentationDragIndicator(.hidden)
+               .onDisappear() {
+                  carrisNetworkController.deselect([.vehicle])
+               }
+            
          case .carris_connectionDetails:
-//            ConnectionDetailsView()
-            EmptyView()
+            ConnectionSheetView()
+               .presentationDetents([.medium, .large])
+               .presentationDragIndicator(.hidden)
+               .onDisappear() {
+                  carrisNetworkController.deselect([.connection])
+               }
+            
+         case .carris_stopDetails:
+            StopSheetView()
+               .presentationDetents([.medium, .large])
+               .presentationDragIndicator(.hidden)
+               .onDisappear() {
+                  carrisNetworkController.deselect([.stop])
+               }
+            
          case .none:
             EmptyView()
+            
       }
    }
    

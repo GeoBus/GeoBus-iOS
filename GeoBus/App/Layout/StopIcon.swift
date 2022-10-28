@@ -9,17 +9,11 @@ import SwiftUI
 
 struct StopIcon: View {
    
-   public let orderInRoute: Int
-   public let direction: CarrisNetworkModel.Direction
+   public let orderInRoute: Int?
+   public let direction: CarrisNetworkModel.Direction?
    public let isSelected: Bool
    
-   init(orderInRoute: Int, direction: CarrisNetworkModel.Direction) {
-      self.orderInRoute = orderInRoute
-      self.direction = direction
-      self.isSelected = false
-   }
-   
-   init(orderInRoute: Int, direction: CarrisNetworkModel.Direction, isSelected: Bool) {
+   init(orderInRoute: Int? = nil, direction: CarrisNetworkModel.Direction? = nil, isSelected: Bool = false) {
       self.orderInRoute = orderInRoute
       self.direction = direction
       self.isSelected = isSelected
@@ -59,6 +53,8 @@ struct StopIcon: View {
                return Color("StopDescendingBorder")
             case .circular:
                return Color("StopCircularBorder")
+            case .none:
+               return Color("StopCircularBorder")
          }
       }
    }
@@ -73,6 +69,8 @@ struct StopIcon: View {
             case .descending:
                return Color("StopDescendingBackground")
             case .circular:
+               return Color("StopCircularBackground")
+            case .none:
                return Color("StopCircularBackground")
          }
       }
@@ -91,10 +89,17 @@ struct StopIcon: View {
             .frame(width: self.borderWidth, height: self.borderWidth)
             .animation(.default, value: self.backgroundColor)
             .animation(.default, value: self.borderWidth)
-         Text(String(self.orderInRoute))
-            .font(.system(size: self.textSize, weight: .bold))
-            .foregroundColor(.white)
-            .animation(.default, value: self.textSize)
+         if (self.orderInRoute != nil) {
+            Text(String(self.orderInRoute!))
+               .font(.system(size: self.textSize, weight: .bold))
+               .foregroundColor(.white)
+               .animation(.default, value: self.textSize)
+         } else {
+            Image(systemName: "mappin")
+               .font(.system(size: self.textSize, weight: .bold))
+               .foregroundColor(.white)
+               .animation(.default, value: self.textSize)
+         }
       }
    }
    

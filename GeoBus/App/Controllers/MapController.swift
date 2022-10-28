@@ -149,7 +149,9 @@ class MapController: ObservableObject {
          }
       })
       
-      visibleAnnotations.append(
+      var tempNewAnnotations: [GenericMapAnnotation] = []
+      
+      tempNewAnnotations.append(
          GenericMapAnnotation(
             id: UUID(),
             location: CLLocationCoordinate2D(latitude: activeStop.lat, longitude: activeStop.lng),
@@ -157,7 +159,7 @@ class MapController: ObservableObject {
          )
       )
       
-      zoomToFitMapAnnotations(annotations: visibleAnnotations)
+      self.addAnnotations(tempNewAnnotations, zoom: true)
       
    }
    
@@ -178,9 +180,13 @@ class MapController: ObservableObject {
          }
       })
       
+      
+      var tempNewAnnotations: [GenericMapAnnotation] = []
+      
+      
       if (activeVariant.circularItinerary != nil) {
          for connection in activeVariant.circularItinerary! {
-            visibleAnnotations.append(
+            tempNewAnnotations.append(
                GenericMapAnnotation(
                   id: UUID(),
                   location: CLLocationCoordinate2D(latitude: connection.stop.lat, longitude: connection.stop.lng),
@@ -192,7 +198,7 @@ class MapController: ObservableObject {
       
       if (activeVariant.ascendingItinerary != nil) {
          for connection in activeVariant.ascendingItinerary! {
-            visibleAnnotations.append(
+            tempNewAnnotations.append(
                GenericMapAnnotation(
                   id: UUID(),
                   location: CLLocationCoordinate2D(latitude: connection.stop.lat, longitude: connection.stop.lng),
@@ -204,7 +210,7 @@ class MapController: ObservableObject {
       
       if (activeVariant.descendingItinerary != nil) {
          for connection in activeVariant.descendingItinerary! {
-            visibleAnnotations.append(
+            tempNewAnnotations.append(
                GenericMapAnnotation(
                   id: UUID(),
                   location: CLLocationCoordinate2D(latitude: connection.stop.lat, longitude: connection.stop.lng),
@@ -214,17 +220,14 @@ class MapController: ObservableObject {
          }
       }
       
-      // Remove annotations with duplicate IDs (same stop on different itineraries)
-      visibleAnnotations.uniqueInPlace(for: \.id)
-      
-      zoomToFitMapAnnotations(annotations: visibleAnnotations)
+      self.addAnnotations(tempNewAnnotations, zoom: true)
       
    }
    
    
    
    /* * */
-   /* MARK: - SECTION 10: UPDATE ANNOTATIONS WITH ACTIVE CARRIS VEHICLES */
+   /* MARK: - SECTION 10: UPDATE ANNOTATIONS WITH LIST OF ACTIVE CARRIS VEHICLES */
    /* Lorem ipsum dolor sit amet consectetur adipisicing elit. */
    
    func updateAnnotations(with activeVehiclesList: [CarrisNetworkModel.Vehicle]) {
@@ -238,8 +241,11 @@ class MapController: ObservableObject {
          }
       })
       
+      
+      var tempNewAnnotations: [GenericMapAnnotation] = []
+      
       for vehicle in activeVehiclesList {
-         visibleAnnotations.append(
+         tempNewAnnotations.append(
             GenericMapAnnotation(
                id: UUID(),
                location: vehicle.coordinate,
@@ -248,7 +254,89 @@ class MapController: ObservableObject {
          )
       }
       
+      self.addAnnotations(tempNewAnnotations)
+      
    }
+   
+   
+   
+   /* * */
+   /* MARK: - SECTION 10: UPDATE ANNOTATIONS WITH SINGLE ACTIVE CARRIS VEHICLE */
+   /* Lorem ipsum dolor sit amet consectetur adipisicing elit. */
+   
+   func updateAnnotations(with activeVehicle: CarrisNetworkModel.Vehicle) {
+      
+//      let indexOfVehicleInArray = allVehicles.firstIndex(where: {
+//         $0.id == vehicleId
+//      })
+      
+      
+      if let activeVehicleAnnotation = visibleAnnotations.first(where: {
+         switch $0.item {
+            case .carris_vehicle(let item):
+               if (item.id == activeVehicle.id) {
+                  return true
+               } else {
+                  return false
+               }
+            case .carris_connection(_), .carris_stop(_):
+               return false
+         }
+         }) {
+         
+         self.zoomToFitMapAnnotations(annotations: [activeVehicleAnnotation])
+            
+      } else {
+         
+         var tempNewAnnotations: [GenericMapAnnotation] = []
+         
+         tempNewAnnotations.append(
+            GenericMapAnnotation(
+               id: UUID(),
+               location: activeVehicle.coordinate,
+               item: .carris_vehicle(activeVehicle)
+            )
+         )
+         
+         self.addAnnotations(tempNewAnnotations, zoom: true)
+         
+      }
+      
+   }
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   private func addAnnotations(_ newAnnotations: [GenericMapAnnotation], zoom: Bool = false) {
+      DispatchQueue.main.async {
+         // Add the annotations to the map
+         self.visibleAnnotations.append(contentsOf: newAnnotations)
+         // Remove annotations with duplicate IDs (ex: same stop on different itineraries)
+         self.visibleAnnotations.uniqueInPlace(for: \.id)
+         // Adjust map region to annotations
+         if (zoom) {
+            self.zoomToFitMapAnnotations(annotations: newAnnotations)
+         }
+      }
+   }
+   
+   
+//   private func removeAnnotations(ofType annotationTypes: [GenericMapAnnotation.AnnotationItem]) {
+//      visibleAnnotations.removeAll(where: {
+//         for type in annotationTypes {
+//            if ($0.item == type) {
+//               return true
+//            }
+//         }
+//         return false
+//      })
+//   }
    
    
 }

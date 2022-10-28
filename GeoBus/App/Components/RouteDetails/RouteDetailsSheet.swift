@@ -85,7 +85,7 @@ struct RouteDetailsSheet: View {
    
    var body: some View {
       
-      ScrollView(.vertical, showsIndicators: true) {
+      ScrollView(showsIndicators: true) {
          VStack(spacing: 5) {
             liveInfo
                .padding()
