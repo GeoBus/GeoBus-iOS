@@ -61,6 +61,7 @@
 		CFAF0E7A28CE84F400DDAD5B /* MapAnnotations.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAF0E7928CE84F400DDAD5B /* MapAnnotations.swift */; };
 		CFB5D45728EEFE21002368BC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CFB5D45528EEFE21002368BC /* InfoPlist.strings */; };
 		CFB5D45A28EEFE6B002368BC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CFB5D45828EEFE6B002368BC /* Localizable.strings */; };
+		CFB71F82290CAFB500B37E69 /* LoadingSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB71F81290CAFB500B37E69 /* LoadingSheet.swift */; };
 		CFDC15EF28D292FB00A4BE49 /* ViewSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDC15EE28D292FB00A4BE49 /* ViewSize.swift */; };
 		CFDD014928D5114D0070FE4B /* SyncStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDD014828D5114D0070FE4B /* SyncStatus.swift */; };
 		CFDD014B28D535370070FE4B /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDD014A28D535370070FE4B /* Card.swift */; };
@@ -142,6 +143,7 @@
 		CFB5D46028EEFEF1002368BC /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		CFB5D46128EEFF2C002368BC /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CFB5D46228EEFF2D002368BC /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		CFB71F81290CAFB500B37E69 /* LoadingSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingSheet.swift; sourceTree = "<group>"; };
 		CFCED4F628EF5CB900963640 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CFCED4F728EF5CB900963640 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		CFCED4F828EF5CD500963640 /* fa */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fa; path = fa.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -218,6 +220,7 @@
 				CF18204228CCBCC500248F72 /* RouteBadgeSquare.swift */,
 				CFFFAD7828F4AD0400DFD5FD /* TimeLeft.swift */,
 				CFFFAD7A28F4D8D000DFD5FD /* StopIcon.swift */,
+				CFB71F81290CAFB500B37E69 /* LoadingSheet.swift */,
 				CF548FF528D14BA400668CB6 /* VehicleIdentifier.swift */,
 				CF03D6AD28F3B00F0077299B /* VehicleDestination.swift */,
 				CFDD014A28D535370070FE4B /* Card.swift */,
@@ -536,6 +539,7 @@
 				CFAF0E7A28CE84F400DDAD5B /* MapAnnotations.swift in Sources */,
 				CF548FF328D129B000668CB6 /* VehicleDetailsView.swift in Sources */,
 				CFFFAD7B28F4D8D000DFD5FD /* StopIcon.swift in Sources */,
+				CFB71F82290CAFB500B37E69 /* LoadingSheet.swift in Sources */,
 				CF0C256C29031B2C00B03052 /* CarrisCommunityAPIModel.swift in Sources */,
 				CF82BB0928D7F19A007F0CDB /* LocationCard.swift in Sources */,
 				CF18207928CCBD2300248F72 /* RouteDetailsVehiclesQuantity.swift in Sources */,

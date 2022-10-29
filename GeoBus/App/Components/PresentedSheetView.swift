@@ -31,8 +31,8 @@ struct PresentedSheetView: View {
                .presentationDragIndicator(.hidden)
             
          case .carris_vehicleDetails:
-            VehicleDetailsView()
-               .presentationDetents([.medium])
+            CarrisVehicleSheetView()
+               .presentationDetents([.medium, .large])
                .presentationDragIndicator(.hidden)
                .onDisappear() {
                   carrisNetworkController.deselect([.vehicle])

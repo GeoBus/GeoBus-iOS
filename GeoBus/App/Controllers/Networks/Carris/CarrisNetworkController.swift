@@ -170,7 +170,23 @@ class CarrisNetworkController: ObservableObject {
    
    public func refresh() {
       Task {
+         // Update all vehicles from Carris API
          await self.fetchVehiclesListFromCarrisAPI()
+         
+         // DEBUG !
+         self.select(vehicle: self.allVehicles[0].id)
+         Appstate.shared.present(sheet: .carris_vehicleDetails)
+         // ! DEBUG
+         
+         // If there is an active vehicle, also refresh it's details
+         if (self.activeVehicle != nil) {
+            await self.fetchVehicleDetailsFromCarrisAPI(for: self.activeVehicle!.id)
+            // If Community provider is also enabled, then also refresh those details
+            if (self.communityDataProviderStatus) {
+               await self.fetchVehicleDetailsFromCarrisAPI(for: self.activeVehicle!.id)
+            }
+         }
+         // Update the list of active vehicles (the current selected route)
          self.populateActiveVehicles()
       }
    }
@@ -698,6 +714,9 @@ class CarrisNetworkController: ObservableObject {
          if let foundVehicle = self.find(vehicle: vehicleId!) {
             Task {
                await self.fetchVehicleDetailsFromCarrisAPI(for: foundVehicle.id)
+               if (self.communityDataProviderStatus) {
+                  await self.fetchVehicleDetailsFromCommunityAPI(for: foundVehicle.id)
+               }
                self.activeVehicle = foundVehicle
             }
          }
@@ -707,7 +726,7 @@ class CarrisNetworkController: ObservableObject {
    
    
    /* * */
-   /* MARK: - SECTION 11: SET ACTIVE VEHICLES */
+   /* MARK: - 11. VEHICLES: SET ACTIVE VEHICLES */
    /* This function compares the currently active route number with all vehicles */
    /* appending the ones that match to the ‹activeVehicles› array. It also checks */
    /* if vehicles have an up-to-date location. */
@@ -737,8 +756,6 @@ class CarrisNetworkController: ObservableObject {
          }
          
       }
-      
-//      self.select(vehicle: activeVehicle?.id)
       
    }
    
@@ -822,16 +839,6 @@ class CarrisNetworkController: ObservableObject {
    /* function to allow the UI to request this information only when necessary. After retrieving the new details */
    /* fromt the API, re-populate the activeVehicles array to trigger an update in the UI. */
    
-//   public func getAdditionalDetailsForActiveVehicle() {
-//      Task {
-//         if (activeVehicle != nil) {
-//            await self.fetchVehicleDetailsFromCarrisAPI(for: self.activeVehicle!.id)
-//            self.populateActiveVehicles()
-//            self.select(vehicle: activeVehicle!.id)
-//         }
-//      }
-//   }
-   
    private func fetchVehicleDetailsFromCarrisAPI(for vehicleId: Int) async {
       
       Appstate.shared.change(to: .loading, for: .vehicles)
@@ -856,6 +863,7 @@ class CarrisNetworkController: ObservableObject {
             allVehicles[indexOfVehicleInArray!].vehiclePlate = decodedCarrisAPIVehicleDetail.vehiclePlate
             allVehicles[indexOfVehicleInArray!].lastStopOnVoyageId = decodedCarrisAPIVehicleDetail.lastStopOnVoyageId
             allVehicles[indexOfVehicleInArray!].lastStopOnVoyageName = decodedCarrisAPIVehicleDetail.lastStopOnVoyageName
+            allVehicles[indexOfVehicleInArray!].hasLoadedCarrisDetails = true
          }
          
          print("GeoBus: Carris API: Vehicle Details: Update complete!")
@@ -865,6 +873,60 @@ class CarrisNetworkController: ObservableObject {
       } catch {
          Appstate.shared.change(to: .error, for: .vehicles)
          print("GeoBus: Carris API: Vehicles Details: Error found while updating. More info: \(error)")
+         return
+      }
+      
+   }
+   
+   
+   private func fetchVehicleDetailsFromCommunityAPI(for vehicleId: Int) async {
+      
+      Appstate.shared.change(to: .loading, for: .vehicles)
+      
+      print("GeoBus: Community API: Vehicle Details: Starting update...")
+      
+      do {
+         
+         // Request Vehicle Detail (SGO)
+         let rawDataCarrisCommunityAPIVehicleDetail = try await CarrisCommunityAPI.shared.request(for: "estbus?busNumber=\(vehicleId)")
+         
+         let decodedCarrisCommunityAPIVehicleDetail = try JSONDecoder().decode([CarrisCommunityAPIModel.Vehicle].self, from: rawDataCarrisCommunityAPIVehicleDetail)
+         
+         
+         if (decodedCarrisCommunityAPIVehicleDetail[0].estimatedRouteResults != nil) {
+            
+            var tempRouteEstimates: [CarrisNetworkModel.Estimation] = []
+            
+            for routeResult in decodedCarrisCommunityAPIVehicleDetail[0].estimatedRouteResults! {
+               tempRouteEstimates.append(
+                  CarrisNetworkModel.Estimation(
+                     stopId: Int(routeResult.estimatedRouteStopId ?? "-1") ?? -1,
+                     routeNumber: "",
+                     destination: "",
+                     eta: routeResult.estimatedTimeofArrivalCorrected ?? "",
+                     hasArrived: routeResult.estimatedPreviouslyArrived
+                  )
+               )
+            }
+            
+            let indexOfVehicleInArray = allVehicles.firstIndex(where: {
+               $0.id == vehicleId
+            })
+            
+            if (indexOfVehicleInArray != nil) {
+               allVehicles[indexOfVehicleInArray!].routeEstimates = tempRouteEstimates
+               allVehicles[indexOfVehicleInArray!].hasLoadedCommunityDetails = true
+            }
+            
+         }
+         
+         print("GeoBus: Community API: Vehicle Details: Update complete!")
+         
+         Appstate.shared.change(to: .idle, for: .vehicles)
+         
+      } catch {
+         Appstate.shared.change(to: .error, for: .vehicles)
+         print("GeoBus: Community API: Vehicles Details: Error found while updating. More info: \(error)")
          return
       }
       

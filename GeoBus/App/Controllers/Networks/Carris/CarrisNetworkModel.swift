@@ -123,15 +123,17 @@ struct CarrisNetworkModel {
       let routeNumber: String
       let destination: String
       let eta: String
+      let hasArrived: Bool?
       let busNumber: Int?
       
-      init(stopId: Int, routeNumber: String, destination: String, eta: String, busNumber: Int? = nil) {
+      init(stopId: Int, routeNumber: String, destination: String, eta: String, busNumber: Int? = nil, hasArrived: Bool? = nil) {
          self.id = UUID()
          self.stopId = stopId
          self.routeNumber = routeNumber
          self.destination = destination
          self.busNumber = busNumber
          self.eta = eta
+         self.hasArrived = hasArrived
       }
    }
    
@@ -182,9 +184,11 @@ struct CarrisNetworkModel {
       var vehiclePlate: String?
       var lastStopOnVoyageId: Int?
       var lastStopOnVoyageName: String?
+      var hasLoadedCarrisDetails: Bool = false
       
       // Community API
-      var estimatedTimeofArrivalCorrected: [String]?
+      var routeEstimates: [Estimation]?
+      var hasLoadedCommunityDetails: Bool = false
       
       
       
