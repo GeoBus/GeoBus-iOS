@@ -12,7 +12,7 @@ import Combine
 class CarrisNetworkController: ObservableObject {
    
    /* * */
-   /* MARK: - SECTION 1: SETTINGS */
+   /* MARK: - 1. SETTINGS */
    /* In this section one can find private constants for update intervals, */
    /* storage keys and more. Change these values with caution because they can */
    /* trigger updates on the users devices, which can take a long time or fail. */
@@ -31,7 +31,7 @@ class CarrisNetworkController: ObservableObject {
    
    
    /* * */
-   /* MARK: - SECTION 2: PUBLISHED VARIABLES */
+   /* MARK: - 2. PUBLISHED VARIABLES */
    /* Here are all the @Published variables that can be consumed by the app views. */
    /* It is important to keep the names of this variables short, but descriptive, */
    /* to avoid clutter on the interface code. */
@@ -57,8 +57,24 @@ class CarrisNetworkController: ObservableObject {
    
    
    
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
    /* * */
-   /* MARK: - SECTION 3: SHARED INSTANCE */
+   /* MARK: - 3. INITIALIZER */
+   /* Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ut ornare ipsum. */
+   /* Nunc neque nulla, pretium ac lectus id, scelerisque facilisis est. */
+   
+   
+   /* * */
+   /* MARK: - 3.1. SHARED INSTANCE */
    /* To allow the same instance of this class to be available accross the whole app, */
    /* we create a Singleton. More info here: https://www.hackingwithswift.com/example-code/language/what-is-a-singleton */
    
@@ -67,7 +83,7 @@ class CarrisNetworkController: ObservableObject {
    
    
    /* * */
-   /* MARK: - SECTION 4: INITIALIZER */
+   /* MARK: - 3.2. INITIALIZE CLASS */
    /* When this class is initialized, data stored on the users device must be retrieved */
    /* from UserDefaults to avoid requesting a new update to the APIs. After this, check if */
    /* this stored data needs an update or not. */
@@ -103,8 +119,24 @@ class CarrisNetworkController: ObservableObject {
    
    
    
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
    /* * */
-   /* MARK: - SECTION 5.1: UPDATE NETWORK FROM CARRIS API */
+   /* MARK: - 4. UPDATE DATA */
+   /* Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ut ornare ipsum. */
+   /* Nunc neque nulla, pretium ac lectus id, scelerisque facilisis est. */
+   
+   
+   /* * */
+   /* MARK: - 4.1. UPDATE NETWORK MODEL */
    /* This function decides whether to update the complete network model */
    /* if it is considered outdated or is inexistent on device storage. */
    /* Provide a convenience method to allow user-requested updates from the UI. */
@@ -151,20 +183,7 @@ class CarrisNetworkController: ObservableObject {
    
    
    /* * */
-   /* MARK: - SECTION 12: TOGGLE COMMUNITY DATA PROVIDER STATUS */
-   /* Call this function to switch Community Data ON or OFF. */
-   /* This switches in memory for the current session, and stores the new setting in storage. */
-   
-   public func toggleCommunityDataProviderTo(to newStatus: Bool) {
-      self.communityDataProviderStatus = newStatus
-      UserDefaults.standard.set(newStatus, forKey: storageKeyForCommunityDataProviderStatus)
-      print("GeoBus: Carris API: ‹toggleCommunityDataProviderTo()› Community Data switched \(newStatus ? "ON" : "OFF")")
-   }
-   
-   
-   
-   /* * */
-   /* MARK: - SECTION 5.2: REFRESH DATA */
+   /* MARK: - 4.2. REFRESH DATA */
    /* This function initiates vehicles refresh from Carris API, updates the ‹activeVehicles› array */
    /* and syncronizes favorites with iCloud, to ensure changes are always up to date. */
    
@@ -194,7 +213,36 @@ class CarrisNetworkController: ObservableObject {
    
    
    /* * */
-   /* MARK: - SECTION 6: FETCH & FORMAT STOPS FROM CARRIS API */
+   /* MARK: - 4.3. COMMUNITY PROVIDER */
+   /* Call this function to switch Community Data ON or OFF. */
+   /* This switches in memory for the current session, and stores the new setting in storage. */
+   
+   public func toggleCommunityDataProviderTo(to newStatus: Bool) {
+      self.communityDataProviderStatus = newStatus
+      UserDefaults.standard.set(newStatus, forKey: storageKeyForCommunityDataProviderStatus)
+      print("GeoBus: Carris API: ‹toggleCommunityDataProviderTo()› Community Data switched \(newStatus ? "ON" : "OFF")")
+   }
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   /* * */
+   /* MARK: - 5. FORMAT NETWORK */
+   /* Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ut ornare ipsum. */
+   /* Nunc neque nulla, pretium ac lectus id, scelerisque facilisis est. */
+   
+   
+   /* * */
+   /* MARK: - 5.1. STOPS: FETCH & FORMAT FROM CARRIS API */
    /* Call Carris API and retrieve all stops. Format them to the app model. */
    
    private func fetchStopsFromCarrisAPI() async {
@@ -254,7 +302,7 @@ class CarrisNetworkController: ObservableObject {
    
    
    /* * */
-   /* MARK: - SECTION 7: FETCH & FORMAT ROUTES FROM CARRIS API */
+   /* MARK: - 5.2. ROUTES: FETCH & FORMAT FROM CARRIS API */
    /* This function first fetches the Routes List from Carris API, */
    /* which is an object that contains all the available routes. */
    /* The information for each Route is very short, so it is necessary to retrieve */
@@ -351,7 +399,7 @@ class CarrisNetworkController: ObservableObject {
    
    
    /* * */
-   /* MARK: - SECTION 7.1: FORMAT CARRIS ROUTE VARIANTS */
+   /* MARK: - 5.3. VARIANTS: FORMAT CARRIS ROUTE VARIANTS */
    /* Parse and simplify the data model for variants. Variants contain */
    /* one or more itineraries, each with a direction. Each itinerary is composed */
    /* of a series of connections, in which each contains a stop. */
@@ -406,7 +454,7 @@ class CarrisNetworkController: ObservableObject {
    
    
    /* * */
-   /* MARK: - SECTION 7.2: FORMAT CARRIS CONNECTIONS */
+   /* MARK: - 5.4. CONNECTIONS: FORMAT CARRIS CONNECTIONS */
    /* Each itinerary is composed of a series of connections, in which each */
    /* has a single stop. Connections contain the property ‹orderInRoute›. */
    
@@ -438,8 +486,20 @@ class CarrisNetworkController: ObservableObject {
    
    
    
+   
+   
+   
+   
+   
+   
+   
    /* * */
-   /* MARK: - SECTION 8.1: RETRIEVE FAVORITES FROM ICLOUD KVS */
+   /* MARK: - 6. FAVORITES */
+   /* This section holds the logic to deal with favorites from iCloud Key-Value-Storage. */
+   
+   
+   /* * */
+   /* MARK: - 6.1. RETRIEVE FAVORITES FROM ICLOUD KVS */
    /* This function retrieves favorites from iCloud Key-Value-Storage. */
    
    private func retrieveFavoritesFromKVS() {
@@ -473,7 +533,7 @@ class CarrisNetworkController: ObservableObject {
    
    
    /* * */
-   /* MARK: - SECTION 8.2: SAVE FAVORITES TO ICLOUD KVS */
+   /* MARK: - 6.2. SAVE FAVORITES TO ICLOUD KVS */
    /* This function saves a representation of the objects stored in the favorites arrays */
    /* to iCloud Key-Value-Store. This function should be called whenever a change */
    /* in favorites occurs, to ensure consistency across devices. */
@@ -503,7 +563,7 @@ class CarrisNetworkController: ObservableObject {
    
    
    /* * */
-   /* MARK: - SECTION 8.3: TOGGLE ROUTES AND STOPS AS FAVORITES */
+   /* MARK: - 6.3. TOGGLE ROUTES AND STOPS AS FAVORITES */
    /* These functions mark an object as favorite if it is not, and remove it from favorites if it is. */
    
    public func toggleFavorite(route: CarrisNetworkModel.Route) {
@@ -544,7 +604,7 @@ class CarrisNetworkController: ObservableObject {
    
    
    /* * */
-   /* MARK: - SECTION 8.4: IS FAVORITE CHECKER */
+   /* MARK: - 6.4: IS FAVORITE CHECKER */
    /* These functions check if an object is marked as favorite. */
    
    public func isFavourite(route: CarrisNetworkModel.Route?) -> Bool {
@@ -574,8 +634,24 @@ class CarrisNetworkController: ObservableObject {
    
    
    
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
    /* * */
-   /* MARK: - SECTION 9: FIND OBJECTS BY IDENTIFIER */
+   /* MARK: - 7. FINDERS */
+   /* Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ut ornare ipsum. */
+   /* Nunc neque nulla, pretium ac lectus id, scelerisque facilisis est. */
+   
+   
+   /* * */
+   /* MARK: - 7.1. FIND OBJECTS BY IDENTIFIER */
    /* These functions search for the provided object identifier in the storage arrays */
    /* and return it if found or nil if not found. */
    
@@ -625,8 +701,24 @@ class CarrisNetworkController: ObservableObject {
    
    
    
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
    /* * */
-   /* MARK: - SECTION 10: OBJECT SELECTORS */
+   /* MARK: - 8. SELECTORS */
+   /* Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ut ornare ipsum. */
+   /* Nunc neque nulla, pretium ac lectus id, scelerisque facilisis est. */
+   
+   
+   /* * */
+   /* MARK: - 8.1: OBJECT SELECTORS */
    /* These functions select and deselect the currently active objects. */
    /* Provide public functions to more easily select object by their identifier. */
    
@@ -725,8 +817,24 @@ class CarrisNetworkController: ObservableObject {
    
    
    
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
    /* * */
-   /* MARK: - 11. VEHICLES: SET ACTIVE VEHICLES */
+   /* MARK: - 9. VEHICLES */
+   /* Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ut ornare ipsum. */
+   /* Nunc neque nulla, pretium ac lectus id, scelerisque facilisis est. */
+   
+   
+   /* * */
+   /* MARK: - 9.1. VEHICLES: SET ACTIVE VEHICLES */
    /* This function compares the currently active route number with all vehicles */
    /* appending the ones that match to the ‹activeVehicles› array. It also checks */
    /* if vehicles have an up-to-date location. */
@@ -762,7 +870,7 @@ class CarrisNetworkController: ObservableObject {
    
    
    /* * */
-   /* MARK: - SECTION 12: FETCH ALL VEHICLES FROM CARRIS API */
+   /* MARK: - 9.2. FETCH ALL VEHICLES FROM CARRIS API */
    /* This function calls the Carris API and receives vehicle metadata, */
    /* including positions, for all currently active vehicles, */
    /* and stores them in the ‹allVehicles› array. */
@@ -833,7 +941,7 @@ class CarrisNetworkController: ObservableObject {
    
    
    /* * */
-   /* MARK: - SECTION 12: FETCH VEHICLE DETAILS FROM CARRIS API */
+   /* MARK: - 9.3. FETCH VEHICLE DETAILS FROM CARRIS API */
    /* This function calls the Carris API SGO endpoint to retrieve additional vehicle metadata, */
    /* such as location, license plate number and last stop on the current trip. Provide a convenience */
    /* function to allow the UI to request this information only when necessary. After retrieving the new details */
@@ -878,6 +986,12 @@ class CarrisNetworkController: ObservableObject {
       
    }
    
+   
+   
+   /* * */
+   /* MARK: - 9.4. FETCH VEHICLE DETAILS FROM COMMUNITY API */
+   /* Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ut ornare ipsum. */
+   /* Nunc neque nulla, pretium ac lectus id, scelerisque facilisis est. */
    
    private func fetchVehicleDetailsFromCommunityAPI(for vehicleId: Int) async {
       
@@ -934,7 +1048,23 @@ class CarrisNetworkController: ObservableObject {
    
    
    
-   /* MARK: - GET ESTIMATION */
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   /* * */
+   /* MARK: - 10. ESTIMATES */
+   /* Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ut ornare ipsum. */
+   /* Nunc neque nulla, pretium ac lectus id, scelerisque facilisis est. */
+   
+   
+   /* MARK: - 10.1. GET ESTIMATION */
    // This function calls the API to retrieve estimations for the provided stop 'publicId'.
    // It formats and returns the results to the caller.
    
@@ -948,7 +1078,7 @@ class CarrisNetworkController: ObservableObject {
    
    
    
-   /* MARK: - GET CARRIS ESTIMATIONS */
+   /* MARK: - 10.2. GET CARRIS ESTIMATIONS */
    // This function calls the API to retrieve estimations for the provided stop 'publicId'.
    // It formats and returns the results to the caller.
    
@@ -996,7 +1126,7 @@ class CarrisNetworkController: ObservableObject {
    
    
    
-   /* MARK: - GET COMMUNITY ESTIMATIONS */
+   /* MARK: - 10.3. GET COMMUNITY ESTIMATIONS */
    // This function calls the API to retrieve estimations for the provided stop 'publicId'.
    // It formats and returns the results to the caller.
    
