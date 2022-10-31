@@ -14,13 +14,23 @@ struct CarrisVehicleSheetView: View {
    @ObservedObject var appstate = Appstate.shared
    @ObservedObject var carrisNetworkController = CarrisNetworkController.shared
    
+   
    var body: some View {
-      if (carrisNetworkController.activeVehicle != nil && carrisNetworkController.activeVehicle!.hasLoadedCarrisDetails) {
-         Text("Details")
-      } else if (appstate.vehicles == .loading) {
-         Spinner(size: 30)
+      if (appstate.vehicles == .error) {
+         SheetErrorScreen()
       } else {
-         Text("Error")
+         VStack(spacing: 0) {
+            CarrisVehicleSheetHeader(vehicle: carrisNetworkController.activeVehicle)
+            ScrollView {
+               VStack(alignment: .leading, spacing: 15) {
+                  CarrisVehicleLastSeenTime(vehicle: carrisNetworkController.activeVehicle)
+                  CarrisVehicleNextStop(vehicle: carrisNetworkController.activeVehicle)
+                  CarrisVehicleRouteOverview(vehicle: carrisNetworkController.activeVehicle)
+                  Disclaimer()
+               }
+               .padding()
+            }
+         }
       }
    }
    
@@ -30,86 +40,55 @@ struct CarrisVehicleSheetView: View {
 
 
 
-struct VehicleDetailsView: View {
+struct CarrisVehicleSheetHeader: View {
    
-   @EnvironmentObject var appstate: Appstate
-   @EnvironmentObject var carrisNetworkController: CarrisNetworkController
+   public let vehicle: CarrisNetworkModel.Vehicle?
    
-   let lastSeenTimeTimer = Timer.publish(every: 1 /* seconds */, on: .main, in: .common).autoconnect()
-   
-   @State var lastSeenTime: String = "-"
-   
-   
-   var loadingScreen: some View {
-      HStack(spacing: 3) {
-         ProgressView()
-            .scaleEffect(0.55)
-         Text("Loading...")
-            .font(Font.system(size: 13, weight: .medium, design: .default) )
-            .foregroundColor(Color(.tertiaryLabel))
-         Spacer()
-      }
-   }
-   
-   var errorScreen: some View {
-      Text("Carris API is unavailable.")
-         .font(Font.system(size: 13, weight: .medium, design: .default) )
-         .foregroundColor(Color(.secondaryLabel))
-   }
-   
-   var vehicleDetailsHeader: some View {
-      HStack(spacing: 15) {
-         VehicleDestination(routeNumber: carrisNetworkController.activeVehicle?.routeNumber ?? "-", destination: carrisNetworkController.activeVehicle?.lastStopOnVoyageName ?? "-")
-         Spacer()
-         VehicleIdentifier(busNumber: carrisNetworkController.activeVehicle?.id ?? -1, vehiclePlate: carrisNetworkController.activeVehicle?.vehiclePlate)
-      }
-   }
-   
-   
-   var vehicleDetailsScreen: some View {
-      VStack(alignment: .leading) {
-         HStack(alignment: .center, spacing: 5) {
-            Image(systemName: "antenna.radiowaves.left.and.right")
-               .font(.system(size: 12, weight: .bold, design: .default))
-               .foregroundColor(Color(.secondaryLabel))
-            Text("GPS updated \(lastSeenTime) ago")
-               .font(.system(size: 12, weight: .bold, design: .default))
-               .foregroundColor(Color(.secondaryLabel))
-               .onAppear() {
-                  self.lastSeenTime = Helpers.getTimeString(for: carrisNetworkController.activeVehicle?.lastGpsTime ?? "", in: .past, style: .full, units: [.hour, .minute, .second])
-               }
-               .onReceive(lastSeenTimeTimer) { event in
-                  self.lastSeenTime = Helpers.getTimeString(for: carrisNetworkController.activeVehicle?.lastGpsTime ?? "", in: .past, style: .full, units: [.hour, .minute, .second])
-               }
-            Spacer()
+   var body: some View {
+      VStack(spacing: 0) {
+         HStack(spacing: 4) {
+            RouteBadgePill(routeNumber: vehicle?.routeNumber)
+            DestinationText(destination: vehicle?.lastStopOnVoyageName)
+            Spacer(minLength: 15)
+            VehicleIdentifier(busNumber: vehicle?.id, vehiclePlate: vehicle?.vehiclePlate)
          }
-         VehicleRouteContainer(vehicle: carrisNetworkController.activeVehicle)
+         .padding()
+         Divider()
+      }
+   }
+   
+}
+
+
+
+
+
+
+struct CarrisVehicleLastSeenTime: View {
+   
+   public let vehicle: CarrisNetworkModel.Vehicle?
+   
+   private let lastSeenTimeTimer = Timer.publish(every: 1 /* seconds */, on: .main, in: .common).autoconnect()
+   
+   @State private var lastSeenTime: String? = nil
+   
+   
+   func updateLastSeenTime(_ value: Any) {
+      if (vehicle?.lastGpsTime != nil) {
+         self.lastSeenTime = Helpers.getTimeString(for: vehicle!.lastGpsTime!, in: .past, style: .full, units: [.hour, .minute, .second])
       }
    }
    
    
    var body: some View {
-      ScrollView {
-         VStack(alignment: .leading) {
-            VStack(alignment: .leading, spacing: 0) {
-               if (appstate.vehicles == .loading) {
-                  loadingScreen
-                     .padding()
-               } else if (appstate.vehicles == .error) {
-                  errorScreen
-                     .padding()
-               } else {
-                  vehicleDetailsHeader
-                     .padding()
-                  Divider()
-                  vehicleDetailsScreen
-                     .padding()
-               }
-            }
-            Disclaimer()
-            Spacer()
-         }
-      }
+      Chip(
+         icon: Image(systemName: "antenna.radiowaves.left.and.right"),
+         text: Text("GPS updated \(lastSeenTime ?? "-") ago."),
+         color: Color(.secondaryLabel),
+         showContent: lastSeenTime != nil
+      )
+      .onChange(of: vehicle, perform: updateLastSeenTime(_:))
+      .onReceive(lastSeenTimeTimer, perform: updateLastSeenTime(_:))
    }
    
 }
@@ -118,7 +97,133 @@ struct VehicleDetailsView: View {
 
 
 
-struct VehicleRouteContainer: View {
+
+
+struct CarrisVehicleNextStop: View {
+   
+   let vehicle: CarrisNetworkModel.Vehicle?
+   
+   @ObservedObject var appstate = Appstate.shared
+   @ObservedObject var carrisNetworkController = CarrisNetworkController.shared
+   
+   
+   @State var nextStopIndex: Int = 0
+   
+   
+   func setNextStop(_ value: Any) {
+      if (vehicle?.routeEstimates != nil) {
+         if let lastStop = vehicle!.routeEstimates!.lastIndex(where: {
+            $0.hasArrived ?? false
+         }) {
+            nextStopIndex = lastStop + 1
+         } else {
+            nextStopIndex = 10
+         }
+      }
+   }
+   
+   
+   
+   var actualContent: some View {
+      VStack(spacing: 0) {
+         HStack {
+            Text("Next stop:")
+               .font(Font.system(size: 10, weight: .bold))
+               .textCase(.uppercase)
+               .foregroundColor(Color(.secondaryLabel))
+            Spacer()
+            PulseLabel(accent: .blue, label: Text("Community"))
+         }
+         .padding(.vertical, 10)
+         .padding(.horizontal)
+         Divider()
+         Button(action: {
+            _ = carrisNetworkController.select(stop: vehicle!.routeEstimates![nextStopIndex].stopId)
+            appstate.present(sheet: .carris_stopDetails)
+         }, label: {
+            HStack(alignment: .center, spacing: 10) {
+               StopIcon(orderInRoute: nextStopIndex + 1, style: .standard)
+               Text(carrisNetworkController.find(stop: (vehicle!.routeEstimates![nextStopIndex].stopId))?.name ?? "")
+                  .font(Font.system(size: 17, weight: .medium))
+                  .lineLimit(1)
+                  .foregroundColor(Color(.label))
+               Spacer(minLength: 5)
+               TimeLeft(time: vehicle?.routeEstimates![nextStopIndex].eta)
+            }
+            .onChange(of: vehicle, perform: setNextStop(_:))
+            .padding()
+         })
+      }
+      .frame(maxWidth: .infinity)
+      .background(Color(.secondaryLabel).opacity(0.1))
+      .cornerRadius(10)
+   }
+   
+   
+   var body: some View {
+      if (vehicle?.routeEstimates != nil && nextStopIndex < vehicle!.routeEstimates!.count && vehicle?.routeEstimates?[nextStopIndex] != nil) {
+         actualContent
+      } else {
+         EmptyView()
+      }
+   }
+   
+   
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+struct CarrisVehicleRouteOverview: View {
    
    let vehicle: CarrisNetworkModel.Vehicle?
    
@@ -134,7 +239,7 @@ struct VehicleRouteContainer: View {
                   if (index > 0) {
                      Rectangle()
                         .frame(width: 5, height: 25)
-                        .foregroundColor(element.hasArrived ?? false ? .green : .blue)
+                        .foregroundColor(element.hasArrived ?? false ? Color("StopMutedBackground") : .blue)
                         .padding(.horizontal, 10)
                   }
                   Button(action: {
@@ -142,9 +247,12 @@ struct VehicleRouteContainer: View {
                      appstate.present(sheet: .carris_stopDetails)
                   }, label: {
                      HStack(alignment: .center, spacing: 10) {
-                        StopIcon(orderInRoute: index)
-                        Text(String(element.stopId))
-                        Spacer()
+                        StopIcon(orderInRoute: index+1, style: element.hasArrived ?? false ? .muted : .standard)
+                        Text(carrisNetworkController.find(stop: element.stopId)?.name ?? "")
+                           .font(Font.system(size: 17, weight: .medium))
+                           .lineLimit(1)
+                           .foregroundColor(element.hasArrived ?? false ? Color("StopMutedText") : .black)
+                        Spacer(minLength: 5)
                         if (element.hasArrived ?? false) {
                            Text("já passou")
                         } else {

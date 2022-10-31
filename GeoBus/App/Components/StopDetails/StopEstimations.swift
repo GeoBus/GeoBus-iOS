@@ -179,9 +179,10 @@ struct EstimationContainer: View {
 //         mapController.moveMap(to:)
          appstate.present(sheet: .carris_vehicleDetails)
       }, label: {
-         HStack(spacing: 5) {
-            VehicleDestination(routeNumber: estimation.routeNumber, destination: estimation.destination)
-            Spacer()
+         HStack(spacing: 4) {
+            RouteBadgePill(routeNumber: estimation.routeNumber)
+            DestinationText(destination: estimation.destination)
+            Spacer(minLength: 5)
             TimeLeft(time: estimation.eta)
          }
       })

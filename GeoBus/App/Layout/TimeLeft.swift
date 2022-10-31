@@ -9,10 +9,29 @@ import SwiftUI
 
 struct TimeLeft: View {
    
-   public let time: String?
+   public let timeString: String?
+   
+   private let countdownUnits: NSCalendar.Unit
    private let countdownTimer = Timer.publish(every: 1 /* seconds */, on: .main, in: .common).autoconnect()
    
-   @State var timeLeftString: String = ""
+   @State private var countdownValue: Int = 0
+   @State private var countdownString: String = ""
+   
+   
+   init(time: String?, units: NSCalendar.Unit = [.hour, .minute]) {
+      self.timeString = time
+      self.countdownUnits = units
+   }
+   
+   
+   func setCountdownString(_ value: Any) {
+      if (timeString != nil) {
+         self.countdownValue = Helpers.getLastSeenTime(since: self.timeString!)
+         print("countdownValue: \(countdownValue)")
+         self.countdownString = Helpers.getTimeString(for: self.timeString!, in: .future, style: .short, units: self.countdownUnits)
+      }
+   }
+   
    
    var loading: some View {
       HStack(spacing: 3) {
@@ -26,22 +45,30 @@ struct TimeLeft: View {
          Image(systemName: "plusminus")
             .font(.footnote)
             .foregroundColor(Color(.tertiaryLabel))
-         Text(self.timeLeftString)
+         Text(self.countdownString)
             .font(.body)
             .fontWeight(.medium)
             .foregroundColor(Color(.label))
-            .onAppear() {
-               self.timeLeftString = Helpers.getTimeString(for: self.time ?? "", in: .future, style: .short, units: [.hour, .minute])
-            }
-            .onReceive(countdownTimer) { event in
-               self.timeLeftString = Helpers.getTimeString(for: self.time ?? "", in: .future, style: .short, units: [.hour, .minute])
-            }
+            .onChange(of: timeString, perform: setCountdownString)
+            .onReceive(countdownTimer, perform: setCountdownString)
       }
    }
    
+   var icon: some View {
+      Image(systemName: "figure.walk.arrival")
+         .font(.body)
+         .fontWeight(.medium)
+         .foregroundColor(Color(.systemBlue))
+   }
+   
+   
    var body: some View {
-      if (time != nil) {
-         content
+      if (timeString != nil) {
+         if (countdownValue < 0) {
+            icon
+         } else {
+            content
+         }
       } else {
          loading
       }

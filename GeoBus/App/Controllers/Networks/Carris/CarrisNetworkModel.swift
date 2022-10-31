@@ -120,13 +120,13 @@ struct CarrisNetworkModel {
    struct Estimation: Codable, Identifiable, Equatable {
       let id: UUID
       let stopId: Int
-      let routeNumber: String
-      let destination: String
+      let routeNumber: String?
+      let destination: String?
       let eta: String
       let hasArrived: Bool?
       let busNumber: Int?
       
-      init(stopId: Int, routeNumber: String, destination: String, eta: String, busNumber: Int? = nil, hasArrived: Bool? = nil) {
+      init(stopId: Int, routeNumber: String?, destination: String?, eta: String, busNumber: Int? = nil, hasArrived: Bool? = nil) {
          self.id = UUID()
          self.stopId = stopId
          self.routeNumber = routeNumber

@@ -193,8 +193,10 @@ class CarrisNetworkController: ObservableObject {
          await self.fetchVehiclesListFromCarrisAPI()
          
          // DEBUG !
-         self.select(vehicle: self.allVehicles[0].id)
-         Appstate.shared.present(sheet: .carris_vehicleDetails)
+         if (self.activeVehicle == nil) {
+            self.select(vehicle: self.allVehicles[0].id)
+            Appstate.shared.present(sheet: .carris_vehicleDetails)
+         }
          // ! DEBUG
          
          // If there is an active vehicle, also refresh it's details
@@ -202,7 +204,7 @@ class CarrisNetworkController: ObservableObject {
             await self.fetchVehicleDetailsFromCarrisAPI(for: self.activeVehicle!.id)
             // If Community provider is also enabled, then also refresh those details
             if (self.communityDataProviderStatus) {
-               await self.fetchVehicleDetailsFromCarrisAPI(for: self.activeVehicle!.id)
+               await self.fetchVehicleDetailsFromCommunityAPI(for: self.activeVehicle!.id)
             }
          }
          // Update the list of active vehicles (the current selected route)
@@ -269,7 +271,7 @@ class CarrisNetworkController: ObservableObject {
                // Save the formatted route object in the allRoutes temporary variable
                tempAllStops.append(
                   CarrisNetworkModel.Stop(
-                     id: availableStop.id ?? -1,
+                     id: Int(availableStop.publicId ?? "-1") ?? -1,
                      name: availableStop.name ?? "-",
                      lat: availableStop.lat ?? 0,
                      lng: availableStop.lng ?? 0
@@ -671,7 +673,7 @@ class CarrisNetworkController: ObservableObject {
       }
    }
    
-   private func find(stop stopId: Int) -> CarrisNetworkModel.Stop? {
+   public func find(stop stopId: Int) -> CarrisNetworkModel.Stop? {
       if let requestedStopObject = self.allStops[withId: stopId] {
          return requestedStopObject
       } else {
@@ -1102,8 +1104,8 @@ class CarrisNetworkController: ObservableObject {
             tempFormattedEstimations.append(
                CarrisNetworkModel.Estimation(
                   stopId: Int(apiEstimation.publicId ?? "-1") ?? -1,
-                  routeNumber: apiEstimation.routeNumber ?? "-",
-                  destination: apiEstimation.destination ?? "-",
+                  routeNumber: apiEstimation.routeNumber,
+                  destination: apiEstimation.destination,
                   eta: apiEstimation.time ?? "",
                   busNumber: Int(apiEstimation.busNumber ?? "-1")
                )

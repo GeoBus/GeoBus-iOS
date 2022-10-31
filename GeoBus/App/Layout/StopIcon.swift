@@ -11,12 +11,24 @@ struct StopIcon: View {
    
    public let orderInRoute: Int?
    public let direction: CarrisNetworkModel.Direction?
+   public let style: Style
    public let isSelected: Bool
    
-   init(orderInRoute: Int? = nil, direction: CarrisNetworkModel.Direction? = nil, isSelected: Bool = false) {
+   init(orderInRoute: Int? = nil, direction: CarrisNetworkModel.Direction? = nil, style: Style = .standard, isSelected: Bool = false) {
       self.orderInRoute = orderInRoute
       self.direction = direction
+      self.style = style
       self.isSelected = isSelected
+   }
+   
+   
+   enum Style {
+      case standard
+      case circular
+      case ascending
+      case descending
+      case selected
+      case muted
    }
    
    
@@ -43,36 +55,53 @@ struct StopIcon: View {
    }
    
    private var borderColor: Color {
-      if (self.isSelected) {
-         return Color("StopSelectedBorder")
-      } else {
-         switch direction {
-            case .ascending:
-               return Color("StopAscendingBorder")
-            case .descending:
-               return Color("StopDescendingBorder")
-            case .circular:
-               return Color("StopCircularBorder")
-            case .none:
-               return Color("StopCircularBorder")
-         }
+      switch style {
+         case .standard:
+            return Color("StopCircularBorder")
+         case .ascending:
+            return Color("StopAscendingBorder")
+         case .descending:
+            return Color("StopDescendingBorder")
+         case .circular:
+            return Color("StopCircularBorder")
+         case .selected:
+            return Color("StopSelectedBorder")
+         case .muted:
+            return Color("StopMutedBorder")
       }
    }
    
    private var backgroundColor: Color {
-      if (self.isSelected) {
-         return Color("StopSelectedBackground")
-      } else {
-         switch direction {
-            case .ascending:
-               return Color("StopAscendingBackground")
-            case .descending:
-               return Color("StopDescendingBackground")
-            case .circular:
-               return Color("StopCircularBackground")
-            case .none:
-               return Color("StopCircularBackground")
-         }
+      switch style {
+         case .standard:
+            return Color("StopCircularBackground")
+         case .ascending:
+            return Color("StopAscendingBackground")
+         case .descending:
+            return Color("StopDescendingBackground")
+         case .circular:
+            return Color("StopCircularBackground")
+         case .selected:
+            return Color("StopSelectedBackground")
+         case .muted:
+            return Color("StopMutedBackground")
+      }
+   }
+   
+   private var textColor: Color {
+      switch style {
+         case .standard:
+            return Color("StopCircularText")
+         case .ascending:
+            return Color("StopAscendingText")
+         case .descending:
+            return Color("StopDescendingText")
+         case .circular:
+            return Color("StopCircularText")
+         case .selected:
+            return Color("StopSelectedText")
+         case .muted:
+            return Color("StopMutedText")
       }
    }
    
@@ -92,12 +121,12 @@ struct StopIcon: View {
          if (self.orderInRoute != nil) {
             Text(String(self.orderInRoute!))
                .font(.system(size: self.textSize, weight: .bold))
-               .foregroundColor(.white)
+               .foregroundColor(textColor)
                .animation(.default, value: self.textSize)
          } else {
             Image(systemName: "mappin")
                .font(.system(size: self.textSize, weight: .bold))
-               .foregroundColor(.white)
+               .foregroundColor(textColor)
                .animation(.default, value: self.textSize)
          }
       }

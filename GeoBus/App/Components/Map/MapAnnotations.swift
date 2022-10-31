@@ -60,19 +60,23 @@ struct CarrisConnectionAnnotationView: View {
    
    
    var body: some View {
-      Button(action: {
-         TapticEngine.impact.feedback(.light)
-         carrisNetworkController.select(connection: self.connection)
-         appstate.present(sheet: .carris_connectionDetails)
-      }) {
-         StopIcon(
-            orderInRoute: self.connection.orderInRoute,
-            direction: self.connection.direction,
-            isSelected: carrisNetworkController.activeConnection == self.connection
-         )
-      }
-      .frame(width: 40, height: 40, alignment: .center)
+      EmptyView()
    }
+   
+//   var body: some View {
+//      Button(action: {
+//         TapticEngine.impact.feedback(.light)
+//         carrisNetworkController.select(connection: self.connection)
+//         appstate.present(sheet: .carris_connectionDetails)
+//      }) {
+//         StopIcon(
+//            orderInRoute: self.connection.orderInRoute,
+//            direction: self.connection.direction,
+//            isSelected: carrisNetworkController.activeConnection == self.connection
+//         )
+//      }
+//      .frame(width: 40, height: 40, alignment: .center)
+//   }
    
 }
 

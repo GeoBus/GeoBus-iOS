@@ -124,16 +124,17 @@ open class Helpers {
    }
    
    
-   static func getLastSeenTime(since lastGpsTime: String) -> Int {
+   static func getLastSeenTime(since isoDateString: String) -> Int {
       
-      let formatter = DateFormatter()
-      formatter.locale = Locale(identifier: "en_US_POSIX")
-      formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+      // Setup Date Formatter
+      let dateFormatter = DateFormatter()
+      dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+      dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
       
+      // Parse ISO Timestamp using the Date Formatter
       let now = Date()
-      let estimation = formatter.date(from: lastGpsTime) ?? now
-      
-      let seconds = now.timeIntervalSince(estimation)
+      let dateObj = dateFormatter.date(from: isoDateString) ?? now
+      let seconds = now.timeIntervalSince(dateObj) // in seconds
       
       return Int(seconds)
       
