@@ -54,7 +54,7 @@ struct RouteDetailsSheet: View {
       VStack(spacing: 15) {
          
          if (carrisNetworkController.activeVariant?.circularItinerary != nil) {
-            RouteCircularVariantInfo()
+            Chip(icon: Image(systemName: "repeat"), text: Text("This is a circular route."), color: Color(.systemBlue))
             ConnectionsList(connections: carrisNetworkController.activeVariant!.circularItinerary!)
             
          } else if (carrisNetworkController.activeVariant?.ascendingItinerary != nil && carrisNetworkController.activeVariant?.descendingItinerary != nil) {
