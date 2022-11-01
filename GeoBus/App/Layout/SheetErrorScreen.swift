@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SheetErrorScreen: View {
    
-   @ObservedObject var carrisNetworkController = CarrisNetworkController.shared
+   @ObservedObject private var carrisNetworkController = CarrisNetworkController.shared
    
    var body: some View {
       VStack(alignment: .center, spacing: 15) {

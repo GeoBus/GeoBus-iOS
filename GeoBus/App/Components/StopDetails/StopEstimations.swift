@@ -12,14 +12,14 @@ struct EstimationsContainer: View {
    
    let stopId: Int
    
-   @ObservedObject var carrisNetworkController = CarrisNetworkController.shared
+   @ObservedObject private var carrisNetworkController = CarrisNetworkController.shared
    
    @State var estimations: [CarrisNetworkModel.Estimation]?
    
    let refreshTimer = Timer.publish(every: 60 /* seconds */, on: .main, in: .common).autoconnect()
    
    
-   func getEstimationsFromController() {
+   func getEstimationsFromController(_ value: Any?) {
       Task {
          self.estimations = await carrisNetworkController.getEstimation(for: self.stopId)
       }
@@ -30,56 +30,16 @@ struct EstimationsContainer: View {
       VStack(alignment: .leading, spacing: 10) {
          EstimationsHeader()
          EstimationsList(estimations: self.estimations)
-            .onAppear(perform: self.getEstimationsFromController)
-            .onReceive(refreshTimer) { event in
-               self.getEstimationsFromController()
+            .onAppear() { self.getEstimationsFromController(nil) }
+            .onReceive(refreshTimer, perform: self.getEstimationsFromController(_:))
+            .onChange(of: carrisNetworkController.communityDataProviderStatus) { value in
+               self.estimations = nil
+               self.getEstimationsFromController(nil)
             }
-         debug_providerToggle
+         CommunityProviderToggle()
             .padding(.vertical)
          Disclaimer()
             .padding(.vertical)
-      }
-   }
-   
-   
-   
-   // ! DEBUG
-   var debug_providerToggle: some View {
-      VStack {
-         Toggle(isOn: $carrisNetworkController.communityDataProviderStatus) {
-            HStack {
-               Image(systemName: "staroflife.circle")
-                  .renderingMode(.template)
-                  .font(Font.system(size: 25))
-                  .foregroundColor(.teal)
-               Text("Community Data")
-                  .font(Font.system(size: 18, weight: .bold))
-                  .foregroundColor(.teal)
-                  .padding(.leading, 5)
-            }
-         }
-         .padding()
-         .frame(maxWidth: .infinity)
-         .tint(.teal)
-         .background(.teal.opacity(0.05))
-         .cornerRadius(10)
-         .onChange(of: carrisNetworkController.communityDataProviderStatus) { value in
-            carrisNetworkController.toggleCommunityDataProviderTo(to: value)
-            self.estimations = nil
-            self.getEstimationsFromController()
-         }
-         Button(action: {
-            self.estimations = nil
-            self.getEstimationsFromController()
-         }, label: {
-            Text("Reload Estimate")
-               .font(Font.system(size: 15, weight: .bold, design: .default) )
-               .foregroundColor(Color(.white))
-               .padding(5)
-               .frame(maxWidth: .infinity)
-               .background(Color(.systemBlue))
-               .cornerRadius(10)
-         })
       }
    }
    
@@ -92,6 +52,8 @@ struct EstimationsContainer: View {
 
 struct EstimationsHeader: View {
    
+   @ObservedObject private var carrisNetworkController = CarrisNetworkController.shared
+   
    var body: some View {
       HStack {
          Text("Next on this stop:")
@@ -99,7 +61,11 @@ struct EstimationsHeader: View {
             .textCase(.uppercase)
             .foregroundColor(Color(.tertiaryLabel))
          Spacer()
-         PulseLabel(accent: .orange, label: Text("Estimated"))
+         if (carrisNetworkController.communityDataProviderStatus) {
+            PulseLabel(accent: Color(.systemTeal), label: Text("Community"))
+         } else {
+            PulseLabel(accent: Color(.systemOrange), label: Text("Estimated"))
+         }
       }
    }
    
@@ -169,23 +135,34 @@ struct EstimationContainer: View {
    
    let estimation: CarrisNetworkModel.Estimation
    
-   @ObservedObject var appstate = Appstate.shared
-   @ObservedObject var mapController = MapController.shared
-   @ObservedObject var carrisNetworkController = CarrisNetworkController.shared
+   @ObservedObject private var appstate = Appstate.shared
+   @ObservedObject private var mapController = MapController.shared
+   @ObservedObject private var carrisNetworkController = CarrisNetworkController.shared
+   
+   
+   var estimationLine: some View {
+      HStack(spacing: 4) {
+         RouteBadgePill(routeNumber: estimation.routeNumber)
+         DestinationText(destination: estimation.destination)
+         Spacer(minLength: 5)
+         TimeLeft(time: estimation.eta)
+      }
+   }
+   
    
    var body: some View {
-      Button(action: {
-         carrisNetworkController.select(vehicle: estimation.busNumber)
-//         mapController.moveMap(to:)
-         appstate.present(sheet: .carris_vehicleDetails)
-      }, label: {
-         HStack(spacing: 4) {
-            RouteBadgePill(routeNumber: estimation.routeNumber)
-            DestinationText(destination: estimation.destination)
-            Spacer(minLength: 5)
-            TimeLeft(time: estimation.eta)
-         }
-      })
+      
+      if (estimation.busNumber != nil) {
+         Button(action: {
+            carrisNetworkController.select(vehicle: estimation.busNumber)
+            // mapController.moveMap(to:)
+            appstate.present(sheet: .carris_vehicleDetails)
+         }, label: {
+            estimationLine
+         })
+      } else {
+         estimationLine
+      }
    }
 }
 

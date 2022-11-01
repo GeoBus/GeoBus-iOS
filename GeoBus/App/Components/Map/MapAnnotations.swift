@@ -33,8 +33,8 @@ struct CarrisStopAnnotationView: View {
    
    public let stop: CarrisNetworkModel.Stop
    
-   @ObservedObject var appstate = Appstate.shared
-   @ObservedObject var carrisNetworkController = CarrisNetworkController.shared
+   @ObservedObject private var appstate = Appstate.shared
+   @ObservedObject private var carrisNetworkController = CarrisNetworkController.shared
    
    
    var body: some View {
@@ -55,28 +55,28 @@ struct CarrisConnectionAnnotationView: View {
    
    public let connection: CarrisNetworkModel.Connection
    
-   @ObservedObject var appstate = Appstate.shared
-   @ObservedObject var carrisNetworkController = CarrisNetworkController.shared
+   @ObservedObject private var appstate = Appstate.shared
+   @ObservedObject private var carrisNetworkController = CarrisNetworkController.shared
    
+   
+   //   var body: some View {
+   //      EmptyView()
+   //   }
    
    var body: some View {
-      EmptyView()
+      Button(action: {
+         TapticEngine.impact.feedback(.light)
+         carrisNetworkController.select(connection: self.connection)
+         appstate.present(sheet: .carris_connectionDetails)
+      }) {
+         StopIcon(
+            orderInRoute: self.connection.orderInRoute,
+            direction: self.connection.direction,
+            isSelected: carrisNetworkController.activeConnection == self.connection
+         )
+      }
+      .frame(width: 40, height: 40, alignment: .center)
    }
-   
-//   var body: some View {
-//      Button(action: {
-//         TapticEngine.impact.feedback(.light)
-//         carrisNetworkController.select(connection: self.connection)
-//         appstate.present(sheet: .carris_connectionDetails)
-//      }) {
-//         StopIcon(
-//            orderInRoute: self.connection.orderInRoute,
-//            direction: self.connection.direction,
-//            isSelected: carrisNetworkController.activeConnection == self.connection
-//         )
-//      }
-//      .frame(width: 40, height: 40, alignment: .center)
-//   }
    
 }
 
@@ -88,8 +88,8 @@ struct CarrisVehicleAnnotationView: View {
    
    let vehicle: CarrisNetworkModel.Vehicle
    
-   @ObservedObject var appstate = Appstate.shared
-   @ObservedObject var carrisNetworkController = CarrisNetworkController.shared
+   @ObservedObject private var appstate = Appstate.shared
+   @ObservedObject private var carrisNetworkController = CarrisNetworkController.shared
    
    
    var body: some View {
@@ -104,11 +104,6 @@ struct CarrisVehicleAnnotationView: View {
                   Image("Tram")
                case .neighborhood, .night, .regular, .none:
                   Image("RegularService")
-                  Text(verbatim: String(vehicle.id))
-                     .font(Font.system(size: 10, weight: .bold, design: .monospaced))
-                     .tracking(1)
-                     .foregroundColor(.white)
-                     .padding(.leading, 12)
             }
          }
       }

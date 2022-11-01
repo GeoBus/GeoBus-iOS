@@ -12,8 +12,8 @@ import MapKit
 
 struct MapView: View {
 
-   @ObservedObject var mapController = MapController.shared
-   @ObservedObject var carrisNetworkController = CarrisNetworkController.shared
+   @ObservedObject private var mapController = MapController.shared
+   @ObservedObject private var carrisNetworkController = CarrisNetworkController.shared
 
 
    var body: some View {

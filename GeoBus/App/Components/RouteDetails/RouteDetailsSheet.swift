@@ -10,8 +10,8 @@ import SwiftUI
 
 struct RouteDetailsSheet: View {
    
-   @EnvironmentObject var appstate: Appstate
-   @EnvironmentObject var carrisNetworkController: CarrisNetworkController
+   @ObservedObject private var appstate = Appstate.shared
+   @ObservedObject private var carrisNetworkController = CarrisNetworkController.shared
    
    @State var routeDirection: Int = 0
    @State var routeDirectionPicker: Int = 0

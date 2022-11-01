@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AboutGeoBus: View {
 
-   @EnvironmentObject var carrisNetworkController: CarrisNetworkController
+   @ObservedObject private var carrisNetworkController = CarrisNetworkController.shared
 
    @State private var showInfoSheet: Bool = false
 

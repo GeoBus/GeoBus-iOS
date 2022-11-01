@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ContentView: View {
    
-   @ObservedObject var appstate = Appstate.shared
+   @ObservedObject private var appstate = Appstate.shared
    
    var body: some View {
       VStack(spacing: 0) {

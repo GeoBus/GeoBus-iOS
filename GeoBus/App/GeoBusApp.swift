@@ -5,19 +5,16 @@ import SwiftUI
 @main
 struct GeoBusApp: App {
    
-   @StateObject private var appstate = Appstate.shared
-   @StateObject private var mapController = MapController.shared
-   @StateObject private var carrisNetworkController = CarrisNetworkController.shared
-   // @StateObject private var tcbNetworkController = TCBNetworkController.shared
+   @ObservedObject private var appstate = Appstate.shared
+   @ObservedObject private var mapController = MapController.shared
+   @ObservedObject private var carrisNetworkController = CarrisNetworkController.shared
+   // @ObservedObject private var tcbNetworkController = TCBNetworkController.shared
    
    private let updateIntervalTimer = Timer.publish(every: 20 /* seconds */, on: .main, in: .common).autoconnect()
    
    var body: some Scene {
       WindowGroup {
          ContentView()
-            .environmentObject(appstate)
-            .environmentObject(mapController)
-            .environmentObject(carrisNetworkController)
             .onAppear(perform: {
                Analytics.shared.capture(event: .App_Session_Start)
             })

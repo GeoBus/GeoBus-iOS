@@ -14,8 +14,8 @@ struct TimeLeft: View {
    private let countdownUnits: NSCalendar.Unit
    private let countdownTimer = Timer.publish(every: 1 /* seconds */, on: .main, in: .common).autoconnect()
    
-   @State private var countdownValue: Int = 0
-   @State private var countdownString: String = ""
+   @State private var countdownValue: Double = 0
+   @State private var countdownString: String?
    
    
    init(time: String?, units: NSCalendar.Unit = [.hour, .minute]) {
@@ -24,54 +24,62 @@ struct TimeLeft: View {
    }
    
    
-   func setCountdownString(_ value: Any) {
+   func setCountdownString(_ value: Any?) {
       if (timeString != nil) {
-         self.countdownValue = Helpers.getLastSeenTime(since: self.timeString!)
-         print("countdownValue: \(countdownValue)")
-         self.countdownString = Helpers.getTimeString(for: self.timeString!, in: .future, style: .short, units: self.countdownUnits)
+         self.countdownValue = Helpers.getTimeInterval(for: self.timeString!, in: .future)
+         self.countdownString = Helpers.getTimeString(for: self.timeString!, in: .future, style: .short, units: self.countdownUnits, alwaysPositive: true)
       }
    }
    
    
-   var loading: some View {
-      HStack(spacing: 3) {
-         ProgressView()
-            .scaleEffect(0.55)
-      }
-   }
-   
-   var content: some View {
+   var positiveTime: some View {
       HStack(spacing: 5) {
          Image(systemName: "plusminus")
             .font(.footnote)
             .foregroundColor(Color(.tertiaryLabel))
-         Text(self.countdownString)
+         Text(self.countdownString!)
             .font(.body)
             .fontWeight(.medium)
             .foregroundColor(Color(.label))
-            .onChange(of: timeString, perform: setCountdownString)
-            .onReceive(countdownTimer, perform: setCountdownString)
       }
    }
    
-   var icon: some View {
-      Image(systemName: "figure.walk.arrival")
-         .font(.body)
-         .fontWeight(.medium)
-         .foregroundColor(Color(.systemBlue))
+   
+   var negativeTime: some View {
+      HStack(spacing: 5) {
+         Image(systemName: "lessthan")
+            .font(.footnote)
+            .foregroundColor(Color(.tertiaryLabel))
+         Text(self.countdownString!)
+            .font(.body)
+            .fontWeight(.medium)
+            .foregroundColor(Color(.label))
+      }
+   }
+   
+   
+   var invalidValue: some View {
+      Image(systemName: "circle.dashed")
+         .font(Font.system(size: 15, weight: .medium))
+         .foregroundColor(Color(.secondaryLabel))
    }
    
    
    var body: some View {
-      if (timeString != nil) {
-         if (countdownValue < 0) {
-            icon
+      VStack {
+         if (countdownString != nil) {
+            if (countdownValue > 0) {
+               positiveTime
+            } else {
+               negativeTime
+            }
          } else {
-            content
+            invalidValue
          }
-      } else {
-         loading
       }
+      .onAppear() { setCountdownString(nil) }
+      .onChange(of: timeString, perform: setCountdownString)
+      .onReceive(countdownTimer, perform: setCountdownString)
    }
    
 }

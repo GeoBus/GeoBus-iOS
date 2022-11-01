@@ -9,7 +9,7 @@ import SwiftUI
 
 struct StopSearch: View {
 
-   @ObservedObject var appstate = Appstate.shared
+   @ObservedObject private var appstate = Appstate.shared
 
    var body: some View {
       SquareButton(icon: "mail.and.text.magnifyingglass", size: 26)

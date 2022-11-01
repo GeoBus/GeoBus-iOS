@@ -11,22 +11,26 @@ import Combine
 
 struct CarrisVehicleSheetView: View {
    
-   @ObservedObject var appstate = Appstate.shared
-   @ObservedObject var carrisNetworkController = CarrisNetworkController.shared
+   @ObservedObject private var appstate = Appstate.shared
+   @ObservedObject private var carrisNetworkController = CarrisNetworkController.shared
    
    
    var body: some View {
-      if (appstate.vehicles == .error) {
-         SheetErrorScreen()
-      } else {
-         VStack(spacing: 0) {
+      VStack(spacing: 0) {
+         if (appstate.vehicles == .error) {
+            SheetErrorScreen()
+         } else {
             CarrisVehicleSheetHeader(vehicle: carrisNetworkController.activeVehicle)
             ScrollView {
                VStack(alignment: .leading, spacing: 15) {
                   CarrisVehicleLastSeenTime(vehicle: carrisNetworkController.activeVehicle)
-                  CarrisVehicleNextStop(vehicle: carrisNetworkController.activeVehicle)
-                  CarrisVehicleRouteOverview(vehicle: carrisNetworkController.activeVehicle)
-                  Disclaimer()
+                  if (carrisNetworkController.communityDataProviderStatus) {
+                     // CarrisVehicleNextStop(vehicle: carrisNetworkController.activeVehicle)
+                     CarrisVehicleRouteOverview(vehicle: carrisNetworkController.activeVehicle)
+                     Disclaimer()
+                  } else {
+                     DataProvidersCard()
+                  }
                }
                .padding()
             }
@@ -103,23 +107,28 @@ struct CarrisVehicleNextStop: View {
    
    let vehicle: CarrisNetworkModel.Vehicle?
    
-   @ObservedObject var appstate = Appstate.shared
-   @ObservedObject var carrisNetworkController = CarrisNetworkController.shared
+   @ObservedObject private var appstate = Appstate.shared
+   @ObservedObject private var carrisNetworkController = CarrisNetworkController.shared
    
    
    @State var nextStopIndex: Int = 0
    
    
    func setNextStop(_ value: Any) {
-      if (vehicle?.routeEstimates != nil) {
-         if let lastStop = vehicle!.routeEstimates!.lastIndex(where: {
+      if (vehicle?.routeOverview != nil) {
+         if let previousStop = vehicle!.routeOverview!.lastIndex(where: {
             $0.hasArrived ?? false
          }) {
-            nextStopIndex = lastStop + 1
+            nextStopIndex = previousStop + 1
          } else {
             nextStopIndex = 10
          }
       }
+   }
+   
+   
+   var placeholder: some View {
+      EmptyView()
    }
    
    
@@ -138,33 +147,39 @@ struct CarrisVehicleNextStop: View {
          .padding(.horizontal)
          Divider()
          Button(action: {
-            _ = carrisNetworkController.select(stop: vehicle!.routeEstimates![nextStopIndex].stopId)
+            _ = carrisNetworkController.select(stop: vehicle!.routeOverview![nextStopIndex].stopId)
             appstate.present(sheet: .carris_stopDetails)
          }, label: {
             HStack(alignment: .center, spacing: 10) {
                StopIcon(orderInRoute: nextStopIndex + 1, style: .standard)
-               Text(carrisNetworkController.find(stop: (vehicle!.routeEstimates![nextStopIndex].stopId))?.name ?? "")
+               Text(carrisNetworkController.find(stop: (vehicle!.routeOverview![nextStopIndex].stopId))?.name ?? "")
                   .font(Font.system(size: 17, weight: .medium))
                   .lineLimit(1)
                   .foregroundColor(Color(.label))
                Spacer(minLength: 5)
-               TimeLeft(time: vehicle?.routeEstimates![nextStopIndex].eta)
+               TimeLeft(time: vehicle?.routeOverview![nextStopIndex].eta)
             }
             .onChange(of: vehicle, perform: setNextStop(_:))
             .padding()
          })
       }
       .frame(maxWidth: .infinity)
-      .background(Color(.secondaryLabel).opacity(0.1))
+      .background(Color(.systemBlue).opacity(0.05))
       .cornerRadius(10)
+      .overlay(
+         RoundedRectangle(cornerRadius: 10)
+            .stroke(Color(.systemBlue).opacity(1), lineWidth: 2)
+      )
    }
    
    
    var body: some View {
-      if (vehicle?.routeEstimates != nil && nextStopIndex < vehicle!.routeEstimates!.count && vehicle?.routeEstimates?[nextStopIndex] != nil) {
-         actualContent
+      if (vehicle?.routeOverview != nil) {
+         if (nextStopIndex < vehicle!.routeOverview!.count && vehicle?.routeOverview?[nextStopIndex] != nil) {
+            actualContent
+         }
       } else {
-         EmptyView()
+         placeholder
       }
    }
    
@@ -231,43 +246,125 @@ struct CarrisVehicleRouteOverview: View {
    @ObservedObject var carrisNetworkController = CarrisNetworkController.shared
    
    
-   var body: some View {
+   func findNextStop() -> Int? {
+      if (vehicle?.routeOverview != nil) {
+         
+         if let previousStop = vehicle!.routeOverview!.lastIndex(where: {
+            $0.hasArrived ?? false
+         }) {
+            if (previousStop + 1 < vehicle!.routeOverview!.count) {
+               let nextStop = vehicle!.routeOverview![previousStop + 1]
+               return nextStop.stopId
+            }
+         }
+         
+      }
+      return nil
+   }
+   
+   
+   
+   
+   
+   var content: some View {
       VStack(alignment: .leading, spacing: 0) {
-         if (vehicle?.routeEstimates != nil) {
-            ForEach(Array(vehicle!.routeEstimates!.enumerated()), id: \.offset) { index, element in
+         if (vehicle?.routeOverview != nil) {
+            
+            ForEach(Array(vehicle!.routeOverview!.enumerated()), id: \.offset) { index, element in
                VStack(alignment: .leading, spacing: 0) {
-                  if (index > 0) {
-                     Rectangle()
-                        .frame(width: 5, height: 25)
-                        .foregroundColor(element.hasArrived ?? false ? Color("StopMutedBackground") : .blue)
-                        .padding(.horizontal, 10)
-                  }
-                  Button(action: {
-                     _ = carrisNetworkController.select(stop: element.stopId)
-                     appstate.present(sheet: .carris_stopDetails)
-                  }, label: {
+                  
+                  if (element.hasArrived ?? false) {
+                     
+                     if (index > 0) {
+                        Rectangle()
+                           .frame(width: 3, height: 30)
+                           .foregroundColor(Color("StopMutedBackground"))
+                           .padding(.horizontal, 11)
+                     }
+
                      HStack(alignment: .center, spacing: 10) {
-                        StopIcon(orderInRoute: index+1, style: element.hasArrived ?? false ? .muted : .standard)
+                        StopIcon(orderInRoute: index+1, style: .muted)
                         Text(carrisNetworkController.find(stop: element.stopId)?.name ?? "")
                            .font(Font.system(size: 17, weight: .medium))
                            .lineLimit(1)
                            .foregroundColor(element.hasArrived ?? false ? Color("StopMutedText") : .black)
                         Spacer(minLength: 5)
-                        if (element.hasArrived ?? false) {
-                           Text("já passou")
-                        } else {
-                           TimeLeft(time: element.eta)
-                        }
+                        Image(systemName: "checkmark.circle")
+                           .font(Font.system(size: 15, weight: .medium))
+                           .foregroundColor(Color("StopMutedText"))
                      }
-                  })
+
+                  } else if (findNextStop() == element.stopId) {
+                     
+                     VStack(spacing: 0) {
+                        Rectangle()
+                           .frame(width: 3, height: 30)
+                           .foregroundColor(Color("StopMutedBackground"))
+                           .padding(.horizontal, 11)
+                        Image(systemName: "arrowtriangle.down.circle.fill")
+                           .font(Font.system(size: 15, weight: .medium))
+                           .foregroundColor(Color(.systemBlue))
+                           .padding(.vertical, -2)
+                        Rectangle()
+                           .frame(width: 5, height: 30)
+                           .foregroundColor(Color(.systemBlue))
+                           .padding(.horizontal, 10)
+                     }
+                     
+                     HStack(alignment: .center, spacing: 10) {
+                        StopIcon(orderInRoute: index+1, style: .standard)
+                        Text(carrisNetworkController.find(stop: element.stopId)?.name ?? "")
+                           .font(Font.system(size: 17, weight: .medium))
+                           .lineLimit(1)
+                           .foregroundColor(Color(.label))
+                        Spacer(minLength: 5)
+                        TimeLeft(time: element.eta)
+                     }
+                     
+                  } else {
+                     
+                     if (index > 0) {
+                        Rectangle()
+                           .frame(width: 5, height: 30)
+                           .foregroundColor(Color(.systemBlue))
+                           .padding(.horizontal, 10)
+                     }
+
+                     HStack(alignment: .center, spacing: 10) {
+                        StopIcon(orderInRoute: index+1, style: .standard)
+                        Text(carrisNetworkController.find(stop: element.stopId)?.name ?? "")
+                           .font(Font.system(size: 17, weight: .medium))
+                           .lineLimit(1)
+                           .foregroundColor(Color(.label))
+                        Spacer(minLength: 5)
+                        TimeLeft(time: element.eta)
+                     }
+
+                  }
+                  
+                  
+                  
                }
             }
+            
+            
          } else {
             Text("Is nil, loading?")
          }
       }
+      .padding()
+      .frame(maxWidth: .infinity)
+      .background(Color(.secondaryLabel).opacity(0.1))
+      .cornerRadius(10)
    }
    
    
    
+   var body: some View {
+      content
+   }
+   
+   
 }
+
+

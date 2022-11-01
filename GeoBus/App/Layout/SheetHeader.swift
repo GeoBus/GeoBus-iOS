@@ -10,7 +10,7 @@ import SwiftUI
 
 struct SheetHeader: View {
    
-   @EnvironmentObject var appstate: Appstate
+   @ObservedObject private var appstate = Appstate.shared
    
    let title: Text
    

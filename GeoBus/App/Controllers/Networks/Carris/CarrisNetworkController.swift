@@ -193,10 +193,10 @@ class CarrisNetworkController: ObservableObject {
          await self.fetchVehiclesListFromCarrisAPI()
          
          // DEBUG !
-         if (self.activeVehicle == nil) {
-            self.select(vehicle: self.allVehicles[0].id)
-            Appstate.shared.present(sheet: .carris_vehicleDetails)
-         }
+//         if (self.activeVehicle == nil) {
+//            self.select(vehicle: self.allVehicles[0].id)
+//            Appstate.shared.present(sheet: .carris_vehicleDetails)
+//         }
          // ! DEBUG
          
          // If there is an active vehicle, also refresh it's details
@@ -219,10 +219,11 @@ class CarrisNetworkController: ObservableObject {
    /* Call this function to switch Community Data ON or OFF. */
    /* This switches in memory for the current session, and stores the new setting in storage. */
    
-   public func toggleCommunityDataProviderTo(to newStatus: Bool) {
+   public func toggleCommunityDataProviderStatus(to newStatus: Bool) {
       self.communityDataProviderStatus = newStatus
       UserDefaults.standard.set(newStatus, forKey: storageKeyForCommunityDataProviderStatus)
       print("GeoBus: Carris API: ‹toggleCommunityDataProviderTo()› Community Data switched \(newStatus ? "ON" : "OFF")")
+      self.refresh()
    }
    
    
@@ -686,6 +687,10 @@ class CarrisNetworkController: ObservableObject {
          return nil
       }
       
+      if (variant >= requestedRouteObject.variants.count) {
+         return nil
+      }
+      
       let requestedVariantObject = requestedRouteObject.variants[variant]
       
       switch direction {
@@ -1011,15 +1016,15 @@ class CarrisNetworkController: ObservableObject {
          
          if (decodedCarrisCommunityAPIVehicleDetail[0].estimatedRouteResults != nil) {
             
-            var tempRouteEstimates: [CarrisNetworkModel.Estimation] = []
+            var tempRouteOverview: [CarrisNetworkModel.Estimation] = []
             
             for routeResult in decodedCarrisCommunityAPIVehicleDetail[0].estimatedRouteResults! {
-               tempRouteEstimates.append(
+               tempRouteOverview.append(
                   CarrisNetworkModel.Estimation(
                      stopId: Int(routeResult.estimatedRouteStopId ?? "-1") ?? -1,
                      routeNumber: "",
                      destination: "",
-                     eta: routeResult.estimatedTimeofArrivalCorrected ?? "",
+                     eta: routeResult.estimatedTimeofArrivalCorrected,
                      hasArrived: routeResult.estimatedPreviouslyArrived
                   )
                )
@@ -1030,7 +1035,7 @@ class CarrisNetworkController: ObservableObject {
             })
             
             if (indexOfVehicleInArray != nil) {
-               allVehicles[indexOfVehicleInArray!].routeEstimates = tempRouteEstimates
+               allVehicles[indexOfVehicleInArray!].routeOverview = tempRouteOverview
                allVehicles[indexOfVehicleInArray!].hasLoadedCommunityDetails = true
             }
             

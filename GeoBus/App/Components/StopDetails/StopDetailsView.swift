@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ConnectionSheetView: View {
    
-   @ObservedObject var carrisNetworkController = CarrisNetworkController.shared
+   @ObservedObject private var carrisNetworkController = CarrisNetworkController.shared
    
    var body: some View {
       ScrollView {
@@ -29,7 +29,7 @@ struct ConnectionSheetView: View {
 
 struct StopSheetView: View {
    
-   @ObservedObject var carrisNetworkController = CarrisNetworkController.shared
+   @ObservedObject private var carrisNetworkController = CarrisNetworkController.shared
    
    var body: some View {
       ScrollView {

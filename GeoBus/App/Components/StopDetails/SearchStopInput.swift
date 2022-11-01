@@ -10,8 +10,8 @@ import SwiftUI
 
 struct SearchStopInput: View {
 
-   @EnvironmentObject var appstate: Appstate
-   @EnvironmentObject var carrisNetworkController: CarrisNetworkController
+   @ObservedObject private var appstate = Appstate.shared
+   @ObservedObject private var carrisNetworkController = CarrisNetworkController.shared
 
    @FocusState private var stopIdInputIsFocused: Bool
 

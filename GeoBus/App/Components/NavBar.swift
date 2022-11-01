@@ -10,8 +10,8 @@ import Combine
 
 struct NavBar: View {
    
-   @EnvironmentObject var appstate: Appstate
-   @EnvironmentObject var carrisNetworkController: CarrisNetworkController
+   @ObservedObject private var appstate = Appstate.shared
+   @ObservedObject private var carrisNetworkController = CarrisNetworkController.shared
    
    @State var showSelectRouteSheet: Bool = false
    @State var showRouteDetailsSheet: Bool = false

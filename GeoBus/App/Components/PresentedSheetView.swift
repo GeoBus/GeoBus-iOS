@@ -9,8 +9,8 @@ import SwiftUI
 
 struct PresentedSheetView: View {
    
-   @ObservedObject var appstate = Appstate.shared
-   @ObservedObject var carrisNetworkController = CarrisNetworkController.shared
+   @ObservedObject private var appstate = Appstate.shared
+   @ObservedObject private var carrisNetworkController = CarrisNetworkController.shared
    
    var body: some View {
       switch appstate.currentlyPresentedSheetView {
