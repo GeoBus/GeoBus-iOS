@@ -24,16 +24,26 @@ struct Chip: View {
       self.showContent = showContent
    }
    
-   
    var actualContent: some View {
-      HStack(alignment: .center) {
-         icon
-         text
-         Spacer()
+      VStack(alignment: .leading, spacing: 0) {
+         
+         HStack(alignment: .center) {
+            icon
+            text
+            Spacer()
+         }
+         .font(Font.system(size: 15, weight: .medium))
+         .padding()
+         .foregroundColor(color)
+         
+//         if (customContent != nil) {
+//            Divider()
+//            customContent!()
+//               .padding()
+//         }
+         
       }
-      .font(Font.system(size: 15, weight: .medium))
       .padding()
-      .foregroundColor(color)
       .frame(maxWidth: .infinity)
       .background(color.opacity(0.1))
       .cornerRadius(10)

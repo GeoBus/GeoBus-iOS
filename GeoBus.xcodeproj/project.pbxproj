@@ -187,8 +187,8 @@
 			isa = PBXGroup;
 			children = (
 				CF181FE728CCB7D600248F72 /* ContentView.swift */,
-				CF47FCB429035D8300AE33B0 /* PresentedSheetView.swift */,
 				CF05F61928CD09A000B4AD58 /* NavBar.swift */,
+				CF47FCB429035D8300AE33B0 /* PresentedSheetView.swift */,
 				CF18208828CCBD4600248F72 /* Map */,
 				CF05F62528CD60BD00B4AD58 /* SelectRoute */,
 				CF05F61828CD097700B4AD58 /* RouteDetails */,
