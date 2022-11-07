@@ -32,6 +32,8 @@ struct MapView: View {
                   CarrisConnectionAnnotationView(connection: item)
                case .carris_vehicle(let item):
                   CarrisVehicleAnnotationView(vehicle: item)
+               case .ministop(let item):
+                  CarrisMiniStopAnnotationView(stop: item)
             }
          }
 
@@ -53,6 +55,18 @@ struct MapView: View {
 //      }
       .onChange(of: carrisNetworkController.activeVehicles) { newVehiclesList in
          self.mapController.updateAnnotations(with: newVehiclesList)
+      }
+//      .onAppear() {
+//         self.mapController.updateAnnotations(ministop: carrisNetworkController.allStops)
+//      }
+//      .onChange(of: carrisNetworkController.allStops) { allStops in
+//         self.mapController.updateAnnotations(ministop: allStops)
+//      }
+      .onChange(of: [mapController.region.center.latitude, mapController.region.center.longitude]) { _ in
+         self.mapController.updateAnnotations(newRegion: nil)
+      }
+      .onChange(of: [mapController.region.span.latitudeDelta, mapController.region.span.longitudeDelta]) { _ in
+         self.mapController.updateAnnotations(newRegion: nil)
       }
       
    }

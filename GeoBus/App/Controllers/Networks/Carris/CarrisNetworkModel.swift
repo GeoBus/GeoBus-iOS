@@ -179,6 +179,7 @@ struct CarrisNetworkModel {
       var previousLatitude: Double?
       var previousLongitude: Double?
       var lastGpsTime: String?
+      var direction: Direction?
       
       // Carris API › Vehicle Details
       var vehiclePlate: String?

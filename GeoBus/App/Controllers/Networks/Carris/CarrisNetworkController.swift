@@ -161,6 +161,9 @@ class CarrisNetworkController: ObservableObject {
                UserDefaults.standard.removeObject(forKey: key)
             }
             
+            // Restore deleted stored values
+            UserDefaults.standard.set(communityDataProviderStatus, forKey: storageKeyForCommunityDataProviderStatus)
+            
             // Fetch the updated network from the API
             await fetchStopsFromCarrisAPI()
             await fetchRoutesFromCarrisAPI()
@@ -194,8 +197,15 @@ class CarrisNetworkController: ObservableObject {
          
          // DEBUG !
 //         if (self.activeVehicle == nil) {
-//            self.select(vehicle: self.allVehicles[0].id)
+//            self.select(vehicle: self.allVehicles[1].id)
 //            Appstate.shared.present(sheet: .carris_vehicleDetails)
+//         }
+         // ! DEBUG
+         
+         // DEBUG !
+//         if (self.activeRoute == nil) {
+//            _ = self.select(route: "758")
+//            // Appstate.shared.present(sheet: .carris_vehicleDetails)
 //         }
          // ! DEBUG
          
@@ -707,6 +717,18 @@ class CarrisNetworkController: ObservableObject {
    }
    
    
+   public func getDirectionFrom(string directionString: String?) -> CarrisNetworkModel.Direction? {
+      switch directionString {
+         case "ASC":
+            return .ascending
+         case "DESC":
+            return .descending
+         case "CIRC":
+            return .circular
+         default:
+            return nil
+      }
+   }
    
    
    
@@ -914,6 +936,7 @@ class CarrisNetworkController: ObservableObject {
                   allVehicles[indexOfVehicleInArray!].previousLatitude = vehicleSummary.previousLatitude ?? 0
                   allVehicles[indexOfVehicleInArray!].previousLongitude = vehicleSummary.previousLongitude ?? 0
                   allVehicles[indexOfVehicleInArray!].lastGpsTime = vehicleSummary.lastGpsTime ?? ""
+                  allVehicles[indexOfVehicleInArray!].direction = getDirectionFrom(string: vehicleSummary.direction)
                   
                } else {
                   self.allVehicles.append(
@@ -956,7 +979,7 @@ class CarrisNetworkController: ObservableObject {
    
    private func fetchVehicleDetailsFromCarrisAPI(for vehicleId: Int) async {
       
-      Appstate.shared.change(to: .loading, for: .vehicles)
+      Appstate.shared.change(to: .loading, for: .carris_vehicleDetails)
       
       print("GeoBus: Carris API: Vehicle Details: Starting update...")
       
@@ -983,10 +1006,10 @@ class CarrisNetworkController: ObservableObject {
          
          print("GeoBus: Carris API: Vehicle Details: Update complete!")
          
-         Appstate.shared.change(to: .idle, for: .vehicles)
+         Appstate.shared.change(to: .idle, for: .carris_vehicleDetails)
          
       } catch {
-         Appstate.shared.change(to: .error, for: .vehicles)
+         Appstate.shared.change(to: .error, for: .carris_vehicleDetails)
          print("GeoBus: Carris API: Vehicles Details: Error found while updating. More info: \(error)")
          return
       }
@@ -1002,7 +1025,7 @@ class CarrisNetworkController: ObservableObject {
    
    private func fetchVehicleDetailsFromCommunityAPI(for vehicleId: Int) async {
       
-      Appstate.shared.change(to: .loading, for: .vehicles)
+      Appstate.shared.change(to: .loading, for: .carris_vehicleDetails)
       
       print("GeoBus: Community API: Vehicle Details: Starting update...")
       
@@ -1030,6 +1053,7 @@ class CarrisNetworkController: ObservableObject {
                )
             }
             
+            
             let indexOfVehicleInArray = allVehicles.firstIndex(where: {
                $0.id == vehicleId
             })
@@ -1043,10 +1067,10 @@ class CarrisNetworkController: ObservableObject {
          
          print("GeoBus: Community API: Vehicle Details: Update complete!")
          
-         Appstate.shared.change(to: .idle, for: .vehicles)
+         Appstate.shared.change(to: .idle, for: .carris_vehicleDetails)
          
       } catch {
-         Appstate.shared.change(to: .error, for: .vehicles)
+         Appstate.shared.change(to: .error, for: .carris_vehicleDetails)
          print("GeoBus: Community API: Vehicles Details: Error found while updating. More info: \(error)")
          return
       }
@@ -1100,7 +1124,6 @@ class CarrisNetworkController: ObservableObject {
          let rawDataCarrisAPIEstimations = try await CarrisAPI.shared.request(for: "Estimations/busStop/\(stopId)/top/5")
          let decodedCarrisAPIEstimations = try JSONDecoder().decode([CarrisAPIModel.Estimation].self, from: rawDataCarrisAPIEstimations)
          
-         
          var tempFormattedEstimations: [CarrisNetworkModel.Estimation] = []
          
          
@@ -1112,7 +1135,7 @@ class CarrisNetworkController: ObservableObject {
                   routeNumber: apiEstimation.routeNumber,
                   destination: apiEstimation.destination,
                   eta: apiEstimation.time ?? "",
-                  busNumber: Int(apiEstimation.busNumber ?? "-1")
+                  busNumber: Int(apiEstimation.busNumber ?? "")
                )
             )
          }

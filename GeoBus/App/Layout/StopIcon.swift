@@ -10,15 +10,24 @@ import SwiftUI
 struct StopIcon: View {
    
    public let orderInRoute: Int?
-   public let direction: CarrisNetworkModel.Direction?
    public let style: Style
    public let isSelected: Bool
    
    init(orderInRoute: Int? = nil, direction: CarrisNetworkModel.Direction? = nil, style: Style = .standard, isSelected: Bool = false) {
       self.orderInRoute = orderInRoute
-      self.direction = direction
-      self.style = style
       self.isSelected = isSelected
+      
+      switch direction {
+         case .ascending:
+            self.style = .ascending
+         case .descending:
+            self.style = .descending
+         case .circular:
+            self.style = .circular
+         case .none:
+            self.style = style
+      }
+      
    }
    
    

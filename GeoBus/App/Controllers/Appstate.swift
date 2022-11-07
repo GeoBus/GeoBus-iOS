@@ -40,6 +40,7 @@ final class Appstate: ObservableObject {
       case routes
       case vehicles
       case estimations
+      case carris_vehicleDetails
    }
    
    
@@ -102,6 +103,8 @@ final class Appstate: ObservableObject {
    @Published var vehicles: State = .idle
    @Published var estimations: State = .idle
    
+   @Published var carris_vehicleDetails: State = .idle
+   
    @Published var sheetIsPresented: Bool = false
    @Published var currentlyPresentedSheetView: PresentableSheetView? = nil
    
@@ -126,6 +129,8 @@ final class Appstate: ObservableObject {
                self.vehicles = newState
             case .estimations:
                self.estimations = newState
+            case .carris_vehicleDetails:
+               self.carris_vehicleDetails = newState
          }
          // Change state of global module
          if (self.auth == .idle && self.vehicles == .idle) {

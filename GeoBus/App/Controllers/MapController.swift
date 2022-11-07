@@ -9,7 +9,7 @@ import Foundation
 import MapKit
 import SwiftUI
 
-//@MainActor
+@MainActor
 class MapController: ObservableObject {
    
    /* * */
@@ -33,7 +33,7 @@ class MapController: ObservableObject {
    @Published var showLocationNotAllowedAlert: Bool = false
    
    @Published var visibleAnnotations: [GenericMapAnnotation] = []
-   
+   @Published var allStopAnnotations: [GenericMapAnnotation] = []
    
    
    /* * */
@@ -144,7 +144,7 @@ class MapController: ObservableObject {
       
       visibleAnnotations.removeAll(where: {
          switch $0.item {
-            case .carris_stop(_), .carris_connection(_), .carris_vehicle(_):
+            case .carris_stop(_), .carris_connection(_), .carris_vehicle(_), .ministop(_):
                return true
          }
       })
@@ -175,7 +175,7 @@ class MapController: ObservableObject {
          switch $0.item {
             case .carris_connection(_), .carris_stop(_):
                return true
-            case .carris_vehicle(_):
+            case .carris_vehicle(_), .ministop(_):
                return false
          }
       })
@@ -236,7 +236,7 @@ class MapController: ObservableObject {
          switch $0.item {
             case .carris_vehicle(_), .carris_stop(_):
                return true
-            case .carris_connection(_):
+            case .carris_connection(_), .ministop(_):
                return false
          }
       })
@@ -279,7 +279,7 @@ class MapController: ObservableObject {
                } else {
                   return false
                }
-            case .carris_connection(_), .carris_stop(_):
+            case .carris_connection(_), .carris_stop(_), .ministop(_):
                return false
          }
          }) {
@@ -337,6 +337,107 @@ class MapController: ObservableObject {
 //         return false
 //      })
 //   }
+   
+   
+   
+   
+   
+   /* * */
+   /* MARK: - SECTION 8: UPDATE ANNOTATIONS WITH SELECTED CARRIS STOP */
+   /* Lorem ipsum dolor sit amet consectetur adipisicing elit. */
+   
+   func updateAnnotations(ministop: [CarrisNetworkModel.Stop]) {
+      
+      visibleAnnotations.removeAll(where: {
+         switch $0.item {
+            case .ministop(_):
+               return true
+            case .carris_vehicle(_), .carris_stop(_), .carris_connection(_):
+               return false
+         }
+      })
+      
+      var tempNewAnnotations: [GenericMapAnnotation] = []
+      
+      for stop in ministop {
+         tempNewAnnotations.append(
+            GenericMapAnnotation(
+               id: UUID(),
+               location: CLLocationCoordinate2D(latitude: stop.lat, longitude: stop.lng),
+               item: .ministop(stop)
+            )
+         )
+      }
+      
+      self.addAnnotations(tempNewAnnotations, zoom: true)
+      
+   }
+   
+   @ObservedObject var carrisNetworkController = CarrisNetworkController.shared
+   
+   
+   /* * */
+   /* MARK: - SECTION 8: UPDATE ANNOTATIONS WITH SELECTED CARRIS STOP */
+   /* Lorem ipsum dolor sit amet consectetur adipisicing elit. */
+   
+   func updateAnnotations(newRegion: MKCoordinateRegion?) {
+      
+      if (allStopAnnotations.isEmpty) {
+         for stop in carrisNetworkController.allStops {
+            allStopAnnotations.append(
+               GenericMapAnnotation(
+                  id: UUID(),
+                  location: CLLocationCoordinate2D(latitude: stop.lat, longitude: stop.lng),
+                  item: .ministop(stop)
+               )
+            )
+         }
+      }
+      
+      
+      if (region.span.latitudeDelta < 0.005 || region.span.longitudeDelta < 0.005) {
+         
+         let latTop = self.region.center.latitude + self.region.span.latitudeDelta
+         let latBottom = self.region.center.latitude - self.region.span.latitudeDelta
+         
+         let lngRight = self.region.center.longitude + self.region.span.longitudeDelta
+         let lngLeft = self.region.center.longitude - self.region.span.longitudeDelta
+         
+         
+         for annotation in allStopAnnotations {
+            
+            // Checks
+            let isBetweenLats = annotation.location.latitude > latBottom && annotation.location.latitude < latTop
+            let isBetweenLngs = annotation.location.longitude > lngLeft && annotation.location.longitude < lngRight
+            
+            if (isBetweenLats && isBetweenLngs) {
+               if visibleAnnotations.firstIndex(where: {
+                  $0.id == annotation.id
+               }) == nil {
+                  visibleAnnotations.append(annotation)
+               }
+            } else {
+               if let indexOfAnnotation = visibleAnnotations.firstIndex(where: {
+                  $0.id == annotation.id
+               }) {
+                  visibleAnnotations.remove(at: indexOfAnnotation)
+               }
+            }
+            
+         }
+         
+      } else {
+         visibleAnnotations.removeAll(where: {
+            switch $0.item {
+               case .ministop(_):
+                  return true;
+               case .carris_connection(_), .carris_stop(_), .carris_vehicle(_):
+                  return false;
+            }
+         })
+      }
+      
+   }
    
    
 }

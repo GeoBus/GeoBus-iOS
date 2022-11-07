@@ -7,21 +7,24 @@
 
 import SwiftUI
 
-struct Chip: View {
+struct Chip<CustomContent: View>: View {
    
    let icon: Image
    let text: Text
    let color: Color
    let showContent: Bool
    
+   let customContent: CustomContent
+   
    @State private var placeholderOpacity: Double = 1
    
    
-   init(icon: Image, text: Text, color: Color, showContent: Bool = true) {
+   init(icon: Image, text: Text, color: Color, showContent: Bool = true, customContent: () -> CustomContent = { EmptyView() }) {
       self.icon = icon
       self.text = text
       self.color = color
       self.showContent = showContent
+      self.customContent = customContent()
    }
    
    var actualContent: some View {
@@ -33,17 +36,16 @@ struct Chip: View {
             Spacer()
          }
          .font(Font.system(size: 15, weight: .medium))
-         .padding()
          .foregroundColor(color)
+         .padding()
          
-//         if (customContent != nil) {
-//            Divider()
-//            customContent!()
-//               .padding()
-//         }
+         if (type(of: customContent) != EmptyView.self) {
+            Divider()
+            customContent
+               .padding()
+         }
          
       }
-      .padding()
       .frame(maxWidth: .infinity)
       .background(color.opacity(0.1))
       .cornerRadius(10)

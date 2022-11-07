@@ -12,6 +12,18 @@ struct SheetErrorScreen: View {
    @ObservedObject private var carrisNetworkController = CarrisNetworkController.shared
    
    var body: some View {
+      Chip(
+         icon: Image(systemName: "exclamationmark.triangle.fill"),
+         text: Text("Error fetching data from server."),
+         color: Color(.systemOrange)
+      )
+   }
+   
+   
+   
+   
+   
+   var bodyAlt: some View {
       VStack(alignment: .center, spacing: 15) {
          Image(systemName: "exclamationmark.octagon.fill")
             .foregroundColor(Color(.systemRed))

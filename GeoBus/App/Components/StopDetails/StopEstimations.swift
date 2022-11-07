@@ -16,7 +16,7 @@ struct EstimationsContainer: View {
    
    @State var estimations: [CarrisNetworkModel.Estimation]?
    
-   let refreshTimer = Timer.publish(every: 60 /* seconds */, on: .main, in: .common).autoconnect()
+   let refreshTimer = Timer.publish(every: 30 /* seconds */, on: .main, in: .common).autoconnect()
    
    
    func getEstimationsFromController(_ value: Any?) {

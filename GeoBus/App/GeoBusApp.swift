@@ -5,8 +5,6 @@ import SwiftUI
 @main
 struct GeoBusApp: App {
    
-   @ObservedObject private var appstate = Appstate.shared
-   @ObservedObject private var mapController = MapController.shared
    @ObservedObject private var carrisNetworkController = CarrisNetworkController.shared
    // @ObservedObject private var tcbNetworkController = TCBNetworkController.shared
    
