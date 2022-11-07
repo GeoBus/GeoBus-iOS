@@ -1,13 +1,13 @@
-//
-//  MapController.swift
-//  GeoBus
-//
-//  Created by João de Vasconcelos on 16/09/2022.
-//
-
 import Foundation
 import MapKit
 import SwiftUI
+
+
+/* * */
+/* MARK: - MAP CONTROLLER */
+/* Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum lectus */
+/* non interdum imperdiet. In hendrerit ligula velit, ac porta augue volutpat id. */
+
 
 @MainActor
 final class MapController: ObservableObject {

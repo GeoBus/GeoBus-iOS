@@ -1,10 +1,3 @@
-//
-//  Routes.swift
-//  GeoBus
-//
-//  Created by João de Vasconcelos on 09/09/2022.
-//  Copyright © 2022 João de Vasconcelos. All rights reserved.
-//
 import Foundation
 import CoreLocation
 
@@ -15,6 +8,7 @@ import CoreLocation
 /* from which it is possible to retrieve information from routes and stops. */
 /* For this app, the goal is to simplify and build upon this network model */
 /* to prevent duplicated data and increase flexibility on updates to the views. */
+
 
 struct CarrisNetworkModel {
    

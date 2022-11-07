@@ -1,9 +1,11 @@
 import Foundation
 
+
 /* * */
 /* MARK: - CARRIS API DATA MODEL */
 /* Data model as provided by Carris API. */
 /* Schema is available at https://joaodcp.github.io/Carris-API */
+
 
 struct CarrisAPIModel {
    

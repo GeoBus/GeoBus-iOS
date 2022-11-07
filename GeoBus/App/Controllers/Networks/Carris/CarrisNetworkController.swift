@@ -8,6 +8,7 @@ import Combine
 /* allows for code reuse, less plumbing passing objects from one class to another and less */
 /* clutter overall. If the data is provided by Carris, it should be controlled by this class. */
 
+
 @MainActor
 class CarrisNetworkController: ObservableObject {
    

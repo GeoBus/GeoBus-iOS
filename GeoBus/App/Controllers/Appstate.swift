@@ -1,12 +1,5 @@
-//
-//  Appstate.swift
-//  GeoBus
-//
-//  Created by João de Vasconcelos on 11/09/2022.
-//
-
 import Foundation
-import SwiftUI
+
 
 /* * */
 /* MARK: - APPSTATE */

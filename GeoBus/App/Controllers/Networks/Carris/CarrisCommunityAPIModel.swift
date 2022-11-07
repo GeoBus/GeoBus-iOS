@@ -1,9 +1,11 @@
 import Foundation
 
+
 /* * */
 /* MARK: - CARRIS COMMUNITY API DATA MODEL */
 /* Data model as provided by Community API for Carris network. */
 /* Schema is available at https://github.com/ricardojorgerm/carril */
+
 
 struct CarrisCommunityAPIModel {
    

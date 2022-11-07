@@ -1,18 +1,10 @@
-//
-//  Appstate.swift
-//  GeoBus
-//
-//  Created by João de Vasconcelos on 11/09/2022.
-//
-
 import Foundation
-import SwiftUI
+
 
 /* * */
-/* MARK: - APPSTATE */
-/* Appstate is a 'global' class that all controller modules use to set the current state of the app. */
-/* This state is immediatly reflected on the UI to inform the user of any loading or error events. */
-/* Using Appstate increases consistency in UI code and prevents direct access to controllers. */
+/* MARK: - SHEET CONTROLLER */
+/* Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum lectus */
+/* non interdum imperdiet. In hendrerit ligula velit, ac porta augue volutpat id. */
 
 
 final class SheetController: ObservableObject {
