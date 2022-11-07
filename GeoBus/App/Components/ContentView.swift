@@ -10,8 +10,6 @@ import SwiftUI
 
 struct ContentView: View {
    
-   @ObservedObject private var appstate = Appstate.shared
-   
    var body: some View {
       VStack(spacing: 0) {
          ZStack(alignment: .topTrailing) {
@@ -27,9 +25,6 @@ struct ContentView: View {
          }
          NavBar()
             .edgesIgnoringSafeArea(.vertical)
-      }
-      .sheet(isPresented: $appstate.sheetIsPresented) {
-         PresentedSheetView()
       }
    }
    

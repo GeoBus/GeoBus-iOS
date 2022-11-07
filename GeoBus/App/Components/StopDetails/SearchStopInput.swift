@@ -11,6 +11,7 @@ import SwiftUI
 struct SearchStopInput: View {
 
    @ObservedObject private var appstate = Appstate.shared
+   @ObservedObject private var sheetController = SheetController.shared
    @ObservedObject private var carrisNetworkController = CarrisNetworkController.shared
 
    @FocusState private var stopIdInputIsFocused: Bool
@@ -43,7 +44,7 @@ struct SearchStopInput: View {
                let success = self.carrisNetworkController.select(stop: Int(self.stopPublicId.uppercased()) ?? -1)
                if success {
                   Analytics.shared.capture(event: .Stops_Select_FromTextInput, properties: ["stopPublicId": self.stopPublicId.uppercased()])
-                  appstate.present(sheet: .carris_stopDetails)
+                  sheetController.present(sheet: .carris_stopDetails)
                } else {
                   self.showErrorLabel = true
                }

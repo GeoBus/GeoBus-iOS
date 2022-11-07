@@ -34,7 +34,7 @@ struct CarrisStopAnnotationView: View {
    
    public let stop: CarrisNetworkModel.Stop
    
-   @ObservedObject private var appstate = Appstate.shared
+   @ObservedObject private var sheetController = SheetController.shared
    @ObservedObject private var carrisNetworkController = CarrisNetworkController.shared
    
    
@@ -42,7 +42,7 @@ struct CarrisStopAnnotationView: View {
       Button(action: {
          TapticEngine.impact.feedback(.light)
          carrisNetworkController.select(stop: self.stop)
-         appstate.present(sheet: .carris_stopDetails)
+         sheetController.present(sheet: .carris_stopDetails)
       }) {
          StopIcon(isSelected: carrisNetworkController.activeStop?.id == self.stop.id)
       }
@@ -56,7 +56,7 @@ struct CarrisConnectionAnnotationView: View {
    
    public let connection: CarrisNetworkModel.Connection
    
-   @ObservedObject private var appstate = Appstate.shared
+   @ObservedObject private var sheetController = SheetController.shared
    @ObservedObject private var carrisNetworkController = CarrisNetworkController.shared
    
    
@@ -68,7 +68,7 @@ struct CarrisConnectionAnnotationView: View {
       Button(action: {
          TapticEngine.impact.feedback(.light)
          carrisNetworkController.select(connection: self.connection)
-         appstate.present(sheet: .carris_connectionDetails)
+         sheetController.present(sheet: .carris_connectionDetails)
       }) {
          StopIcon(
             orderInRoute: self.connection.orderInRoute,
@@ -89,7 +89,7 @@ struct CarrisVehicleAnnotationView: View {
    
    let vehicle: CarrisNetworkModel.Vehicle
    
-   @ObservedObject private var appstate = Appstate.shared
+   @ObservedObject private var sheetController = SheetController.shared
    @ObservedObject private var carrisNetworkController = CarrisNetworkController.shared
    
    
@@ -102,7 +102,7 @@ struct CarrisVehicleAnnotationView: View {
       Button(action: {
          TapticEngine.impact.feedback(.light)
          carrisNetworkController.select(vehicle: vehicle.id)
-         appstate.present(sheet: .carris_vehicleDetails)
+         sheetController.present(sheet: .carris_vehicleDetails)
       }) {
          ZStack(alignment: .init(horizontal: .leading, vertical: .center)) {
             switch (vehicle.kind) {
@@ -128,7 +128,7 @@ struct CarrisMiniStopAnnotationView: View {
    
    public let stop: CarrisNetworkModel.Stop
    
-   @ObservedObject private var appstate = Appstate.shared
+   @ObservedObject private var sheetController = SheetController.shared
    @ObservedObject private var mapController = MapController.shared
    @ObservedObject private var carrisNetworkController = CarrisNetworkController.shared
    
@@ -137,7 +137,7 @@ struct CarrisMiniStopAnnotationView: View {
       Button(action: {
          TapticEngine.impact.feedback(.light)
          carrisNetworkController.select(stop: self.stop)
-         appstate.present(sheet: .carris_stopDetails)
+         sheetController.present(sheet: .carris_stopDetails)
       }) {
          Circle()
             .foregroundColor(.blue)

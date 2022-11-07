@@ -9,13 +9,13 @@ import SwiftUI
 
 struct StopSearch: View {
 
-   @ObservedObject private var appstate = Appstate.shared
+   @ObservedObject private var sheetController = SheetController.shared
 
    var body: some View {
       SquareButton(icon: "mail.and.text.magnifyingglass", size: 26)
          .onTapGesture() {
             TapticEngine.impact.feedback(.medium)
-            appstate.present(sheet: .carris_stopSelector)
+            sheetController.present(sheet: .carris_stopSelector)
          }
    }
 }

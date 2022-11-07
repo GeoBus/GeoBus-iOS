@@ -10,7 +10,7 @@ import SwiftUI
 
 struct SheetHeader: View {
    
-   @ObservedObject private var appstate = Appstate.shared
+   @ObservedObject private var sheetController = SheetController.shared
    
    let title: Text
    
@@ -18,7 +18,9 @@ struct SheetHeader: View {
       VStack {
          HStack {
             Spacer()
-            Button(action: { appstate.unpresent() }) {
+            Button(action: {
+               sheetController.dismiss()
+            }) {
                Text("Close")
                   .fontWeight(.bold)
             }

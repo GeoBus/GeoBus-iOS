@@ -135,7 +135,7 @@ struct EstimationContainer: View {
    
    let estimation: CarrisNetworkModel.Estimation
    
-   @ObservedObject private var appstate = Appstate.shared
+   @ObservedObject private var sheetController = SheetController.shared
    @ObservedObject private var mapController = MapController.shared
    @ObservedObject private var carrisNetworkController = CarrisNetworkController.shared
    
@@ -156,7 +156,7 @@ struct EstimationContainer: View {
          Button(action: {
             carrisNetworkController.select(vehicle: estimation.busNumber)
             // mapController.moveMap(to:)
-            appstate.present(sheet: .carris_vehicleDetails)
+            sheetController.present(sheet: .carris_vehicleDetails)
          }, label: {
             estimationLine
          })

@@ -10,7 +10,7 @@ import Combine
 
 struct NavBar: View {
    
-   @ObservedObject private var appstate = Appstate.shared
+   @ObservedObject private var sheetController = SheetController.shared
    @ObservedObject private var carrisNetworkController = CarrisNetworkController.shared
    
    @State var showSelectRouteSheet: Bool = false
@@ -21,7 +21,7 @@ struct NavBar: View {
    // Depending on the state, the button conveys different information.
    var routeSelector: some View {
       Button(action: {
-         appstate.present(sheet: .carris_RouteSelector)
+         sheetController.present(sheet: .carris_RouteSelector)
       }) {
          SelectRouteView()
       }
@@ -33,9 +33,9 @@ struct NavBar: View {
    var routeDetails: some View {
       Button(action: {
          if (carrisNetworkController.activeRoute != nil) {
-            appstate.present(sheet: .carris_RouteDetails)
+            sheetController.present(sheet: .carris_RouteDetails)
          } else {
-            appstate.present(sheet: .carris_RouteSelector)
+            sheetController.present(sheet: .carris_RouteSelector)
          }
       }) {
          RouteDetailsView()

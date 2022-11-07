@@ -10,7 +10,7 @@ import SwiftUI
 
 struct SetOfRoutes: View {
 
-   @ObservedObject private var appstate = Appstate.shared
+   @ObservedObject private var sheetController = SheetController.shared
    @ObservedObject private var carrisNetworkController = CarrisNetworkController.shared
 
    let title: Text
@@ -35,7 +35,7 @@ struct SetOfRoutes: View {
                Button(action: {
                   _ = self.carrisNetworkController.select(route: route.number)
                   Analytics.shared.capture(event: .Routes_Select_FromList, properties: ["routeNumber": route.number])
-                  appstate.unpresent()
+                  sheetController.dismiss()
                }){
                   RouteBadgeSquare(routeNumber: route.number)
                }

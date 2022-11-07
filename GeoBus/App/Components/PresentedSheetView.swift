@@ -9,11 +9,11 @@ import SwiftUI
 
 struct PresentedSheetView: View {
    
-   @ObservedObject private var appstate = Appstate.shared
+   @ObservedObject private var sheetController = SheetController.shared
    @ObservedObject private var carrisNetworkController = CarrisNetworkController.shared
    
    var body: some View {
-      switch appstate.currentlyPresentedSheetView {
+      switch sheetController.currentlyPresentedSheetView {
             
          case .carris_RouteSelector:
             SelectRouteSheet()

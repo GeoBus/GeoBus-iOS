@@ -10,7 +10,7 @@ import MapKit
 import SwiftUI
 
 @MainActor
-class MapController: ObservableObject {
+final class MapController: ObservableObject {
    
    /* * */
    /* MARK: - SECTION 1: SETTINGS */
