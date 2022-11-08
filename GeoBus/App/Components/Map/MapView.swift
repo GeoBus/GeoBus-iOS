@@ -26,11 +26,11 @@ struct MapView: View {
 
          MapAnnotation(coordinate: annotation.location) {
             switch (annotation.item) {
-               case .carris_stop(let item):
+               case .stop(let item):
                   StopAnnotationView(stop: item)
                case .carris_connection(let item):
                   CarrisConnectionAnnotationView(connection: item)
-               case .carris_vehicle(let item):
+               case .vehicle(let item):
                   CarrisVehicleAnnotationView(vehicle: item)
             }
          }

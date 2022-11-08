@@ -151,7 +151,7 @@ final class MapController: ObservableObject {
 //
 //      visibleAnnotations.removeAll(where: {
 //         switch $0.item {
-//            case .carris_stop(_), .carris_connection(_), .carris_vehicle(_:
+//            case .stop(_), .carris_connection(_), .vehicle(_:
 //               return true
 //         }
 //      })
@@ -162,7 +162,7 @@ final class MapController: ObservableObject {
 //         GenericMapAnnotation(
 //            id: UUID(),
 //            location: CLLocationCoordinate2D(latitude: activeStop.lat, longitude: activeStop.lng),
-//            item: .carris_stop(activeStop)
+//            item: .stop(activeStop)
 //         )
 //      )
 //
@@ -180,9 +180,9 @@ final class MapController: ObservableObject {
       
       visibleAnnotations.removeAll(where: {
          switch $0.item {
-            case .carris_connection(_), .carris_stop(_):
+            case .carris_connection(_), .stop(_):
                return true
-            case .carris_vehicle(_):
+            case .vehicle(_):
                return false
          }
       })
@@ -241,7 +241,7 @@ final class MapController: ObservableObject {
       
       visibleAnnotations.removeAll(where: {
          switch $0.item {
-            case .carris_vehicle(_), .carris_stop(_):
+            case .vehicle(_), .stop(_):
                return true
             case .carris_connection(_):
                return false
@@ -256,7 +256,7 @@ final class MapController: ObservableObject {
             GenericMapAnnotation(
                id: UUID(),
                location: vehicle.coordinate,
-               item: .carris_vehicle(vehicle)
+               item: .vehicle(vehicle)
             )
          )
       }
@@ -280,13 +280,13 @@ final class MapController: ObservableObject {
       
       if let activeVehicleAnnotation = visibleAnnotations.first(where: {
          switch $0.item {
-            case .carris_vehicle(let item):
+            case .vehicle(let item):
                if (item.id == activeVehicle.id) {
                   return true
                } else {
                   return false
                }
-            case .carris_connection(_), .carris_stop(_):
+            case .carris_connection(_), .stop(_):
                return false
          }
          }) {
@@ -301,7 +301,7 @@ final class MapController: ObservableObject {
             GenericMapAnnotation(
                id: UUID(),
                location: activeVehicle.coordinate,
-               item: .carris_vehicle(activeVehicle)
+               item: .vehicle(activeVehicle)
             )
          )
          
@@ -357,9 +357,9 @@ final class MapController: ObservableObject {
       
       visibleAnnotations.removeAll(where: {
          switch $0.item {
-            case .carris_stop(_):
+            case .stop(_):
                return true
-            case .carris_vehicle(_), .carris_connection(_):
+            case .vehicle(_), .carris_connection(_):
                return false
          }
       })
@@ -371,7 +371,7 @@ final class MapController: ObservableObject {
             GenericMapAnnotation(
                id: UUID(),
                location: CLLocationCoordinate2D(latitude: stop.lat, longitude: stop.lng),
-               item: .carris_stop(stop)
+               item: .stop(stop)
             )
          )
       }
@@ -395,7 +395,7 @@ final class MapController: ObservableObject {
                GenericMapAnnotation(
                   id: UUID(),
                   location: CLLocationCoordinate2D(latitude: stop.lat, longitude: stop.lng),
-                  item: .carris_stop(stop)
+                  item: .stop(stop)
                )
             )
          }
@@ -436,9 +436,9 @@ final class MapController: ObservableObject {
       } else {
          visibleAnnotations.removeAll(where: {
             switch $0.item {
-               case .carris_stop(_):
+               case .stop(_):
                   return true;
-               case .carris_connection(_), .carris_vehicle(_):
+               case .carris_connection(_), .vehicle(_):
                   return false;
             }
          })

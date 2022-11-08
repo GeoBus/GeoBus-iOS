@@ -18,10 +18,9 @@ struct GenericMapAnnotation: Identifiable {
    var item: AnnotationItem
    
    enum AnnotationItem {
-      case carris_stop(CarrisNetworkModel.Stop)
+      case stop(CarrisNetworkModel.Stop)
       case carris_connection(CarrisNetworkModel.Connection)
-      case carris_vehicle(CarrisNetworkModel.Vehicle)
-      //      case ministop(CarrisNetworkModel.Stop)
+      case vehicle(CarrisNetworkModel.Vehicle)
    }
    
 }
