@@ -44,7 +44,7 @@ struct SearchStopInput: View {
                let success = self.carrisNetworkController.select(stop: Int(self.stopPublicId.uppercased()) ?? -1)
                if success {
                   Analytics.shared.capture(event: .Stops_Select_FromTextInput, properties: ["stopPublicId": self.stopPublicId.uppercased()])
-                  sheetController.present(sheet: .carris_stopDetails)
+                  sheetController.present(sheet: .StopDetails)
                } else {
                   self.showErrorLabel = true
                }

@@ -21,7 +21,7 @@ struct NavBar: View {
    // Depending on the state, the button conveys different information.
    var routeSelector: some View {
       Button(action: {
-         sheetController.present(sheet: .carris_RouteSelector)
+         sheetController.present(sheet: .RouteSelector)
       }) {
          SelectRouteView()
       }
@@ -33,9 +33,9 @@ struct NavBar: View {
    var routeDetails: some View {
       Button(action: {
          if (carrisNetworkController.activeRoute != nil) {
-            sheetController.present(sheet: .carris_RouteDetails)
+            sheetController.present(sheet: .RouteDetails)
          } else {
-            sheetController.present(sheet: .carris_RouteSelector)
+            sheetController.present(sheet: .RouteSelector)
          }
       }) {
          RouteDetailsView()

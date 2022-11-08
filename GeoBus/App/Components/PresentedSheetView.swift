@@ -15,30 +15,30 @@ struct PresentedSheetView: View {
    var body: some View {
       switch sheetController.currentlyPresentedSheetView {
             
-         case .carris_RouteSelector:
+         case .RouteSelector:
             SelectRouteSheet()
                .presentationDetents([.large])
                .presentationDragIndicator(.hidden)
             
-         case .carris_RouteDetails:
+         case .RouteDetails:
             RouteDetailsSheet()
                .presentationDetents([.large])
                .presentationDragIndicator(.hidden)
             
-         case .carris_stopSelector:
+         case .StopSelector:
             StopSearchView()
                .presentationDetents([.medium])
                .presentationDragIndicator(.hidden)
             
-         case .carris_vehicleDetails:
-            CarrisVehicleSheetView()
+         case .StopDetails:
+            StopSheetView()
                .presentationDetents([.medium, .large])
                .presentationDragIndicator(.hidden)
                .onDisappear() {
-                  carrisNetworkController.deselect([.vehicle])
+                  carrisNetworkController.deselect([.stop])
                }
             
-         case .carris_connectionDetails:
+         case .ConnectionDetails:
             ConnectionSheetView()
                .presentationDetents([.medium, .large])
                .presentationDragIndicator(.hidden)
@@ -46,12 +46,12 @@ struct PresentedSheetView: View {
                   carrisNetworkController.deselect([.connection])
                }
             
-         case .carris_stopDetails:
-            StopSheetView()
+         case .VehicleDetails:
+            CarrisVehicleSheetView()
                .presentationDetents([.medium, .large])
                .presentationDragIndicator(.hidden)
                .onDisappear() {
-                  carrisNetworkController.deselect([.stop])
+                  carrisNetworkController.deselect([.vehicle])
                }
             
          case .none:

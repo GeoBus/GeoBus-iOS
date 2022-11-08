@@ -15,7 +15,7 @@ struct StopSearch: View {
       SquareButton(icon: "mail.and.text.magnifyingglass", size: 26)
          .onTapGesture() {
             TapticEngine.impact.feedback(.medium)
-            sheetController.present(sheet: .carris_stopSelector)
+            sheetController.present(sheet: .StopSelector)
          }
    }
 }

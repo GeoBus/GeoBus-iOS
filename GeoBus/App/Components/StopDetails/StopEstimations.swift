@@ -156,7 +156,7 @@ struct EstimationContainer: View {
          Button(action: {
             carrisNetworkController.select(vehicle: estimation.busNumber)
             // mapController.moveMap(to:)
-            sheetController.present(sheet: .carris_vehicleDetails)
+            sheetController.present(sheet: .VehicleDetails)
          }, label: {
             estimationLine
          })

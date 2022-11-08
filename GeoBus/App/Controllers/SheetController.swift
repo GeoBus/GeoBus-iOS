@@ -14,12 +14,12 @@ final class SheetController: ObservableObject {
    /* These are the available views that can be presented inside the sheet. */
    
    enum PresentableSheetView {
-      case carris_RouteSelector
-      case carris_RouteDetails
-      case carris_stopSelector
-      case carris_vehicleDetails
-      case carris_connectionDetails
-      case carris_stopDetails
+      case RouteSelector
+      case RouteDetails
+      case StopSelector
+      case StopDetails
+      case ConnectionDetails
+      case VehicleDetails
    }
    
    
