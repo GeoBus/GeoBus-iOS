@@ -11,19 +11,55 @@ import SwiftUI
 
 
 
-struct GenericMapAnnotation: Identifiable {
+struct GenericMapAnnotation: Identifiable, Equatable, Hashable {
+   
+   static func == (lhs: GenericMapAnnotation, rhs: GenericMapAnnotation) -> Bool {
+      return lhs.item == rhs.item
+   }
+   
+   func hash(into hasher: inout Hasher) {
+      hasher.combine(item)
+   }
+   
+   
+   init(location: CLLocationCoordinate2D, item: AnnotationItem) {
+      self.id = UUID()
+      self.location = location
+      self.item = item
+   }
+   
    
    let id: UUID
    var location: CLLocationCoordinate2D
    var item: AnnotationItem
    
-   enum AnnotationItem {
+   enum AnnotationItem: Equatable {
       case stop(CarrisNetworkModel.Stop)
       case carris_connection(CarrisNetworkModel.Connection)
       case vehicle(CarrisNetworkModel.Vehicle)
    }
    
 }
+
+
+
+extension GenericMapAnnotation.AnnotationItem: Hashable {
+   func hash(into hasher: inout Hasher) {
+      switch self {
+         case .stop(let item):
+            hasher.combine(item) // combine with associated value, if it's not `Hashable` map it to some `Hashable` type and then combine result
+         case .carris_connection(let item):
+            hasher.combine(item) // combine with associated value, if it's not `Hashable` map it to some `Hashable` type and then combine result
+         case .vehicle(let item):
+            hasher.combine(item)
+            break
+      }
+   }
+}
+
+
+
+
 
 
 

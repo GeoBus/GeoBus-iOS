@@ -75,7 +75,7 @@ struct CarrisNetworkModel {
    // CONNECTION
    // Connections are a thin wrapper before stops in order to be able
    // to hold a ‹orderInRoute› number. Connections are identified by this value.
-   struct Connection: Codable, Equatable, Identifiable {
+   struct Connection: Codable, Equatable, Identifiable, Hashable {
       let id: Int
       let direction: Direction
       let orderInRoute: Int
@@ -94,7 +94,7 @@ struct CarrisNetworkModel {
    /* MARK: - STOP */
    /* Stops are identified by its ‹publicId› value. */
    /* They have a name and a location. */
-   struct Stop: Codable, Equatable, Identifiable {
+   struct Stop: Codable, Equatable, Identifiable, Hashable {
       let id: Int
       let name: String
       let lat, lng: Double
@@ -137,10 +137,14 @@ struct CarrisNetworkModel {
    /* MARK: - CARRIS VEHICLE */
    /* Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia. */
    
-   class Vehicle: Identifiable, Equatable {
+   class Vehicle: Identifiable, Equatable, Hashable {
       
       static func == (lhs: CarrisNetworkModel.Vehicle, rhs: CarrisNetworkModel.Vehicle) -> Bool {
          return false
+      }
+      
+      func hash(into hasher: inout Hasher) {
+         hasher.combine(self.lat)
       }
       
       

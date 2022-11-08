@@ -36,17 +36,23 @@ struct MapView: View {
          }
 
       }
-      .onReceive(carrisNetworkController.$activeVariant) { newVariant in
-         if (newVariant != nil) {
-            self.mapController.updateAnnotations(with: newVariant!)
-         }
+      .onReceive(carrisNetworkController.$allStops) { allStopsList in
+         self.mapController.createAnnotations(for: allStopsList)
       }
-      .onReceive(carrisNetworkController.$activeVehicles) { newVehiclesList in
-         self.mapController.updateAnnotations(with: newVehiclesList)
+      .onReceive(carrisNetworkController.$allVehicles) { allVehicles in
+         self.mapController.createAnnotations(for: allVehicles)
       }
-      .onReceive(mapController.$region.debounce(for: .seconds(0.1), scheduler: DispatchQueue.main)) { newRegion in
-         self.mapController.updateAnnotations(for: newRegion, with: carrisNetworkController.allStops)
+//      .onReceive(carrisNetworkController.$activeVariant) { newVariant in
+//         if (newVariant != nil) {
+//            self.mapController.updateAnnotations(with: newVariant!)
+//         }
+//      }
+      .onReceive(carrisNetworkController.$activeVehicles) { activeVehicles in
+         self.mapController.showAnnotations(for: activeVehicles)
       }
+//      .onReceive(mapController.$region.debounce(for: .seconds(0.05), scheduler: DispatchQueue.main)) { newRegion in
+//         self.mapController.updateAnnotations(for: newRegion)
+//      }
       
    }
 
