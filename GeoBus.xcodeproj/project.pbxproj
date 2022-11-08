@@ -69,6 +69,7 @@
 		CFDD014B28D535370070FE4B /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDD014A28D535370070FE4B /* Card.swift */; };
 		CFDD014D28D66D9B0070FE4B /* CloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDD014C28D66D9B0070FE4B /* CloseButton.swift */; };
 		CFED5F8A2919B7820062045B /* SheetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFED5F892919B7820062045B /* SheetController.swift */; };
+		CFED5F8C2919CBBD0062045B /* Debounce.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFED5F8B2919CBBD0062045B /* Debounce.swift */; };
 		CFEF85C228D34E4F00A29526 /* crowdin.yml in Resources */ = {isa = PBXBuildFile; fileRef = CFEF85C128D34E4F00A29526 /* crowdin.yml */; };
 		CFEF85C528D34E6300A29526 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = CFEF85C328D34E6300A29526 /* README.md */; };
 		CFEF85C628D34E6300A29526 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = CFEF85C428D34E6300A29526 /* LICENSE */; };
@@ -158,6 +159,7 @@
 		CFDD014A28D535370070FE4B /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		CFDD014C28D66D9B0070FE4B /* CloseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseButton.swift; sourceTree = "<group>"; };
 		CFED5F892919B7820062045B /* SheetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetController.swift; sourceTree = "<group>"; };
+		CFED5F8B2919CBBD0062045B /* Debounce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debounce.swift; sourceTree = "<group>"; };
 		CFEF85C128D34E4F00A29526 /* crowdin.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = crowdin.yml; sourceTree = "<group>"; };
 		CFEF85C328D34E6300A29526 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		CFEF85C428D34E6300A29526 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
@@ -322,6 +324,7 @@
 				CFFFAD8228F6754400DFD5FD /* Helpers.swift */,
 				CFDC15EE28D292FB00A4BE49 /* ViewSize.swift */,
 				CF5094C428FC279A00EDD320 /* Array.swift */,
+				CFED5F8B2919CBBD0062045B /* Debounce.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -566,6 +569,7 @@
 				CFDD014B28D535370070FE4B /* Card.swift in Sources */,
 				CF18202928CCBBDC00248F72 /* TapticEngine.swift in Sources */,
 				CF548FF628D14BA400668CB6 /* VehicleIdentifier.swift in Sources */,
+				CFED5F8C2919CBBD0062045B /* Debounce.swift in Sources */,
 				CF5094CB28FC50E900EDD320 /* CarrisNetworkModel.swift in Sources */,
 				CF18208728CCBD3A00248F72 /* SelectRouteInput.swift in Sources */,
 				CF0C256E290324A600B03052 /* CarrisCommunityAPI.swift in Sources */,
