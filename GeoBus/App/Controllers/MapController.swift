@@ -1,6 +1,5 @@
 import Foundation
 import MapKit
-import SwiftUI
 
 
 /* * */
@@ -33,7 +32,6 @@ final class MapController: ObservableObject {
    @Published var showLocationNotAllowedAlert: Bool = false
    
    @Published var visibleAnnotations: [GenericMapAnnotation] = []
-   @Published var allStopAnnotations: [GenericMapAnnotation] = []
    
    
    /* * */
@@ -65,11 +63,20 @@ final class MapController: ObservableObject {
    /* Helper function to animate the Map changing region. */
    
    func moveMap(to newRegion: MKCoordinateRegion) {
-      DispatchQueue.main.async {
-         withAnimation(.easeIn(duration: 0.5)) {
-            self.region = newRegion
-         }
-      }
+      self.region = newRegion
+   }
+   
+   
+   
+   /* * */
+   /* MARK: - SECTION 6: CENTER MAP ON COORDINATES */
+   /* Lorem ipsum dolor sit amet consectetur adipisicing elit. */
+   
+   func centerMapOnCoordinates(lat: Double, lng: Double, andZoom: Bool = false) {
+      self.region = MKCoordinateRegion(
+         center: CLLocationCoordinate2D(latitude: lat, longitude: lng),
+         span: self.region.span
+      )
    }
    
    
@@ -140,28 +147,28 @@ final class MapController: ObservableObject {
    /* MARK: - SECTION 8: UPDATE ANNOTATIONS WITH SELECTED CARRIS STOP */
    /* Lorem ipsum dolor sit amet consectetur adipisicing elit. */
    
-   func updateAnnotations(with activeStop: CarrisNetworkModel.Stop) {
-      
-      visibleAnnotations.removeAll(where: {
-         switch $0.item {
-            case .carris_stop(_), .carris_connection(_), .carris_vehicle(_), .ministop(_):
-               return true
-         }
-      })
-      
-      var tempNewAnnotations: [GenericMapAnnotation] = []
-      
-      tempNewAnnotations.append(
-         GenericMapAnnotation(
-            id: UUID(),
-            location: CLLocationCoordinate2D(latitude: activeStop.lat, longitude: activeStop.lng),
-            item: .carris_stop(activeStop)
-         )
-      )
-      
-      self.addAnnotations(tempNewAnnotations, zoom: true)
-      
-   }
+//   func updateAnnotations(with activeStop: CarrisNetworkModel.Stop) {
+//
+//      visibleAnnotations.removeAll(where: {
+//         switch $0.item {
+//            case .carris_stop(_), .carris_connection(_), .carris_vehicle(_:
+//               return true
+//         }
+//      })
+//
+//      var tempNewAnnotations: [GenericMapAnnotation] = []
+//
+//      tempNewAnnotations.append(
+//         GenericMapAnnotation(
+//            id: UUID(),
+//            location: CLLocationCoordinate2D(latitude: activeStop.lat, longitude: activeStop.lng),
+//            item: .carris_stop(activeStop)
+//         )
+//      )
+//
+//      self.addAnnotations(tempNewAnnotations, zoom: true)
+//
+//   }
    
    
    
@@ -175,7 +182,7 @@ final class MapController: ObservableObject {
          switch $0.item {
             case .carris_connection(_), .carris_stop(_):
                return true
-            case .carris_vehicle(_), .ministop(_):
+            case .carris_vehicle(_):
                return false
          }
       })
@@ -236,7 +243,7 @@ final class MapController: ObservableObject {
          switch $0.item {
             case .carris_vehicle(_), .carris_stop(_):
                return true
-            case .carris_connection(_), .ministop(_):
+            case .carris_connection(_):
                return false
          }
       })
@@ -279,7 +286,7 @@ final class MapController: ObservableObject {
                } else {
                   return false
                }
-            case .carris_connection(_), .carris_stop(_), .ministop(_):
+            case .carris_connection(_), .carris_stop(_):
                return false
          }
          }) {
@@ -350,9 +357,9 @@ final class MapController: ObservableObject {
       
       visibleAnnotations.removeAll(where: {
          switch $0.item {
-            case .ministop(_):
+            case .carris_stop(_):
                return true
-            case .carris_vehicle(_), .carris_stop(_), .carris_connection(_):
+            case .carris_vehicle(_), .carris_connection(_):
                return false
          }
       })
@@ -364,7 +371,7 @@ final class MapController: ObservableObject {
             GenericMapAnnotation(
                id: UUID(),
                location: CLLocationCoordinate2D(latitude: stop.lat, longitude: stop.lng),
-               item: .ministop(stop)
+               item: .carris_stop(stop)
             )
          )
       }
@@ -373,22 +380,22 @@ final class MapController: ObservableObject {
       
    }
    
-   @ObservedObject var carrisNetworkController = CarrisNetworkController.shared
-   
    
    /* * */
    /* MARK: - SECTION 8: UPDATE ANNOTATIONS WITH SELECTED CARRIS STOP */
    /* Lorem ipsum dolor sit amet consectetur adipisicing elit. */
    
-   func updateAnnotations(newRegion: MKCoordinateRegion?) {
+   private var allStopAnnotations: [GenericMapAnnotation] = []
+   
+   func updateAnnotations(for newMapRegion: MKCoordinateRegion?, with allStops: [CarrisNetworkModel.Stop]) {
       
       if (allStopAnnotations.isEmpty) {
-         for stop in carrisNetworkController.allStops {
+         for stop in allStops {
             allStopAnnotations.append(
                GenericMapAnnotation(
                   id: UUID(),
                   location: CLLocationCoordinate2D(latitude: stop.lat, longitude: stop.lng),
-                  item: .ministop(stop)
+                  item: .carris_stop(stop)
                )
             )
          }
@@ -429,9 +436,9 @@ final class MapController: ObservableObject {
       } else {
          visibleAnnotations.removeAll(where: {
             switch $0.item {
-               case .ministop(_):
+               case .carris_stop(_):
                   return true;
-               case .carris_connection(_), .carris_stop(_), .carris_vehicle(_):
+               case .carris_connection(_), .carris_vehicle(_):
                   return false;
             }
          })
@@ -440,4 +447,18 @@ final class MapController: ObservableObject {
    }
    
    
+}
+
+
+
+
+
+extension MKCoordinateRegion: Equatable {
+   public static func == (lhs: MKCoordinateRegion, rhs: MKCoordinateRegion) -> Bool {
+      if (lhs.center.latitude != rhs.center.latitude) { return false }
+      if (lhs.center.longitude != rhs.center.longitude) { return false }
+      if (lhs.span.latitudeDelta != rhs.span.latitudeDelta) { return false }
+      if (lhs.span.longitudeDelta != rhs.span.longitudeDelta) { return false }
+      return true
+   }
 }
