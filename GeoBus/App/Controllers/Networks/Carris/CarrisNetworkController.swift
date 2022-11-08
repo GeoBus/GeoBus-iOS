@@ -213,10 +213,7 @@ class CarrisNetworkController: ObservableObject {
          // If there is an active vehicle, also refresh it's details
          if (self.activeVehicle != nil) {
             await self.fetchVehicleDetailsFromCarrisAPI(for: self.activeVehicle!.id)
-            // If Community provider is also enabled, then also refresh those details
-            if (self.communityDataProviderStatus) {
-               await self.fetchVehicleDetailsFromCommunityAPI(for: self.activeVehicle!.id)
-            }
+            await self.fetchVehicleDetailsFromCommunityAPI(for: self.activeVehicle!.id)
          }
          // Update the list of active vehicles (the current selected route)
          self.populateActiveVehicles()

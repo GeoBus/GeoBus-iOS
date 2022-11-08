@@ -29,16 +29,8 @@ struct CarrisVehicleSheetView: View {
                      CarrisVehicleToggleFollowOnMap()
                   }
                }
-               if (carrisNetworkController.communityDataProviderStatus) {
-                  CarrisVehicleRouteSummary(vehicle: carrisNetworkController.activeVehicle)
-                  Disclaimer()
-               } else {
-                  DataProvidersCard()
-                     .overlay() {
-                        RoundedRectangle(cornerRadius: 10)
-                           .stroke(Color(.systemTeal).opacity(0.1), lineWidth: 2)
-                     }
-               }
+               CarrisVehicleRouteSummary(vehicle: carrisNetworkController.activeVehicle)
+               Disclaimer()
             }
             .padding()
          }
@@ -399,7 +391,7 @@ struct CarrisVehicleRouteOverviewEstimationLine: View {
             }
             
             HStack(alignment: .center, spacing: 10) {
-               StopIcon(orderInRoute: thisStopIndex+1, style: .muted)
+               StopIcon(style: .muted, orderInRoute: thisStopIndex+1)
                Text(carrisNetworkController.find(stop: estimationLine.stopId)?.name ?? "")
                   .font(Font.system(size: 17, weight: .medium))
                   .lineLimit(1)
@@ -426,7 +418,7 @@ struct CarrisVehicleRouteOverviewEstimationLine: View {
             .frame(width: 25)
             
             HStack(alignment: .center, spacing: 10) {
-               StopIcon(orderInRoute: thisStopIndex+1, style: .standard)
+               StopIcon(style: .circular, orderInRoute: thisStopIndex+1)
                Text(carrisNetworkController.find(stop: estimationLine.stopId)?.name ?? "")
                   .font(Font.system(size: 17, weight: .medium))
                   .lineLimit(1)
@@ -445,7 +437,7 @@ struct CarrisVehicleRouteOverviewEstimationLine: View {
             }
             
             HStack(alignment: .center, spacing: 10) {
-               StopIcon(orderInRoute: thisStopIndex+1, style: .standard)
+               StopIcon(style: .circular, orderInRoute: thisStopIndex+1)
                Text(carrisNetworkController.find(stop: estimationLine.stopId)?.name ?? "")
                   .font(Font.system(size: 17, weight: .medium))
                   .lineLimit(1)
@@ -548,7 +540,7 @@ struct CarrisVehicleRouteOverview: View {
                         }
                         
                         HStack(alignment: .center, spacing: 10) {
-                           StopIcon(orderInRoute: index+1, style: .muted)
+                           StopIcon(style: .muted, orderInRoute: index+1)
                            Text(carrisNetworkController.find(stop: element.stopId)?.name ?? "")
                               .font(Font.system(size: 17, weight: .medium))
                               .lineLimit(1)
@@ -577,7 +569,7 @@ struct CarrisVehicleRouteOverview: View {
                         }
                         
                         HStack(alignment: .center, spacing: 10) {
-                           StopIcon(orderInRoute: index+1, style: .standard)
+                           StopIcon(style: .standard, orderInRoute: index+1)
                            Text(carrisNetworkController.find(stop: element.stopId)?.name ?? "")
                               .font(Font.system(size: 17, weight: .medium))
                               .lineLimit(1)
@@ -596,7 +588,7 @@ struct CarrisVehicleRouteOverview: View {
                         }
                         
                         HStack(alignment: .center, spacing: 10) {
-                           StopIcon(orderInRoute: index+1, style: .standard)
+                           StopIcon(style: .standard, orderInRoute: index+1)
                            Text(carrisNetworkController.find(stop: element.stopId)?.name ?? "")
                               .font(Font.system(size: 17, weight: .medium))
                               .lineLimit(1)
@@ -609,7 +601,6 @@ struct CarrisVehicleRouteOverview: View {
                      
                      
                   }
-                  .id(index)
                }
                
                
