@@ -4,13 +4,15 @@ import MapKit
 
 /* * */
 /* MARK: - MAP CONTROLLER */
-/* This class is responsible for controlling the Map and its annotations. */
+/* Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum lectus */
+/* non interdum imperdiet. In hendrerit ligula velit, ac porta augue volutpat id. */
 
 
+@MainActor
 final class MapController: ObservableObject {
    
    /* * */
-   /* MARK: - 1: SETTINGS */
+   /* MARK: - SECTION 1: SETTINGS */
    /* Static settings for the Map view. */
    
    private let initialMapRegion = CLLocationCoordinate2D(latitude: 38.721917, longitude: -9.137732)
@@ -141,21 +143,6 @@ final class MapController: ObservableObject {
    
    
    
-   
-   private func addAnnotations(_ newAnnotations: [GenericMapAnnotation], zoom: Bool = false) {
-      // Add the annotations to the map
-      self.visibleAnnotations.append(contentsOf: newAnnotations)
-      // Remove annotations with duplicate IDs (ex: same stop on different itineraries)
-      self.visibleAnnotations.uniqueInPlace(for: \.id)
-      // Adjust map region to annotations
-      if (zoom) {
-         self.zoomToFitMapAnnotations(annotations: newAnnotations)
-      }
-   }
-   
-   
-   
-   
    /* * */
    /* MARK: - SECTION 8: UPDATE ANNOTATIONS WITH SELECTED CARRIS STOP */
    /* Lorem ipsum dolor sit amet consectetur adipisicing elit. */
@@ -208,6 +195,7 @@ final class MapController: ObservableObject {
          for connection in activeVariant.circularItinerary! {
             tempNewAnnotations.append(
                GenericMapAnnotation(
+                  id: UUID(),
                   location: CLLocationCoordinate2D(latitude: connection.stop.lat, longitude: connection.stop.lng),
                   item: .carris_connection(connection)
                )
@@ -219,6 +207,7 @@ final class MapController: ObservableObject {
          for connection in activeVariant.ascendingItinerary! {
             tempNewAnnotations.append(
                GenericMapAnnotation(
+                  id: UUID(),
                   location: CLLocationCoordinate2D(latitude: connection.stop.lat, longitude: connection.stop.lng),
                   item: .carris_connection(connection)
                )
@@ -230,6 +219,7 @@ final class MapController: ObservableObject {
          for connection in activeVariant.descendingItinerary! {
             tempNewAnnotations.append(
                GenericMapAnnotation(
+                  id: UUID(),
                   location: CLLocationCoordinate2D(latitude: connection.stop.lat, longitude: connection.stop.lng),
                   item: .carris_connection(connection)
                )
@@ -243,206 +233,35 @@ final class MapController: ObservableObject {
    
    
    
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
    /* * */
    /* MARK: - SECTION 10: UPDATE ANNOTATIONS WITH LIST OF ACTIVE CARRIS VEHICLES */
    /* Lorem ipsum dolor sit amet consectetur adipisicing elit. */
    
-   private var allStopAnnotations: [GenericMapAnnotation] = []
-   
-   func createAnnotations(for allStops: [CarrisNetworkModel.Stop]) {
+   func updateAnnotations(with activeVehiclesList: [CarrisNetworkModel.Vehicle]) {
       
-      allStopAnnotations.removeAll()
+      visibleAnnotations.removeAll(where: {
+         switch $0.item {
+            case .vehicle(_), .stop(_):
+               return true
+            case .carris_connection(_):
+               return false
+         }
+      })
       
-      for stop in allStops {
-         allStopAnnotations.append(
+      
+      var tempNewAnnotations: [GenericMapAnnotation] = []
+      
+      for vehicle in activeVehiclesList {
+         tempNewAnnotations.append(
             GenericMapAnnotation(
-               location: CLLocationCoordinate2D(latitude: stop.lat, longitude: stop.lng),
-               item: .stop(stop)
+               id: UUID(),
+               location: vehicle.coordinate,
+               item: .vehicle(vehicle)
             )
          )
       }
       
-   }
-   
-   
-   
-   private var allVehicleAnnotations: [GenericMapAnnotation] = []
-   
-   func createAnnotations(for allVehicles: [CarrisNetworkModel.Vehicle]) {
-      
-      allVehicleAnnotations.removeAll()
-      
-      for vehicle in allVehicles {
-         if (vehicle.lat != nil && vehicle.lng != nil) {
-            allVehicleAnnotations.append(
-               GenericMapAnnotation(
-                  location: CLLocationCoordinate2D(latitude: vehicle.lat!, longitude: vehicle.lng!),
-                  item: .vehicle(vehicle)
-               )
-            )
-         }
-      }
-      
-   }
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   func showAnnotations(for activeVehicles: [CarrisNetworkModel.Vehicle]) {
-      
-      
-      activeVehicles.forEach({ vehicle in
-         
-         
-         for
-         
-         
-         
-         
-         
-         
-         let index = allVehicleAnnotations.firstIndex(where: { annotation in
-            switch annotation.item {
-               case .vehicle(let item):
-                  vehicle.id == item.id
-               case .stop(_), .carris_connection(_):
-                  return false
-            }
-         })
-         
-         if (index != nil) {
-            visibleAnnotations.append(allVehicleAnnotations[index!])
-         }
-         
-      })
-      
-      
-      
-      let newVisibleAnnotations = allVehicleAnnotations.filter({ annotation in
-         
-         switch annotation.item {
-            case .vehicle(let item):
-               if activeVehicles.firstIndex(where: {
-                  $0.id == item.id
-               }) == nil {
-                  visibleAnnotations.append(annotation)
-                  return true
-               }
-               return false
-            case .carris_connection(_), .stop(_):
-               return false
-         }
-         
-      })
-      
-      
-   }
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-//   func updateAnnotations(with activeVehiclesList: [CarrisNetworkModel.Vehicle]) {
-//
-//      var tempNewAnnotations: [GenericMapAnnotation] = []
-//
-//      for vehicle in activeVehiclesList {
-//         tempNewAnnotations.append(
-//            GenericMapAnnotation(
-//               id: UUID(),
-//               location: vehicle.coordinate,
-//               item: .vehicle(vehicle)
-//            )
-//         )
-//      }
-//
-//   }
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   func updateAnnotations(with activeVehiclesList: [CarrisNetworkModel.Vehicle]) {
-      
-//      for activeVehicle in activeVehiclesList {
-//
-//
-//
-//      }
-//
-//
-//
-//
-//      activeVehiclesList.forEach({ activeVehicle in
-//         visibleAnnotations.insert(
-//            GenericMapAnnotation(
-//               location: activeVehicle.coordinate,
-//               item: .vehicle(activeVehicle)
-//            )
-//         )
-//      })
-//
-//
-//      print("GBDEBUG: visibleAnnotations_NEW: \(visibleAnnotations)")
-      
-      
-      
-      
-//      visibleAnnotations.removeAll(where: {
-//         switch $0.item {
-//            case .vehicle(_):
-//               return true
-//            case .stop(_), .carris_connection(_):
-//               return false
-//         }
-//      })
-//
-//
-//      var tempNewAnnotations: [GenericMapAnnotation] = []
-//
-//      for vehicle in activeVehiclesList {
-//         tempNewAnnotations.append(
-//            GenericMapAnnotation(
-//               location: vehicle.coordinate,
-//               item: .vehicle(vehicle)
-//            )
-//         )
-//      }
-//
-//      self.addAnnotations(tempNewAnnotations)
+      self.addAnnotations(tempNewAnnotations)
       
    }
    
@@ -480,6 +299,7 @@ final class MapController: ObservableObject {
          
          tempNewAnnotations.append(
             GenericMapAnnotation(
+               id: UUID(),
                location: activeVehicle.coordinate,
                item: .vehicle(activeVehicle)
             )
@@ -492,7 +312,40 @@ final class MapController: ObservableObject {
    }
    
    
-
+   
+   
+   
+   
+   
+   
+   
+   
+   private func addAnnotations(_ newAnnotations: [GenericMapAnnotation], zoom: Bool = false) {
+      DispatchQueue.main.async {
+         // Add the annotations to the map
+         self.visibleAnnotations.append(contentsOf: newAnnotations)
+         // Remove annotations with duplicate IDs (ex: same stop on different itineraries)
+         self.visibleAnnotations.uniqueInPlace(for: \.id)
+         // Adjust map region to annotations
+         if (zoom) {
+            self.zoomToFitMapAnnotations(annotations: newAnnotations)
+         }
+      }
+   }
+   
+   
+//   private func removeAnnotations(ofType annotationTypes: [GenericMapAnnotation.AnnotationItem]) {
+//      visibleAnnotations.removeAll(where: {
+//         for type in annotationTypes {
+//            if ($0.item == type) {
+//               return true
+//            }
+//         }
+//         return false
+//      })
+//   }
+   
+   
    
    
    
@@ -500,19 +353,62 @@ final class MapController: ObservableObject {
    /* MARK: - SECTION 8: UPDATE ANNOTATIONS WITH SELECTED CARRIS STOP */
    /* Lorem ipsum dolor sit amet consectetur adipisicing elit. */
    
-   func updateAnnotations(for newMapRegion: MKCoordinateRegion?) {
+   func updateAnnotations(ministop: [CarrisNetworkModel.Stop]) {
       
-      guard newMapRegion != nil else {
-         return
+      visibleAnnotations.removeAll(where: {
+         switch $0.item {
+            case .stop(_):
+               return true
+            case .vehicle(_), .carris_connection(_):
+               return false
+         }
+      })
+      
+      var tempNewAnnotations: [GenericMapAnnotation] = []
+      
+      for stop in ministop {
+         tempNewAnnotations.append(
+            GenericMapAnnotation(
+               id: UUID(),
+               location: CLLocationCoordinate2D(latitude: stop.lat, longitude: stop.lng),
+               item: .stop(stop)
+            )
+         )
       }
       
-      if (newMapRegion!.span.latitudeDelta < 0.005 || newMapRegion!.span.longitudeDelta < 0.005) {
+      self.addAnnotations(tempNewAnnotations, zoom: true)
+      
+   }
+   
+   
+   /* * */
+   /* MARK: - SECTION 8: UPDATE ANNOTATIONS WITH SELECTED CARRIS STOP */
+   /* Lorem ipsum dolor sit amet consectetur adipisicing elit. */
+   
+   private var allStopAnnotations: [GenericMapAnnotation] = []
+   
+   func updateAnnotations(for newMapRegion: MKCoordinateRegion?, with allStops: [CarrisNetworkModel.Stop]) {
+      
+      if (allStopAnnotations.isEmpty) {
+         for stop in allStops {
+            allStopAnnotations.append(
+               GenericMapAnnotation(
+                  id: UUID(),
+                  location: CLLocationCoordinate2D(latitude: stop.lat, longitude: stop.lng),
+                  item: .stop(stop)
+               )
+            )
+         }
+      }
+      
+      
+      if (region.span.latitudeDelta < 0.005 || region.span.longitudeDelta < 0.005) {
          
-         let latTop = newMapRegion!.center.latitude + newMapRegion!.span.latitudeDelta
-         let latBottom = newMapRegion!.center.latitude - newMapRegion!.span.latitudeDelta
+         let latTop = self.region.center.latitude + self.region.span.latitudeDelta
+         let latBottom = self.region.center.latitude - self.region.span.latitudeDelta
          
-         let lngRight = newMapRegion!.center.longitude + newMapRegion!.span.longitudeDelta
-         let lngLeft = newMapRegion!.center.longitude - newMapRegion!.span.longitudeDelta
+         let lngRight = self.region.center.longitude + self.region.span.longitudeDelta
+         let lngLeft = self.region.center.longitude - self.region.span.longitudeDelta
          
          
          for annotation in allStopAnnotations {
