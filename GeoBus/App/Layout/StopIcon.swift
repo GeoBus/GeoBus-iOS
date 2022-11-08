@@ -11,11 +11,9 @@ struct StopIcon: View {
    
    public let style: Style
    public let orderInRoute: Int?
-   public let isSelected: Bool
    
-   init(orderInRoute: Int? = nil, direction: CarrisNetworkModel.Direction? = nil, style: Style = .standard, isSelected: Bool = false) {
+   init(style: Style = .standard, orderInRoute: Int? = nil, direction: CarrisNetworkModel.Direction? = nil) {
       self.orderInRoute = orderInRoute
-      self.isSelected = isSelected
       
       switch direction {
          case .ascending:
@@ -72,9 +70,9 @@ struct StopIcon: View {
    private var borderColor: Color {
       switch style {
          case .standard:
-            return Color("StopCircularBorder")
+            return Color("StopStandardBorder")
          case .mini:
-            return Color("StopCircularBorder")
+            return Color("StopMiniBorder")
          case .ascending:
             return Color("StopAscendingBorder")
          case .descending:
@@ -93,9 +91,9 @@ struct StopIcon: View {
    private var backgroundColor: Color {
       switch style {
          case .standard:
-            return Color("StopCircularBackground")
+            return Color("StopStandardBackground")
          case .mini:
-            return Color("StopCircularBackground")
+            return Color("StopMiniBackground")
          case .ascending:
             return Color("StopAscendingBackground")
          case .descending:
@@ -114,9 +112,9 @@ struct StopIcon: View {
    private var textColor: Color {
       switch style {
          case .standard:
-            return Color("StopCircularText")
+            return Color("StopStandardText")
          case .mini:
-            return Color("StopCircularText")
+            return Color("StopMiniText")
          case .ascending:
             return Color("StopAscendingText")
          case .descending:
