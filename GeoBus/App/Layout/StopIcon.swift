@@ -9,8 +9,8 @@ import SwiftUI
 
 struct StopIcon: View {
    
-   public let orderInRoute: Int?
    public let style: Style
+   public let orderInRoute: Int?
    public let isSelected: Bool
    
    init(orderInRoute: Int? = nil, direction: CarrisNetworkModel.Direction? = nil, style: Style = .standard, isSelected: Bool = false) {
@@ -31,8 +31,10 @@ struct StopIcon: View {
    }
    
    
+   
    enum Style {
       case standard
+      case mini
       case circular
       case ascending
       case descending
@@ -41,31 +43,37 @@ struct StopIcon: View {
    }
    
    
-   // Properties:
-   // The defaults for the icon
-   private let size: CGFloat = 25
-   private let multiplier: Double = 1.5
-   
    
    private var viewSize: CGFloat {
-      if (self.isSelected) {
-         return self.size * self.multiplier
-      } else {
-         return self.size
+      switch style {
+         case .standard, .ascending, .descending, .circular, .muted:
+            return 25
+         case .mini:
+            return 10
+         case .selected:
+            return 25 * 1.5
       }
    }
+   
+   
    
    private var borderWidth: CGFloat {
       return self.viewSize - self.viewSize / 5
    }
    
+   
+   
    private var textSize: CGFloat {
       return self.viewSize / 2
    }
    
+   
+   
    private var borderColor: Color {
       switch style {
          case .standard:
+            return Color("StopCircularBorder")
+         case .mini:
             return Color("StopCircularBorder")
          case .ascending:
             return Color("StopAscendingBorder")
@@ -80,9 +88,13 @@ struct StopIcon: View {
       }
    }
    
+   
+   
    private var backgroundColor: Color {
       switch style {
          case .standard:
+            return Color("StopCircularBackground")
+         case .mini:
             return Color("StopCircularBackground")
          case .ascending:
             return Color("StopAscendingBackground")
@@ -97,9 +109,13 @@ struct StopIcon: View {
       }
    }
    
+   
+   
    private var textColor: Color {
       switch style {
          case .standard:
+            return Color("StopCircularText")
+         case .mini:
             return Color("StopCircularText")
          case .ascending:
             return Color("StopAscendingText")
@@ -115,28 +131,26 @@ struct StopIcon: View {
    }
    
    
+   
    var body: some View {
       ZStack {
          Circle()
             .foregroundColor(self.borderColor)
             .frame(width: self.viewSize, height: self.viewSize)
-            .animation(.default, value: self.borderColor)
-            .animation(.default, value: self.viewSize)
          Circle()
             .foregroundColor(self.backgroundColor)
             .frame(width: self.borderWidth, height: self.borderWidth)
-            .animation(.default, value: self.backgroundColor)
-            .animation(.default, value: self.borderWidth)
-         if (self.orderInRoute != nil) {
-            Text(String(self.orderInRoute!))
-               .font(.system(size: self.textSize, weight: .bold))
-               .foregroundColor(textColor)
-               .animation(.default, value: self.textSize)
-         } else {
-            Image(systemName: "mappin")
-               .font(.system(size: self.textSize, weight: .bold))
-               .foregroundColor(textColor)
-               .animation(.default, value: self.textSize)
+         switch style {
+            case .standard, .selected:
+               Image(systemName: "mappin")
+                  .font(.system(size: self.textSize, weight: .bold))
+                  .foregroundColor(textColor)
+            case .ascending, .descending, .circular, .muted:
+               Text(String(self.orderInRoute!))
+                  .font(.system(size: self.textSize, weight: .bold))
+                  .foregroundColor(textColor)
+            case .mini:
+               EmptyView()
          }
       }
    }
