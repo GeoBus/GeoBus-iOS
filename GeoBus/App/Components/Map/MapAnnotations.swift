@@ -21,7 +21,7 @@ struct GenericMapAnnotation: Identifiable {
       case carris_stop(CarrisNetworkModel.Stop)
       case carris_connection(CarrisNetworkModel.Connection)
       case carris_vehicle(CarrisNetworkModel.Vehicle)
-//      case ministop(CarrisNetworkModel.Stop)
+      //      case ministop(CarrisNetworkModel.Stop)
    }
    
 }
@@ -46,11 +46,17 @@ struct CarrisConnectionAnnotationView: View {
          carrisNetworkController.select(connection: self.connection)
          sheetController.present(sheet: .ConnectionDetails)
       }) {
-         StopIcon(
-            orderInRoute: self.connection.orderInRoute,
-            direction: self.connection.direction,
-            isSelected: carrisNetworkController.activeConnection == self.connection
-         )
+         if (carrisNetworkController.activeConnection?.id == self.connection.id) {
+            StopIcon(style: .selected, orderInRoute: self.connection.orderInRoute)
+         } else if (self.connection.direction == .ascending) {
+            StopIcon(style: .ascending, orderInRoute: self.connection.orderInRoute)
+         } else if (self.connection.direction == .descending) {
+            StopIcon(style: .descending, orderInRoute: self.connection.orderInRoute)
+         } else if (self.connection.direction == .circular) {
+            StopIcon(style: .circular, orderInRoute: self.connection.orderInRoute)
+         } else {
+            StopIcon(style: .standard)
+         }
       }
       .frame(width: 40, height: 40, alignment: .center)
    }
@@ -122,9 +128,9 @@ struct StopAnnotationView: View {
          TapticEngine.impact.feedback(.light)
          carrisNetworkController.select(stop: self.stop)
          sheetController.present(sheet: .StopDetails)
-         withAnimation(.easeIn(duration: 0.5)) {
-            mapController.centerMapOnCoordinates(lat: self.stop.lat, lng: self.stop.lng)
-         }
+         // withAnimation(.easeIn(duration: 0.5)) {
+         //    mapController.centerMapOnCoordinates(lat: self.stop.lat, lng: self.stop.lng)
+         // }
       }
    }
    
