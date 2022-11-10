@@ -462,3 +462,12 @@ extension MKCoordinateRegion: Equatable {
       return true
    }
 }
+
+
+extension CLLocationCoordinate2D: Equatable {
+   public static func == (lhs: CLLocationCoordinate2D, rhs: CLLocationCoordinate2D) -> Bool {
+      if (lhs.latitude != rhs.latitude) { return false }
+      if (lhs.longitude != rhs.longitude) { return false }
+      return true
+   }
+}
