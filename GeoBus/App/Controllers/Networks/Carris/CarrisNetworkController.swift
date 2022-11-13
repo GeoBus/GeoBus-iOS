@@ -666,7 +666,7 @@ class CarrisNetworkController: ObservableObject {
    /* These functions search for the provided object identifier in the storage arrays */
    /* and return it if found or nil if not found. */
    
-   private func find(vehicle vehicleId: Int) -> CarrisNetworkModel.Vehicle? {
+   public func find(vehicle vehicleId: Int) -> CarrisNetworkModel.Vehicle? {
       if let requestedVehicleObject = self.allVehicles[withId: vehicleId] {
          return requestedVehicleObject
       } else {

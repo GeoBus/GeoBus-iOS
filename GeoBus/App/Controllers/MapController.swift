@@ -31,13 +31,17 @@ final class MapController: ObservableObject {
       span: MKCoordinateSpan(latitudeDelta: CLLocationDistance(15000), longitudeDelta: CLLocationDistance(15000))
    )
    
+   
+   @Published var mapCamera: MKMapCamera = MKMapCamera()
+   
+   
    @Published var locationManager = CLLocationManager()
    @Published var showLocationNotAllowedAlert: Bool = false
    
    @Published var visibleAnnotations: [GenericMapAnnotation] = []
    
    
-   @Published var newAnnotations: [GeoBusMKAnnotation] = []
+   @Published var allAnnotations: [GeoBusMKAnnotation] = []
    
    
    /* * */
@@ -61,6 +65,48 @@ final class MapController: ObservableObject {
          longitudinalMeters: self.initialMapZoom
       )
    }
+   
+   
+   
+   
+   
+   
+   // ADD ANNOTATIONS
+   func add(annotations newAnnotationsArray: [GeoBusMKAnnotation], ofType annotationsType: GeoBusMKAnnotation.AnnotationType) {
+      self.allAnnotations.removeAll(where: { $0.type == annotationsType })
+      self.allAnnotations.append(contentsOf: newAnnotationsArray)
+   }
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
    
    
    

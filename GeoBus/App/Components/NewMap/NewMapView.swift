@@ -16,6 +16,7 @@ struct MapViewSwiftUI: UIViewRepresentable {
    private let mapView = MKMapView()
    
    @Binding var region: MKCoordinateRegion
+   @Binding var camera: MKMapCamera
    @Binding var annotations: [GeoBusMKAnnotation]
    
    @StateObject var carrisNetworkController = CarrisNetworkController.shared
@@ -29,6 +30,7 @@ struct MapViewSwiftUI: UIViewRepresentable {
       mapView.preferredConfiguration = MKStandardMapConfiguration(elevationStyle: .realistic, emphasisStyle: .muted)
       
       mapView.register(StopMKAnnotationView.self, forAnnotationViewWithReuseIdentifier: StopMKAnnotationView.reuseIdentifier)
+      mapView.register(VehicleMKAnnotationView.self, forAnnotationViewWithReuseIdentifier: VehicleMKAnnotationView.reuseIdentifier)
       
       return mapView
    }
@@ -36,19 +38,42 @@ struct MapViewSwiftUI: UIViewRepresentable {
    
    func updateUIView(_ uiView: MKMapView, context: Context) {
       
-      // First, make sure we are dealing with annotation of type GeoBusMKAnnotation
-      guard let currentAnnotations = uiView.annotations as? [GeoBusMKAnnotation] else { return }
+      var tempAnnotationsToAdd: [GeoBusMKAnnotation] = []
+      var tempAnnotationsToRemove: [GeoBusMKAnnotation] = []
+      
+      let tempCurrentAnnotations: [GeoBusMKAnnotation] = uiView.annotations.compactMap({
+         // Make sure we are dealing with annotation of type GeoBusMKAnnotation
+         return $0 as? GeoBusMKAnnotation
+      })
+      
+      // Find out which annotations should be added to the map
+      for newAnnotation in annotations {
+         // se esta nova anotation ainda não estiver já na UiView
+         // adicionar à 'tempAnnotationsToAdd'
+         let indexOfThisNewAnnotationInUiView = tempCurrentAnnotations.firstIndex(of: newAnnotation)
+         if (indexOfThisNewAnnotationInUiView == nil) {
+            tempAnnotationsToAdd.append(newAnnotation)
+         }
+      }
       
       // Find out the excess annotations that should be removed from the map
-      // The following works as: [a, b, c, d, e] - [a, c, e] = [b, d]
-      let annotationsToRemove = Array(Set(currentAnnotations).subtracting(annotations))
+      for currentAnnotation in tempCurrentAnnotations {
+         // se esta anotation que está visível não estiver na 'annotations'
+         // adicionar à 'tempAnnotationsToRemove'
+         let indexOfThisCurrentAnnotationInNextAnnotations = annotations.firstIndex(of: currentAnnotation)
+         if (indexOfThisCurrentAnnotationInNextAnnotations == nil) {
+            tempAnnotationsToRemove.append(currentAnnotation)
+         }
+      }
+      
       
       // Update the view with annotations
-//      uiView.removeAnnotations(uiView.annotations)
-      uiView.removeAnnotations(annotationsToRemove)
-      uiView.addAnnotations(annotations)
+      uiView.removeAnnotations(tempAnnotationsToRemove)
+      uiView.addAnnotations(tempAnnotationsToAdd)
       
-      print("HOWMANY removeAnnotations: \(annotationsToRemove.count)")
+      print("HOWMANY currentAnnotations: \(tempCurrentAnnotations.count)")
+      print("HOWMANY tempAnnotationsToAdd: \(tempAnnotationsToAdd.count)")
+      print("HOWMANY tempAnnotationsToRemove: \(tempAnnotationsToRemove.count)")
       print("HOWMANY uiView displayed annotations: \(uiView.annotations.count)")
       print("HOWMANY ----------")
    }
@@ -70,68 +95,21 @@ final class MapViewSwiftUICoordinator: NSObject, MKMapViewDelegate {
       self.parentSwiftUIView = parentSwiftUIView
    }
    
-//   
-//   func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
+   
    @MainActor func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
       DispatchQueue.main.async { [self] in
          self.parentSwiftUIView.region = mapView.region
+         self.parentSwiftUIView.camera = mapView.camera
       }
    }
    
-//   @MainActor func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-////   @MainActor func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
-//      DispatchQueue.main.async { [self] in
+   @MainActor func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
+      DispatchQueue.main.async { [self] in
 //         self.parentSwiftUIView.region = mapView.region
-//         if (mapView.region.span.latitudeDelta < 0.005 || mapView.region.span.longitudeDelta < 0.005) {
-//
-//            var tempMatchingAnnotations: [GeoBusMKAnnotation] = []
-//
-//            let latTop = mapView.region.center.latitude + mapView.region.span.latitudeDelta
-//            let latBottom = mapView.region.center.latitude - mapView.region.span.latitudeDelta
-//
-//            let lngRight = mapView.region.center.longitude + mapView.region.span.longitudeDelta
-//            let lngLeft = mapView.region.center.longitude - mapView.region.span.longitudeDelta
-//
-//
-//            for stop in parentSwiftUIView.carrisNetworkController.allStops {
-//
-//               // Checks
-//               let isBetweenLats = stop.lat > latBottom && stop.lat < latTop
-//               let isBetweenLngs = stop.lng > lngLeft && stop.lng < lngRight
-//
-//               if (isBetweenLats && isBetweenLngs) {
-//                  tempMatchingAnnotations.append(
-//                     GeoBusMKAnnotation(
-//                        id: stop.id,
-//                        coordinate: CLLocationCoordinate2D(latitude: stop.lat, longitude: stop.lng),
-//                        type: .stop
-//                     )
-//                  )
-//               }
-//
-//            }
-//
-//            self.parentSwiftUIView.annotations = tempMatchingAnnotations
-//
-//            // First, make sure we are dealing with annotation of type GeoBusMKAnnotation
-////            guard let currentAnnotations = mapView.annotations as? [GeoBusMKAnnotation] else { return }
-//
-//            // Find out the excess annotations that should be removed from the map
-//            // The following works as: [a, b, c, d, e] - [a, c, e] = [b, d]
-////            let annotationsToRemove = Array(Set(currentAnnotations).subtracting(tempMatchingAnnotations))
-//
-//            // Update the view with annotations
-////            mapView.removeAnnotations(annotationsToRemove)
-////            mapView.addAnnotations(tempMatchingAnnotations)
-//
-////            annotations = tempMatchingAnnotations
-//
-//         } else {
-//            self.parentSwiftUIView.annotations = []
-////            mapView.removeAnnotations(mapView.annotations)
-//         }
-//      }
-//   }
+         self.parentSwiftUIView.camera = mapView.camera
+      }
+   }
+   
    
    
    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -139,10 +117,9 @@ final class MapViewSwiftUICoordinator: NSObject, MKMapViewDelegate {
       
       switch annotation.type {
          case .stop:
-//            return mapView.dequeueReusableAnnotationView(withIdentifier: StopMKAnnotationView.reuseIdentifier, for: annotation)
-            return StopMKAnnotationView(annotation: annotation, reuseIdentifier: "stop")
-         default:
-            return nil
+            return StopMKAnnotationView(annotation: annotation, reuseIdentifier: StopMKAnnotationView.reuseIdentifier)
+         case .vehicle:
+            return VehicleMKAnnotationView(annotation: annotation, reuseIdentifier: VehicleMKAnnotationView.reuseIdentifier)
       }
       
    }
@@ -154,24 +131,16 @@ final class MapViewSwiftUICoordinator: NSObject, MKMapViewDelegate {
       switch annotation.type {
          case .stop:
             DispatchQueue.main.async { [self] in
+               TapticEngine.impact.feedback(.light)
                _ = parentSwiftUIView.carrisNetworkController.select(stop: annotation.id)
                SheetController.shared.present(sheet: .StopDetails)
             }
-         default:
-            return
-      }
-   }
-   
-   
-   @MainActor func mapView(_ mapView: MKMapView, didDeselect annotation: MKAnnotation) {
-      guard let annotation = annotation as? GeoBusMKAnnotation else { return }
-      
-      switch annotation.type {
-         case .stop:
-            parentSwiftUIView.carrisNetworkController.deselect([.stop])
-            SheetController.shared.dismiss()
-         default:
-            return
+         case .vehicle:
+            DispatchQueue.main.async { [self] in
+               TapticEngine.impact.feedback(.light)
+               _ = parentSwiftUIView.carrisNetworkController.select(vehicle: annotation.id)
+               SheetController.shared.present(sheet: .VehicleDetails)
+            }
       }
    }
    
@@ -202,9 +171,10 @@ final class GeoBusMKAnnotation: NSObject, MKAnnotation {
    override func isEqual(_ object: Any?) -> Bool {
       if let annot = object as? GeoBusMKAnnotation{
          // Add your defintion of equality here. i.e what determines if two Annotations are equal.
-         let equalCoordinates = annot.coordinate == self.coordinate
-         let equalType = annot.type == self.type
-         return equalCoordinates && equalType
+//         let equalCoordinates = annot.coordinate == self.coordinate
+//         let equalType = annot.type == self.type
+//         return equalCoordinates && equalType
+         return annot.id == self.id
       } else {
          return false
       }
@@ -212,6 +182,16 @@ final class GeoBusMKAnnotation: NSObject, MKAnnotation {
    
 }
 
+
+
+
+
+
+
+
+
+
+// STOP ANNOTATIONS
 
 final class StopMKAnnotationView: MKAnnotationView {
    
@@ -223,19 +203,16 @@ final class StopMKAnnotationView: MKAnnotationView {
          
          canShowCallout = false
          
-         let swiftUIView = NewStopMKAnnotationView(stopId: newValue.id)
+         let swiftUIView = StopSwiftUIAnnotationView(stopId: newValue.id)
          let uiKitView = UIHostingController(rootView: swiftUIView)
          addSubview(uiKitView.view)
       }
-      
    }
    
 }
 
 
-
-
-struct NewStopMKAnnotationView: View {
+struct StopSwiftUIAnnotationView: View {
    
    public let stopId: Int
    
@@ -263,296 +240,51 @@ struct NewStopMKAnnotationView: View {
 
 
 
+// VEHICLE ANNOTATIONS
 
 
-
-
-
-
-
-
-// --------------------------------------------------------------------------------------------------------------------------------------------
-// --------------------------------------------------------------------------------------------------------------------------------------------
-// --------------------------------------------------------------------------------------------------------------------------------------------
-// --------------------------------------------------------------------------------------------------------------------------------------------
-// --------------------------------------------------------------------------------------------------------------------------------------------
-
-
-
-
-
-
-struct NewMapView: UIViewRepresentable {
+final class VehicleMKAnnotationView: MKAnnotationView {
    
-   private let mapView = MKMapView()
-   
-   @ObservedObject private var carrisNetworkController = CarrisNetworkController.shared
-   
-   
-   func makeUIView(context: UIViewRepresentableContext<NewMapView>) -> MKMapView {
-      
-      mapView.delegate = context.coordinator
-      mapView.mapType = MKMapType.standard
-      mapView.showsUserLocation = true
-      mapView.showsTraffic = true
-      mapView.isRotateEnabled = true
-      mapView.isPitchEnabled = true
-      
-      mapView.register(NewStopAnnotationView.self, forAnnotationViewWithReuseIdentifier: "stop")
-      
-      // Set initial location in Lisbon
-      let lisbon = CLLocation(latitude: 38.721917, longitude: -9.137732)
-      let lisbonArea = MKCoordinateRegion(center: lisbon.coordinate, latitudinalMeters: 15000, longitudinalMeters: 15000)
-      mapView.setRegion(lisbonArea, animated: true)
-      
-      return mapView
-   }
-   
-   
-   
-   
-   
-//   override func viewDidLoad() {
-//      super.viewDidLoad()
-//      setupCompassButton()
-//      setupUserTrackingButtonAndScaleView()
-//      registerAnnotationViewClasses()
-//
-//      locationManager.delegate = self
-//      locationManager.requestWhenInUseAuthorization()
-//      locationManager.startUpdatingLocation()
-//
-//      loadDataForMapRegionAndBikes()
-//   }
-   
-   
-   
-   func updateUIView(_ uiView: MKMapView, context: UIViewRepresentableContext<NewMapView>) {
-      
-      print("MAPTEST: is called updateUIView")
-//      print("MAPTEST: carrisNetworkController.activeRoute: \(carrisNetworkController.activeRoute)")
-      
-      
-      if (uiView.annotations.isEmpty) {
-         
-         var annotationsToAdd: [MKAnnotation] = []
-         
-         carrisNetworkController.allStops.forEach({
-            annotationsToAdd.append(
-               NewStopAnnotation(
-                  name: $0.name,
-                  publicId: $0.id,
-                  latitude: $0.lat,
-                  longitude: $0.lng,
-                  stop: $0
-               )
-            )
-         })
-         
-         uiView.addAnnotations(annotationsToAdd)
-         
-      }
-      
-      
-      // Update whatever was set to update
-//      uiView.removeAnnotations(uiView.annotations)
-//      uiView.addAnnotations(annotationsToAdd)
-      
-//      uiView.showAnnotations(annotationsToAdd, animated: true)
-      
-   }
-   
-   
-   func makeCoordinator() -> NewMapView.Coordinator {
-      Coordinator(control: self)
-   }
-   
-   
-   
-   // MARK: - MKMapViewDelegate
-   
-   final class Coordinator: NSObject, MKMapViewDelegate {
-      
-      private let control: NewMapView
-      
-      private let sheetController = SheetController.shared
-      private let carrisNetworkController = CarrisNetworkController.shared
-      
-      init(control: NewMapView) {
-         self.control = control
-      }
-      
-      
-      
-//      @MainActor func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-//         print("MAPTEST: mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView)")
-//         if view.isKind(of: NewConnectionAnnotationView.self) {
-//
-//            let selectedStopAnnotationView = view as! NewConnectionAnnotationView
-//            let stopAnnotation = selectedStopAnnotationView.annotation as! NewConnectionAnnotation
-//
-////            selectedStopAnnotationView.marker.image = UIImage(named: "GreenInfo")
-//
-//            TapticEngine.impact.feedback(.light)
-//            _ = carrisNetworkController.select(connection: stopAnnotation.connection)
-//            sheetController.present(sheet: .ConnectionDetails)
-//
-//         }
-//      }
-      
-      
-      @MainActor func mapView(_ mapView: MKMapView, didSelect annotation: MKAnnotation) {
-         print("MAPTEST: mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView)")
-         if annotation.isKind(of: NewStopAnnotation.self) {
-            
-            let stopAnnotation = annotation as! NewStopAnnotation
-            
-            print("MAPTEST: selected annotation stop id: \(stopAnnotation.stop.id)")
-            
-            TapticEngine.impact.feedback(.light)
-            _ = carrisNetworkController.select(stop: stopAnnotation.stop)
-            sheetController.present(sheet: .ConnectionDetails)
-            
-         }
-      }
-      
-      
-      
-      @MainActor func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
-         print("MAPTEST: mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView)")
-//         if view.isKind(of: NewConnectionAnnotationView.self) {
-//
-////            let selectedStopAnnotationView = view as! NewConnectionAnnotationView
-////            let stopAnnotation = selectedStopAnnotationView.annotation as! NewConnectionAnnotation
-//
-////            selectedStopAnnotationView.marker.image = stopAnnotation.markerSymbol
-//
-            carrisNetworkController.deselect([.stop])
-//
-//         }
-      }
-      
-      
-      
-      
-      func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-         guard let annotation = annotation as? NewStopAnnotation else { return nil }
-         
-         let identifier = "stop"
-         var view: MKAnnotationView
-         
-         if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) {
-            dequeuedView.annotation = annotation
-            view = dequeuedView
-         } else {
-            view = NewStopAnnotationView(annotation: annotation, reuseIdentifier: NewStopAnnotationView.ReuseID) //MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-         }
-         
-         return view
-//         return NewStopAnnotationView(annotation: annotation, reuseIdentifier: NewStopAnnotationView.ReuseID)
-      }
-      
-      
-//      func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-//         print("MAPTEST: mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView?")
-//         if annotation.isKind(of: NewStopAnnotation.self) {
-//
-////            return MKAnnotationView(annotation: annotation, reuseIdentifier: "stop")
-//
-//            let identifier = "stop"
-//            var view: MKAnnotationView
-//
-//            if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) {
-//               dequeuedView.annotation = annotation
-//               view = dequeuedView
-//            } else {
-//               view = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-//            }
-////
-//             return view
-//
-//         } else {
-//
-//            return nil
-//
-//         }
-//
-//      }
-      
-      
-   }
-   
-}
-
-
-
-
-
-
-class NewStopAnnotationView: MKAnnotationView {
-   
-   static let ReuseID = "stop"
-   
-//   override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
-//      super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
-//      clusteringIdentifier = "stop"
-//   }
-//
-//   required init?(coder aDecoder: NSCoder) {
-//      fatalError("init(coder:) has not been implemented")
-//   }
-   
-//   override func prepareForDisplay() {
-//      super.prepareForDisplay()
-//      displayPriority = .defaultLow
-////      markerTintColor = UIColor.unicycleColor
-////      glyphImage = #imageLiteral(resourceName: "unicycle")
-//      let swiftUIView = Circle().foregroundColor(.blue).frame(width: 5, height: 5) // swiftUIView is View
-//      let viewCtrl = UIHostingController(rootView: swiftUIView)
-//      addSubview(viewCtrl.view)
-//   }
+   static let reuseIdentifier = "vehicle"
    
    override var annotation: MKAnnotation? {
-
       willSet {
-         guard let annotation = newValue as? NewStopAnnotation else {
-            return
-         }
-
-         clusteringIdentifier = "stop"
+         guard let newValue = newValue as? GeoBusMKAnnotation else { return }
+         
          canShowCallout = false
-
-         let swiftUIView = StopAnnotationView(stop: annotation.stop) // swiftUIView is View
-         let viewCtrl = UIHostingController(rootView: swiftUIView)
-         addSubview(viewCtrl.view)
-
+         
+         let swiftUIView = VehicleSwiftUIAnnotationView(vehicleId: newValue.id)
+         let uiKitView = UIHostingController(rootView: swiftUIView)
+         addSubview(uiKitView.view)
       }
-
-   }
-   
-   
-   
-}
-
-
-
-class NewStopAnnotation: NSObject, MKAnnotation {
-   
-   let name: String
-   let publicId: Int
-   
-   @objc dynamic var coordinate: CLLocationCoordinate2D
-   
-   let stop: CarrisNetworkModel.Stop
-   
-   
-   init(name: String?, publicId: Int?, latitude: Double, longitude: Double, stop: CarrisNetworkModel.Stop) {
-      self.name = name ?? "-"
-      self.publicId = publicId ?? -1
-      self.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-      self.stop = stop
-      super.init()
    }
    
 }
 
+
+struct VehicleSwiftUIAnnotationView: View {
+   
+   public let vehicleId: Int
+   
+   @StateObject private var mapController = MapController.shared
+   @StateObject private var carrisNetworkController = CarrisNetworkController.shared
+   
+   @State private var vehicle: CarrisNetworkModel.Vehicle?
+   
+   var body: some View {
+      VStack {
+         switch (vehicle?.kind) {
+            case .tram, .elevator:
+               Image("Tram")
+            case .neighborhood, .night, .regular, .none:
+               Image("RegularService")
+         }
+      }
+      .rotationEffect(.radians(vehicle?.angleInRadians ?? 0) + .degrees(-mapController.mapCamera.heading))
+      .animation(.default, value: vehicle?.angleInRadians)
+      .onAppear() {
+         self.vehicle = carrisNetworkController.find(vehicle: self.vehicleId)
+      }
+   }
+   
+}
