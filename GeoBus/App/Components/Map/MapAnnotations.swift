@@ -143,44 +143,4 @@ struct StopAnnotationView: View {
 
 
 
-struct NewStopMKAnnotationView: View {
-   
-   public let stopId: Int
-   
-   @State private var stop: CarrisNetworkModel.Stop?
-   
-   @StateObject private var sheetController = SheetController.shared
-   @StateObject private var mapController = MapController.shared
-   @StateObject private var carrisNetworkController = CarrisNetworkController.shared
-   
-   var body: some View {
-      VStack {
-         if (stop != nil) {
-//            VStack {
-               if (carrisNetworkController.activeStop?.id == self.stop?.id) {
-                  StopIcon(style: .selected)
-               } else if (mapController.region.span.latitudeDelta < 0.0025 || mapController.region.span.longitudeDelta < 0.0025) {
-                  StopIcon(style: .standard)
-               } else {
-                  StopIcon(style: .mini)
-               }
-//            }
-//            .onTapGesture {
-//               TapticEngine.impact.feedback(.light)
-//               carrisNetworkController.select(stop: self.stop!)
-//               sheetController.present(sheet: .StopDetails)
-//               // withAnimation(.easeIn(duration: 0.5)) {
-//               //    mapController.centerMapOnCoordinates(lat: self.stop.lat, lng: self.stop.lng)
-//               // }
-//            }
-         } else {
-            Circle().foregroundColor(.red)
-         }
-      }
-      .onAppear() {
-         self.stop = carrisNetworkController.find(stop: stopId)
-         print("HEYSTOP: stop find result: \(self.stop?.id)")
-      }
-   }
-   
-}
+

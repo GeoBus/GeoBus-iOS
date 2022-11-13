@@ -12,6 +12,8 @@ struct StopIcon: View {
    public let style: Style
    public let orderInRoute: Int?
    
+   @ObservedObject private var mapController = MapController.shared
+   
    init(style: Style = .standard, orderInRoute: Int? = nil, direction: CarrisNetworkModel.Direction? = nil) {
       self.orderInRoute = orderInRoute
       
@@ -47,7 +49,10 @@ struct StopIcon: View {
          case .standard, .ascending, .descending, .circular, .muted:
             return 25
          case .mini:
-            return 10
+            let mapZoom = mapController.region.span.latitudeDelta
+            var size = -440.0 * mapZoom + 12
+            if (size < 0) { size = 0 }
+            return size
          case .selected:
             return 25 * 1.5
       }

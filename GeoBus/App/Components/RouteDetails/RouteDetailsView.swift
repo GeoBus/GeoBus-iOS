@@ -11,8 +11,10 @@ import SwiftUI
 struct RouteDetailsView: View {
 
    @ObservedObject private var appstate = Appstate.shared
+   @ObservedObject private var mapController = MapController.shared
    @ObservedObject private var carrisNetworkController = CarrisNetworkController.shared
 
+   @State var mapspan: Double = 0.0
 
    // Initial screen simply explaining how to select a route,
    // also with app version and build.
@@ -21,9 +23,13 @@ struct RouteDetailsView: View {
          VStack(alignment: .leading) {
             Spacer()
             HStack {
-               Text("← Choose a Route")
+//               Text("← Choose a Route")
+               Text("Span: \(mapspan)")
                   .font(Font.system(size: 15, weight: .bold, design: .default))
                   .foregroundColor(Color(.secondaryLabel))
+                  .onReceive(mapController.$region, perform: { newRegion in
+                     self.mapspan = newRegion.span.latitudeDelta
+                  })
                Spacer()
             }
             Spacer()

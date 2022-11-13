@@ -26,12 +26,18 @@ final class MapController: ObservableObject {
    /* MARK: - SECTION 2: PUBLISHED PROPERTIES */
    /* Here are all the @Published variables that can be consumed by the app views. */
    
-   @Published var region = MKCoordinateRegion()
+   @Published var region = MKCoordinateRegion(
+      center: CLLocationCoordinate2D(latitude: 38.721917, longitude: -9.137732),
+      span: MKCoordinateSpan(latitudeDelta: CLLocationDistance(15000), longitudeDelta: CLLocationDistance(15000))
+   )
    
    @Published var locationManager = CLLocationManager()
    @Published var showLocationNotAllowedAlert: Bool = false
    
    @Published var visibleAnnotations: [GenericMapAnnotation] = []
+   
+   
+   @Published var newAnnotations: [GeoBusMKAnnotation] = []
    
    
    /* * */
