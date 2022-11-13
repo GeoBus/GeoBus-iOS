@@ -20,9 +20,33 @@ struct ContentView: View {
             MapViewSwiftUI(
                region: $mapController.region,
                camera: $mapController.mapCamera,
-               annotations: $mapController.allAnnotations
+               annotations: $mapController.allAnnotations,
+               overlays: $mapController.allOverlays
             )
             .edgesIgnoringSafeArea(.vertical)
+            .onReceive(carrisNetworkController.$activeVariant) { newVariant in
+               if (newVariant != nil) {
+                  if (newVariant?.circularShape != nil) {
+                     var tempLinePoints: [CLLocationCoordinate2D] = []
+                     do {
+                        let dataStringData = Data(newVariant!.circularShape!.utf8)
+                        let dataObject = try JSONDecoder().decode(CarrisAPIModel.Shape2.self, from: dataStringData)
+                        print("HJBUYY/TGUYINUHBGVFCTVYGBUHNJHBGVFCDVTGYBHUN")
+                        print(dataObject)
+                        for point in dataObject.coordinates {
+                           tempLinePoints.append(
+                              CLLocationCoordinate2D(latitude: point[1], longitude: point[0])
+                           )
+                        }
+                     } catch {
+                        print(error)
+                     }
+                     self.mapController.allOverlays.append(
+                        MKPolyline(coordinates: tempLinePoints, count: tempLinePoints.count)
+                     )
+                  }
+               }
+            }
             .onReceive(carrisNetworkController.$activeVehicles) { newVehiclesList in
                var tempNewAnnotations: [GeoBusMKAnnotation] = []
                for vehicle in carrisNetworkController.activeVehicles {
@@ -36,7 +60,7 @@ struct ContentView: View {
                }
                mapController.add(annotations: tempNewAnnotations, ofType: .vehicle)
             }
-            .onChange(of: mapController.region, perform: { newRegion in
+            .onReceive(mapController.$region) { newRegion in
                var tempNewAnnotations: [GeoBusMKAnnotation] = []
                if (newRegion.span.latitudeDelta < 0.01 || newRegion.span.longitudeDelta < 0.01) {
                   
@@ -64,7 +88,7 @@ struct ContentView: View {
                   }
                }
                mapController.add(annotations: tempNewAnnotations, ofType: .stop)
-            })
+            }
             VStack(spacing: 15) {
                AboutGeoBus()
                Spacer()

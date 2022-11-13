@@ -42,6 +42,7 @@ final class MapController: ObservableObject {
    
    
    @Published var allAnnotations: [GeoBusMKAnnotation] = []
+   @Published var allOverlays: [MKPolyline] = []
    
    
    /* * */

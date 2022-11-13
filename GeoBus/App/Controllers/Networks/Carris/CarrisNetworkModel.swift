@@ -61,13 +61,16 @@ struct CarrisNetworkModel {
       let ascendingItinerary: [Connection]?
       let descendingItinerary: [Connection]?
       
-      init(number: Int, name: String, circularItinerary: [Connection]? = nil, ascendingItinerary: [Connection]? = nil, descendingItinerary: [Connection]? = nil) {
+      let circularShape: String?
+      
+      init(number: Int, name: String, circularItinerary: [Connection]? = nil, ascendingItinerary: [Connection]? = nil, descendingItinerary: [Connection]? = nil, circularShape: String?) {
          self.id = number
          self.number = number
          self.name = name
          self.circularItinerary = circularItinerary
          self.ascendingItinerary = ascendingItinerary
          self.descendingItinerary = descendingItinerary
+         self.circularShape = circularShape
       }
    }
    

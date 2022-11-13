@@ -37,7 +37,19 @@ struct CarrisAPIModel {
    struct Itinerary: Decodable {
       let id: Int?
       let type: String?
+      let shape: String?
       let connections: [Connection]?
+   }
+   
+   
+   struct Shape: Decodable {
+      let type: String?
+      let coordinates: String?
+   }
+   
+   struct Shape2: Decodable {
+      let type: String?
+      let coordinates: [[Double]]
    }
    
    struct Connection: Decodable {

@@ -18,6 +18,7 @@ struct MapViewSwiftUI: UIViewRepresentable {
    @Binding var region: MKCoordinateRegion
    @Binding var camera: MKMapCamera
    @Binding var annotations: [GeoBusMKAnnotation]
+   @Binding var overlays: [MKPolyline]
    
    @StateObject var carrisNetworkController = CarrisNetworkController.shared
    
@@ -48,8 +49,7 @@ struct MapViewSwiftUI: UIViewRepresentable {
       
       // Find out which annotations should be added to the map
       for newAnnotation in annotations {
-         // se esta nova anotation ainda não estiver já na UiView
-         // adicionar à 'tempAnnotationsToAdd'
+         // If this annotation is not yet on the view, add it
          let indexOfThisNewAnnotationInUiView = tempCurrentAnnotations.firstIndex(of: newAnnotation)
          if (indexOfThisNewAnnotationInUiView == nil) {
             tempAnnotationsToAdd.append(newAnnotation)
@@ -58,8 +58,7 @@ struct MapViewSwiftUI: UIViewRepresentable {
       
       // Find out the excess annotations that should be removed from the map
       for currentAnnotation in tempCurrentAnnotations {
-         // se esta anotation que está visível não estiver na 'annotations'
-         // adicionar à 'tempAnnotationsToRemove'
+         // If this visible annotation is not in [annotations], remove it
          let indexOfThisCurrentAnnotationInNextAnnotations = annotations.firstIndex(of: currentAnnotation)
          if (indexOfThisCurrentAnnotationInNextAnnotations == nil) {
             tempAnnotationsToRemove.append(currentAnnotation)
@@ -70,6 +69,19 @@ struct MapViewSwiftUI: UIViewRepresentable {
       // Update the view with annotations
       uiView.removeAnnotations(tempAnnotationsToRemove)
       uiView.addAnnotations(tempAnnotationsToAdd)
+      
+      
+      
+      // OVERLAYS
+      
+      var tempOverlaysToAdd: [MKPolyline] = []
+      
+      for overlay in overlays {
+         tempOverlaysToAdd.append(overlay)
+      }
+      
+      uiView.addOverlays(tempOverlaysToAdd)
+      
       
       print("HOWMANY currentAnnotations: \(tempCurrentAnnotations.count)")
       print("HOWMANY tempAnnotationsToAdd: \(tempAnnotationsToAdd.count)")
@@ -105,11 +117,10 @@ final class MapViewSwiftUICoordinator: NSObject, MKMapViewDelegate {
    
    @MainActor func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
       DispatchQueue.main.async { [self] in
-//         self.parentSwiftUIView.region = mapView.region
+         // self.parentSwiftUIView.region = mapView.region
          self.parentSwiftUIView.camera = mapView.camera
       }
    }
-   
    
    
    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -144,6 +155,21 @@ final class MapViewSwiftUICoordinator: NSObject, MKMapViewDelegate {
       }
    }
    
+   
+   
+   @MainActor func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+      print("HETERERERERERE : \(overlay)")
+      if let polyline = overlay as? MKPolyline {
+         print("HETERERERERERE27e53672")
+         var testlineRenderer = MKPolylineRenderer(polyline: polyline)
+         testlineRenderer.strokeColor = .systemPink
+         testlineRenderer.lineWidth = 2.0
+         return testlineRenderer
+      }
+      fatalError("Something wrong...")
+   }
+   
+   
 }
 
 
@@ -153,9 +179,10 @@ final class MapViewSwiftUICoordinator: NSObject, MKMapViewDelegate {
 
 final class GeoBusMKAnnotation: NSObject, MKAnnotation {
    
-   let id: Int
    let type: AnnotationType
-   var coordinate: CLLocationCoordinate2D
+   
+   let id: Int
+   dynamic var coordinate: CLLocationCoordinate2D
    
    enum AnnotationType {
       case stop
@@ -168,12 +195,52 @@ final class GeoBusMKAnnotation: NSObject, MKAnnotation {
       self.type = type
    }
    
+   func update(coordinate newCoordinate: CLLocationCoordinate2D) {
+      self.coordinate = newCoordinate
+   }
+   
    override func isEqual(_ object: Any?) -> Bool {
       if let annot = object as? GeoBusMKAnnotation{
          // Add your defintion of equality here. i.e what determines if two Annotations are equal.
-//         let equalCoordinates = annot.coordinate == self.coordinate
-//         let equalType = annot.type == self.type
-//         return equalCoordinates && equalType
+         let equalId = annot.id == self.id
+         let equalCoordinates = annot.coordinate == self.coordinate
+         let equalType = annot.type == self.type
+         return equalId && equalCoordinates && equalType
+      } else {
+         return false
+      }
+   }
+   
+}
+
+
+
+
+final class GeoBusMKOverlay: NSObject, MKOverlay {
+   
+   let type: OverlayType
+   
+   let id: Int
+   var coordinate: CLLocationCoordinate2D
+   var boundingMapRect: MKMapRect
+   
+   enum OverlayType {
+      case route
+   }
+   
+   init(type: OverlayType, id: Int, coordinate: CLLocationCoordinate2D, boundingMapRect: MKMapRect) {
+      self.type = type
+      self.id = id
+      self.coordinate = coordinate
+      self.boundingMapRect = boundingMapRect
+   }
+   
+   override func isEqual(_ object: Any?) -> Bool {
+      if let annot = object as? GeoBusMKAnnotation{
+         // Add your defintion of equality here. i.e what determines if two Annotations are equal.
+         //         let equalCoordinates = annot.coordinate == self.coordinate
+         //         let equalType = annot.type == self.type
+         //         return equalCoordinates && equalType
          return annot.id == self.id
       } else {
          return false
@@ -181,6 +248,10 @@ final class GeoBusMKAnnotation: NSObject, MKAnnotation {
    }
    
 }
+
+
+
+
 
 
 
@@ -202,6 +273,8 @@ final class StopMKAnnotationView: MKAnnotationView {
          guard let newValue = newValue as? GeoBusMKAnnotation else { return }
          
          canShowCallout = false
+         
+         zPriority = MKAnnotationViewZPriority(0)
          
          let swiftUIView = StopSwiftUIAnnotationView(stopId: newValue.id)
          let uiKitView = UIHostingController(rootView: swiftUIView)
@@ -253,6 +326,8 @@ final class VehicleMKAnnotationView: MKAnnotationView {
          
          canShowCallout = false
          
+         zPriority = MKAnnotationViewZPriority(1)
+         
          let swiftUIView = VehicleSwiftUIAnnotationView(vehicleId: newValue.id)
          let uiKitView = UIHostingController(rootView: swiftUIView)
          addSubview(uiKitView.view)
@@ -288,3 +363,34 @@ struct VehicleSwiftUIAnnotationView: View {
    }
    
 }
+
+
+
+
+
+
+
+
+
+// ROUTE VARIANT OVERLAY RENDERER
+
+
+//final class VehicleMKAnnotationView: MKOverlayRenderer {
+//
+//   static let reuseIdentifier = "vehicle"
+//
+//   override var annotation: MKAnnotation? {
+//      willSet {
+//         guard let newValue = newValue as? GeoBusMKAnnotation else { return }
+//
+//         canShowCallout = false
+//
+//         zPriority = MKAnnotationViewZPriority(1)
+//
+//         let swiftUIView = VehicleSwiftUIAnnotationView(vehicleId: newValue.id)
+//         let uiKitView = UIHostingController(rootView: swiftUIView)
+//         addSubview(uiKitView.view)
+//      }
+//   }
+//
+//}

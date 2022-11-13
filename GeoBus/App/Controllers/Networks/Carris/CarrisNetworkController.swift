@@ -348,6 +348,9 @@ class CarrisNetworkController: ObservableObject {
                
                // Request Route Detail for ‹routeNumber›
                let rawDataCarrisAPIRouteDetail = try await CarrisAPI.shared.request(for: "Routes/\(availableRoute.routeNumber ?? "-")")
+               
+               print("rawDataCarrisAPIRouteDetail: \(String(decoding: rawDataCarrisAPIRouteDetail, as: UTF8.self))")
+               
                let decodedAPIRouteDetail = try JSONDecoder().decode(CarrisAPIModel.Route.self, from: rawDataCarrisAPIRouteDetail)
                
                // Define a temporary variable to store formatted route variants
@@ -457,7 +460,8 @@ class CarrisNetworkController: ObservableObject {
          name: tempVariantName,
          circularItinerary: tempCircularConnections,
          ascendingItinerary: tempAscendingConnections,
-         descendingItinerary: tempDescendingConnections
+         descendingItinerary: tempDescendingConnections,
+         circularShape: rawVariant.circItinerary?.shape
       )
       
    }
@@ -799,6 +803,7 @@ class CarrisNetworkController: ObservableObject {
    
    public func select(variant: CarrisNetworkModel.Variant) {
       self.activeVariant = variant
+//      print("rawVariant.circItinerary?.shape: \(variant.circularShape)")
    }
    
    
@@ -811,14 +816,12 @@ class CarrisNetworkController: ObservableObject {
    }
    
    public func select(stop: CarrisNetworkModel.Stop) {
-      self.deselect([.all])
       self.activeStop = stop
    }
    
    public func select(stop stopId: Int) -> Bool {
       let stop = self.find(stop: stopId)
       if (stop != nil) {
-         self.deselect([.all])
          self.activeStop = stop
 //         self.select(stop: stop!)
          return true
