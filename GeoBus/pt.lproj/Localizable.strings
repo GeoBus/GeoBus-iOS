@@ -14,10 +14,10 @@
 "%lld active vehicles" = "%lld veículos ativos";
 
 /* No comment provided by engineer. */
-"%lld Routes left..." = "Faltam %lld Carreiras...";
+"%lld Routes left..." = "Faltam %lld Linhas...";
 
 /* No comment provided by engineer. */
-"← Choose a Route" = "← Escolha uma Carreira";
+"← Choose a Route" = "← Escolha uma Linha";
 
 /* No comment provided by engineer. */
 "1 active vehicle" = "1 veículo ativo";
@@ -38,7 +38,7 @@
 "Carris API is unavailable." = "O servidor da Carris está indisponível.";
 
 /* No comment provided by engineer. */
-"Choose a Route Number" = "Escolha uma Carreira";
+"Choose a Route Number" = "Escolha uma Linha";
 
 /* No comment provided by engineer. */
 "Close" = "Fechar";
@@ -122,7 +122,7 @@
 "Please wait a few seconds." = "Por favor aguarde alguns segundos.";
 
 /* No comment provided by engineer. */
-"Please wait a moment while routes and stops are synced with Carris." = "Por favor aguarde enquanto as carreiras e paragens são sincronizadas com a Carris.";
+"Please wait a moment while routes and stops are synced with Carris." = "Por favor aguarde enquanto as linhas e paragens são sincronizadas com a Carris.";
 
 /* No comment provided by engineer. */
 "Please wait..." = "Por favor aguarde...";
@@ -134,10 +134,10 @@
 "Regular Service" = "Serviço Regular";
 
 /* No comment provided by engineer. */
-"Route Details" = "Detalhes da Carreira";
+"Route Details" = "Detalhes da Linha";
 
 /* No comment provided by engineer. */
-"Routes and Stops are synced." = "Carreiras e Paragens estão sincronizadas.";
+"Routes and Stops are synced." = "Linhas e Paragens estão sincronizadas.";
 
 /* No comment provided by engineer. */
 "Search Stop" = "Procurar Paragens";
@@ -170,16 +170,16 @@
 "The more people using it the more likely it will keep working." = "Quanto mais pessoas utilizarem, maior será a probabilidade de continuar a funcionar.";
 
 /* No comment provided by engineer. */
-"The route you entered is not available." = "A carreira que inseriu não está disponível.";
+"The route you entered is not available." = "A linha que inseriu não está disponível.";
 
 /* No comment provided by engineer. */
 "The stop you entered is not available." = "A paragem que inseriu não está disponível.";
 
 /* No comment provided by engineer. */
-"This is a circular route." = "Esta é uma carreira circular.";
+"This is a circular route." = "Esta é uma linha circular.";
 
 /* No comment provided by engineer. */
-"This route may have %lld alternative paths." = "Esta carreira pode ter %lld caminhos alternativos.";
+"This route may have %lld alternative paths." = "Esta linha pode ter %lld caminhos alternativos.";
 
 /* No comment provided by engineer. */
 "This should take about a minute." = "Isto deve demorar mais ou menos um minuto.";
@@ -209,7 +209,7 @@
 "Up to Date" = "Atualizado";
 
 /* No comment provided by engineer. */
-"Updating Routes..." = "A Actualizar Carreiras...";
+"Updating Routes..." = "A atualizar Linhas...";
 
 /* No comment provided by engineer. */
 "vehicle in circulation" = "veículo em circulação";
@@ -221,7 +221,7 @@
 "Visit the Website" = "Visite o Site";
 
 /* No comment provided by engineer. */
-"You have no favorite routes." = "Não tem carreiras favoritas.";
+"You have no favorite routes." = "Não tem linhas favoritas.";
 
 /* No comment provided by engineer. */
 "You have to allow location access so that GeoBus can show where you are on the map." = "É necessário permitir acesso à localização para que o GeoBus possa mostrar onde se encontra no mapa.";
