@@ -26,7 +26,7 @@ struct CarrisVehicleSheetView: View {
                } else {
                   HStack(spacing: 15) {
                      CarrisVehicleLastSeenTime(vehicle: carrisNetworkController.activeVehicle)
-                     CarrisVehicleToggleFollowOnMap()
+//                     CarrisVehicleToggleFollowOnMap()
                   }
                }
                CarrisVehicleRouteSummary(vehicle: carrisNetworkController.activeVehicle)
