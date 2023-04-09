@@ -35,6 +35,10 @@ struct CarrisConnectionAnnotationView: View {
    @ObservedObject private var carrisNetworkController = CarrisNetworkController.shared
    
    
+   var body2: some View {
+      EmptyView()
+   }
+   
    var body: some View {
       Button(action: {
          TapticEngine.impact.feedback(.light)
@@ -66,6 +70,11 @@ struct CarrisVehicleAnnotationView: View {
    
    @ObservedObject private var sheetController = SheetController.shared
    @ObservedObject private var carrisNetworkController = CarrisNetworkController.shared
+   
+   
+   var body2: some View {
+      EmptyView()
+   }
    
    
    var body: some View {

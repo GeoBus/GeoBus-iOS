@@ -36,8 +36,8 @@ struct EstimationsContainer: View {
                self.estimations = nil
                self.getEstimationsFromController(nil)
             }
-//         CommunityProviderToggle()
-//            .padding(.vertical)
+         CommunityProviderToggle()
+            .padding(.vertical)
          Disclaimer()
             .padding(.vertical)
       }
@@ -61,12 +61,11 @@ struct EstimationsHeader: View {
             .textCase(.uppercase)
             .foregroundColor(Color(.tertiaryLabel))
          Spacer()
-         PulseLabel(accent: Color(.systemTeal), label: Text("Community"))
-//         if (carrisNetworkController.communityDataProviderStatus) {
-//            PulseLabel(accent: Color(.systemTeal), label: Text("Community"))
-//         } else {
-//            PulseLabel(accent: Color(.systemOrange), label: Text("Estimated"))
-//         }
+         if (carrisNetworkController.communityDataProviderStatus) {
+            PulseLabel(accent: Color(.systemTeal), label: Text("Community"))
+         } else {
+            PulseLabel(accent: Color(.systemOrange), label: Text("Estimated"))
+         }
       }
    }
    
@@ -156,7 +155,7 @@ struct EstimationContainer: View {
       if (estimation.busNumber != nil) {
          Button(action: {
             carrisNetworkController.select(vehicle: estimation.busNumber)
-//             mapController.moveMap(to: )
+            // mapController.moveMap(to:)
             sheetController.present(sheet: .VehicleDetails)
          }, label: {
             estimationLine
