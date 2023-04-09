@@ -1,10 +1,3 @@
-//
-//  Routes.swift
-//  GeoBus
-//
-//  Created by João de Vasconcelos on 09/09/2022.
-//  Copyright © 2022 João de Vasconcelos. All rights reserved.
-//
 import Foundation
 import CoreLocation
 
@@ -15,6 +8,7 @@ import CoreLocation
 /* from which it is possible to retrieve information from routes and stops. */
 /* For this app, the goal is to simplify and build upon this network model */
 /* to prevent duplicated data and increase flexibility on updates to the views. */
+
 
 struct CarrisNetworkModel {
    
@@ -120,18 +114,20 @@ struct CarrisNetworkModel {
    struct Estimation: Codable, Identifiable, Equatable {
       let id: UUID
       let stopId: Int
-      let routeNumber: String
-      let destination: String
-      let eta: String
+      let routeNumber: String?
+      let destination: String?
+      let eta: String?
+      let hasArrived: Bool?
       let busNumber: Int?
       
-      init(stopId: Int, routeNumber: String, destination: String, eta: String, busNumber: Int? = nil) {
+      init(stopId: Int, routeNumber: String?, destination: String?, eta: String?, busNumber: Int? = nil, hasArrived: Bool? = nil) {
          self.id = UUID()
          self.stopId = stopId
          self.routeNumber = routeNumber
          self.destination = destination
          self.busNumber = busNumber
          self.eta = eta
+         self.hasArrived = hasArrived
       }
    }
    
@@ -141,12 +137,27 @@ struct CarrisNetworkModel {
    /* MARK: - CARRIS VEHICLE */
    /* Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia. */
    
-   struct Vehicle: Identifiable, Equatable {
+   class Vehicle: Identifiable, Equatable {
+      
+      static func == (lhs: CarrisNetworkModel.Vehicle, rhs: CarrisNetworkModel.Vehicle) -> Bool {
+         return false
+      }
+      
       
       // IDENTIFIER
       // The unique identifier for this model.
       
       let id: Int // Bus Number
+      
+      init(id: Int, routeNumber: String, lat: Double, lng: Double, previousLatitude: Double, previousLongitude: Double, lastGpsTime: String) {
+         self.id = id
+         self.routeNumber = routeNumber
+         self.lat = lat
+         self.lng = lng
+         self.previousLatitude = previousLatitude
+         self.previousLongitude = previousLongitude
+         self.lastGpsTime = lastGpsTime
+      }
       
       
       
@@ -162,14 +173,17 @@ struct CarrisNetworkModel {
       var previousLatitude: Double?
       var previousLongitude: Double?
       var lastGpsTime: String?
+      var direction: Direction?
       
       // Carris API › Vehicle Details
       var vehiclePlate: String?
       var lastStopOnVoyageId: Int?
       var lastStopOnVoyageName: String?
+      var hasLoadedCarrisDetails: Bool = false
       
       // Community API
-      var estimatedTimeofArrivalCorrected: [String]?
+      var routeOverview: [Estimation]?
+      var hasLoadedCommunityDetails: Bool = false
       
       
       

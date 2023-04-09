@@ -9,8 +9,8 @@ import SwiftUI
 
 struct SyncStatus: View {
 
-   @EnvironmentObject var appstate: Appstate
-   @EnvironmentObject var carrisNetworkController: CarrisNetworkController
+   @ObservedObject private var appstate = Appstate.shared
+   @ObservedObject private var carrisNetworkController = CarrisNetworkController.shared
 
 
    var syncError: some View {

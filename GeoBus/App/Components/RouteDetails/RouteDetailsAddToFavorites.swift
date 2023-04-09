@@ -10,7 +10,7 @@ import SwiftUI
 
 struct RouteDetailsAddToFavorites: View {
 
-   @EnvironmentObject var carrisNetworkController: CarrisNetworkController
+   @ObservedObject private var carrisNetworkController = CarrisNetworkController.shared
 
 
    var body: some View {

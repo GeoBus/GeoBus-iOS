@@ -7,18 +7,37 @@
 
 import SwiftUI
 
-struct VehicleDestination: View {
+
+
+
+
+struct DestinationText: View {
    
-   public let routeNumber: String
-   public let destination: String
+   let destination: String?
    
-   var body: some View {
+   @State private var placeholderOpacity: Double = 1
+   
+   
+   var placeholder: some View {
+      HStack(alignment: .center, spacing: 4) {
+         Image(systemName: "arrow.forward")
+            .font(.system(size: 8, weight: .bold, design: .default))
+            .foregroundColor(Color("PlaceholderText"))
+         Rectangle()
+            .frame(width: 80, height: 12)
+            .foregroundColor(Color("PlaceholderShape"))
+      }
+      .opacity(self.placeholderOpacity)
+      .animatePlaceholder(binding: self.$placeholderOpacity)
+   }
+   
+   
+   var actualContent: some View {
       HStack(spacing: 4) {
-         RouteBadgePill(routeNumber: self.routeNumber)
          Image(systemName: "arrow.forward")
             .font(.system(size: 8, weight: .bold, design: .default))
             .foregroundColor(Color(.tertiaryLabel))
-         Text(self.destination)
+         Text(self.destination!)
             .font(.body)
             .fontWeight(.medium)
             .foregroundColor(Color(.label))
@@ -26,5 +45,13 @@ struct VehicleDestination: View {
       }
    }
    
+   
+   var body: some View {
+      if (self.destination != nil) {
+         actualContent
+      } else {
+         placeholder
+      }
+   }
+   
 }
-

@@ -9,24 +9,27 @@
 import SwiftUI
 
 struct SheetHeader: View {
-  
-  let title: Text
-  @Binding var toggle: Bool
-  
-  var body: some View {
-    VStack {
-      HStack {
-        Spacer()
-        Button(action: { self.toggle = false }) {
-          Text("Close")
+   
+   @ObservedObject private var sheetController = SheetController.shared
+   
+   let title: Text
+   
+   var body: some View {
+      VStack {
+         HStack {
+            Spacer()
+            Button(action: {
+               sheetController.dismiss()
+            }) {
+               Text("Close")
+                  .fontWeight(.bold)
+            }
+            .padding(25)
+         }
+         title
+            .font(.largeTitle)
             .fontWeight(.bold)
-        }
-        .padding(25)
       }
-      title
-        .font(.largeTitle)
-        .fontWeight(.bold)
-    }
-    .padding(.bottom, 20)
-  }
+      .padding(.bottom, 20)
+   }
 }

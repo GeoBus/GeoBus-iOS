@@ -8,23 +8,79 @@
 
 import SwiftUI
 
-struct StopEstimations: View {
+struct EstimationsContainer: View {
    
-   @EnvironmentObject var appstate: Appstate
+   let stopId: Int
    
-   let estimations: [CarrisNetworkModel.Estimation]?
+   @ObservedObject private var carrisNetworkController = CarrisNetworkController.shared
+   
+   @State var estimations: [CarrisNetworkModel.Estimation]?
+   
+   let refreshTimer = Timer.publish(every: 30 /* seconds */, on: .main, in: .common).autoconnect()
    
    
-   var fixedInfo: some View {
+   func getEstimationsFromController(_ value: Any?) {
+      Task {
+         self.estimations = await carrisNetworkController.getEstimation(for: self.stopId)
+      }
+   }
+   
+   
+   var body: some View {
+      VStack(alignment: .leading, spacing: 10) {
+         EstimationsHeader()
+         EstimationsList(estimations: self.estimations)
+            .onAppear() { self.getEstimationsFromController(nil) }
+            .onReceive(refreshTimer, perform: self.getEstimationsFromController(_:))
+            .onChange(of: carrisNetworkController.communityDataProviderStatus) { value in
+               self.estimations = nil
+               self.getEstimationsFromController(nil)
+            }
+         CommunityProviderToggle()
+            .padding(.vertical)
+         Disclaimer()
+            .padding(.vertical)
+      }
+   }
+   
+   
+   
+}
+
+
+
+
+struct EstimationsHeader: View {
+   
+   @ObservedObject private var carrisNetworkController = CarrisNetworkController.shared
+   
+   var body: some View {
       HStack {
          Text("Next on this stop:")
             .font(Font.system(size: 10, weight: .bold, design: .default) )
             .textCase(.uppercase)
             .foregroundColor(Color(.tertiaryLabel))
          Spacer()
-         PulseLabel(accent: .orange, label: Text("Estimated"))
+         if (carrisNetworkController.communityDataProviderStatus) {
+            PulseLabel(accent: Color(.systemTeal), label: Text("Community"))
+         } else {
+            PulseLabel(accent: Color(.systemOrange), label: Text("Estimated"))
+         }
       }
    }
+   
+}
+
+
+
+
+
+
+
+struct EstimationsList: View {
+   
+   let estimations: [CarrisNetworkModel.Estimation]?
+   
    
    var loadingScreen: some View {
       HStack(spacing: 3) {
@@ -37,17 +93,6 @@ struct StopEstimations: View {
       }
    }
    
-   var estimationsList: some View {
-      VStack(spacing: 12) {
-         ForEach(estimations!) { estimation in
-            HStack(spacing: 5) {
-               VehicleDestination(routeNumber: estimation.routeNumber, destination: estimation.destination)
-               Spacer()
-               TimeLeft(time: estimation.eta)
-            }
-         }
-      }
-   }
    
    var noResultsScreen: some View {
       Text("No estimations available for this stop.")
@@ -55,24 +100,24 @@ struct StopEstimations: View {
          .foregroundColor(Color(.secondaryLabel))
    }
    
-   var errorScreen: some View {
-      Text("Carris API is unavailable.")
-         .font(Font.system(size: 13, weight: .medium, design: .default) )
-         .foregroundColor(Color(.secondaryLabel))
+   
+   var estimationsList: some View {
+      VStack(spacing: 12) {
+         ForEach(estimations!) { estimation in
+            EstimationContainer(estimation: estimation)
+         }
+      }
    }
    
    
    var body: some View {
       VStack(alignment: .leading, spacing: 10) {
-         fixedInfo
          if (estimations != nil) {
             if (estimations!.count > 0) {
                estimationsList
             } else {
                noResultsScreen
             }
-         } else if (appstate.estimations == .error) {
-            errorScreen
          } else {
             loadingScreen
          }
@@ -81,4 +126,43 @@ struct StopEstimations: View {
    
 }
 
+
+
+
+
+
+struct EstimationContainer: View {
+   
+   let estimation: CarrisNetworkModel.Estimation
+   
+   @ObservedObject private var sheetController = SheetController.shared
+   @ObservedObject private var mapController = MapController.shared
+   @ObservedObject private var carrisNetworkController = CarrisNetworkController.shared
+   
+   
+   var estimationLine: some View {
+      HStack(spacing: 4) {
+         RouteBadgePill(routeNumber: estimation.routeNumber)
+         DestinationText(destination: estimation.destination)
+         Spacer(minLength: 5)
+         TimeLeft(time: estimation.eta)
+      }
+   }
+   
+   
+   var body: some View {
+      
+      if (estimation.busNumber != nil) {
+         Button(action: {
+            carrisNetworkController.select(vehicle: estimation.busNumber)
+            // mapController.moveMap(to:)
+            sheetController.present(sheet: .VehicleDetails)
+         }, label: {
+            estimationLine
+         })
+      } else {
+         estimationLine
+      }
+   }
+}
 

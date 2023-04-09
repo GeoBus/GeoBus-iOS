@@ -9,10 +9,10 @@ import SwiftUI
 
 struct Spinner: View {
    
-   @Environment(\.colorScheme) var colorScheme: ColorScheme
+   public var size: CGFloat = 20.0
+   public var timing: Double = 0.5
    
-   private let timing: Double = 0.5
-   private let size: CGFloat = 20.0
+   @Environment(\.colorScheme) var colorScheme: ColorScheme
    
    @State var trim: Double = 0.4
    @State var rotationAngle: Double = 0.0

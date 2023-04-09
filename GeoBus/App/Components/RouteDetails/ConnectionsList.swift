@@ -16,9 +16,9 @@ struct ConnectionsList: View {
    var body: some View {
       VStack(alignment: .leading, spacing: 15) {
          ForEach(connections) { connection in
-            ConnectionDetailsView2(
+            StopDetailsView(
                canToggle: true,
-               publicId: connection.stop.id,
+               stopId: connection.stop.id,
                name: connection.stop.name,
                orderInRoute: connection.orderInRoute,
                direction: connection.direction

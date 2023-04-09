@@ -10,14 +10,29 @@ import SwiftUI
 
 struct VehicleIdentifier: View {
 
-   let busNumber: Int
+   let busNumber: Int?
    let vehiclePlate: String?
 
    @State var toggleIdentifier: Bool = false
 
+   @State var placeholderOpacity: Double = 1
+   
+   var placeholder: some View {
+      Text("00000")
+         .font(Font.system(size: 12, weight: .bold, design: .monospaced) )
+         .foregroundColor(.clear)
+         .padding(.vertical, 2)
+         .padding(.horizontal, 7)
+         .background(Color("PlaceholderShape"))
+         .cornerRadius(5)
+         .opacity(placeholderOpacity)
+         .animatePlaceholder(binding: $placeholderOpacity)
+   }
+   
+   
 
    var busNumberView: some View {
-      Text(String(busNumber))
+      Text(String(busNumber!))
          .font(Font.system(size: 12, weight: .bold, design: .monospaced) )
          .foregroundColor(.primary)
          .padding(.vertical, 2)
@@ -51,24 +66,26 @@ struct VehicleIdentifier: View {
 
 
    var body: some View {
-      // If vehiclePlate is not available,
-      // then show only the busNumber
-      if (vehiclePlate != nil) {
-         // If both are available, allow them to be toggled
-         VStack {
-            if (toggleIdentifier) {
-               busNumberView
-            } else {
-               licensePlateView
+      if (busNumber != nil) {
+         
+         if (vehiclePlate != nil) {
+            VStack {
+               if (toggleIdentifier) {
+                  busNumberView
+               } else {
+                  licensePlateView
+               }
             }
+            .onTapGesture {
+               TapticEngine.impact.feedback(.light)
+               self.toggleIdentifier = !toggleIdentifier
+            }
+         } else {
+            busNumberView
          }
-         .onTapGesture {
-            TapticEngine.impact.feedback(.light)
-            self.toggleIdentifier = !toggleIdentifier
-         }
-
+         
       } else {
-         busNumberView
+         placeholder
       }
    }
 

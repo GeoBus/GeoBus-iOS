@@ -14,9 +14,9 @@ final class CarrisAPI {
    /* ‹totalAuthenticationAttemptsBeforeFailing› should be more than 3 to make sure any error in the auth server */
    /* is not passed on to the user. */
    
-   private let apiEndpoint = "https://gateway.carris.pt/gateway/xtranpassengerapi/api/v2.11/"
+   private let apiEndpoint = "https://gateway.carris.pt/gateway/gtfs/api/v2.11/"
    private let authorizationEndpoint = "https://gateway.carris.pt/gateway/authenticationapi/authorization/sign"
-   private let credentialEndpoint = "https://joao.earth/api/geobus/carris_auth"
+   private let credentialEndpoint = "https://key.geobus.workers.dev"
    
    private let storageKeyForEndpoint: String = "carris_endpoint"
    private let storageKeyForApiKey: String = "carris_apiKey"
@@ -114,58 +114,62 @@ final class CarrisAPI {
    /* while loop, the same method is not repeated and the flow gets stuck in an infinite loop. This could be caused */
    /* due to the way authentication in Carris API is implemented: the system returns invalid tokens for an expired key. */
    /* This means that the only way to check if the tokens fetched from the current apiKey are valid is to perform the */
-   /* the request and look for the response status. Keeping this centralized in one single ‹request()› functions */
-   /* allows for a lot of code reuse. Also, if the response is not equal to 200 or 401, then throw an error immediately. */
+   /* request and look for the response status. Keeping this centralized in one single ‹request()› function */
+   /* allows for a lot of code reuse. Also, if the response is not equal to 200 or 401, throw an error immediately. */
    /* If all is well, then return the raw data response to the parent caller. */
    
    public func request(for service: String) async throws -> Data {
       
-      var hasAlreadyTryedRefreshToken = false
-      var hasAlreadyTryedApiKey = false
-      var hasAlreadyTryedLatestCredential = false
+      let (data, _) = try await makeGETRequest(url: self.apiEndpoint + service, authenticated: false)
       
-      while true {
-         
-         let (data, response) = try await makeGETRequest(url: self.apiEndpoint + service, authenticated: true)
-         
-         if (response.statusCode == 401) {
-            
-            print("GeoBus: Carris API: ‹request(for: \(service))› Unauthorized. Fixing...")
-            
-            if (self.refreshToken != nil && !hasAlreadyTryedRefreshToken) {
-               print("GeoBus: Carris API: ‹request(for: \(service))› Trying to use Refresh Token...")
-               try await fetchAuthorization(token: self.refreshToken!, type: "refresh")
-               hasAlreadyTryedRefreshToken = true
-               
-            } else if (self.apiKey != nil && !hasAlreadyTryedApiKey) {
-               print("GeoBus: Carris API: ‹request(for: \(service))› Trying to use API Key...")
-               try await fetchAuthorization(token: self.apiKey!, type: "apikey")
-               hasAlreadyTryedApiKey = true
-               
-            } else if (!hasAlreadyTryedLatestCredential) {
-               print("GeoBus: Carris API: ‹request(for: \(service))› Fetching latest credential...")
-               try await fetchLatestCredential()
-               try await fetchAuthorization(token: self.apiKey!, type: "apikey")
-               hasAlreadyTryedLatestCredential = true
-               
-            } else {
-               print("GeoBus: Carris API: ‹request(for: \(service))› Carris API did not accept any known authentication methods.")
-               print("********************************************************")
-               throw CarrisAPIError.unauthorized
-               
-            }
-            
-         } else if (response.statusCode != 200) {
-            print("GeoBus: Carris API: Routes: Unknown error. Waiting for manual retry. More info: \(response as Any)")
-            print("********************************************************")
-            throw CarrisAPIError.unavailable
-            
-         } else {
-            return data
-            
-         }
-         
-      }
+      return data
+      
+//      var hasAlreadyTryedRefreshToken = false
+//      var hasAlreadyTryedApiKey = false
+//      var hasAlreadyTryedLatestCredential = false
+//
+//      while true {
+//
+//         let (data, response) = try await makeGETRequest(url: self.apiEndpoint + service, authenticated: false)
+//
+//         if (response.statusCode == 401) {
+//
+//            print("GeoBus: Carris API: ‹request(for: \(service))› Unauthorized. Fixing...")
+//
+//            if (self.refreshToken != nil && !hasAlreadyTryedRefreshToken) {
+//               print("GeoBus: Carris API: ‹request(for: \(service))› Trying to use Refresh Token...")
+//               try await fetchAuthorization(token: self.refreshToken!, type: "refresh")
+//               hasAlreadyTryedRefreshToken = true
+//
+//            } else if (self.apiKey != nil && !hasAlreadyTryedApiKey) {
+//               print("GeoBus: Carris API: ‹request(for: \(service))› Trying to use API Key...")
+//               try await fetchAuthorization(token: self.apiKey!, type: "apikey")
+//               hasAlreadyTryedApiKey = true
+//
+//            } else if (!hasAlreadyTryedLatestCredential) {
+//               print("GeoBus: Carris API: ‹request(for: \(service))› Fetching latest credential...")
+//               try await fetchLatestCredential()
+//               try await fetchAuthorization(token: self.apiKey!, type: "apikey")
+//               hasAlreadyTryedLatestCredential = true
+//
+//            } else {
+//               print("GeoBus: Carris API: ‹request(for: \(service))› Carris API did not accept any known authentication methods.")
+//               print("********************************************************")
+//               throw CarrisAPIError.unauthorized
+//
+//            }
+//
+//         } else if (response.statusCode != 200) {
+//            print("GeoBus: Carris API: Routes: Unknown error. Waiting for manual retry. More info: \(response as Any)")
+//            print("********************************************************")
+//            throw CarrisAPIError.unavailable
+//
+//         } else {
+//            return data
+//
+//         }
+//
+//      }
       
    }
    

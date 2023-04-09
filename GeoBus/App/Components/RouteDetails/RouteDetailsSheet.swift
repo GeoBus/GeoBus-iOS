@@ -10,9 +10,8 @@ import SwiftUI
 
 struct RouteDetailsSheet: View {
    
-   @EnvironmentObject var carrisNetworkController: CarrisNetworkController
-   
-   @Binding var showRouteDetailsSheet: Bool
+   @ObservedObject private var appstate = Appstate.shared
+   @ObservedObject private var carrisNetworkController = CarrisNetworkController.shared
    
    @State var routeDirection: Int = 0
    @State var routeDirectionPicker: Int = 0
@@ -22,7 +21,7 @@ struct RouteDetailsSheet: View {
       
       VStack(spacing: 15) {
          
-         SheetHeader(title: Text("Route Details"), toggle: $showRouteDetailsSheet)
+         SheetHeader(title: Text("Route Details"))
          
          HStack(spacing: 25) {
             RouteBadgeSquare(routeNumber: carrisNetworkController.activeRoute!.number)
@@ -55,7 +54,7 @@ struct RouteDetailsSheet: View {
       VStack(spacing: 15) {
          
          if (carrisNetworkController.activeVariant?.circularItinerary != nil) {
-            RouteCircularVariantInfo()
+            Chip(icon: Image(systemName: "repeat"), text: Text("This is a circular route."), color: Color(.systemBlue))
             ConnectionsList(connections: carrisNetworkController.activeVariant!.circularItinerary!)
             
          } else if (carrisNetworkController.activeVariant?.ascendingItinerary != nil && carrisNetworkController.activeVariant?.descendingItinerary != nil) {
@@ -86,7 +85,7 @@ struct RouteDetailsSheet: View {
    
    var body: some View {
       
-      ScrollView(.vertical, showsIndicators: true) {
+      ScrollView(showsIndicators: true) {
          VStack(spacing: 5) {
             liveInfo
                .padding()
