@@ -54,7 +54,7 @@ class CarrisNetworkController: ObservableObject {
    @Published var favorites_routes: [CarrisNetworkModel.Route] = []
    @Published var favorites_stops: [CarrisNetworkModel.Stop] = []
    
-   @Published var communityDataProviderStatus: Bool = false
+   @Published var communityDataProviderStatus: Bool = true
    
    
    
@@ -833,9 +833,7 @@ class CarrisNetworkController: ObservableObject {
          if let foundVehicle = self.find(vehicle: vehicleId!) {
             Task {
                await self.fetchVehicleDetailsFromCarrisAPI(for: foundVehicle.id)
-               if (self.communityDataProviderStatus) {
-                  await self.fetchVehicleDetailsFromCommunityAPI(for: foundVehicle.id)
-               }
+               await self.fetchVehicleDetailsFromCommunityAPI(for: foundVehicle.id)
                self.activeVehicle = foundVehicle
             }
          }
@@ -1098,11 +1096,12 @@ class CarrisNetworkController: ObservableObject {
    // It formats and returns the results to the caller.
    
    public func getEstimation(for stopId: Int) async -> [CarrisNetworkModel.Estimation] {
-      if (!communityDataProviderStatus) {
-         return await self.fetchEstimationsFromCarrisAPI(for: stopId)
-      } else {
-         return await self.fetchEstimationsFromCommunityAPI(for: stopId)
-      }
+      return await self.fetchEstimationsFromCommunityAPI(for: stopId)
+//      if (!communityDataProviderStatus) {
+//         return await self.fetchEstimationsFromCarrisAPI(for: stopId)
+//      } else {
+//         return await self.fetchEstimationsFromCommunityAPI(for: stopId)
+//      }
    }
    
    

@@ -30,7 +30,7 @@ struct DataProvidersCard: View {
             .font(.headline)
             .fontWeight(.semibold)
             .foregroundColor(Color(.secondaryLabel))
-         CommunityProviderToggle()
+//         CommunityProviderToggle()
       }
    }
    

@@ -331,7 +331,6 @@ final class MapController: ObservableObject {
          if (zoom) {
             self.zoomToFitMapAnnotations(annotations: newAnnotations)
          }
-//      }
    }
    
    
