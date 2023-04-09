@@ -13,14 +13,14 @@ import SwiftUI
 
 struct GenericMapAnnotation: Identifiable {
    
-   let id: UUID
+   let id: Int
    var location: CLLocationCoordinate2D
    var item: AnnotationItem
    
    enum AnnotationItem {
-      case stop(CarrisNetworkModel.Stop)
-      case carris_connection(CarrisNetworkModel.Connection)
+      case connection(CarrisNetworkModel.Connection)
       case vehicle(CarrisNetworkModel.Vehicle)
+      case stop(CarrisNetworkModel.Stop)
    }
    
 }
@@ -53,8 +53,6 @@ struct CarrisConnectionAnnotationView: View {
             StopIcon(style: .descending, orderInRoute: self.connection.orderInRoute)
          } else if (self.connection.direction == .circular) {
             StopIcon(style: .circular, orderInRoute: self.connection.orderInRoute)
-         } else {
-            StopIcon(style: .standard)
          }
       }
       .frame(width: 40, height: 40, alignment: .center)
@@ -105,22 +103,20 @@ struct CarrisVehicleAnnotationView: View {
 
 
 
-struct StopAnnotationView: View {
+struct CarrisStopAnnotationView: View {
    
    public let stop: CarrisNetworkModel.Stop
    
    @StateObject private var sheetController = SheetController.shared
-   @StateObject private var mapController = MapController.shared
+   // @StateObject private var mapController = MapController.shared
    @StateObject private var carrisNetworkController = CarrisNetworkController.shared
    
    var body: some View {
       VStack {
          if (carrisNetworkController.activeStop?.id == self.stop.id) {
             StopIcon(style: .selected)
-         } else if (mapController.region.span.latitudeDelta < 0.0025 || mapController.region.span.longitudeDelta < 0.0025) {
-            StopIcon(style: .standard)
          } else {
-            StopIcon(style: .mini)
+            StopIcon(style: .standard)
          }
       }
       .onTapGesture {

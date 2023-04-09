@@ -26,26 +26,27 @@ struct MapView: View {
 
          MapAnnotation(coordinate: annotation.location) {
             switch (annotation.item) {
-               case .stop(let item):
-                  StopAnnotationView(stop: item)
-               case .carris_connection(let item):
+               case .connection(let item):
                   CarrisConnectionAnnotationView(connection: item)
                case .vehicle(let item):
                   CarrisVehicleAnnotationView(vehicle: item)
+               case .stop(let item):
+                  CarrisStopAnnotationView(stop: item)
             }
          }
 
       }
       .onReceive(carrisNetworkController.$activeVariant) { newVariant in
          if (newVariant != nil) {
-            self.mapController.updateAnnotations(with: newVariant!)
+            DispatchQueue.main.async {
+               self.mapController.updateAnnotations(with: newVariant!)
+            }
          }
       }
       .onReceive(carrisNetworkController.$activeVehicles) { newVehiclesList in
-         self.mapController.updateAnnotations(with: newVehiclesList)
-      }
-      .onReceive(mapController.$region.debounce(for: .seconds(0.1), scheduler: DispatchQueue.main)) { newRegion in
-         self.mapController.updateAnnotations(for: newRegion, with: carrisNetworkController.allStops)
+         DispatchQueue.main.async {
+            self.mapController.updateAnnotations(with: newVehiclesList)
+         }
       }
       
    }
