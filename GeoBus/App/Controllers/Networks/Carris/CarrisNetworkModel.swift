@@ -82,7 +82,7 @@ struct CarrisNetworkModel {
       let stop: Stop
       
       init(direction: Direction, orderInRoute: Int, stop: Stop) {
-         self.id = orderInRoute
+         self.id = stop.id
          self.direction = direction
          self.orderInRoute = orderInRoute
          self.stop = stop
