@@ -272,45 +272,45 @@ final class MapController: ObservableObject {
    /* MARK: - SECTION 10: UPDATE ANNOTATIONS WITH SINGLE ACTIVE CARRIS VEHICLE */
    /* Lorem ipsum dolor sit amet consectetur adipisicing elit. */
    
-//   func updateAnnotations(with activeVehicle: CarrisNetworkModel.Vehicle) {
-//
-////      let indexOfVehicleInArray = allVehicles.firstIndex(where: {
-////         $0.id == vehicleId
-////      })
-//
-//
-//      if let activeVehicleAnnotation = visibleAnnotations.first(where: {
-//         switch $0.item {
-//            case .vehicle(let item):
-//               if (item.id == activeVehicle.id) {
-//                  return true
-//               } else {
-//                  return false
-//               }
-//            case .carris_connection(_):
-//               return false
-//         }
-//         }) {
-//
-//         self.zoomToFitMapAnnotations(annotations: [activeVehicleAnnotation])
-//
-//      } else {
-//
-//         var tempNewAnnotations: [GenericMapAnnotation] = []
-//
-//         tempNewAnnotations.append(
-//            GenericMapAnnotation(
-//               id: UUID(),
-//               location: activeVehicle.coordinate,
-//               item: .vehicle(activeVehicle)
-//            )
-//         )
-//
-//         self.addAnnotations(tempNewAnnotations, zoom: true)
-//         
-//      }
-//
-//   }
+   func updateAnnotations(with activeVehicle: CarrisNetworkModel.Vehicle) {
+
+//      let indexOfVehicleInArray = allVehicles.firstIndex(where: {
+//         $0.id == vehicleId
+//      })
+
+
+      if let activeVehicleAnnotation = visibleAnnotations.first(where: {
+         switch $0.item {
+            case .vehicle(let item):
+               if (item.id == activeVehicle.id) {
+                  return true
+               } else {
+                  return false
+               }
+            case .connection(_), .stop(_):
+               return false
+         }
+         }) {
+
+         self.zoomToFitMapAnnotations(annotations: [activeVehicleAnnotation])
+
+      } else {
+
+         var tempNewAnnotations: [GenericMapAnnotation] = []
+
+         tempNewAnnotations.append(
+            GenericMapAnnotation(
+               id: activeVehicle.id,
+               location: activeVehicle.coordinate,
+               item: .vehicle(activeVehicle)
+            )
+         )
+
+         self.addAnnotations(tempNewAnnotations, zoom: true)
+         
+      }
+
+   }
    
    
    
