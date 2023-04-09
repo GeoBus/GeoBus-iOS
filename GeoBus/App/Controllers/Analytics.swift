@@ -1,12 +1,6 @@
-//
-//  Analytics.swift
-//  GeoBus
-//
-//  Created by João de Vasconcelos on 11/09/2022.
-//
-
 import Foundation
 import PostHog
+
 
 /* * */
 /* MARK: - ANALYTICS */
@@ -15,6 +9,7 @@ import PostHog
 /* on the amount of data collected, allowing it to be minimized to the fullest extent. */
 /* The point is to only record general events, without identifiers, to understand */
 /* if calls to the API are working, which routes are selected and how many people are using it. */
+
 
 final class Analytics {
    

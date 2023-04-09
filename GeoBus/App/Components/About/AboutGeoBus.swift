@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AboutGeoBus: View {
 
-   @EnvironmentObject var carrisNetworkController: CarrisNetworkController
+   @ObservedObject private var carrisNetworkController = CarrisNetworkController.shared
 
    @State private var showInfoSheet: Bool = false
 
@@ -46,7 +46,7 @@ struct AboutGeoBus: View {
                         .padding(.top, 70)
                         .padding(.bottom, 15)
                      SyncStatus()
-//                     DataProvidersCard()
+                     DataProvidersCard()
                   }
                   .padding(.horizontal)
 

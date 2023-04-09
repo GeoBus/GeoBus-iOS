@@ -1,4 +1,4 @@
-[![Crowdin](https://badges.crowdin.net/e/36d912e14306ea2127d8108a38871924/localized.svg)](https://geobus.crowdin.com/geobus-ios)
+[![Crowdin](https://badges.crowdin.net/geobus-ios/localized.svg)](https://crowdin.com/project/geobus-ios)
 
 # GeoBus for iOS
 GeoBus iOS App, written in Swift and SwiftUI.

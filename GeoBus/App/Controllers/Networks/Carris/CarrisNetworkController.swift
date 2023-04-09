@@ -8,11 +8,12 @@ import Combine
 /* allows for code reuse, less plumbing passing objects from one class to another and less */
 /* clutter overall. If the data is provided by Carris, it should be controlled by this class. */
 
+
 @MainActor
 class CarrisNetworkController: ObservableObject {
    
    /* * */
-   /* MARK: - SECTION 1: SETTINGS */
+   /* MARK: - 1. SETTINGS */
    /* In this section one can find private constants for update intervals, */
    /* storage keys and more. Change these values with caution because they can */
    /* trigger updates on the users devices, which can take a long time or fail. */
@@ -26,11 +27,12 @@ class CarrisNetworkController: ObservableObject {
    private let storageKeyForFavoriteStops: String = "carris_favoriteStops"
    private let storageKeyForSavedRoutes: String = "carris_savedRoutes"
    private let storageKeyForFavoriteRoutes: String = "carris_favoriteRoutes"
+   private let storageKeyForCommunityDataProviderStatus: String = "carris_communityDataProviderStatus"
    
    
    
    /* * */
-   /* MARK: - SECTION 2: PUBLISHED VARIABLES */
+   /* MARK: - 2. PUBLISHED VARIABLES */
    /* Here are all the @Published variables that can be consumed by the app views. */
    /* It is important to keep the names of this variables short, but descriptive, */
    /* to avoid clutter on the interface code. */
@@ -47,28 +49,52 @@ class CarrisNetworkController: ObservableObject {
    @Published var activeConnection: CarrisNetworkModel.Connection? = nil
    @Published var activeStop: CarrisNetworkModel.Stop? = nil
    @Published var activeVehicles: [CarrisNetworkModel.Vehicle] = []
+   @Published var activeVehicle: CarrisNetworkModel.Vehicle? = nil
    
    @Published var favorites_routes: [CarrisNetworkModel.Route] = []
    @Published var favorites_stops: [CarrisNetworkModel.Stop] = []
    
+   @Published var communityDataProviderStatus: Bool = true
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
    
    
    /* * */
-   /* MARK: - SECTION 3: SHARED INSTANCE */
+   /* MARK: - 3. INITIALIZER */
+   /* Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ut ornare ipsum. */
+   /* Nunc neque nulla, pretium ac lectus id, scelerisque facilisis est. */
+   
+   
+   /* * */
+   /* MARK: - 3.1. SHARED INSTANCE */
    /* To allow the same instance of this class to be available accross the whole app, */
    /* we create a Singleton. More info here: https://www.hackingwithswift.com/example-code/language/what-is-a-singleton */
    
-   static let shared = CarrisNetworkController()
+   public static let shared = CarrisNetworkController()
    
    
    
    /* * */
-   /* MARK: - SECTION 4: INITIALIZER */
+   /* MARK: - 3.2. INITIALIZE CLASS */
    /* When this class is initialized, data stored on the users device must be retrieved */
    /* from UserDefaults to avoid requesting a new update to the APIs. After this, check if */
    /* this stored data needs an update or not. */
    
    private init() {
+      
+      // Unwrap last timestamp from Storage
+      if let unwrappedLastUpdatedNetwork = UserDefaults.standard.string(forKey: storageKeyForLastUpdatedCarrisNetwork) {
+         self.lastUpdatedNetwork = unwrappedLastUpdatedNetwork
+      }
       
       // Unwrap and Decode Stops from Storage
       if let unwrappedSavedNetworkStops = UserDefaults.standard.data(forKey: storageKeyForSavedStops) {
@@ -84,10 +110,8 @@ class CarrisNetworkController: ObservableObject {
          }
       }
       
-      // Unwrap last timestamp from Storage
-      if let unwrappedLastUpdatedNetwork = UserDefaults.standard.string(forKey: storageKeyForLastUpdatedCarrisNetwork) {
-         self.lastUpdatedNetwork = unwrappedLastUpdatedNetwork
-      }
+      // Unwrap Community Provider Status from Storage
+      self.communityDataProviderStatus = UserDefaults.standard.bool(forKey: storageKeyForCommunityDataProviderStatus)
       
       // Check if network needs an update
       self.update(reset: false)
@@ -96,8 +120,24 @@ class CarrisNetworkController: ObservableObject {
    
    
    
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
    /* * */
-   /* MARK: - SECTION 5.1: UPDATE NETWORK FROM CARRIS API */
+   /* MARK: - 4. UPDATE DATA */
+   /* Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ut ornare ipsum. */
+   /* Nunc neque nulla, pretium ac lectus id, scelerisque facilisis est. */
+   
+   
+   /* * */
+   /* MARK: - 4.1. UPDATE NETWORK MODEL */
    /* This function decides whether to update the complete network model */
    /* if it is considered outdated or is inexistent on device storage. */
    /* Provide a convenience method to allow user-requested updates from the UI. */
@@ -122,6 +162,9 @@ class CarrisNetworkController: ObservableObject {
                UserDefaults.standard.removeObject(forKey: key)
             }
             
+            // Restore deleted stored values
+            UserDefaults.standard.set(communityDataProviderStatus, forKey: storageKeyForCommunityDataProviderStatus)
+            
             // Fetch the updated network from the API
             await fetchStopsFromCarrisAPI()
             await fetchRoutesFromCarrisAPI()
@@ -132,6 +175,9 @@ class CarrisNetworkController: ObservableObject {
             
          }
          
+         // Get favorites from KVS
+         self.retrieveFavoritesFromKVS()
+         
          // Always update vehicles and favorites
          self.refresh()
          
@@ -141,22 +187,73 @@ class CarrisNetworkController: ObservableObject {
    
    
    /* * */
-   /* MARK: - SECTION 5.2: REFRESH DATA */
+   /* MARK: - 4.2. REFRESH DATA */
    /* This function initiates vehicles refresh from Carris API, updates the ‹activeVehicles› array */
    /* and syncronizes favorites with iCloud, to ensure changes are always up to date. */
    
    public func refresh() {
       Task {
+         // Update all vehicles from Carris API
          await self.fetchVehiclesListFromCarrisAPI()
+         
+         // DEBUG !
+//         if (self.activeVehicle == nil) {
+//            self.select(vehicle: self.allVehicles[1].id)
+//            Appstate.shared.present(sheet: .carris_vehicleDetails)
+//         }
+         // ! DEBUG
+         
+         // DEBUG !
+//         if (self.activeRoute == nil) {
+//            _ = self.select(route: "758")
+//            // Appstate.shared.present(sheet: .carris_vehicleDetails)
+//         }
+         // ! DEBUG
+         
+         // If there is an active vehicle, also refresh it's details
+         if (self.activeVehicle != nil) {
+            await self.fetchVehicleDetailsFromCarrisAPI(for: self.activeVehicle!.id)
+            await self.fetchVehicleDetailsFromCommunityAPI(for: self.activeVehicle!.id)
+         }
+         // Update the list of active vehicles (the current selected route)
          self.populateActiveVehicles()
-         self.retrieveFavoritesFromKVS()
       }
    }
    
    
    
    /* * */
-   /* MARK: - SECTION 6: FETCH & FORMAT STOPS FROM CARRIS API */
+   /* MARK: - 4.3. COMMUNITY PROVIDER */
+   /* Call this function to switch Community Data ON or OFF. */
+   /* This switches in memory for the current session, and stores the new setting in storage. */
+   
+   public func toggleCommunityDataProviderStatus(to newStatus: Bool) {
+      self.communityDataProviderStatus = newStatus
+      UserDefaults.standard.set(newStatus, forKey: storageKeyForCommunityDataProviderStatus)
+      print("GeoBus: Carris API: ‹toggleCommunityDataProviderTo()› Community Data switched \(newStatus ? "ON" : "OFF")")
+      self.refresh()
+   }
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   /* * */
+   /* MARK: - 5. FORMAT NETWORK */
+   /* Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ut ornare ipsum. */
+   /* Nunc neque nulla, pretium ac lectus id, scelerisque facilisis est. */
+   
+   
+   /* * */
+   /* MARK: - 5.1. STOPS: FETCH & FORMAT FROM CARRIS API */
    /* Call Carris API and retrieve all stops. Format them to the app model. */
    
    private func fetchStopsFromCarrisAPI() async {
@@ -183,7 +280,7 @@ class CarrisNetworkController: ObservableObject {
                // Save the formatted route object in the allRoutes temporary variable
                tempAllStops.append(
                   CarrisNetworkModel.Stop(
-                     id: availableStop.id ?? -1,
+                     id: Int(availableStop.publicId ?? "-1") ?? -1,
                      name: availableStop.name ?? "-",
                      lat: availableStop.lat ?? 0,
                      lng: availableStop.lng ?? 0
@@ -216,7 +313,7 @@ class CarrisNetworkController: ObservableObject {
    
    
    /* * */
-   /* MARK: - SECTION 7: FETCH & FORMAT ROUTES FROM CARRIS API */
+   /* MARK: - 5.2. ROUTES: FETCH & FORMAT FROM CARRIS API */
    /* This function first fetches the Routes List from Carris API, */
    /* which is an object that contains all the available routes. */
    /* The information for each Route is very short, so it is necessary to retrieve */
@@ -313,7 +410,7 @@ class CarrisNetworkController: ObservableObject {
    
    
    /* * */
-   /* MARK: - SECTION 7.1: FORMAT CARRIS ROUTE VARIANTS */
+   /* MARK: - 5.3. VARIANTS: FORMAT CARRIS ROUTE VARIANTS */
    /* Parse and simplify the data model for variants. Variants contain */
    /* one or more itineraries, each with a direction. Each itinerary is composed */
    /* of a series of connections, in which each contains a stop. */
@@ -368,7 +465,7 @@ class CarrisNetworkController: ObservableObject {
    
    
    /* * */
-   /* MARK: - SECTION 7.2: FORMAT CARRIS CONNECTIONS */
+   /* MARK: - 5.4. CONNECTIONS: FORMAT CARRIS CONNECTIONS */
    /* Each itinerary is composed of a series of connections, in which each */
    /* has a single stop. Connections contain the property ‹orderInRoute›. */
    
@@ -400,8 +497,20 @@ class CarrisNetworkController: ObservableObject {
    
    
    
+   
+   
+   
+   
+   
+   
+   
    /* * */
-   /* MARK: - SECTION 8.1: RETRIEVE FAVORITES FROM ICLOUD KVS */
+   /* MARK: - 6. FAVORITES */
+   /* This section holds the logic to deal with favorites from iCloud Key-Value-Storage. */
+   
+   
+   /* * */
+   /* MARK: - 6.1. RETRIEVE FAVORITES FROM ICLOUD KVS */
    /* This function retrieves favorites from iCloud Key-Value-Storage. */
    
    private func retrieveFavoritesFromKVS() {
@@ -435,7 +544,7 @@ class CarrisNetworkController: ObservableObject {
    
    
    /* * */
-   /* MARK: - SECTION 8.2: SAVE FAVORITES TO ICLOUD KVS */
+   /* MARK: - 6.2. SAVE FAVORITES TO ICLOUD KVS */
    /* This function saves a representation of the objects stored in the favorites arrays */
    /* to iCloud Key-Value-Store. This function should be called whenever a change */
    /* in favorites occurs, to ensure consistency across devices. */
@@ -465,7 +574,7 @@ class CarrisNetworkController: ObservableObject {
    
    
    /* * */
-   /* MARK: - SECTION 8.3: TOGGLE ROUTES AND STOPS AS FAVORITES */
+   /* MARK: - 6.3. TOGGLE ROUTES AND STOPS AS FAVORITES */
    /* These functions mark an object as favorite if it is not, and remove it from favorites if it is. */
    
    public func toggleFavorite(route: CarrisNetworkModel.Route) {
@@ -506,7 +615,7 @@ class CarrisNetworkController: ObservableObject {
    
    
    /* * */
-   /* MARK: - SECTION 8.4: IS FAVORITE CHECKER */
+   /* MARK: - 6.4: IS FAVORITE CHECKER */
    /* These functions check if an object is marked as favorite. */
    
    public func isFavourite(route: CarrisNetworkModel.Route?) -> Bool {
@@ -536,26 +645,26 @@ class CarrisNetworkController: ObservableObject {
    
    
    
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
    /* * */
-   /* MARK: - SECTION 9: FIND OBJECTS BY IDENTIFIER */
+   /* MARK: - 7. FINDERS */
+   /* Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ut ornare ipsum. */
+   /* Nunc neque nulla, pretium ac lectus id, scelerisque facilisis est. */
+   
+   
+   /* * */
+   /* MARK: - 7.1. FIND OBJECTS BY IDENTIFIER */
    /* These functions search for the provided object identifier in the storage arrays */
    /* and return it if found or nil if not found. */
-   
-   private func find(route routeNumber: String) -> CarrisNetworkModel.Route? {
-      if let requestedRouteObject = self.allRoutes[withId: routeNumber] {
-         return requestedRouteObject
-      } else {
-         return nil
-      }
-   }
-   
-   private func find(stop stopId: Int) -> CarrisNetworkModel.Stop? {
-      if let requestedStopObject = self.allStops[withId: stopId] {
-         return requestedStopObject
-      } else {
-         return nil
-      }
-   }
    
    private func find(vehicle vehicleId: Int) -> CarrisNetworkModel.Vehicle? {
       if let requestedVehicleObject = self.allVehicles[withId: vehicleId] {
@@ -565,24 +674,114 @@ class CarrisNetworkController: ObservableObject {
       }
    }
    
+   private func find(route routeNumber: String) -> CarrisNetworkModel.Route? {
+      if let requestedRouteObject = self.allRoutes[withId: routeNumber] {
+         return requestedRouteObject
+      } else {
+         return nil
+      }
+   }
+   
+   public func find(stop stopId: Int) -> CarrisNetworkModel.Stop? {
+      if let requestedStopObject = self.allStops[withId: stopId] {
+         return requestedStopObject
+      } else {
+         return nil
+      }
+   }
+   
+   private func find(route routeNumber: String, variant: Int, direction: String) -> CarrisNetworkModel.Stop? {
+      guard let requestedRouteObject = self.find(route: routeNumber) else {
+         return nil
+      }
+      
+      if (variant >= requestedRouteObject.variants.count) {
+         return nil
+      }
+      
+      let requestedVariantObject = requestedRouteObject.variants[variant]
+      
+      switch direction {
+         case "ASC":
+            return requestedVariantObject.ascendingItinerary?.last?.stop
+         case "DESC":
+            return requestedVariantObject.descendingItinerary?.last?.stop
+         case "CIRC":
+            return requestedVariantObject.circularItinerary?.last?.stop
+         default:
+            return nil
+      }
+      
+   }
+   
+   
+   public func getDirectionFrom(string directionString: String?) -> CarrisNetworkModel.Direction? {
+      switch directionString {
+         case "ASC":
+            return .ascending
+         case "DESC":
+            return .descending
+         case "CIRC":
+            return .circular
+         default:
+            return nil
+      }
+   }
+   
+   
+   
+   
+   
+   
+   
+   
+   
    
    
    /* * */
-   /* MARK: - SECTION 10: OBJECT SELECTORS */
+   /* MARK: - 8. SELECTORS */
+   /* Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ut ornare ipsum. */
+   /* Nunc neque nulla, pretium ac lectus id, scelerisque facilisis est. */
+   
+   
+   /* * */
+   /* MARK: - 8.1: OBJECT SELECTORS */
    /* These functions select and deselect the currently active objects. */
    /* Provide public functions to more easily select object by their identifier. */
    
-   private func deselect() {
-      self.activeRoute = nil
-      self.activeVariant = nil
-      self.activeConnection = nil
-      self.activeStop = nil
-      self.activeVehicles = []
+   
+   enum SelectableObject {
+      case route
+      case variant
+      case connection
+      case vehicle
+      case stop
+      case all
+   }
+   
+   
+   public func deselect(_ objectType: [SelectableObject]) {
+      for type in objectType {
+         switch type {
+            case .route:
+               self.activeRoute = nil
+            case .variant:
+               self.activeVariant = nil
+            case .connection:
+               self.activeConnection = nil
+            case .vehicle:
+               self.activeVehicle = nil
+            case .stop:
+               self.activeStop = nil
+            case .all:
+               self.deselect([.route, .variant, .connection, .vehicle, .stop])
+         }
+      }
    }
    
    
    private func select(route: CarrisNetworkModel.Route) {
-      self.deselect()
+      self.deselect([.all])
       self.activeRoute = route
       self.select(variant: route.variants[0])
       self.populateActiveVehicles()
@@ -603,21 +802,25 @@ class CarrisNetworkController: ObservableObject {
    }
    
    
-   private func select(connection: CarrisNetworkModel.Connection) {
-      self.deselect()
+   public func deselect(connection: CarrisNetworkModel.Connection) {
       self.activeConnection = connection
    }
    
+   public func select(connection: CarrisNetworkModel.Connection) {
+      self.activeConnection = connection
+   }
    
-   private func select(stop: CarrisNetworkModel.Stop) {
-      self.deselect()
+   public func select(stop: CarrisNetworkModel.Stop) {
+      self.deselect([.all])
       self.activeStop = stop
    }
    
    public func select(stop stopId: Int) -> Bool {
       let stop = self.find(stop: stopId)
       if (stop != nil) {
-         self.select(stop: stop!)
+         self.deselect([.all])
+         self.activeStop = stop
+//         self.select(stop: stop!)
          return true
       } else {
          return false
@@ -625,9 +828,38 @@ class CarrisNetworkController: ObservableObject {
    }
    
    
+   public func select(vehicle vehicleId: Int?) {
+      if (vehicleId != nil) {
+         if let foundVehicle = self.find(vehicle: vehicleId!) {
+            Task {
+               await self.fetchVehicleDetailsFromCarrisAPI(for: foundVehicle.id)
+               await self.fetchVehicleDetailsFromCommunityAPI(for: foundVehicle.id)
+               self.activeVehicle = foundVehicle
+            }
+         }
+      }
+   }
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
    
    /* * */
-   /* MARK: - SECTION 11: SET ACTIVE VEHICLES */
+   /* MARK: - 9. VEHICLES */
+   /* Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ut ornare ipsum. */
+   /* Nunc neque nulla, pretium ac lectus id, scelerisque facilisis est. */
+   
+   
+   /* * */
+   /* MARK: - 9.1. VEHICLES: SET ACTIVE VEHICLES */
    /* This function compares the currently active route number with all vehicles */
    /* appending the ones that match to the ‹activeVehicles› array. It also checks */
    /* if vehicles have an up-to-date location. */
@@ -663,7 +895,7 @@ class CarrisNetworkController: ObservableObject {
    
    
    /* * */
-   /* MARK: - SECTION 12: FETCH ALL VEHICLES FROM CARRIS API */
+   /* MARK: - 9.2. FETCH ALL VEHICLES FROM CARRIS API */
    /* This function calls the Carris API and receives vehicle metadata, */
    /* including positions, for all currently active vehicles, */
    /* and stores them in the ‹allVehicles› array. */
@@ -700,6 +932,7 @@ class CarrisNetworkController: ObservableObject {
                   allVehicles[indexOfVehicleInArray!].previousLatitude = vehicleSummary.previousLatitude ?? 0
                   allVehicles[indexOfVehicleInArray!].previousLongitude = vehicleSummary.previousLongitude ?? 0
                   allVehicles[indexOfVehicleInArray!].lastGpsTime = vehicleSummary.lastGpsTime ?? ""
+                  allVehicles[indexOfVehicleInArray!].direction = getDirectionFrom(string: vehicleSummary.direction)
                   
                } else {
                   self.allVehicles.append(
@@ -734,22 +967,15 @@ class CarrisNetworkController: ObservableObject {
    
    
    /* * */
-   /* MARK: - SECTION 12: FETCH VEHICLE DETAILS FROM CARRIS API */
+   /* MARK: - 9.3. FETCH VEHICLE DETAILS FROM CARRIS API */
    /* This function calls the Carris API SGO endpoint to retrieve additional vehicle metadata, */
    /* such as location, license plate number and last stop on the current trip. Provide a convenience */
    /* function to allow the UI to request this information only when necessary. After retrieving the new details */
    /* fromt the API, re-populate the activeVehicles array to trigger an update in the UI. */
    
-   public func getAdditionalDetailsFor(vehicle vehicleId: Int) {
-      Task {
-         await self.fetchVehicleDetailsFromCarrisAPI(for: vehicleId)
-         self.populateActiveVehicles()
-      }
-   }
-   
    private func fetchVehicleDetailsFromCarrisAPI(for vehicleId: Int) async {
       
-      Appstate.shared.change(to: .loading, for: .vehicles)
+      Appstate.shared.change(to: .loading, for: .carris_vehicleDetails)
       
       print("GeoBus: Carris API: Vehicle Details: Starting update...")
       
@@ -771,14 +997,15 @@ class CarrisNetworkController: ObservableObject {
             allVehicles[indexOfVehicleInArray!].vehiclePlate = decodedCarrisAPIVehicleDetail.vehiclePlate
             allVehicles[indexOfVehicleInArray!].lastStopOnVoyageId = decodedCarrisAPIVehicleDetail.lastStopOnVoyageId
             allVehicles[indexOfVehicleInArray!].lastStopOnVoyageName = decodedCarrisAPIVehicleDetail.lastStopOnVoyageName
+            allVehicles[indexOfVehicleInArray!].hasLoadedCarrisDetails = true
          }
          
          print("GeoBus: Carris API: Vehicle Details: Update complete!")
          
-         Appstate.shared.change(to: .idle, for: .vehicles)
+         Appstate.shared.change(to: .idle, for: .carris_vehicleDetails)
          
       } catch {
-         Appstate.shared.change(to: .error, for: .vehicles)
+         Appstate.shared.change(to: .error, for: .carris_vehicleDetails)
          print("GeoBus: Carris API: Vehicles Details: Error found while updating. More info: \(error)")
          return
       }
@@ -787,14 +1014,101 @@ class CarrisNetworkController: ObservableObject {
    
    
    
-   /* MARK: - Get Estimations */
+   /* * */
+   /* MARK: - 9.4. FETCH VEHICLE DETAILS FROM COMMUNITY API */
+   /* Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ut ornare ipsum. */
+   /* Nunc neque nulla, pretium ac lectus id, scelerisque facilisis est. */
+   
+   private func fetchVehicleDetailsFromCommunityAPI(for vehicleId: Int) async {
+      
+      Appstate.shared.change(to: .loading, for: .carris_vehicleDetails)
+      
+      print("GeoBus: Community API: Vehicle Details: Starting update...")
+      
+      do {
+         
+         // Request Vehicle Detail (SGO)
+         let rawDataCarrisCommunityAPIVehicleDetail = try await CarrisCommunityAPI.shared.request(for: "estbus?busNumber=\(vehicleId)")
+         
+         let decodedCarrisCommunityAPIVehicleDetail = try JSONDecoder().decode([CarrisCommunityAPIModel.Vehicle].self, from: rawDataCarrisCommunityAPIVehicleDetail)
+         
+         
+         if (decodedCarrisCommunityAPIVehicleDetail[0].estimatedRouteResults != nil) {
+            
+            var tempRouteOverview: [CarrisNetworkModel.Estimation] = []
+            
+            for routeResult in decodedCarrisCommunityAPIVehicleDetail[0].estimatedRouteResults! {
+               tempRouteOverview.append(
+                  CarrisNetworkModel.Estimation(
+                     stopId: Int(routeResult.estimatedRouteStopId ?? "-1") ?? -1,
+                     routeNumber: "",
+                     destination: "",
+                     eta: routeResult.estimatedTimeofArrivalCorrected,
+                     hasArrived: routeResult.estimatedPreviouslyArrived
+                  )
+               )
+            }
+            
+            
+            let indexOfVehicleInArray = allVehicles.firstIndex(where: {
+               $0.id == vehicleId
+            })
+            
+            if (indexOfVehicleInArray != nil) {
+               allVehicles[indexOfVehicleInArray!].routeOverview = tempRouteOverview
+               allVehicles[indexOfVehicleInArray!].hasLoadedCommunityDetails = true
+            }
+            
+         }
+         
+         print("GeoBus: Community API: Vehicle Details: Update complete!")
+         
+         Appstate.shared.change(to: .idle, for: .carris_vehicleDetails)
+         
+      } catch {
+         Appstate.shared.change(to: .error, for: .carris_vehicleDetails)
+         print("GeoBus: Community API: Vehicles Details: Error found while updating. More info: \(error)")
+         return
+      }
+      
+   }
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   /* * */
+   /* MARK: - 10. ESTIMATES */
+   /* Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ut ornare ipsum. */
+   /* Nunc neque nulla, pretium ac lectus id, scelerisque facilisis est. */
+   
+   
+   /* MARK: - 10.1. GET ESTIMATION */
    // This function calls the API to retrieve estimations for the provided stop 'publicId'.
    // It formats and returns the results to the caller.
    
    public func getEstimation(for stopId: Int) async -> [CarrisNetworkModel.Estimation] {
-         return await self.fetchEstimationsFromCarrisAPI(for: stopId)
-//         self.populateActiveVehicles()
+      return await self.fetchEstimationsFromCommunityAPI(for: stopId)
+//      if (!communityDataProviderStatus) {
+//         return await self.fetchEstimationsFromCarrisAPI(for: stopId)
+//      } else {
+//         return await self.fetchEstimationsFromCommunityAPI(for: stopId)
+//      }
    }
+   
+   
+   
+   /* MARK: - 10.2. GET CARRIS ESTIMATIONS */
+   // This function calls the API to retrieve estimations for the provided stop 'publicId'.
+   // It formats and returns the results to the caller.
    
    public func fetchEstimationsFromCarrisAPI(for stopId: Int) async -> [CarrisNetworkModel.Estimation] {
       
@@ -807,7 +1121,6 @@ class CarrisNetworkController: ObservableObject {
          let rawDataCarrisAPIEstimations = try await CarrisAPI.shared.request(for: "Estimations/busStop/\(stopId)/top/5")
          let decodedCarrisAPIEstimations = try JSONDecoder().decode([CarrisAPIModel.Estimation].self, from: rawDataCarrisAPIEstimations)
          
-         
          var tempFormattedEstimations: [CarrisNetworkModel.Estimation] = []
          
          
@@ -816,10 +1129,10 @@ class CarrisNetworkController: ObservableObject {
             tempFormattedEstimations.append(
                CarrisNetworkModel.Estimation(
                   stopId: Int(apiEstimation.publicId ?? "-1") ?? -1,
-                  routeNumber: apiEstimation.routeNumber ?? "-",
-                  destination: apiEstimation.destination ?? "-",
+                  routeNumber: apiEstimation.routeNumber,
+                  destination: apiEstimation.destination,
                   eta: apiEstimation.time ?? "",
-                  busNumber: Int(apiEstimation.busNumber ?? "-1")
+                  busNumber: Int(apiEstimation.busNumber ?? "")
                )
             )
          }
@@ -838,6 +1151,60 @@ class CarrisNetworkController: ObservableObject {
       
    }
    
+   
+   
+   /* MARK: - 10.3. GET COMMUNITY ESTIMATIONS */
+   // This function calls the API to retrieve estimations for the provided stop 'publicId'.
+   // It formats and returns the results to the caller.
+   
+   public func fetchEstimationsFromCommunityAPI(for stopId: Int) async -> [CarrisNetworkModel.Estimation] {
+      
+      Appstate.shared.change(to: .loading, for: .estimations)
+      
+      print("GeoBus: Carris API: Estimations: Starting update...")
+      
+      do {
+         // Request API Estimations List
+         let rawDataCarrisCommunityAPIEstimations = try await CarrisCommunityAPI.shared.request(for: "eststop?busStop=\(stopId)")
+         let decodedCarrisCommunityAPIEstimations = try JSONDecoder().decode([CarrisCommunityAPIModel.Estimation].self, from: rawDataCarrisCommunityAPIEstimations)
+         
+         
+         var tempFormattedEstimations: [CarrisNetworkModel.Estimation] = []
+         
+         
+         // For each available vehicles in the API
+         for apiEstimation in decodedCarrisCommunityAPIEstimations {
+            
+            let destinationStop = find(
+               route: apiEstimation.routeNumber ?? "-",
+               variant: apiEstimation.variantNumber ?? -1,
+               direction: apiEstimation.direction ?? "-"
+            )
+            
+            tempFormattedEstimations.append(
+               CarrisNetworkModel.Estimation(
+                  stopId: stopId,
+                  routeNumber: apiEstimation.routeNumber ?? "-",
+                  destination: destinationStop?.name ?? "-",
+                  eta: apiEstimation.estimatedTimeofArrivalCorrected ?? "",
+                  busNumber: apiEstimation.busNumber ?? -1
+               )
+            )
+         }
+         
+         print("GeoBus: Carris API: Estimations: Update complete!")
+         
+         Appstate.shared.change(to: .idle, for: .estimations)
+         
+         return tempFormattedEstimations
+         
+      } catch {
+         Appstate.shared.change(to: .error, for: .estimations)
+         print("GeoBus: Carris API: Estimations: Error found while updating. More info: \(error)")
+         return []
+      }
+      
+   }
    
    
 }

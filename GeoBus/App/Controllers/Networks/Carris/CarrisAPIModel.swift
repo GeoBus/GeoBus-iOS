@@ -1,10 +1,3 @@
-//
-//  Routes.swift
-//  GeoBus
-//
-//  Created by João de Vasconcelos on 09/09/2022.
-//  Copyright © 2022 João de Vasconcelos. All rights reserved.
-//
 import Foundation
 
 
@@ -12,6 +5,7 @@ import Foundation
 /* MARK: - CARRIS API DATA MODEL */
 /* Data model as provided by Carris API. */
 /* Schema is available at https://joaodcp.github.io/Carris-API */
+
 
 struct CarrisAPIModel {
    

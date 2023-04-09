@@ -9,23 +9,15 @@
 import SwiftUI
 
 struct VariantWarning: View {
-  
-  var qty: Int
-  
-  var body: some View {
-    VStack {
-      HStack {
-        Image(systemName: "info.circle.fill")
-          .font(.callout)
-        Text("This route may have \(qty) alternative paths.")
-          .font(.callout)
-          .fixedSize(horizontal: true, vertical: true)
-      }
-    }
-    .padding()
-    .foregroundColor(Color(.systemOrange))
-    .background(Color(.systemOrange).opacity(0.2))
-    .cornerRadius(10)
-    
-  }
+   
+   var qty: Int
+   
+   var body: some View {
+      Chip(
+         icon: Image(systemName: "info.circle.fill"),
+         text: Text("This route may have \(qty) alternative paths."),
+         color: Color(.systemOrange)
+      )
+   }
+   
 }

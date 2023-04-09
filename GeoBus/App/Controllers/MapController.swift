@@ -1,16 +1,15 @@
-//
-//  MapController.swift
-//  GeoBus
-//
-//  Created by João de Vasconcelos on 16/09/2022.
-//
-
 import Foundation
 import MapKit
-import SwiftUI
+
+
+/* * */
+/* MARK: - MAP CONTROLLER */
+/* Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum lectus */
+/* non interdum imperdiet. In hendrerit ligula velit, ac porta augue volutpat id. */
+
 
 @MainActor
-class MapController: ObservableObject {
+final class MapController: ObservableObject {
    
    /* * */
    /* MARK: - SECTION 1: SETTINGS */
@@ -35,13 +34,12 @@ class MapController: ObservableObject {
    @Published var visibleAnnotations: [GenericMapAnnotation] = []
    
    
-   
    /* * */
    /* MARK: - SECTION 3: SHARED INSTANCE */
    /* To allow the same instance of this class to be available accross the whole app, */
    /* we create a Singleton. More info here: https://www.hackingwithswift.com/example-code/language/what-is-a-singleton */
    
-   static let shared = MapController()
+   public static let shared = MapController()
    
    
    
@@ -51,7 +49,11 @@ class MapController: ObservableObject {
    /* Setup the initial map region on init. */
    
    private init() {
-      self.region = MKCoordinateRegion(center: initialMapRegion, latitudinalMeters: initialMapZoom, longitudinalMeters: initialMapZoom)
+      self.region = MKCoordinateRegion(
+         center: self.initialMapRegion,
+         latitudinalMeters: self.initialMapZoom,
+         longitudinalMeters: self.initialMapZoom
+      )
    }
    
    
@@ -61,11 +63,20 @@ class MapController: ObservableObject {
    /* Helper function to animate the Map changing region. */
    
    func moveMap(to newRegion: MKCoordinateRegion) {
-      DispatchQueue.main.async {
-         withAnimation(.easeIn(duration: 0.5)) {
-            self.region = newRegion
-         }
-      }
+      self.region = newRegion
+   }
+   
+   
+   
+   /* * */
+   /* MARK: - SECTION 6: CENTER MAP ON COORDINATES */
+   /* Lorem ipsum dolor sit amet consectetur adipisicing elit. */
+   
+   func centerMapOnCoordinates(lat: Double, lng: Double, andZoom: Bool = false) {
+      self.region = MKCoordinateRegion(
+         center: CLLocationCoordinate2D(latitude: lat, longitude: lng),
+         span: self.region.span
+      )
    }
    
    
@@ -137,24 +148,27 @@ class MapController: ObservableObject {
    /* Lorem ipsum dolor sit amet consectetur adipisicing elit. */
    
    func updateAnnotations(with activeStop: CarrisNetworkModel.Stop) {
-      
-      visibleAnnotations.removeAll(where: {
+
+      self.visibleAnnotations.removeAll(where: {
          switch $0.item {
-            case .carris_stop(_), .carris_connection(_), .carris_vehicle(_):
+            case .stop(_), .connection(_), .vehicle(_):
                return true
          }
       })
       
-      visibleAnnotations.append(
+
+      var tempNewAnnotations: [GenericMapAnnotation] = []
+
+      tempNewAnnotations.append(
          GenericMapAnnotation(
             id: activeStop.id,
             location: CLLocationCoordinate2D(latitude: activeStop.lat, longitude: activeStop.lng),
-            item: .carris_stop(activeStop)
+            item: .stop(activeStop)
          )
       )
-      
-      zoomToFitMapAnnotations(annotations: visibleAnnotations)
-      
+
+      self.addAnnotations(tempNewAnnotations, zoom: true)
+
    }
    
    
@@ -165,22 +179,26 @@ class MapController: ObservableObject {
    
    func updateAnnotations(with activeVariant: CarrisNetworkModel.Variant) {
       
-      visibleAnnotations.removeAll(where: {
+      self.visibleAnnotations.removeAll(where: {
          switch $0.item {
-            case .carris_connection(_), .carris_stop(_):
+            case .connection(_), .stop(_):
                return true
-            case .carris_vehicle(_):
+            case .vehicle(_):
                return false
          }
       })
       
+      
+      var tempNewAnnotations: [GenericMapAnnotation] = []
+      
+      
       if (activeVariant.circularItinerary != nil) {
          for connection in activeVariant.circularItinerary! {
-            visibleAnnotations.append(
+            tempNewAnnotations.append(
                GenericMapAnnotation(
                   id: connection.stop.id,
                   location: CLLocationCoordinate2D(latitude: connection.stop.lat, longitude: connection.stop.lng),
-                  item: .carris_connection(connection)
+                  item: .connection(connection)
                )
             )
          }
@@ -188,11 +206,11 @@ class MapController: ObservableObject {
       
       if (activeVariant.ascendingItinerary != nil) {
          for connection in activeVariant.ascendingItinerary! {
-            visibleAnnotations.append(
+            tempNewAnnotations.append(
                GenericMapAnnotation(
                   id: connection.stop.id,
                   location: CLLocationCoordinate2D(latitude: connection.stop.lat, longitude: connection.stop.lng),
-                  item: .carris_connection(connection)
+                  item: .connection(connection)
                )
             )
          }
@@ -200,51 +218,134 @@ class MapController: ObservableObject {
       
       if (activeVariant.descendingItinerary != nil) {
          for connection in activeVariant.descendingItinerary! {
-            visibleAnnotations.append(
+            tempNewAnnotations.append(
                GenericMapAnnotation(
                   id: connection.stop.id,
                   location: CLLocationCoordinate2D(latitude: connection.stop.lat, longitude: connection.stop.lng),
-                  item: .carris_connection(connection)
+                  item: .connection(connection)
                )
             )
          }
       }
       
-      // Remove annotations with duplicate IDs (same stop on different itineraries)
-      visibleAnnotations.uniqueInPlace(for: \.id)
-      
-      zoomToFitMapAnnotations(annotations: visibleAnnotations)
+      self.addAnnotations(tempNewAnnotations, zoom: true)
       
    }
    
    
    
    /* * */
-   /* MARK: - SECTION 10: UPDATE ANNOTATIONS WITH ACTIVE CARRIS VEHICLES */
+   /* MARK: - SECTION 10: UPDATE ANNOTATIONS WITH LIST OF ACTIVE CARRIS VEHICLES */
    /* Lorem ipsum dolor sit amet consectetur adipisicing elit. */
    
    func updateAnnotations(with activeVehiclesList: [CarrisNetworkModel.Vehicle]) {
       
-      visibleAnnotations.removeAll(where: {
+      self.visibleAnnotations.removeAll(where: {
          switch $0.item {
-            case .carris_vehicle(_), .carris_stop(_):
+            case .vehicle(_), .stop(_):
                return true
-            case .carris_connection(_):
+            case .connection(_):
                return false
          }
       })
       
+
+      var tempNewAnnotations: [GenericMapAnnotation] = []
+
       for vehicle in activeVehiclesList {
-         visibleAnnotations.append(
+         tempNewAnnotations.append(
             GenericMapAnnotation(
                id: vehicle.id,
                location: vehicle.coordinate,
-               item: .carris_vehicle(vehicle)
+               item: .vehicle(vehicle)
             )
          )
       }
+
+      self.addAnnotations(tempNewAnnotations)
       
    }
    
    
+   
+   /* * */
+   /* MARK: - SECTION 10: UPDATE ANNOTATIONS WITH SINGLE ACTIVE CARRIS VEHICLE */
+   /* Lorem ipsum dolor sit amet consectetur adipisicing elit. */
+   
+//   func updateAnnotations(with activeVehicle: CarrisNetworkModel.Vehicle) {
+//
+////      let indexOfVehicleInArray = allVehicles.firstIndex(where: {
+////         $0.id == vehicleId
+////      })
+//
+//
+//      if let activeVehicleAnnotation = visibleAnnotations.first(where: {
+//         switch $0.item {
+//            case .vehicle(let item):
+//               if (item.id == activeVehicle.id) {
+//                  return true
+//               } else {
+//                  return false
+//               }
+//            case .carris_connection(_):
+//               return false
+//         }
+//         }) {
+//
+//         self.zoomToFitMapAnnotations(annotations: [activeVehicleAnnotation])
+//
+//      } else {
+//
+//         var tempNewAnnotations: [GenericMapAnnotation] = []
+//
+//         tempNewAnnotations.append(
+//            GenericMapAnnotation(
+//               id: UUID(),
+//               location: activeVehicle.coordinate,
+//               item: .vehicle(activeVehicle)
+//            )
+//         )
+//
+//         self.addAnnotations(tempNewAnnotations, zoom: true)
+//         
+//      }
+//
+//   }
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   private func addAnnotations(_ newAnnotations: [GenericMapAnnotation], zoom: Bool = false) {
+//      DispatchQueue.main.async {
+         // Add the annotations to the map
+         self.visibleAnnotations.append(contentsOf: newAnnotations)
+         // Remove annotations with duplicate IDs (ex: same stop on different itineraries)
+         self.visibleAnnotations.uniqueInPlace(for: \.id)
+         // Adjust map region to annotations
+         if (zoom) {
+            self.zoomToFitMapAnnotations(annotations: newAnnotations)
+         }
+   }
+   
+   
+}
+
+
+
+
+
+extension MKCoordinateRegion: Equatable {
+   public static func == (lhs: MKCoordinateRegion, rhs: MKCoordinateRegion) -> Bool {
+      if (lhs.center.latitude != rhs.center.latitude) { return false }
+      if (lhs.center.longitude != rhs.center.longitude) { return false }
+      if (lhs.span.latitudeDelta != rhs.span.latitudeDelta) { return false }
+      if (lhs.span.longitudeDelta != rhs.span.longitudeDelta) { return false }
+      return true
+   }
 }

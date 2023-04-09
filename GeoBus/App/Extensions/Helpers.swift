@@ -93,18 +93,37 @@ open class Helpers {
    }
 
    
-   static func getTimeString(for isoDateString: String, in timeRelation: TimeRelativeToNow, style: DateComponentsFormatter.UnitsStyle, units: NSCalendar.Unit) -> String {
-
+   static func getTimeInterval(for isoDateString: String, in timeRelation: TimeRelativeToNow) -> Double {
+      
       // Setup Date Formatter
       let dateFormatter = DateFormatter()
       dateFormatter.locale = Locale(identifier: "en_US_POSIX")
       dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-
+      
       // Parse ISO Timestamp using the Date Formatter
       let now = Date()
       let dateObj = dateFormatter.date(from: isoDateString) ?? now
       let seconds = now.timeIntervalSince(dateObj) // in seconds
-
+      
+      // Use the configured Date Components Formatter to generate the string.
+      switch timeRelation {
+         case .past:
+            return seconds
+         case .future:
+            return -seconds
+      }
+      
+   }
+   
+   
+   static func getTimeString(for isoDateString: String, in timeRelation: TimeRelativeToNow, style: DateComponentsFormatter.UnitsStyle, units: NSCalendar.Unit, alwaysPositive: Bool = false) -> String {
+      
+      var seconds = self.getTimeInterval(for: isoDateString, in: timeRelation)
+      
+      if (alwaysPositive && seconds < 60) {
+         seconds = 60.1 // Do not let it be 0
+      }
+      
       // Setup Date Components Formatter
       let dateComponentsFormatter = DateComponentsFormatter()
       dateComponentsFormatter.unitsStyle = style
@@ -114,26 +133,33 @@ open class Helpers {
       dateComponentsFormatter.allowsFractionalUnits = false
 
       // Use the configured Date Components Formatter to generate the string.
-      switch timeRelation {
-         case .past:
-            return dateComponentsFormatter.string(from: seconds) ?? "?"
-         case .future:
-            return dateComponentsFormatter.string(from: -seconds) ?? "?"
-      }
+      return dateComponentsFormatter.string(from: seconds) ?? "?"
 
    }
    
    
-   static func getLastSeenTime(since lastGpsTime: String) -> Int {
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   static func getLastSeenTime(since isoDateString: String) -> Int {
       
-      let formatter = DateFormatter()
-      formatter.locale = Locale(identifier: "en_US_POSIX")
-      formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+      // Setup Date Formatter
+      let dateFormatter = DateFormatter()
+      dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+      dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
       
+      // Parse ISO Timestamp using the Date Formatter
       let now = Date()
-      let estimation = formatter.date(from: lastGpsTime) ?? now
-      
-      let seconds = now.timeIntervalSince(estimation)
+      let dateObj = dateFormatter.date(from: isoDateString) ?? now
+      let seconds = now.timeIntervalSince(dateObj) // in seconds
       
       return Int(seconds)
       

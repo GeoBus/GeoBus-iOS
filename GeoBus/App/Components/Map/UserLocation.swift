@@ -9,7 +9,7 @@ import SwiftUI
 
 struct UserLocation: View {
 
-   @EnvironmentObject var mapController: MapController
+   @ObservedObject private var mapController = MapController.shared
 
    var body: some View {
       SquareButton(icon: "location.fill", size: 22)

@@ -12,8 +12,8 @@ import MapKit
 
 struct MapView: View {
 
-   @EnvironmentObject var mapController: MapController
-   @EnvironmentObject var carrisNetworkController: CarrisNetworkController
+   @StateObject private var mapController = MapController.shared
+   @StateObject private var carrisNetworkController = CarrisNetworkController.shared
 
 
    var body: some View {
@@ -26,28 +26,27 @@ struct MapView: View {
 
          MapAnnotation(coordinate: annotation.location) {
             switch (annotation.item) {
-               case .carris_stop(let item):
-                  CarrisStopAnnotationView(stop: item)
-               case .carris_connection(let item):
+               case .connection(let item):
                   CarrisConnectionAnnotationView(connection: item)
-               case .carris_vehicle(let item):
+               case .vehicle(let item):
                   CarrisVehicleAnnotationView(vehicle: item)
+               case .stop(let item):
+                  CarrisStopAnnotationView(stop: item)
             }
          }
 
       }
-      .onChange(of: carrisNetworkController.activeStop) { newStop in
-         if (newStop != nil) {
-            self.mapController.updateAnnotations(with: newStop!)
-         }
-      }
-      .onChange(of: carrisNetworkController.activeVariant) { newVariant in
+      .onReceive(carrisNetworkController.$activeVariant) { newVariant in
          if (newVariant != nil) {
-            self.mapController.updateAnnotations(with: newVariant!)
+            DispatchQueue.main.async {
+               self.mapController.updateAnnotations(with: newVariant!)
+            }
          }
       }
-      .onChange(of: carrisNetworkController.activeVehicles) { newVehiclesList in
-         self.mapController.updateAnnotations(with: newVehiclesList)
+      .onReceive(carrisNetworkController.$activeVehicles) { newVehiclesList in
+         DispatchQueue.main.async {
+            self.mapController.updateAnnotations(with: newVehiclesList)
+         }
       }
       
    }

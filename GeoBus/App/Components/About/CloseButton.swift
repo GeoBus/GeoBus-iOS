@@ -9,8 +9,8 @@ import SwiftUI
 
 struct CloseButton: View {
 
-   @EnvironmentObject var appstate: Appstate
-   @EnvironmentObject var carrisNetworkController: CarrisNetworkController
+   @ObservedObject private var appstate = Appstate.shared
+   @ObservedObject private var carrisNetworkController = CarrisNetworkController.shared
 
    @Binding var isPresenting: Bool
 

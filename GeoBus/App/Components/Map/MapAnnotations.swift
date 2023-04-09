@@ -18,77 +18,40 @@ struct GenericMapAnnotation: Identifiable {
    var item: AnnotationItem
    
    enum AnnotationItem {
-      case carris_stop(CarrisNetworkModel.Stop)
-      case carris_connection(CarrisNetworkModel.Connection)
-      case carris_vehicle(CarrisNetworkModel.Vehicle)
+      case connection(CarrisNetworkModel.Connection)
+      case vehicle(CarrisNetworkModel.Vehicle)
+      case stop(CarrisNetworkModel.Stop)
    }
    
 }
 
-
-
-
-
-struct CarrisStopAnnotationView: View {
-   
-   public let stop: CarrisNetworkModel.Stop
-   
-   @State private var isAnnotationSelected: Bool = false
-   
-   
-   var body: some View {
-      Button(action: {
-         self.isAnnotationSelected = true
-         TapticEngine.impact.feedback(.light)
-      }) {
-         StopIcon(
-            orderInRoute: 0,
-            direction: .circular,
-            isSelected: self.isAnnotationSelected
-         )
-      }
-      .frame(width: 40, height: 40, alignment: .center)
-      .onAppear() {
-         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.isAnnotationSelected = true
-         }
-      }
-      .sheet(isPresented: $isAnnotationSelected, onDismiss: {
-         withAnimation(.easeInOut(duration: 0.1)) {
-            self.isAnnotationSelected = false
-         }
-      }) {
-         StopDetailsView(stop: self.stop)
-      }
-   }
-   
-}
 
 
 struct CarrisConnectionAnnotationView: View {
    
    public let connection: CarrisNetworkModel.Connection
    
-   @State private var isAnnotationSelected: Bool = false
+   @ObservedObject private var sheetController = SheetController.shared
+   @ObservedObject private var carrisNetworkController = CarrisNetworkController.shared
    
    
    var body: some View {
       Button(action: {
-         self.isAnnotationSelected = true
          TapticEngine.impact.feedback(.light)
+         carrisNetworkController.select(connection: self.connection)
+         sheetController.present(sheet: .ConnectionDetails)
       }) {
-         StopIcon(
-            orderInRoute: self.connection.orderInRoute,
-            direction: self.connection.direction,
-            isSelected: self.isAnnotationSelected
-         )
+         if (carrisNetworkController.activeConnection?.id == self.connection.id) {
+            StopIcon(style: .selected, orderInRoute: self.connection.orderInRoute)
+         } else if (self.connection.direction == .ascending) {
+            StopIcon(style: .ascending, orderInRoute: self.connection.orderInRoute)
+         } else if (self.connection.direction == .descending) {
+            StopIcon(style: .descending, orderInRoute: self.connection.orderInRoute)
+         } else if (self.connection.direction == .circular) {
+            StopIcon(style: .circular, orderInRoute: self.connection.orderInRoute)
+         }
       }
       .frame(width: 40, height: 40, alignment: .center)
-      .sheet(isPresented: $isAnnotationSelected, onDismiss: {
-         self.isAnnotationSelected = false
-      }) {
-         ConnectionDetailsView(connection: self.connection)
-      }
    }
    
 }
@@ -101,14 +64,15 @@ struct CarrisVehicleAnnotationView: View {
    
    let vehicle: CarrisNetworkModel.Vehicle
    
-   @State private var isPresented: Bool = false
-   @State private var viewSize = CGSize()
+   @ObservedObject private var sheetController = SheetController.shared
+   @ObservedObject private var carrisNetworkController = CarrisNetworkController.shared
    
    
    var body: some View {
       Button(action: {
-         self.isPresented = true
          TapticEngine.impact.feedback(.light)
+         carrisNetworkController.select(vehicle: vehicle.id)
+         sheetController.present(sheet: .VehicleDetails)
       }) {
          ZStack(alignment: .init(horizontal: .leading, vertical: .center)) {
             switch (vehicle.kind) {
@@ -116,29 +80,43 @@ struct CarrisVehicleAnnotationView: View {
                   Image("Tram")
                case .neighborhood, .night, .regular, .none:
                   Image("RegularService")
-                  Text(verbatim: String(vehicle.id))
-                     .font(Font.system(size: 10, weight: .bold, design: .monospaced))
-                     .tracking(1)
-                     .foregroundColor(.white)
-                     .padding(.leading, 12)
             }
          }
       }
       .frame(width: 40, height: 40, alignment: .center)
       .rotationEffect(.radians(vehicle.angleInRadians ?? 0))
       .animation(.default, value: vehicle.angleInRadians)
-      .sheet(isPresented: $isPresented) {
-         VStack(alignment: .leading) {
-            VehicleDetailsView(vehicle: self.vehicle)
-               .padding(.bottom, 20)
-            Disclaimer()
-               .padding(.horizontal)
-               .padding(.bottom, 10)
+   }
+   
+}
+
+
+
+
+
+struct CarrisStopAnnotationView: View {
+   
+   public let stop: CarrisNetworkModel.Stop
+   
+   @StateObject private var sheetController = SheetController.shared
+   // @StateObject private var mapController = MapController.shared
+   @StateObject private var carrisNetworkController = CarrisNetworkController.shared
+   
+   var body: some View {
+      VStack {
+         if (carrisNetworkController.activeStop?.id == self.stop.id) {
+            StopIcon(style: .selected)
+         } else {
+            StopIcon(style: .standard)
          }
-         .readSize { size in
-            viewSize = size
-         }
-         .presentationDetents([.height(viewSize.height)])
+      }
+      .onTapGesture {
+         TapticEngine.impact.feedback(.light)
+         carrisNetworkController.select(stop: self.stop)
+         sheetController.present(sheet: .StopDetails)
+         // withAnimation(.easeIn(duration: 0.5)) {
+         //    mapController.centerMapOnCoordinates(lat: self.stop.lat, lng: self.stop.lng)
+         // }
       }
    }
    

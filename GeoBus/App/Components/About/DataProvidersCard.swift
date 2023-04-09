@@ -9,73 +9,61 @@ import SwiftUI
 
 struct DataProvidersCard: View {
    
-   private let cardColor: Color = Color(.systemTeal)
-   
-   @State var communityProviderIsOn: Bool = false
-   
-   
-   var providerToggle: some View {
-      Toggle(isOn: $communityProviderIsOn) {
-         HStack {
-            Image(systemName: "staroflife.circle")
-               .renderingMode(.template)
-               .font(Font.system(size: 25))
-               .foregroundColor(cardColor)
-            Text("Community ETAs")
-               .font(Font.system(size: 18, weight: .bold))
-               .foregroundColor(cardColor)
-               .padding(.leading, 5)
-         }
-         .onAppear() {
-//            if (estimationsController.estimationsProvider == .carris) {
-//               communityProviderIsOn = false
-//            } else {
-//               communityProviderIsOn = true
-//            }
-         }
-      }
-      .padding()
-      .frame(maxWidth: .infinity)
-      .tint(cardColor)
-      .background(cardColor.opacity(0.05))
-      .cornerRadius(10)
-//      .onChange(of: estimationsController.estimationsProvider) { value in
-//         if (value == .carris) {
-//            communityProviderIsOn = false
-//         } else {
-//            communityProviderIsOn = true
-//         }
-//      }
-      .onChange(of: communityProviderIsOn) { value in
-         if (value) {
-//            estimationsController.setProvider(selection: .community)
-         } else {
-//            estimationsController.setProvider(selection: .carris)
-         }
-      }
-   }
-   
+   private let accentColor: Color = Color(.systemTeal)
    
    var body: some View {
       Card {
          Image(systemName: "clock.arrow.2.circlepath")
             .font(Font.system(size: 30, weight: .regular))
-            .foregroundColor(cardColor)
-         Text("ETA Provider")
+            .foregroundColor(accentColor)
+         Text("Community Data")
             .font(.title)
             .fontWeight(.bold)
-            .foregroundColor(cardColor)
-         Text("Select your prefered Data provider.")
+            .foregroundColor(accentColor)
+         Text("Try an experimental feature made in partnership with people interested in improving transportation in Lisbon.")
             .multilineTextAlignment(.center)
             .font(.headline)
             .fontWeight(.semibold)
             .foregroundColor(Color(.label))
-         Text("Ainda não faz nada.")
+         Text("This includes better arrival time estimates for all stops, more precise vehicle locations and additional route information.")
             .multilineTextAlignment(.center)
             .font(.headline)
             .fontWeight(.semibold)
             .foregroundColor(Color(.secondaryLabel))
-         providerToggle
+//         CommunityProviderToggle()
+      }
+   }
+   
+}
+
+
+
+struct CommunityProviderToggle: View {
+   
+   private let accentColor: Color = Color(.systemTeal)
+   
+   @ObservedObject private var carrisNetworkController = CarrisNetworkController.shared
+   
+   var body: some View {
+      Toggle(isOn: $carrisNetworkController.communityDataProviderStatus) {
+         HStack {
+            Image(systemName: "staroflife.circle")
+               .renderingMode(.template)
+               .font(Font.system(size: 25))
+               .foregroundColor(accentColor)
+            Text("Community Data")
+               .font(Font.system(size: 18, weight: .bold))
+               .foregroundColor(accentColor)
+               .padding(.leading, 5)
+         }
+      }
+      .padding()
+      .frame(maxWidth: .infinity)
+      .tint(accentColor)
+      .background(accentColor.opacity(0.05))
+      .cornerRadius(10)
+      .onChange(of: carrisNetworkController.communityDataProviderStatus) { value in
+         carrisNetworkController.toggleCommunityDataProviderStatus(to: value)
       }
    }
    
