@@ -322,16 +322,14 @@ final class MapController: ObservableObject {
    
    
    private func addAnnotations(_ newAnnotations: [GenericMapAnnotation], zoom: Bool = false) {
-//      DispatchQueue.main.async {
-         // Add the annotations to the map
-         self.visibleAnnotations.append(contentsOf: newAnnotations)
-         // Remove annotations with duplicate IDs (ex: same stop on different itineraries)
-         self.visibleAnnotations.uniqueInPlace(for: \.id)
-         // Adjust map region to annotations
-         if (zoom) {
-            self.zoomToFitMapAnnotations(annotations: newAnnotations)
-         }
-//      }
+      // Add the annotations to the map
+      self.visibleAnnotations.append(contentsOf: newAnnotations)
+      // Remove annotations with duplicate IDs (ex: same stop on different itineraries)
+      self.visibleAnnotations.uniqueInPlace(for: \.id)
+      // Adjust map region to annotations
+      if (zoom) {
+         self.zoomToFitMapAnnotations(annotations: newAnnotations)
+      }
    }
    
    
