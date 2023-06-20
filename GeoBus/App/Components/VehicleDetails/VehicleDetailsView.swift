@@ -206,7 +206,7 @@ struct CarrisVehicleRouteSummary: View {
       if (vehicle?.routeOverview != nil) {
          
          if let previousStop = vehicle!.routeOverview!.lastIndex(where: {
-            $0.hasArrived ?? false
+            $0.hasArrived
          }) {
             if (previousStop + 1 < vehicle!.routeOverview!.count) {
                let nextStop = vehicle!.routeOverview![previousStop + 1]
@@ -222,7 +222,7 @@ struct CarrisVehicleRouteSummary: View {
    func findNextStopIndex() -> Int? {
       if (vehicle?.routeOverview != nil) {
          if let previousStop = vehicle!.routeOverview!.lastIndex(where: {
-            $0.hasArrived ?? false
+            $0.hasArrived
          }) {
             return previousStop + 1
          }
@@ -381,7 +381,7 @@ struct CarrisVehicleRouteOverviewEstimationLine: View {
    var body: some View {
       VStack(alignment: .leading, spacing: 0) {
          
-         if (estimationLine.hasArrived ?? false) {
+         if (estimationLine.hasArrived) {
             
             if (thisStopIndex > 0) {
                Rectangle()
@@ -395,7 +395,7 @@ struct CarrisVehicleRouteOverviewEstimationLine: View {
                Text(carrisNetworkController.find(stop: estimationLine.stopId)?.name ?? "")
                   .font(Font.system(size: 17, weight: .medium))
                   .lineLimit(1)
-                  .foregroundColor(estimationLine.hasArrived ?? false ? Color("StopMutedText") : .black)
+                  .foregroundColor(estimationLine.hasArrived ? Color("StopMutedText") : .black)
                Spacer(minLength: 5)
                Image(systemName: "checkmark.circle")
                   .font(Font.system(size: 15, weight: .medium))
@@ -424,7 +424,7 @@ struct CarrisVehicleRouteOverviewEstimationLine: View {
                   .lineLimit(1)
                   .foregroundColor(Color(.label))
                Spacer(minLength: 5)
-               TimeLeft(time: estimationLine.eta)
+               TimeLeft(time: estimationLine.eta, vehicleDidArrive: estimationLine.hasArrived, idleSeconds: estimationLine.idleSeconds)
             }
             
          } else {
@@ -443,7 +443,7 @@ struct CarrisVehicleRouteOverviewEstimationLine: View {
                   .lineLimit(1)
                   .foregroundColor(Color(.label))
                Spacer(minLength: 5)
-               TimeLeft(time: estimationLine.eta)
+               TimeLeft(time: estimationLine.eta, vehicleDidArrive: estimationLine.hasArrived, idleSeconds: estimationLine.idleSeconds)
             }
             
          }
@@ -488,7 +488,7 @@ struct CarrisVehicleRouteOverview: View {
       if (vehicle?.routeOverview != nil) {
          
          if let previousStop = vehicle!.routeOverview!.lastIndex(where: {
-            $0.hasArrived ?? false
+            $0.hasArrived
          }) {
             if (previousStop + 1 < vehicle!.routeOverview!.count) {
                let nextStop = vehicle!.routeOverview![previousStop + 1]
@@ -504,7 +504,7 @@ struct CarrisVehicleRouteOverview: View {
    func findNextStopIndex() -> Int? {
       if (vehicle?.routeOverview != nil) {
          if let previousStop = vehicle!.routeOverview!.lastIndex(where: {
-            $0.hasArrived ?? false
+            $0.hasArrived
          }) {
             return previousStop + 1
          }
@@ -530,7 +530,7 @@ struct CarrisVehicleRouteOverview: View {
                ForEach(Array(vehicle!.routeOverview!.enumerated()), id: \.offset) { index, element in
                   VStack(alignment: .leading, spacing: 0) {
                      
-                     if (element.hasArrived ?? false) {
+                     if (element.hasArrived) {
                         
                         if (index > 0) {
                            Rectangle()
@@ -544,7 +544,7 @@ struct CarrisVehicleRouteOverview: View {
                            Text(carrisNetworkController.find(stop: element.stopId)?.name ?? "")
                               .font(Font.system(size: 17, weight: .medium))
                               .lineLimit(1)
-                              .foregroundColor(element.hasArrived ?? false ? Color("StopMutedText") : .black)
+                              .foregroundColor(element.hasArrived ? Color("StopMutedText") : .black)
                            Spacer(minLength: 5)
                            Image(systemName: "checkmark.circle")
                               .font(Font.system(size: 15, weight: .medium))
@@ -575,7 +575,7 @@ struct CarrisVehicleRouteOverview: View {
                               .lineLimit(1)
                               .foregroundColor(Color(.label))
                            Spacer(minLength: 5)
-                           TimeLeft(time: element.eta)
+                           TimeLeft(time: element.eta, vehicleDidArrive: element.hasArrived, idleSeconds: element.idleSeconds)
                         }
                         
                      } else {
@@ -594,7 +594,7 @@ struct CarrisVehicleRouteOverview: View {
                               .lineLimit(1)
                               .foregroundColor(Color(.label))
                            Spacer(minLength: 5)
-                           TimeLeft(time: element.eta)
+                           TimeLeft(time: element.eta, vehicleDidArrive: element.hasArrived, idleSeconds: element.idleSeconds)
                         }
                         
                      }

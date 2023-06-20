@@ -150,7 +150,9 @@ class CarrisNetworkController: ObservableObject {
       Task {
          
          // Conditions to update
-         let lastUpdateIsLongerThanInterval = Helpers.getSecondsFromISO8601DateString(self.lastUpdatedNetwork ?? "") > self.carrisNetworkUpdateInterval
+         
+         // If -(-600) = +600 seconds have passed since last update, and is larger than updateInterval, then update
+         let lastUpdateIsLongerThanInterval = -(Helpers.getSecondsFromISO8601DateString(self.lastUpdatedNetwork ?? "")) > self.carrisNetworkUpdateInterval
          let savedNetworkDataIsEmpty = allRoutes.isEmpty || allStops.isEmpty
          let updateIsForcedByCaller = forceUpdate
          
@@ -218,20 +220,6 @@ class CarrisNetworkController: ObservableObject {
          // Update the list of active vehicles (the current selected route)
          self.populateActiveVehicles()
       }
-   }
-   
-   
-   
-   /* * */
-   /* MARK: - 4.3. COMMUNITY PROVIDER */
-   /* Call this function to switch Community Data ON or OFF. */
-   /* This switches in memory for the current session, and stores the new setting in storage. */
-   
-   public func toggleCommunityDataProviderStatus(to newStatus: Bool) {
-      self.communityDataProviderStatus = newStatus
-      UserDefaults.standard.set(newStatus, forKey: storageKeyForCommunityDataProviderStatus)
-      print("GeoBus: Carris API: ‹toggleCommunityDataProviderTo()› Community Data switched \(newStatus ? "ON" : "OFF")")
-      self.refresh()
    }
    
    
@@ -479,7 +467,7 @@ class CarrisNetworkController: ObservableObject {
                direction: direction,
                orderInRoute: rawConnection.orderNum ?? -1,
                stop: CarrisNetworkModel.Stop(
-                  id: rawConnection.busStop?.id ?? -1,
+                  id: Int(rawConnection.busStop?.publicId ?? "-1") ?? -1,
                   name: rawConnection.busStop?.name ?? "-",
                   lat: rawConnection.busStop?.lat ?? 0,
                   lng: rawConnection.busStop?.lng ?? 0
@@ -695,11 +683,9 @@ class CarrisNetworkController: ObservableObject {
          return nil
       }
       
-      if (variant >= requestedRouteObject.variants.count) {
+      guard let requestedVariantObject = requestedRouteObject.variants[withId: variant] else {
          return nil
       }
-      
-      let requestedVariantObject = requestedRouteObject.variants[variant]
       
       switch direction {
          case "ASC":
@@ -1046,6 +1032,7 @@ class CarrisNetworkController: ObservableObject {
                      routeNumber: "",
                      destination: "",
                      eta: routeResult.estimatedTimeofArrivalCorrected,
+                     idleSeconds: 0,
                      hasArrived: routeResult.estimatedPreviouslyArrived
                   )
                )
@@ -1088,83 +1075,22 @@ class CarrisNetworkController: ObservableObject {
    
    
    /* * */
-   /* MARK: - 10. ESTIMATES */
+   /* MARK: - 10. ESTIMATIONS */
    /* Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ut ornare ipsum. */
    /* Nunc neque nulla, pretium ac lectus id, scelerisque facilisis est. */
    
    
-   /* MARK: - 10.1. GET ESTIMATION */
+   
+   /* MARK: - 10.1. GET COMMUNITY ESTIMATIONS */
    // This function calls the API to retrieve estimations for the provided stop 'publicId'.
    // It formats and returns the results to the caller.
    
    public func getEstimation(for stopId: Int) async -> [CarrisNetworkModel.Estimation] {
-      if (!communityDataProviderStatus) {
-         return await self.fetchEstimationsFromCarrisAPI(for: stopId)
-      } else {
-         return await self.fetchEstimationsFromCommunityAPI(for: stopId)
-      }
-   }
-   
-   
-   
-   /* MARK: - 10.2. GET CARRIS ESTIMATIONS */
-   // This function calls the API to retrieve estimations for the provided stop 'publicId'.
-   // It formats and returns the results to the caller.
-   
-   public func fetchEstimationsFromCarrisAPI(for stopId: Int) async -> [CarrisNetworkModel.Estimation] {
       
       Appstate.shared.change(to: .loading, for: .estimations)
       
-      print("GeoBus: Carris API: Estimations: Starting update...")
-      
       do {
-         // Request API Estimations List
-         let rawDataCarrisAPIEstimations = try await CarrisAPI.shared.request(for: "Estimations/busStop/\(stopId)/top/5")
-         let decodedCarrisAPIEstimations = try JSONDecoder().decode([CarrisAPIModel.Estimation].self, from: rawDataCarrisAPIEstimations)
          
-         var tempFormattedEstimations: [CarrisNetworkModel.Estimation] = []
-         
-         
-         // For each available vehicles in the API
-         for apiEstimation in decodedCarrisAPIEstimations {
-            tempFormattedEstimations.append(
-               CarrisNetworkModel.Estimation(
-                  stopId: Int(apiEstimation.publicId ?? "-1") ?? -1,
-                  routeNumber: apiEstimation.routeNumber,
-                  destination: apiEstimation.destination,
-                  eta: apiEstimation.time ?? "",
-                  busNumber: Int(apiEstimation.busNumber ?? "")
-               )
-            )
-         }
-         
-         print("GeoBus: Carris API: Estimations: Update complete!")
-         
-         Appstate.shared.change(to: .idle, for: .estimations)
-         
-         return tempFormattedEstimations
-         
-      } catch {
-         Appstate.shared.change(to: .error, for: .estimations)
-         print("GeoBus: Carris API: Estimations: Error found while updating. More info: \(error)")
-         return []
-      }
-      
-   }
-   
-   
-   
-   /* MARK: - 10.3. GET COMMUNITY ESTIMATIONS */
-   // This function calls the API to retrieve estimations for the provided stop 'publicId'.
-   // It formats and returns the results to the caller.
-   
-   public func fetchEstimationsFromCommunityAPI(for stopId: Int) async -> [CarrisNetworkModel.Estimation] {
-      
-      Appstate.shared.change(to: .loading, for: .estimations)
-      
-      print("GeoBus: Carris API: Estimations: Starting update...")
-      
-      do {
          // Request API Estimations List
          let rawDataCarrisCommunityAPIEstimations = try await CarrisCommunityAPI.shared.request(for: "eststop?busStop=\(stopId)")
          let decodedCarrisCommunityAPIEstimations = try JSONDecoder().decode([CarrisCommunityAPIModel.Estimation].self, from: rawDataCarrisCommunityAPIEstimations)
@@ -1188,9 +1114,12 @@ class CarrisNetworkController: ObservableObject {
                   routeNumber: apiEstimation.routeNumber ?? "-",
                   destination: destinationStop?.name ?? "-",
                   eta: apiEstimation.estimatedTimeofArrivalCorrected ?? "",
-                  busNumber: apiEstimation.busNumber ?? -1
+                  busNumber: apiEstimation.busNumber ?? -1,
+                  idleSeconds: apiEstimation.enrichedSecondsStopped,
+                  hasArrived: apiEstimation.estimatedPreviouslyArrived ?? false
                )
             )
+            
          }
          
          print("GeoBus: Carris API: Estimations: Update complete!")

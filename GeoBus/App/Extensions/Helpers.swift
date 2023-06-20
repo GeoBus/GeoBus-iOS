@@ -120,10 +120,6 @@ open class Helpers {
       
       var seconds = self.getTimeInterval(for: isoDateString, in: timeRelation)
       
-      if (alwaysPositive && seconds < 60) {
-         seconds = 60.1 // Do not let it be 0
-      }
-      
       // Setup Date Components Formatter
       let dateComponentsFormatter = DateComponentsFormatter()
       dateComponentsFormatter.unitsStyle = style
@@ -131,6 +127,14 @@ open class Helpers {
       dateComponentsFormatter.includesApproximationPhrase = false
       dateComponentsFormatter.includesTimeRemainingPhrase = false
       dateComponentsFormatter.allowsFractionalUnits = false
+      
+      if (alwaysPositive && seconds < 30) {
+         seconds = 30.1 // Do not let it be smaller than 30 seconds
+         dateComponentsFormatter.allowedUnits = .second
+      } else if (alwaysPositive && seconds < 60) {
+         seconds = 60.1 // Do not let it be smaller than 1 min
+         dateComponentsFormatter.allowedUnits = .minute
+      }
 
       // Use the configured Date Components Formatter to generate the string.
       return dateComponentsFormatter.string(from: seconds) ?? "?"

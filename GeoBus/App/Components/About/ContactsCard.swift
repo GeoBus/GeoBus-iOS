@@ -31,7 +31,6 @@ struct ContactsCard: View {
             .fontWeight(.semibold)
             .foregroundColor(Color(.secondaryLabel))
             .padding(.bottom, 10)
-         OpenExternalLinkButton(icon: Image("Twitter"), text: Text("Twitter"), link: "https://twitter.com/johny________", color: cardColor)
          OpenExternalLinkButton(icon: Image("GitHub"), text: Text("GitHub"), link: "https://github.com/GeoBus", color: cardColor)
          OpenExternalLinkButton(icon: Image(systemName: "envelope.fill"), text: Text("Send an Email"), link: "mailto:contact@joao.earth", color: cardColor)
          OpenExternalLinkButton(icon: Image(systemName: "globe"), text: Text("Visit the Website"), link: "https://joao.earth", color: cardColor)

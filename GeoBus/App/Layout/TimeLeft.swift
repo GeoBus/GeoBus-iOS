@@ -10,6 +10,8 @@ import SwiftUI
 struct TimeLeft: View {
    
    public let timeString: String?
+   public let vehicleDidArrive: Bool
+   public let idleSeconds: Int
    
    private let countdownUnits: NSCalendar.Unit
    private let countdownTimer = Timer.publish(every: 1 /* seconds */, on: .main, in: .common).autoconnect()
@@ -18,8 +20,10 @@ struct TimeLeft: View {
    @State private var countdownString: String?
    
    
-   init(time: String?, units: NSCalendar.Unit = [.hour, .minute]) {
+   init(time: String?, vehicleDidArrive: Bool, idleSeconds: Int, units: NSCalendar.Unit = [.hour, .minute]) {
       self.timeString = time
+      self.vehicleDidArrive = vehicleDidArrive
+      self.idleSeconds = idleSeconds
       self.countdownUnits = units
    }
    
@@ -32,33 +36,32 @@ struct TimeLeft: View {
    }
    
    
-   var positiveTime: some View {
-      HStack(spacing: 5) {
-         Image(systemName: "plusminus")
-            .font(.footnote)
-            .foregroundColor(Color(.tertiaryLabel))
-         Text(self.countdownString!)
-            .font(.body)
-            .fontWeight(.medium)
-            .foregroundColor(Color(.label))
-      }
+   var hasArrivedIcon: some View {
+      Image(systemName: "checkmark.circle")
+         .font(Font.system(size: 15, weight: .medium))
+         .foregroundColor(Color("StopMutedText"))
+   }
+   
+   var moreOrLessIcon: some View {
+      Image(systemName: "plusminus")
+         .font(.footnote)
+         .foregroundColor(Color(.tertiaryLabel))
    }
    
    
-   var negativeTime: some View {
-      HStack(spacing: 5) {
-         Image(systemName: "lessthan")
-            .font(.footnote)
-            .foregroundColor(Color(.tertiaryLabel))
-         Text(self.countdownString!)
-            .font(.body)
-            .fontWeight(.medium)
-            .foregroundColor(Color(.label))
-      }
+   var lessThanIcon: some View {
+      Image(systemName: "lessthan")
+         .font(.footnote)
+         .foregroundColor(Color(.tertiaryLabel))
    }
    
+   var isIdleIcon: some View {
+      Image(systemName: "exclamationmark.triangle.fill")
+         .font(Font.system(size: 15, weight: .medium))
+         .foregroundColor(Color("StopMutedText"))
+   }
    
-   var invalidValue: some View {
+   var invalidValueIcon: some View {
       Image(systemName: "circle.dashed")
          .font(Font.system(size: 15, weight: .medium))
          .foregroundColor(Color(.secondaryLabel))
@@ -68,13 +71,25 @@ struct TimeLeft: View {
    var body: some View {
       VStack {
          if (countdownString != nil) {
-            if (countdownValue > 0) {
-               positiveTime
-            } else {
-               negativeTime
+            HStack(spacing: 5) {
+               if (!vehicleDidArrive) {
+                  if (idleSeconds > 60) {
+                     isIdleIcon
+                  } else if (countdownValue > 60) {
+                     moreOrLessIcon
+                  } else if (countdownValue <= 60) {
+                     lessThanIcon
+                  }
+               } else {
+                  hasArrivedIcon
+               }
+               Text(self.countdownString!)
+                  .font(.body)
+                  .fontWeight(.medium)
+                  .foregroundColor(Color(.label))
             }
          } else {
-            invalidValue
+            invalidValueIcon
          }
       }
       .onAppear() { setCountdownString(nil) }

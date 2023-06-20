@@ -117,17 +117,19 @@ struct CarrisNetworkModel {
       let routeNumber: String?
       let destination: String?
       let eta: String?
-      let hasArrived: Bool?
+      let hasArrived: Bool
+      let idleSeconds: Int
       let busNumber: Int?
       
-      init(stopId: Int, routeNumber: String?, destination: String?, eta: String?, busNumber: Int? = nil, hasArrived: Bool? = nil) {
+      init(stopId: Int, routeNumber: String?, destination: String?, eta: String?, busNumber: Int? = nil, idleSeconds: Int?, hasArrived: Bool?) {
          self.id = UUID()
          self.stopId = stopId
          self.routeNumber = routeNumber
          self.destination = destination
          self.busNumber = busNumber
          self.eta = eta
-         self.hasArrived = hasArrived
+         self.hasArrived = hasArrived ?? false
+         self.idleSeconds = idleSeconds ?? 0
       }
    }
    

@@ -36,8 +36,6 @@ struct EstimationsContainer: View {
                self.estimations = nil
                self.getEstimationsFromController(nil)
             }
-         CommunityProviderToggle()
-            .padding(.vertical)
          Disclaimer()
             .padding(.vertical)
       }
@@ -145,7 +143,7 @@ struct EstimationContainer: View {
          RouteBadgePill(routeNumber: estimation.routeNumber)
          DestinationText(destination: estimation.destination)
          Spacer(minLength: 5)
-         TimeLeft(time: estimation.eta)
+         TimeLeft(time: estimation.eta, vehicleDidArrive: estimation.hasArrived, idleSeconds: estimation.idleSeconds)
       }
    }
    

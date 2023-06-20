@@ -30,6 +30,7 @@ struct CarrisCommunityAPIModel {
       // let enrichedRouteDirection: Double?
       // let enrichedRouteDoneKm: Double?
       // let enrichedRouteLengthKm: Double?
+      let enrichedSecondsStopped: Int?
       // let enrichedSequenceNo: Int?
       // let enrichedStartLat: Double?
       // let enrichedStartLng: Double?
@@ -88,6 +89,7 @@ struct CarrisCommunityAPIModel {
       // let enrichedRouteDirection: Double?
       // let enrichedRouteDoneKm: Double?
       // let enrichedRouteLengthKm: Double?
+      let enrichedSecondsStopped: Int?
       // let enrichedSequenceNo: Int?
       // let enrichedStartLat: Double?
       // let enrichedStartLng: Double?
@@ -96,7 +98,7 @@ struct CarrisCommunityAPIModel {
       // let enrichedTimeHashDay30m: String?
       // let estimatedDebug: [String]?
       // let estimatedFeatures: EstimatedFeature?
-      // let estimatedPreviouslyArrived: Bool?
+      let estimatedPreviouslyArrived: Bool?
       // let estimatedRecentlyArrived: Bool?
       // let estimatedRouteStopId: String?
       // let estimatedRouteStopPosition: Double?
