@@ -80,13 +80,13 @@ struct TimeLeft: View {
                   } else if (countdownValue <= 60) {
                      lessThanIcon
                   }
+                  Text(self.countdownString!)
+                     .font(.body)
+                     .fontWeight(.medium)
+                     .foregroundColor(Color(.label))
                } else {
                   hasArrivedIcon
                }
-               Text(self.countdownString!)
-                  .font(.body)
-                  .fontWeight(.medium)
-                  .foregroundColor(Color(.label))
             }
          } else {
             invalidValueIcon
