@@ -26,12 +26,23 @@ final class MapController: ObservableObject {
    /* MARK: - SECTION 2: PUBLISHED PROPERTIES */
    /* Here are all the @Published variables that can be consumed by the app views. */
    
-   @Published var region = MKCoordinateRegion()
+   @Published var region = MKCoordinateRegion(
+      center: CLLocationCoordinate2D(latitude: 38.721917, longitude: -9.137732),
+      span: MKCoordinateSpan(latitudeDelta: CLLocationDistance(15000), longitudeDelta: CLLocationDistance(15000))
+   )
+   
+   
+   @Published var mapCamera: MKMapCamera = MKMapCamera()
+   
    
    @Published var locationManager = CLLocationManager()
    @Published var showLocationNotAllowedAlert: Bool = false
    
    @Published var visibleAnnotations: [GenericMapAnnotation] = []
+   
+   
+   @Published var allAnnotations: [GeoBusMKAnnotation] = []
+   @Published var allOverlays: [MKPolyline] = []
    
    
    /* * */
@@ -55,6 +66,48 @@ final class MapController: ObservableObject {
          longitudinalMeters: self.initialMapZoom
       )
    }
+   
+   
+   
+   
+   
+   
+   // ADD ANNOTATIONS
+   func add(annotations newAnnotationsArray: [GeoBusMKAnnotation], ofType annotationsType: GeoBusMKAnnotation.AnnotationType) {
+      self.allAnnotations.removeAll(where: { $0.type == annotationsType })
+      self.allAnnotations.append(contentsOf: newAnnotationsArray)
+   }
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
    
    
    
@@ -345,6 +398,15 @@ extension MKCoordinateRegion: Equatable {
       if (lhs.center.longitude != rhs.center.longitude) { return false }
       if (lhs.span.latitudeDelta != rhs.span.latitudeDelta) { return false }
       if (lhs.span.longitudeDelta != rhs.span.longitudeDelta) { return false }
+      return true
+   }
+}
+
+
+extension CLLocationCoordinate2D: Equatable {
+   public static func == (lhs: CLLocationCoordinate2D, rhs: CLLocationCoordinate2D) -> Bool {
+      if (lhs.latitude != rhs.latitude) { return false }
+      if (lhs.longitude != rhs.longitude) { return false }
       return true
    }
 }

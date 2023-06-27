@@ -57,6 +57,7 @@
 		CF82BB0928D7F19A007F0CDB /* LocationCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF82BB0828D7F19A007F0CDB /* LocationCard.swift */; };
 		CF82BB0B28D7F1C6007F0CDB /* ShareCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF82BB0A28D7F1C6007F0CDB /* ShareCard.swift */; };
 		CF82BB0D28D7F202007F0CDB /* ContactsCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF82BB0C28D7F202007F0CDB /* ContactsCard.swift */; };
+		CF88E97A291B170200E22E82 /* NewMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF88E979291B170200E22E82 /* NewMapView.swift */; };
 		CFAF0E7A28CE84F400DDAD5B /* MapAnnotations.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAF0E7928CE84F400DDAD5B /* MapAnnotations.swift */; };
 		CFB5D45728EEFE21002368BC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CFB5D45528EEFE21002368BC /* InfoPlist.strings */; };
 		CFB5D45A28EEFE6B002368BC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CFB5D45828EEFE6B002368BC /* Localizable.strings */; };
@@ -70,6 +71,7 @@
 		CFDD014D28D66D9B0070FE4B /* CloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDD014C28D66D9B0070FE4B /* CloseButton.swift */; };
 		CFED5F8A2919B7820062045B /* SheetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFED5F892919B7820062045B /* SheetController.swift */; };
 		CFED5F8C2919CBBD0062045B /* Debounce.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFED5F8B2919CBBD0062045B /* Debounce.swift */; };
+		CFEE4EA229202637005DFA1B /* BackgroundThreads.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFEE4EA129202637005DFA1B /* BackgroundThreads.swift */; };
 		CFEF85C228D34E4F00A29526 /* crowdin.yml in Resources */ = {isa = PBXBuildFile; fileRef = CFEF85C128D34E4F00A29526 /* crowdin.yml */; };
 		CFEF85C528D34E6300A29526 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = CFEF85C328D34E6300A29526 /* README.md */; };
 		CFEF85C628D34E6300A29526 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = CFEF85C428D34E6300A29526 /* LICENSE */; };
@@ -136,6 +138,7 @@
 		CF82BB0828D7F19A007F0CDB /* LocationCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCard.swift; sourceTree = "<group>"; };
 		CF82BB0A28D7F1C6007F0CDB /* ShareCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareCard.swift; sourceTree = "<group>"; };
 		CF82BB0C28D7F202007F0CDB /* ContactsCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsCard.swift; sourceTree = "<group>"; };
+		CF88E979291B170200E22E82 /* NewMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewMapView.swift; sourceTree = "<group>"; };
 		CFAF0E7928CE84F400DDAD5B /* MapAnnotations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAnnotations.swift; sourceTree = "<group>"; };
 		CFAF0E7B28CEC78C00DDAD5B /* GeoBus.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GeoBus.entitlements; sourceTree = "<group>"; };
 		CFB5D45628EEFE21002368BC /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -160,6 +163,7 @@
 		CFDD014C28D66D9B0070FE4B /* CloseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseButton.swift; sourceTree = "<group>"; };
 		CFED5F892919B7820062045B /* SheetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetController.swift; sourceTree = "<group>"; };
 		CFED5F8B2919CBBD0062045B /* Debounce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debounce.swift; sourceTree = "<group>"; };
+		CFEE4EA129202637005DFA1B /* BackgroundThreads.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundThreads.swift; sourceTree = "<group>"; };
 		CFEF85C128D34E4F00A29526 /* crowdin.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = crowdin.yml; sourceTree = "<group>"; };
 		CFEF85C328D34E6300A29526 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		CFEF85C428D34E6300A29526 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
@@ -193,6 +197,7 @@
 				CF181FE728CCB7D600248F72 /* ContentView.swift */,
 				CF05F61928CD09A000B4AD58 /* NavBar.swift */,
 				CF47FCB429035D8300AE33B0 /* PresentedSheetView.swift */,
+				CF88E978291B170200E22E82 /* NewMap */,
 				CF18208828CCBD4600248F72 /* Map */,
 				CF05F62528CD60BD00B4AD58 /* SelectRoute */,
 				CF05F61828CD097700B4AD58 /* RouteDetails */,
@@ -325,6 +330,7 @@
 				CFDC15EE28D292FB00A4BE49 /* ViewSize.swift */,
 				CF5094C428FC279A00EDD320 /* Array.swift */,
 				CFED5F8B2919CBBD0062045B /* Debounce.swift */,
+				CFEE4EA129202637005DFA1B /* BackgroundThreads.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -387,6 +393,14 @@
 				CF6478FC28D112E800C70691 /* VehicleDetailsView.swift */,
 			);
 			path = VehicleDetails;
+			sourceTree = "<group>";
+		};
+		CF88E978291B170200E22E82 /* NewMap */ = {
+			isa = PBXGroup;
+			children = (
+				CF88E979291B170200E22E82 /* NewMapView.swift */,
+			);
+			path = NewMap;
 			sourceTree = "<group>";
 		};
 		CFF4875F28D3D35F00E2C13D /* About */ = {
@@ -532,6 +546,7 @@
 				CF18207728CCBD2300248F72 /* RouteDetailsAddToFavorites.swift in Sources */,
 				CF6C918428D3F2C9006C3F61 /* UserLocation.swift in Sources */,
 				CFFFAD8928F8ECDE00DFD5FD /* Spinner.swift in Sources */,
+				CF88E97A291B170200E22E82 /* NewMapView.swift in Sources */,
 				CF18207528CCBD2300248F72 /* VariantWarning.swift in Sources */,
 				CF6C918C28D4B452006C3F61 /* SearchStopInput.swift in Sources */,
 				CF18207628CCBD2300248F72 /* ConnectionsList.swift in Sources */,
@@ -547,6 +562,7 @@
 				CFB71F82290CAFB500B37E69 /* LoadingSheet.swift in Sources */,
 				CF0C256C29031B2C00B03052 /* CarrisCommunityAPIModel.swift in Sources */,
 				CF82BB0928D7F19A007F0CDB /* LocationCard.swift in Sources */,
+				CFEE4EA229202637005DFA1B /* BackgroundThreads.swift in Sources */,
 				CF18207928CCBD2300248F72 /* RouteDetailsVehiclesQuantity.swift in Sources */,
 				CF181FE628CCB7D600248F72 /* GeoBusApp.swift in Sources */,
 				CF18205028CCBCE900248F72 /* OpenExternalLinkButton.swift in Sources */,
